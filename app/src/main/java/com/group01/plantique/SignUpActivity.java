@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
         TextInputLayout tilEmail = findViewById(R.id.tilEmail);
         EditText edtEmail = findViewById(R.id.edtEmail);
         TextInputLayout tilUsername = findViewById(R.id.tilUsername);
-        EditText edtUsername = findViewById(R.id.edtUsername);
+        EditText edtUsername = findViewById(R.id.edtFullname);
         TextInputLayout tilPassword = findViewById(R.id.tilPassword);
         EditText edtPassword = findViewById(R.id.edtPassword);
         TextInputLayout tilConfirmPassword = findViewById(R.id.tilConfirmPassword);

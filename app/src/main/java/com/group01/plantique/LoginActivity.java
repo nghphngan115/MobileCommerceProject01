@@ -1,7 +1,7 @@
 package com.group01.plantique;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Tạo các đối tượng view và layout
         TextInputLayout tilUsername = findViewById(R.id.tilUsername);
-        EditText edtUsername = findViewById(R.id.edtUsername);
+        EditText edtUsername = findViewById(R.id.edtFullname);
         TextInputLayout tilPassword = findViewById(R.id.tilPassword);
         EditText edtPassword = findViewById(R.id.edtPassword);
 
