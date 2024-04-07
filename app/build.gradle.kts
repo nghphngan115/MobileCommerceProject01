@@ -6,6 +6,10 @@ android {
     namespace = "com.group01.plantique"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.group01.plantique"
         minSdk = 34
