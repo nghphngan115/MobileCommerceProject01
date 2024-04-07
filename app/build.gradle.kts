@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.group01.myapplication"
+    namespace = "com.group01.plantique"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.group01.myapplication"
+        applicationId = "com.group01.plantique"
         minSdk = 34
         targetSdk = 34
         versionCode = 1

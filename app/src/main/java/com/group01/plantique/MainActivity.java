@@ -1,4 +1,4 @@
-package com.group01.myapplication;
+package com.group01.plantique;
 
 import androidx.appcompat.app.AppCompatActivity;
 
