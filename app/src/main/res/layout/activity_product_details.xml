@@ -19,7 +19,7 @@
             app:srcCompat="@mipmap/arrow_back_left_icon" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txtTotalCart"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
             android:gravity="center"

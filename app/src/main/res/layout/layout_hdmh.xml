@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="Hướng dẫn mua hàng"
+            android:textColor="#040303"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:text="1. Hiện Plantique hoạt động chính trên các kênh sau:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Facebook: Plantique"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Instagram: Plantique"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Website: https://plantique.vn/"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="2. Hướng dẫn mua hàng tại Facebook/Instagram"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Tìm kiếm và chọn sản phẩm bạn yêu thích, muốn sở hữu."
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Gửi tin nhắn trực tiếp đến hộp thư Facebook của Plantique. Nhân viên tư vấn sẽ hỗ trợ bạn tư vấn về thông tin sản phẩm (giá, tình trạng hiện tại của sản phẩm,…)"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Cuối cùng tụi mình sẽ xác nhận thông tin đơn hàng và tiến hành đóng gói, vận chuyển đơn hàng."
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="3. Hướng dẫn mua hàng tại Website"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:text="BƯỚC 1: Tìm kiếm và chọn sản phẩm trên Website theo 1 trong 2 cách:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Nhập tên sản phẩm vào thanh tìm kiếm"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Tìm theo danh mục sản phẩm dựa trên thanh menu chính"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Mỗi sản phẩm trên WEBSITE đều có đầy đủ thông tin sản phẩm, hình ảnh chi tiết của sản phẩm.
+Tại đây, bạn có thể chọn khối lượng sản phẩm muốn mua bằng cách click vào nút THÊM VÀO GIỎ."
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Khi bạn Bấm vào nút THÊM VÀO GIỎ, bên góc phải màn hình sẽ hiện ra khung chứa đầy đủ thông tin giỏ hàng. Bạn có thể chỉnh sửa đơn hàng (nếu có) và bấm vào nút THANH TOÁN trong khung giỏ hàng."
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Bạn cung cấp đầy đủ thông tin cá nhân và chọn TIẾP TỤC ĐẾN PHƯƠNG THỨC THANH TOÁN, thêm Mã giảm giá (nếu có)."
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:text="BƯỚC 2: Tiến hành đặt hàng và thanh toán đơn hàng:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Trên trang thanh toán, khách hàng lưu ý điền đầy đủ thông tin bắt buộc cho đơn hàng"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Thông tin người mua hàng"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Phương thức thanh toán có thể chọn 1 trong 2 phương thức thanh toán có sẵn:"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="+ Thanh toán khi nhận hàng bằng tiền mặt."
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="+ Thanh toán bằng phương thức chuyển khoản"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:text="BƯỚC 3: Xác nhận đơn hàng"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Sau khi hoàn tất quy trình mua hàng trực tuyến trên website Plantique, bạn sẽ nhận được xác nhận qua email. Bạn vui lòng kiểm tra email Xác Nhận Đặt Hàng với thông tin chi tiết về đơn hàng nhé"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="– Trường hợp có thay đổi thông tin của đơn hàng, vui lòng liên hệ trực tiếp qua Đường dây tiếp nhận phản hồi xxxxxxxxxx"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/shopee_lazada_guide_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4. Hướng dẫn mua hàng trên sàn TMĐT Shopee, Lazada"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/shopee_guide_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Truy cập ứng dụng Shopee, trong gian hàng của Plantique để chọn mua ngay món đồ bạn ưng ý nhé!"
+            android:textSize="16sp"
+
+            android:layout_marginHorizontal="20dp" />
+        <TextView
+            android:id="@+id/tiktok_shop_guide_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="5. Hướng dẫn mua hàng trên TikTok shop"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tiktok_shop_guide_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Truy cập kênh TikTok của Plantique Shop, đến biểu tượng giỏ hàng để lựa chọn món hàng yêu thích của bạn và thanh toán đơn hàng trực tiếp trên ứng dụng."
+            android:textSize="16sp"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+</ScrollView>
