@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WritingReview">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@tools:sample/avatars"
+            app:srcCompat="@mipmap/arrow_back_left_icon" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Viết đánh giá"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Bạn thấy sản phẩm như thế nào?"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <!-- Star Rating Buttons -->
+
+        <RatingBar
+            android:id="@+id/productRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+    </LinearLayout>
+
+    <!-- Review EditText -->
+    <EditText
+        android:id="@+id/reviewEditText"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_margin="20dp"
+        android:hint="Viết đánh giá của bạn..."
+        android:maxLines="5"
+        android:padding="16dp"
+        android:scrollbars="vertical" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitReviewButton"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Gửi đánh giá" />
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Customer Picture and Name -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Customer Picture -->
+            <ImageView
+                android:id="@+id/customerImageView"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <!-- Customer Name -->
+            <TextView
+                android:id="@+id/customerNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh Thu Pham"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Product Bought -->
+
+        <!-- Customer Feedback -->
+        <TextView
+            android:id="@+id/customerFeedbackTextView"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:text="Sản phẩm tốt lắm, sẽ mua lại"
+            android:textSize="16sp" />
+
+        <!-- Star Rating -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Customer Picture and Name -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Customer Picture -->
+            <ImageView
+                android:id="@+id/customerImageView"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <!-- Customer Name -->
+            <TextView
+                android:id="@+id/customerNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh Thu Pham"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Product Bought -->
+
+        <!-- Customer Feedback -->
+        <TextView
+            android:id="@+id/customerFeedbackTextView"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:text="Sản phẩm tốt lắm, sẽ mua lại"
+            android:textSize="16sp" />
+
+        <!-- Star Rating -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Customer Picture and Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Customer Picture -->
+            <ImageView
+                android:id="@+id/customerImageView"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <!-- Customer Name -->
+            <TextView
+                android:id="@+id/customerNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anh Thu Pham"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Product Bought -->
+
+        <!-- Customer Feedback -->
+        <TextView
+            android:id="@+id/customerFeedbackTextView"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:text="Sản phẩm tốt lắm, sẽ mua lại"
+            android:textSize="16sp" />
+
+        <!-- Star Rating -->
+    </LinearLayout>
+
+
+</LinearLayout>
