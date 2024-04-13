@@ -8,7 +8,7 @@
     android:layout_margin="15dp"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".HomeScreenActivity">
+    tools:context=".java.HomeScreenActivity">
 
     <ScrollView
         android:layout_width="match_parent"
