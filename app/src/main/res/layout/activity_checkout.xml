@@ -35,7 +35,6 @@
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="Thông tin giao hàng"
-                android:textColor="#040303"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -43,7 +42,6 @@
                 android:id="@+id/btnFind"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
                 android:rotationX="180"
                 android:rotationY="177"
                 app:srcCompat="@mipmap/ic_back" />
@@ -317,8 +315,9 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/radGroupPayment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <RadioButton
                 android:id="@+id/radCOD"

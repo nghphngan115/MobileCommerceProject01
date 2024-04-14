@@ -23,13 +23,16 @@
             android:name=".java.HomeScreenActivity"
             android:exported="true" />
         <activity
-            android:name=".java.CheckoutActivity"
+            android:name=".java.WelcomeActivity"
             android:exported="true" />
         <activity
             android:name=".java.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".java.WelcomeActivity"
+            android:name=".java.ContactActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".java.CheckoutActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
