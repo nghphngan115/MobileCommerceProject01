@@ -1,14 +1,17 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class BlogCategoryActivity extends AppCompatActivity {
+import com.group01.plantique.R;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blog_category);
+        setContentView(R.layout.activity_main);
     }
-}
+}//comment
+//testt01

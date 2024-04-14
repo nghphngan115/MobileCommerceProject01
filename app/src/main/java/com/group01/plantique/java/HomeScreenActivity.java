@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -19,6 +19,8 @@ import com.group01.plantique.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.group01.plantique.R;
 
 public class HomeScreenActivity extends AppCompatActivity {
     SearchView svSearch;

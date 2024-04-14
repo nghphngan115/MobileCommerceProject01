@@ -1,15 +1,16 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.group01.plantique.R;
+
+public class PersonalInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_personal_info);
     }
-}//comment
-//testt01
+}

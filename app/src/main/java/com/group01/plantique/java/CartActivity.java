@@ -1,14 +1,16 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class WritingReview extends AppCompatActivity {
+import com.group01.plantique.R;
+
+public class CartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_writing_review);
+        setContentView(R.layout.activity_cart);
     }
 }

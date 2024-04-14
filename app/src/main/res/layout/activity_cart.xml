@@ -6,17 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".BlogCategoryActivity">
+    tools:context=".java.BlogCategoryActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="30dp"
-            android:src="@mipmap/ic_backarrow" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +36,8 @@
                 android:layout_marginTop="60dp"
                 android:text="Chào bạn,"
                 android:textColor="#000000"
-                android:textSize="13dp" />
+                android:textSize="13dp"
+                tools:ignore="TextSizeCheck" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,11 +45,12 @@
                 android:layout_marginLeft="30dp"
                 android:text="Bạn cần tìm kiếm gi?"
                 android:textColor="#000000"
-                android:textSize="13dp" />
+                android:textSize="13dp"
+                tools:ignore="TextSizeCheck" />
 
             <EditText
                 android:layout_width="350dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -65,7 +62,8 @@
                 android:padding="10dp"
                 android:textColor="#9E000000"
                 android:textColorHint="#868889"
-                android:textSize="13dp" />
+                android:textSize="13dp"
+                tools:ignore="TextSizeCheck" />
 
             <ListView
                 android:id="@+id/lvCart"
