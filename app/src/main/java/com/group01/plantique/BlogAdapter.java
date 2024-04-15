@@ -1,59 +1,60 @@
 package com.group01.plantique;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
-public class BlogAdapter extends ArrayAdapter<String> {
+public class BlogAdapter extends ArrayAdapter<BlogItem> {
 
+    private ArrayList<BlogItem> blogItems;
     private Context mContext;
-    private ArrayList<String> mBlogTitles;
-    private OnBlogClickListener mClickListener;
 
-    public BlogAdapter(Context context, ArrayList<String> blogTitles) {
-        super(context, 0, blogTitles);
+    public BlogAdapter(Context context, ArrayList<BlogItem> blogItems) {
+        super(context, 0, blogItems);
         mContext = context;
-        mBlogTitles = blogTitles;
-    }
-
-    public void setOnBlogClickListener(OnBlogClickListener listener) {
-        this.mClickListener = listener;
+        this.blogItems = blogItems;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View listItem = convertView;
-        if(listItem == null) {
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.blog_show, parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_show, parent, false);
         }
 
-        String currentTitle = mBlogTitles.get(position);
+        final BlogItem currentItem = blogItems.get(position);
 
-        TextView titleTextView = listItem.findViewById(R.id.txtTitle1);
-        titleTextView.setText(currentTitle);
+        TextView titleTextView = convertView.findViewById(R.id.txtTitle1);
+        titleTextView.setText(currentItem.getTitle());
 
-        // Thiết lập sự kiện click cho mỗi mục trong ListView
-        listItem.setOnClickListener(new View.OnClickListener() {
+        ImageView imageView = convertView.findViewById(R.id.imageView);
+        Picasso.get().load(currentItem.getImage()).into(imageView);
+
+        // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mClickListener != null) {
-                    // Lấy dữ liệu của blog được click
-                    String title = mBlogTitles.get(position);
-                    // Gửi sự kiện click đến Activity
-                    mClickListener.onBlogClick(title);
-                }
+                // Tạo Intent để mở BlogDetailActivity
+                Intent intent = new Intent(mContext, BlogDetailActivity.class);
+
+                // Đặt dữ liệu của mục hiện tại vào Intent
+                intent.putExtra("title", currentItem.getTitle());
+                intent.putExtra("image", currentItem.getImage());
+                intent.putExtra("content", currentItem.getContent());
+
+                // Khởi chạy Intent
+                mContext.startActivity(intent);
             }
         });
 
-        return listItem;
-    }
-
-    // Interface cho sự kiện click
-    public interface OnBlogClickListener {
-        void onBlogClick(String title);
+        return convertView;
     }
 }
+
+

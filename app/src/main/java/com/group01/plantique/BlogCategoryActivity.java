@@ -1,6 +1,6 @@
 package com.group01.plantique;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,15 +10,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class BlogCategoryActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE = 1;
 
     private DatabaseReference mDatabase;
     private ListView lvCart;
@@ -26,7 +31,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> blogTitles;
     private ArrayList<String> blogImages;
-    private ImageView imgButton1;
+    private ImageView imgButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
         // Initialize views
         lvCart = findViewById(R.id.lvCart);
         edtSearch = findViewById(R.id.edtSearch);
-        imgButton1 = findViewById(R.id.imgButton2); // Ánh xạ imgButton
+        imgButton2 = findViewById(R.id.imgButton2); // Ánh xạ imgButton
 
         // Initialize array lists to store blog titles and images
         blogTitles = new ArrayList<>();
@@ -70,6 +75,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
+                // Log error message or show error toast
             }
         });
 
@@ -79,15 +85,16 @@ public class BlogCategoryActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String title = blogTitles.get(position);
                 String imageUrl = blogImages.get(position);
-                // Khi một blog được click, chuyển sang BlogDetailActivity và truyền dữ liệu về blog được click
+                // Chuyển sang BlogDetailActivity và chờ đợi kết quả
                 Intent intent = new Intent(BlogCategoryActivity.this, BlogDetailActivity.class);
                 intent.putExtra("blogTitle", title);
                 intent.putExtra("blogImage", imageUrl);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
         // Thiết lập sự kiện click cho imgButton
-        imgButton1.setOnClickListener(new View.OnClickListener() {
+        imgButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Kết thúc activity hiện tại và quay lại activity trước đó
@@ -123,4 +130,14 @@ public class BlogCategoryActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    // Nhận kết quả trả về từ hoạt động thứ hai (BlogDetailActivity)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                // Xử lý kết quả trả về từ BlogDetailActivity ở đây
+            }
+        }
+    }
 }
