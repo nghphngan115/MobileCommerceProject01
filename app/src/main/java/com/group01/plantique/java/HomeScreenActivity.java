@@ -1,6 +1,8 @@
 package com.group01.plantique.java;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -50,25 +52,32 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("products");
 
+        svSearch.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo một Intent để chuyển từ HomeScreenActivity sang SearchProductActivity
+                Intent intent = new Intent(HomeScreenActivity.this, SearchActivity.class);
+                // Bắt đầu SearchProductActivity
+                startActivity(intent);
+            }
+        });
+
+// Bạn có thể giữ nguyên phần này nếu muốn xử lý khi người dùng thay đổi query
         svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                performSearch(query);
-                return true;
+                // Không cần xử lý khi submit vì đã chuyển màn hình khi bấm vào khung search
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) {
-                    displayAllItems();
-                } else {
-                    performDynamicSearch(newText);
-                }
-                return true;
+                // Bạn có thể giữ nguyên hoặc xóa phương thức này, vì sẽ không cần thiết khi đã chuyển màn hình
+                return false;
             }
         });
 
-        fetchProductsFromFirebase();
+        fetchProductsFromFirebase(); // Gọi phương thức để tải sản phẩm từ Firebase
     }
 
     private void fetchProductsFromFirebase() {
@@ -88,20 +97,5 @@ public class HomeScreenActivity extends AppCompatActivity {
                 Toast.makeText(HomeScreenActivity.this, "Failed to read value from Firebase.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void performSearch(String query) {
-        // Your search logic here
-        Toast.makeText(this, "Search query: " + query, Toast.LENGTH_SHORT).show();
-    }
-
-    private void performDynamicSearch(String newText) {
-        // Your dynamic search logic here
-        Toast.makeText(this, "Dynamic search: " + newText, Toast.LENGTH_SHORT).show();
-    }
-
-    private void displayAllItems() {
-        // Your logic to display all items
-        Toast.makeText(this, "Displaying all items", Toast.LENGTH_SHORT).show();
     }
 }

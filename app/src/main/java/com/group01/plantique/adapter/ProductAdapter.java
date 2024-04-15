@@ -19,12 +19,18 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements Filterable {
 
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
     private Context context;
     private List<Product> productList;
     private List<Product> productListFiltered; // Danh sách được lọc sau khi tìm kiếm
 
     // Constructor
     public ProductAdapter(Context context, List<Product> productList) {
+        super();
         this.context = context;
         this.productList = productList;
         this.productListFiltered = productList;
@@ -41,9 +47,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             imgProductPic = itemView.findViewById(R.id.imgProductPic);
             txtProductname = itemView.findViewById(R.id.txtProductname);
             txtPrice = itemView.findViewById(R.id.txtPrice);
+
         }
     }
 
+    // Phương thức này sẽ được gọi từ bên ngoài để đặt người nghe sự kiện
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,6 +68,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.txtProductname.setText(product.getProductname());
         holder.txtPrice.setText(product.getPrice());
         Picasso.get().load(product.getImageUrl()).into(holder.imgProductPic);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(product);
+                }
+            }
+        });
     }
 
     @Override

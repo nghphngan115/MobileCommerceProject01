@@ -14,7 +14,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.SearchResultActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.SearchProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.OrderConfirmActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.SearchActivity"
             android:exported="true" />
         <activity
             android:name=".java.AboutUsActivity"

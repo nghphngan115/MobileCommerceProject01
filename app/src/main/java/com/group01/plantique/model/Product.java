@@ -1,6 +1,8 @@
 package com.group01.plantique.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String Productname;
     private String Price;
     private String imageUrl;
