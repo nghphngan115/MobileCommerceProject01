@@ -70,6 +70,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
+                // Log error message or show error toast
             }
         });
 

@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 public class BlogDetailActivity extends AppCompatActivity {
 
     private ImageView imgButton2;
+    private ImageView imgBlog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,8 @@ public class BlogDetailActivity extends AppCompatActivity {
         // Ánh xạ các thành phần trong layout
         TextView txtTitle = findViewById(R.id.txtTitle1);
         TextView txtContent = findViewById(R.id.txtContent);
-        ImageView imgBlog = findViewById(R.id.imgBlog);
-
+        imgBlog = findViewById(R.id.imgBlog);
+        imgButton2 = findViewById(R.id.imgButton2);
 
         // Tham chiếu đến nút blog trên Firebase
         DatabaseReference blogRef = FirebaseDatabase.getInstance().getReference("Blog");
@@ -52,12 +53,12 @@ public class BlogDetailActivity extends AppCompatActivity {
                 // Xử lý khi có lỗi xảy ra
             }
         });
+
         imgButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish(); // Đóng Activity hiện tại và quay lại Activity trước đó (BlogCategoryActivity)
             }
         });
-
     }
 }
