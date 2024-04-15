@@ -118,7 +118,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/txt11"
                 android:layout_width="179dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
@@ -234,6 +234,7 @@
                 android:layout_height="45dp"
                 android:layout_marginLeft="39dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 app:srcCompat="@mipmap/ic_phone" />
 
@@ -255,6 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="39dp"
                     android:hint="Số Điện Thoại"
+                    android:maxLength="10"
                     android:inputType="phone"
                     android:textSize="16sp" />
 
@@ -276,6 +278,7 @@
             android:layout_height="45dp"
             android:layout_marginLeft="39dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_mail" />
 

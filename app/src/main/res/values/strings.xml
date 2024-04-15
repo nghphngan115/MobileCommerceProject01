@@ -3,4 +3,6 @@
     <string name="strOrdConf">"Đặt hàng thành công "</string>
     <string name="strOrdThank">Đơn hàng của bạn đã được xác nhận. Cảm ơn bạn vì đã mua hàng</string>
     <string name="strBackButton">Back</string>
+    <string name="strTotal">Total\n</string>
+    <string name="strConfirmPayment">Completed Transfer</string>
 </resources>

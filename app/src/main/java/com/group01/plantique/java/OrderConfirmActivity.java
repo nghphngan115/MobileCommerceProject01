@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 public class OrderConfirmActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private DatabaseReference databaseReference;
-    TextView txtFullname, txtAddress, txtEmail, txtPhone, txtPaymentMethod,txtTotal;
+    TextView txtFullname, txtAddress, txtEmail, txtPhone, txtPaymentMethod,txtTotal,txtOrderID;
     ConstraintLayout btnConfirm;
 
     @Override
@@ -34,6 +36,13 @@ public class OrderConfirmActivity extends AppCompatActivity {
         populateDataFromIntent();
         db = FirebaseDatabase.getInstance();
         databaseReference=db.getReference();
+        txtOrderID = findViewById(R.id.txtOrderID); // Đảm bảo có TextView này trong layout
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String orderID = intent.getStringExtra("orderID");
+            txtOrderID.setText(orderID); // Hiển thị OrderID
+        }
 
     }
 
@@ -48,11 +57,39 @@ public class OrderConfirmActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showOrderConfirmationDialog("Dummy-Order-ID");
-                pushOrderToFirebase();
+                String paymentMethod = txtPaymentMethod.getText().toString();
+                if ("Chuyển khoản  ngân hàng".equals(paymentMethod)) {
+                    showBankTransferDialog();
+                } else {
+                    showOrderConfirmationDialog("Dummy-Order-ID");
+                }
             }
         });
+
     }
+    private void showBankTransferDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_bank_transfer, null);
+        builder.setView(dialogView);
+
+        TextView txtTotalAmount = dialogView.findViewById(R.id.txtTotal);
+        ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
+
+        txtTotalAmount.setText(txtTotal.getText().toString());
+
+        btnCompleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Người dùng xác nhận đã thanh toán
+                showOrderConfirmationDialog("OrderID");
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void pushOrderToFirebase() {
         HashMap<String, String> orderInfo = new HashMap<>();
         orderInfo.put("fullname", txtFullname.getText().toString());

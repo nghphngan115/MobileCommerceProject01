@@ -6,61 +6,85 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.group01.plantique.R;
 
 public class ContactActivity extends AppCompatActivity {
-TextView txtFullname,txtPhone,txtEmail,txtContent;
-ConstraintLayout btnConfirm;
+    EditText edtFullname, edtPhone, edtContent;
+    ConstraintLayout btnConfirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         addViews();
     }
+
     private void addViews() {
-        txtFullname = findViewById(R.id.edtFullname);
-        txtPhone = findViewById(R.id.edtPhone);
-        txtEmail = findViewById(R.id.edtEmail);
-        txtContent = findViewById(R.id.edtContent);
+        edtFullname = findViewById(R.id.edtFullname);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtContent = findViewById(R.id.edtContent);
         btnConfirm = findViewById(R.id.btnConfirm);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendEmail();
+                if (validateFields()) {
+                    sendEmail();
+                }
             }
         });
     }
-    private void sendEmail() {
-        String fullname = txtFullname.getText().toString();
-        String phone = txtPhone.getText().toString();
-        String userEmailAddress = txtEmail.getText().toString();  // This is the user's own email.
-        String content = txtContent.getText().toString();
 
-        if (fullname.isEmpty() || phone.isEmpty() || userEmailAddress.isEmpty() || content.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_LONG).show();
-            return;
+    private boolean validateFields() {
+        String fullname = edtFullname.getText().toString().trim();
+        String phone = edtPhone.getText().toString().trim();
+        String content = edtContent.getText().toString().trim();
+
+        boolean isValid = true;
+
+        if (fullname.isEmpty()) {
+            edtFullname.setError("Full name is required");
+            isValid = false;
         }
 
-        // Email address where you want to send the user's message
-        String recipientEmailAddress = "ngannhp21411ca@st.uel.edu.vn";  // Change this to your desired email
+        if (phone.isEmpty()) {
+            edtPhone.setError("Phone number is required");
+            isValid = false;
+        } else if (phone.length() != 10) {
+            edtPhone.setError("Phone number must be 10 digits long");
+            isValid = false;
+        }
+
+        if (content.isEmpty()) {
+            edtContent.setError("Message content is required");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void sendEmail() {
+        String fullname = edtFullname.getText().toString();
+        String phone = edtPhone.getText().toString();
+        String content = edtContent.getText().toString();
+
+        String recipientEmailAddress = "ngannhp21411ca@st.uel.edu.vn";
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { recipientEmailAddress });  // Recipient's email
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipientEmailAddress});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Contact from " + fullname);
-        intent.putExtra(Intent.EXTRA_TEXT, "Name: " + fullname + "\nPhone: " + phone + "\nEmail: " + userEmailAddress + "\nContent: " + content);
+        intent.putExtra(Intent.EXTRA_TEXT, "Name: " + fullname + "\nPhone: " + phone + "\nContent: " + content);
 
+        intent.setPackage("com.google.android.gm");
         try {
-            startActivity(Intent.createChooser(intent, "Send email using..."));
+            startActivity(intent);
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Gmail app is not installed.", Toast.LENGTH_SHORT).show();
+            startActivity(Intent.createChooser(intent, "Send email using..."));
         }
     }
-
-
 }
