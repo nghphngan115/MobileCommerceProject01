@@ -50,7 +50,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("org.mindrot:jbcrypt:0.4")
     implementation ("com.sun.mail:android-mail:1.6.5")
-    implementation ("com.sun.mail:android-activation:1.6.5")
+    implementation ("com.sun.mail:android-activation:1.6.5" )
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+
 
 
 

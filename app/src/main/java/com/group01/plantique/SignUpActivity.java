@@ -202,9 +202,6 @@ public class SignUpActivity extends AppCompatActivity {
                 String phoneNumber = edtPhoneNumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phoneNumber)) {
                     tilPhoneNumber.setHint("Enter phone number");
-                } else if (!isPhoneNumberValid(phoneNumber)) {
-                    txtPhoneError.setVisibility(View.VISIBLE);
-                    txtPhoneError.setText("Invalid phone number format");
                 } else {
                     txtPhoneError.setVisibility(View.GONE);
                 }
@@ -274,10 +271,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         return password.length() >= 8 && password.matches(".*\\d.*") && password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
-    }
-    private boolean isPhoneNumberValid(String phoneNumber) {
-        // Simple validation for phone number format (digits only, at least 10 characters)
-        return phoneNumber.matches("\\d{10,}");
     }
 
     private boolean isUsernameValid(String username) {
