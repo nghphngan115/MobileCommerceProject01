@@ -8,15 +8,15 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group01.plantique.R;
 
-public class MyAccountActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_account);
+        setContentView(R.layout.activity_notification);
 
         BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.account);
+        bottomNavigationView.setSelectedItemId(R.id.notification);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -33,10 +33,10 @@ public class MyAccountActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.notification) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                finish();
                 return true;
             } else if (itemId == R.id.account) {
+                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                finish();
                 return true;
             }
             return false;

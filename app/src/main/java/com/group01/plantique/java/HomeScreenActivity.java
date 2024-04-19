@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,33 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                return true;
+            } else if (itemId == R.id.blog) {
+                startActivity(new Intent(getApplicationContext(), BlogCategoryActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.cart) {
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.notification) {
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.account) {
+                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
 
         svSearch = findViewById(R.id.svSearch);
         btnMuangay = findViewById(R.id.btnMuaNgay);
