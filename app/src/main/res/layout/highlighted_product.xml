@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/llProduct1"
+        android:id="@+id/llProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -15,13 +15,13 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/imgProduct"
             android:layout_width="135dp"
             android:layout_height="107dp"
             app:srcCompat="@mipmap/img_kg" />
 
         <TextView
-            android:id="@+id/txtAuthor"
+            android:id="@+id/txtProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -31,7 +31,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/txtUnitPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"

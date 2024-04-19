@@ -1,14 +1,16 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SearchActivity extends AppCompatActivity {
+import com.group01.plantique.R;
+
+public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_contact);
     }
 }

@@ -36,28 +36,28 @@
             android:name=".SettingAddressActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false" />
+            android:name=".java.SearchResultActivity"
+            android:exported="true" />
         <activity
-            android:name=".ResetPasswordOTPActivity"
+            android:name=".java.SearchProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".WritingReview"
+            android:name=".ResetPasswordOTPActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductDetails"
-            android:exported="false" />
+            android:name=".java.OrderConfirmActivity"
+            android:exported="true" />
         <activity
-            android:name=".FoodCategories"
-            android:exported="false" />
+            android:name=".java.SearchActivity"
+            android:exported="true" />
         <activity
-            android:name=".CategoryDetails"
-            android:exported="false" />
-        <activity
-            android:name=".AboutUsActivity"
+            android:name=".java.AboutUsActivity"
             android:exported="true" />
         <activity
             android:name=".HomeScreenActivity"
@@ -79,10 +79,10 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="true"></activity>
+            android:name=".java.LoginActivity"
+            android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".java.MainActivity"
             android:exported="true" />
 
         <meta-data

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Plantique</string>
+    <string name="strOrdConf">"Đặt hàng thành công "</string>
+    <string name="strOrdThank">Đơn hàng của bạn đã được xác nhận. Cảm ơn bạn vì đã mua hàng</string>
 </resources>

@@ -1,8 +1,10 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.group01.plantique.R;
 
 public class ListOrderActivity extends AppCompatActivity {
 

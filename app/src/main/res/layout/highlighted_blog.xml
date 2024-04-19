@@ -16,7 +16,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/imgThumbs"
             android:layout_width="135dp"
             android:layout_height="107dp"
             app:srcCompat="@mipmap/img_blog" />

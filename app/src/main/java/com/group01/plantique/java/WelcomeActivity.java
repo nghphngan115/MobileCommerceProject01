@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.content.Intent;
+
+import com.group01.plantique.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
