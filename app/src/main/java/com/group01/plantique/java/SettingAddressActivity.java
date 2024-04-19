@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.R;
 import com.group01.plantique.adapter.AddressAdapter;
 import com.group01.plantique.model.Address;
 

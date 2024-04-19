@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.group01.plantique.R;
+
 import java.util.concurrent.TimeUnit;
 
 public class ResetPasswordOTPActivity extends AppCompatActivity {
@@ -104,7 +106,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(ResetPasswordOTPActivity.this, ChangePasswordActivity.class);
+                            Intent intent = new Intent(ResetPasswordOTPActivity.this, WelcomeActivity.ChangePasswordActivity.class);
                             intent.putExtra("phoneNumber", phoneNumber);
                             startActivity(intent);
                             finish();
