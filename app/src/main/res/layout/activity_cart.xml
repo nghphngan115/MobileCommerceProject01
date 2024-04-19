@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".CartActivity">
+    tools:context=".java.CartActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -24,19 +24,19 @@
             android:name=".java.AboutUsActivity"
             android:exported="false" />
         <activity
-            android:name=".BlogCategoryActivity"
+            android:name=".java.BlogCategoryActivity"
             android:exported="false" />
         <activity
-            android:name=".CartActivity"
+            android:name=".java.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".MyAccountActivity"
+            android:name=".java.MyAccountActivity"
             android:exported="false" />
         <activity
             android:name=".java.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingAddressActivity"
+            android:name=".java.SettingAddressActivity"
             android:exported="true" />
         <activity
             android:name=".java.SearchResultActivity"
@@ -60,7 +60,7 @@
             android:name=".java.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".java.HomeScreenActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,13 +69,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CheckoutActivity"
+            android:name=".java.CheckoutActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".java.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".java.WelcomeActivity"
             android:exported="true" >
         </activity>
         <activity

@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="28dp" />
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/svSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

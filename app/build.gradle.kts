@@ -41,7 +41,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.activity:activity:1.9.0")
     implementation("com.google.firebase:firebase-database:20.3.1")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.android.car.ui:car-ui-lib:2.6.0")
@@ -53,8 +53,5 @@ dependencies {
     implementation ("com.sun.mail:android-mail:1.6.5")
     implementation ("com.sun.mail:android-activation:1.6.5" )
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-
-
-
 
 }
