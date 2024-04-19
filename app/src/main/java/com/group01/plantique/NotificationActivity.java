@@ -1,35 +1,27 @@
 package com.group01.plantique;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeScreenActivity extends AppCompatActivity {
+public class NotificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home_screen);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        setContentView(R.layout.activity_notification);
 
         BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.notification);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
+                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+                finish();
                 return true;
             } else if (itemId == R.id.blog) {
                 startActivity(new Intent(getApplicationContext(), BlogCategoryActivity.class));
@@ -40,8 +32,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.notification) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                finish();
                 return true;
             } else if (itemId == R.id.account) {
                 startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
