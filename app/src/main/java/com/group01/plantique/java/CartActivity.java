@@ -9,7 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group01.plantique.R;
 import com.group01.plantique.java.NotificationActivity;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends DrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class CartActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
                 finish();
                 return true;
             }

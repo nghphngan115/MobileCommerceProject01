@@ -36,7 +36,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
                 finish();
                 return true;
             }
