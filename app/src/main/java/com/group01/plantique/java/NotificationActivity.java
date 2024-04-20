@@ -35,7 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
             } else if (itemId == R.id.notification) {
                 return true;
             } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
                 finish();
                 return true;
             }

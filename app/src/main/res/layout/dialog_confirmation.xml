@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -10,7 +12,7 @@
         android:layout_width="220dp"
         android:layout_height="228dp"
         android:layout_gravity="center"
-        android:src="@drawable/check1" /> <!-- Thay thế 'ic_confirm' với tên resource hình ảnh của bạn -->
+        android:src="@drawable/check1" />
 
     <TextView
         android:id="@+id/textViewConfirm"
@@ -38,5 +40,33 @@
         android:text="Mã đơn hàng:"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="16sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnBack"
+        android:layout_width="221dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_fullgreen">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="@string/strBackButton"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </LinearLayout>
