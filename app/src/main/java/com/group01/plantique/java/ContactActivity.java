@@ -13,7 +13,7 @@ import com.group01.plantique.R;
 import com.group01.plantique.databinding.ActivityContactBinding;
 import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 
-public class ContactActivity extends DrawerBaseActivity {
+public class  ContactActivity extends DrawerBaseActivity {
     EditText edtFullname, edtPhone, edtContent;
     ConstraintLayout btnConfirm;
     ActivityContactBinding activityContactBinding;
