@@ -23,6 +23,8 @@
         <activity
             android:name=".java.PersonalInfoActivity"
             android:exported="false"/>
+        <activity android:name=".java.ContactActivity"
+            android:exported="false"/>
         <activity
             android:name=".java.SettingNotificationActivity2"
             android:exported="false" />
