@@ -71,7 +71,7 @@ public class ContactActivity extends AppCompatActivity {
         String phone = edtPhone.getText().toString();
         String content = edtContent.getText().toString();
 
-        String recipientEmailAddress = "ngannhp21411ca@st.uel.edu.vn";
+        String recipientEmailAddress = "plantiqueshop01@gmail.com";
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
