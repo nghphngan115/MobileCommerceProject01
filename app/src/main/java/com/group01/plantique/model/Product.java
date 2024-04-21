@@ -1,5 +1,5 @@
 package com.group01.plantique.model;
-
+//để test cho homescreen, sau này có chính thức thì có thể xóa bản này
 import java.io.Serializable;
 
 public class Product implements Serializable {

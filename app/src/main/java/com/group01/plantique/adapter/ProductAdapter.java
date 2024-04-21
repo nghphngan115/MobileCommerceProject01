@@ -1,5 +1,5 @@
 package com.group01.plantique.adapter;
-
+//để test cho homescreen, sau này có chính thức thì có thể xóa bản này
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
