@@ -1,46 +1,41 @@
 package com.group01.plantique.model;
 
-import java.io.Serializable;
+public class Product {
+    private String id;
+    private String name;
+    private String imageurl;
+    private int price;
+    private int discount_price;
 
-public class Product implements Serializable {
-    private String Productname;
-    private String Price;
-    private String imageUrl;
-
-    // Constructor
-
-
-    public Product(String productname, String price, String imageUrl) {
-        Productname = productname;
-        Price = price;
-        this.imageUrl = imageUrl;
+    public Product() {
+        // Required empty public constructor
     }
 
-    public String getProductname() {
-        return Productname;
+    public Product(String id, String name, String imageurl, int price, int discount_price) {
+        this.id = id;
+        this.name = name;
+        this.imageurl = imageurl;
+        this.price = price;
+        this.discount_price = discount_price;
     }
 
-    public void setProductname(String productname) {
-        Productname = productname;
+    public String getId() {
+        return id;
     }
 
-    public String getPrice() {
-        return Price;
+    public String getName() {
+        return name;
     }
 
-    public void setPrice(String price) {
-        Price = price;
+    public String getImageurl() {
+        return imageurl;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getPrice() {
+        return price;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public int getDiscount_price() {
+        return discount_price;
     }
 }
-
-    // Getters
-
-
