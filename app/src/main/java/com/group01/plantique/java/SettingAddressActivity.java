@@ -1,4 +1,5 @@
 package com.group01.plantique.java;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,9 +36,9 @@ public class SettingAddressActivity extends AppCompatActivity {
     private ListView lvAddress;
     private ImageButton imgbtnAddAddress;
     private ArrayList<Address> addressList;
-    private AddressAdapter adapter; // Sử dụng AddressAdapter thay cho ArrayAdapter<Address>
+    private AddressAdapter adapter;
     private ConstraintLayout btnSave;
-    private boolean isInputFieldVisible = false; // Biến để kiểm tra trạng thái hiển thị input fields
+    private boolean isInputFieldVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,9 @@ public class SettingAddressActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("addresses").child(currentUser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+                .child(currentUser.getUid())
+                .child("shipping_addresses");
 
         // Khai báo các view
         edtFullName = findViewById(R.id.edtFullName);
@@ -123,7 +126,6 @@ public class SettingAddressActivity extends AppCompatActivity {
         });
     }
 
-    // Phương thức để thêm hoặc cập nhật một địa chỉ
     private void addOrUpdateAddress() {
         String fullName = edtFullName.getText().toString().trim();
         String address1 = edtAddress1.getText().toString().trim();
@@ -136,16 +138,25 @@ public class SettingAddressActivity extends AppCompatActivity {
             return;
         }
 
-        String addressId = databaseReference.push().getKey();
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        String userID = sharedPreferences.getString("userID", "");
+
+        DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(userID)
+                .child("shipping_addresses");
+
+        String addressId = userAddressRef.push().getKey(); // Tạo một addressId mới
         Address address = new Address(addressId, fullName, address1, district, province, phoneNumber);
 
         if (addressId != null) {
-            databaseReference.child(addressId).setValue(address);
+            userAddressRef.child(addressId).setValue(address);
             Toast.makeText(this, "Address saved successfully", Toast.LENGTH_SHORT).show();
         }
 
         clearFields();
     }
+
+
 
     // Phương thức để hiển thị thông tin của một địa chỉ lên các input fields
     private void populateAddressFields(Address address) {

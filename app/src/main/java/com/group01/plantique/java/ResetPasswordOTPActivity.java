@@ -106,7 +106,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(ResetPasswordOTPActivity.this, WelcomeActivity.ChangePasswordActivity.class);
+                            Intent intent = new Intent(ResetPasswordOTPActivity.this, ChangePasswordActivity.class);
                             intent.putExtra("phoneNumber", phoneNumber);
                             startActivity(intent);
                             finish();

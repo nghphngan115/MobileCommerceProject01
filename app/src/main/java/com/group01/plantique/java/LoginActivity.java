@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference usersRef;
     private ConstraintLayout btnSignIn;
     private int loginAttempts = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    // Đây là biến để lưu userID của người dùng sau khi đăng nhập thành công
+    private String loggedInUserID;
 
     // Method to sign in user
     private void signInUser() {
@@ -137,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
                             // Check if the entered password matches the stored hashed password
                             if (BCrypt.checkpw(password, user.getPassword())) {
                                 // Passwords match, user authenticated
+                                loggedInUserID = user.getId(); // Lấy userID từ user đã đăng nhập thành công
+                                saveUserIDToSharedPreferences(); // Lưu userID vào SharedPreferences
                                 Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -164,6 +170,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Method to save userID to SharedPreferences
+    private void saveUserIDToSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userID", loggedInUserID);
+        editor.apply();
+    }
+
 
     // Method to show reset password dialog
     private void showResetPasswordDialog() {

@@ -21,10 +21,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.AddToCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.ProductCategoriesActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.PersonalInfoActivity"
-            android:exported="false"/>
-        <activity android:name=".java.ContactActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".java.ContactActivity"
+            android:exported="false" />
         <activity
             android:name=".java.SettingNotificationActivity2"
             android:exported="false" />
@@ -65,7 +78,7 @@
             android:name=".java.SearchProductActivity"
             android:exported="true" />
         <activity
-            android:name=".java.WelcomeActivity$ChangePasswordActivity"
+            android:name=".java.ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".java.ResetPasswordActivity"
@@ -81,13 +94,7 @@
             android:exported="true" />
         <activity
             android:name=".java.HomeScreenActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".java.CheckoutActivity"
             android:exported="true" />
@@ -96,13 +103,22 @@
             android:exported="true" />
         <activity
             android:name=".java.WelcomeActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".java.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".java.MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".java.ChangePasswordActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
