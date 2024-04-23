@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_fullgreen">
+
+        <ImageView
+            android:id="@+id/productIv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_shopping_cart"
+            />
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/productIv"
+            android:layout_marginTop="5dp"
+            android:text="Product Title"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/pQuantityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/titleTv"
+            android:layout_marginTop="5dp"
+            android:text="Quantity"
+            android:textSize="10sp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pQuantityTv"
+            android:layout_marginTop="5dp"
+            android:text="Product Description"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/discountedNoteTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pQuantityTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-147dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ad_layout_rounded"
+            android:padding="5dp"
+            android:text="10% OFF"
+            android:textColor="@color/main_green"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/originalPriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAlignment="textStart"
+                android:text="$12" />
+
+            <TextView
+                android:id="@+id/priceDiscountedTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAlignment="textStart"
+                android:layout_toEndOf="@id/originalPriceTv"
+                android:layout_weight="1"
+                android:text="$10" />
+
+            <TextView
+                android:id="@+id/finalTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAlignment="textStart"
+                android:layout_alignParentEnd="true"
+                android:text="$10" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnMinus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_circle_fullgreen"
+            android:contentDescription="Minus"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/QuantityTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnPlus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/button_circle_fullgreen"
+            android:contentDescription="Plus"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnAddToCart"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/button_fullgreen">
+
+        <TextView
+            android:id="@+id/textView56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add To Cart"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

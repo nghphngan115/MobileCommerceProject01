@@ -1,46 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileCommerceProject01"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".UserInformationActivity"
+            android:name=".java.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".BlogDetailActivity"
+            android:name=".java.AddToCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
         <activity
-            android:name=".BlogCategoryActivity"
+            android:name=".java.PersonalInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.ContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.SettingNotificationActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".java.TermsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.PolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.DrawerBaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.BlogCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.MyAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.SettingAddressActivity"
             android:exported="true" />
         <activity
-            android:name=".ListOrderActivity"
+            android:name=".java.SearchResultActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.SearchProductActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ContactActivity"
+            android:name=".java.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".AboutUsActivity"
+            android:name=".java.ResetPasswordOTPActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeScreenActivity"
-            android:exported="false" />
+            android:name=".java.OrderConfirmActivity"
+            android:exported="true" />
         <activity
-            android:name=".CheckoutActivity"
-            android:exported="false" />
+            android:name=".java.SearchActivity"
+            android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
+            android:name=".java.HomeScreenActivity"
+            android:exported="true" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".java.CheckoutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.SignUpActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,11 +111,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".java.LoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".java.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.ChangePasswordActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
