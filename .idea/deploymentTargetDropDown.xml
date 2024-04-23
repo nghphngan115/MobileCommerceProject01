@@ -5,6 +5,9 @@
       <entry key="BlogCategoryActivity">
         <State />
       </entry>
+      <entry key="CartActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>

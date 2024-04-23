@@ -25,7 +25,7 @@ public class CartListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return cartProducts.size();
+        return cartProducts != null ? cartProducts.size() : 0;
     }
 
     @Override
@@ -48,29 +48,32 @@ public class CartListAdapter extends BaseAdapter {
             viewHolder.txtProductName = convertView.findViewById(R.id.txtProductName);
             viewHolder.txtProductPrice = convertView.findViewById(R.id.txtProductPrice);
             viewHolder.edtProductQuantity = convertView.findViewById(R.id.edtProductQuantity);
-            viewHolder.imgProductShow = convertView.findViewById(R.id.imgProductShow); // Lưu reference đến ImageView imgProductShow
+            viewHolder.imgProductShow = convertView.findViewById(R.id.imgProductShow);
             viewHolder.imgBin = convertView.findViewById(R.id.imgBin);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Product product = cartProducts.get(position);
+        // Kiểm tra xem danh sách sản phẩm có trống không
+        if (cartProducts.isEmpty()) {
+            // Xử lý trường hợp giỏ hàng trống
+            // Ví dụ: ẩn các thành phần hoặc hiển thị một thông báo
+            return convertView;
+        }
 
+        // Tiếp tục xử lý như thông thường nếu giỏ hàng không trống
+        Product product = cartProducts.get(position);
         viewHolder.txtProductName.setText(product.getProductName());
         viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice()));
         viewHolder.edtProductQuantity.setText(String.valueOf(product.getQuantity()));
-
-        // Load hình ảnh từ URL vào ImageView imgProductShow bằng Picasso
         Picasso.get().load(product.getImageurl()).into(viewHolder.imgProductShow);
 
-        // Thêm sự kiện click cho imgBin
         viewHolder.imgBin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Xoá sản phẩm tại vị trí position
                 cartProducts.remove(position);
-                notifyDataSetChanged(); // Thông báo cho adapter biết dữ liệu đã thay đổi
+                notifyDataSetChanged();
             }
         });
 
@@ -81,7 +84,7 @@ public class CartListAdapter extends BaseAdapter {
         TextView txtProductName;
         TextView txtProductPrice;
         EditText edtProductQuantity;
-        ImageView imgProductShow; // Thêm dòng này để lưu reference đến ImageView imgProductShow
+        ImageView imgProductShow;
         ImageView imgBin;
     }
 }

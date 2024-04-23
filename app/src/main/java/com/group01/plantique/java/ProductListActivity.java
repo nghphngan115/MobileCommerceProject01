@@ -131,7 +131,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         private void openCartActivity(Product product) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, AddToCartActivity.class);
+            Intent intent = new Intent(context, CartActivity.class);
             // Truyền thông tin sản phẩm cần thêm vào giỏ hàng nếu cần
             intent.putExtra("productId", product.getProductId());
             intent.putExtra("productName", product.getProductName());
