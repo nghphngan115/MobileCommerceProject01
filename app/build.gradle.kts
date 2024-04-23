@@ -25,8 +25,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
@@ -53,5 +53,7 @@ dependencies {
     implementation ("com.sun.mail:android-mail:1.6.5")
     implementation ("com.sun.mail:android-activation:1.6.5" )
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation ("androidx.preference:preference-ktx:1.1.1" )
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0" )
 
 }

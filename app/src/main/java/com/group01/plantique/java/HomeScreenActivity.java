@@ -17,13 +17,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.group01.plantique.adapter.ProductAdapter;
-import com.group01.plantique.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.ProductAdapter;
+import com.group01.plantique.model.Product;
 
 public class HomeScreenActivity extends AppCompatActivity {
     SearchView svSearch;
@@ -31,7 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     RecyclerView rvCategory;
 
     List<Product> productList;
-    ProductAdapter productAdapter;
+
 
     DatabaseReference databaseReference;
 
@@ -60,7 +60,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
+                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
                 finish();
                 return true;
             }
@@ -74,9 +74,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         rvCategory = findViewById(R.id.rvCategory);
 
         productList = new ArrayList<>();
-        productAdapter = new ProductAdapter(this, productList);
+
         rvCategory.setLayoutManager(new LinearLayoutManager(this));
-        rvCategory.setAdapter(productAdapter);
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference("products");
 
@@ -117,7 +117,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                     Product product = snapshot.getValue(Product.class);
                     productList.add(product);
                 }
-                productAdapter.notifyDataSetChanged();
+
             }
 
             @Override

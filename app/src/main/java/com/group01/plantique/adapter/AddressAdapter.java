@@ -36,18 +36,23 @@ public class AddressAdapter extends ArrayAdapter<Address> {
 
         Address address = getItem(position);
 
-        if (address != null) {
+        // Kiểm tra convertView và address có null không
+        if (listItem != null && address != null) {
             TextView txtFullName = listItem.findViewById(R.id.txtFullName);
             TextView txtAddress1 = listItem.findViewById(R.id.txtAddress1);
             TextView txtAddress2 = listItem.findViewById(R.id.txtAddress2);
             TextView txtPhone = listItem.findViewById(R.id.txtPhone);
 
-            txtFullName.setText(address.getFullName());
-            txtAddress1.setText(address.getAddress1());
-            txtAddress2.setText(address.getDistrict() + ", " + address.getProvince());
-            txtPhone.setText(address.getPhoneNumber());
+            // Kiểm tra TextView có null không
+            if (txtFullName != null && txtAddress1 != null && txtAddress2 != null && txtPhone != null) {
+                txtFullName.setText(address.getFullName());
+                txtAddress1.setText(address.getAddress1());
+                txtAddress2.setText(address.getDistrict() + ", " + address.getProvince());
+                txtPhone.setText(address.getPhoneNumber());
+            }
         }
 
         return listItem;
     }
+
 }

@@ -1,31 +1,46 @@
 package com.group01.plantique.model;
-//Category này để nạp test dô homescreen, nên sau này có cat chính thức thì có thể xóa
+
+
 public class Category {
-    String Catename;
-    String imgUrl;
+    private String cateId;
+    private String cateName;
+    private String imageurl;
 
-    public Category(String catename, String imgUrl) {
-        Catename = catename;
-        this.imgUrl = imgUrl;
-    }
 
-    Category()
-    {
-        
-    }
-    public String getCatename() {
-        return Catename;
+    public Category() {
+        // Required empty constructor for Firebase
     }
 
-    public void setCatename(String catename) {
-        Catename = catename;
+    public Category(String cateId, String cateName, String imageurl) {
+        this.cateId = cateId;
+        this.cateName = cateName;
+        this.imageurl = imageurl;
+
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getCateId() {
+        return cateId;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setCateId(String cateId) {
+        this.cateId = cateId;
     }
+
+    public String getCateName() {
+        return cateName;
+    }
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
+    }
+
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
+    }
+
+
 }
