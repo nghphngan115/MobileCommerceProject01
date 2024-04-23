@@ -5,17 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ContactActivity">
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center"
-        android:text="Liên hệ"
-        android:textColor="#040303"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    tools:context=".java.ContactActivity">
 
     <TextView
         android:id="@+id/definition_title"
@@ -23,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         android:layout_marginBottom="8dp"
         android:text="GỬI THÔNG TIN CHO CHÚNG TÔI !"
         android:textSize="24sp"
@@ -34,25 +24,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         android:layout_marginBottom="16dp"
         android:text="Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!"
         android:textSize="20sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUsername"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="401dp"
         android:layout_height="wrap_content"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
+        android:layout_marginRight="50dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/main_green"
         app:boxStrokeWidth="2dp">
 
         <EditText
             android:id="@+id/edtFullname"
-            android:layout_width="372dp"
+            android:layout_width="304dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
@@ -64,8 +56,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPhone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="401dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
@@ -75,54 +69,37 @@
 
         <EditText
             android:id="@+id/edtPhone"
-            android:layout_width="372dp"
+            android:layout_width="305dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="39dp"
             android:hint="Số điện thoại"
+            android:inputType="phone"
+            android:maxLength="10"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/main_green"
-        app:boxStrokeWidth="2dp">
 
-        <EditText
-            android:id="@+id/edtEmail"
-            android:layout_width="372dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="39dp"
-            android:hint="Email"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilContent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="399dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
+        android:layout_marginRight="50dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/main_green"
         app:boxStrokeWidth="2dp">
 
         <EditText
             android:id="@+id/edtContent"
-            android:layout_width="372dp"
+            android:layout_width="338dp"
             android:layout_height="215dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="39dp"
             android:hint="Nội dung"
             android:textSize="16sp" />
@@ -132,8 +109,9 @@
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
+
         android:background="@drawable/button_fullgreen">
 
         <TextView

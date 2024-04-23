@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".java.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,6 +74,16 @@
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtEmailError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
 
     <TextView
         android:id="@+id/textView5"
@@ -107,6 +117,56 @@
             android:hint="Enter username"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtUsernameError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Phone number:"
+        android:textSize="20sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhoneNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/main_green"
+        app:boxStrokeWidth="2dp">
+
+        <EditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="39dp"
+            android:hint="Enter phone number"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtPhoneError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView6"
@@ -140,6 +200,15 @@
             android:hint="Enter password"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtPasswordError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textView7"
@@ -173,8 +242,18 @@
             android:hint="Confirm password"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtConfirmPasswordError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_medium"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnSignUp"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
@@ -183,7 +262,7 @@
         android:background="@drawable/button_fullgreen">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
@@ -191,6 +270,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

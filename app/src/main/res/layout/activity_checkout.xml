@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckoutActivity">
+    tools:context=".java.CheckoutActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,6 @@
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="Thông tin giao hàng"
-                android:textColor="#040303"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -43,7 +42,6 @@
                 android:id="@+id/btnFind"
                 android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
                 android:rotationX="180"
                 android:rotationY="177"
                 app:srcCompat="@mipmap/ic_back" />
@@ -120,7 +118,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/txt11"
                 android:layout_width="179dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
@@ -236,6 +234,7 @@
                 android:layout_height="45dp"
                 android:layout_marginLeft="39dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 app:srcCompat="@mipmap/ic_phone" />
 
@@ -257,6 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="39dp"
                     android:hint="Số Điện Thoại"
+                    android:maxLength="10"
                     android:inputType="phone"
                     android:textSize="16sp" />
 
@@ -278,6 +278,7 @@
             android:layout_height="45dp"
             android:layout_marginLeft="39dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_mail" />
 
@@ -317,8 +318,9 @@
             android:textStyle="bold" />
 
         <RadioGroup
+            android:id="@+id/radGroupPayment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <RadioButton
                 android:id="@+id/radCOD"
