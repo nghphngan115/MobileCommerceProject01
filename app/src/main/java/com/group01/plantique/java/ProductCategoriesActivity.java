@@ -48,15 +48,15 @@ public class ProductCategoriesActivity extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<Category, CategoryViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull Category model) {
-                        holder.setCategoryName(model.getName());
+                        holder.setCategoryName(model.getCateName());
                         holder.setCategoryImage(getApplicationContext(), model.getImageurl());
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(ProductCategoriesActivity.this, ProductListActivity.class);
-                                intent.putExtra("categoryId", model.getId());
-                                intent.putExtra("categoryName", model.getName());
+                                intent.putExtra("categoryId", model.getCateId());
+                                intent.putExtra("categoryName", model.getCateName());
                                 startActivity(intent);
                             }
                         });
@@ -73,6 +73,7 @@ public class ProductCategoriesActivity extends AppCompatActivity {
         recyclerViewCategories.setAdapter(adapter);
         adapter.startListening();
     }
+
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         View view;

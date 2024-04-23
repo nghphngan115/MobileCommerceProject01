@@ -1,28 +1,46 @@
 package com.group01.plantique.model;
-public class Category{
-    private String id;
-    private String name;
+
+
+public class Category {
+    private String cateId;
+    private String cateName;
     private String imageurl;
 
+
     public Category() {
-        // Required empty public constructor
+        // Required empty constructor for Firebase
     }
 
-    public Category(String id, String name, String imageurl) {
-        this.id = id;
-        this.name = name;
+    public Category(String cateId, String cateName, String imageurl) {
+        this.cateId = cateId;
+        this.cateName = cateName;
         this.imageurl = imageurl;
+
     }
 
-    public String getId() {
-        return id;
+    public String getCateId() {
+        return cateId;
     }
 
-    public String getName() {
-        return name;
+    public void setCateId(String cateId) {
+        this.cateId = cateId;
+    }
+
+    public String getCateName() {
+        return cateName;
+    }
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
     }
 
     public String getImageurl() {
         return imageurl;
     }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
+    }
+
+
 }
