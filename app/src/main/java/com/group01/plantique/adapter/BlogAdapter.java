@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.group01.plantique.java.BlogDetailActivity;
+import com.group01.plantique.model.BlogItem;
+import com.group01.plantique.R;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
@@ -33,7 +37,7 @@ public class BlogAdapter extends ArrayAdapter<BlogItem> {
         TextView titleTextView = convertView.findViewById(R.id.txtTitle1);
         titleTextView.setText(currentItem.getTitle());
 
-        ImageView imageView = convertView.findViewById(R.id.imageView);
+        ImageView imageView = convertView.findViewById(R.id.imgProductShow);
         Picasso.get().load(currentItem.getImage()).into(imageView);
 
         // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách

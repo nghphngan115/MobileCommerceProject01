@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.R;
 import com.squareup.picasso.Picasso;
 
 public class BlogDetailActivity extends AppCompatActivity {

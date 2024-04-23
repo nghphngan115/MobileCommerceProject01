@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.java;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.R;
 
 
 public class UserInformationActivity extends AppCompatActivity {

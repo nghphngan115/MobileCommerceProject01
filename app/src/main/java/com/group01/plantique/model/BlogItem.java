@@ -1,4 +1,4 @@
-package com.group01.plantique;
+package com.group01.plantique.model;
 
 public class BlogItem {
     private String title;
