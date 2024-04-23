@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.CategoryAdapter;
 import com.group01.plantique.adapter.ProductAdapter;
+import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -31,7 +33,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     RecyclerView rvCategory;
 
     List<Product> productList;
-
+    List<Category> categoryList;
+    CategoryAdapter CategoryAdapter;
 
     DatabaseReference databaseReference;
 
@@ -40,6 +43,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        //Navigation
         BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
@@ -72,13 +76,17 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
         rvCategory = findViewById(R.id.rvCategory);
-
-        productList = new ArrayList<>();
-
         rvCategory.setLayoutManager(new LinearLayoutManager(this));
+        rvCategory.setAdapter(CategoryAdapter);
+        productList = new ArrayList<>();
+        List<Category> categoryList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("categories");
+        CategoryAdapter = new CategoryAdapter(categoryList);
+        if (categoryList != null) {
+            CategoryAdapter.setCategoryList(categoryList);
+            CategoryAdapter.notifyDataSetChanged();
+        }
 
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("products");
 
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
             @Override
@@ -105,19 +113,20 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        fetchProductsFromFirebase(); // Gọi phương thức để tải sản phẩm từ Firebase
+        fetchCategoriesFromFirebase(); // Gọi phương thức để tải sản phẩm từ Firebase
     }
 
-    private void fetchProductsFromFirebase() {
+    private void fetchCategoriesFromFirebase() {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("categories");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Product product = snapshot.getValue(Product.class);
-                    productList.add(product);
+                    Category category = snapshot.getValue(Category.class);
+                    categoryList.add(category);
                 }
-
+                CategoryAdapter.setCategoryList(categoryList);
+                CategoryAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -126,4 +135,5 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
     }
+
 }
