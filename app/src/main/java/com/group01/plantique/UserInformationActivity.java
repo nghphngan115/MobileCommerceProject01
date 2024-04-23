@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class UserInformationActivity extends AppCompatActivity {
     private EditText nameEditText, addressEditText, phoneEditText, emailEditText;
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;

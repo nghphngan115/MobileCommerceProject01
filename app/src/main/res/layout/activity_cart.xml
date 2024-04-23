@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".BlogCategoryActivity">
+    tools:context=".CartActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="30dp"
+            android:src="@mipmap/ic_backarrow" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,17 +27,55 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="421dp"
+            android:layout_marginEnd="-1dp"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="60dp"
+                android:text="Chào bạn,"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Bạn cần tìm kiếm gi?"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+
+            <EditText
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corner"
+                android:drawableStart="@mipmap/ic_search"
+                android:drawableEnd="@mipmap/ic_find"
+                android:drawablePadding="10dp"
+                android:hint="Tìm kiếm"
+                android:padding="10dp"
+                android:textColor="#9E000000"
+                android:textColorHint="#868889"
+                android:textSize="13dp" />
 
             <ListView
                 android:id="@+id/lvCart"
                 android:layout_width="match_parent"
                 android:layout_height="258dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp" />
 
+        </LinearLayout>
 
 
     </RelativeLayout>
@@ -42,6 +86,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -66,54 +111,21 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnOrder"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/button_fullgreen">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:text="Tiến hành đặt hàng"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.468"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.538" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@drawable/button_fullgreen"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnContinueShopping"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/button_fullgreen">
+        android:background="@drawable/button_fullgreen"/>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:text="Tiếp tục mua sắm"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
