@@ -8,13 +8,15 @@ public class Product {
     private int discount_price;
     private String imageurl;
     private String categoryId;
+    private String discountNote;
+    private String unit;
+    private int stock;
 
     public Product() {
         // Required empty constructor for Firebase
     }
 
-
-    public Product(String productId, String productName, String description, int price, int discount_price, String imageurl, String categoryId) {
+    public Product(String productId, String productName, String description, int price, int discount_price, String imageurl, String categoryId, String discountNote, String unit, int stock) {
         this.productId = productId;
         this.productName = productName;
         this.description = description;
@@ -22,6 +24,9 @@ public class Product {
         this.discount_price = discount_price;
         this.imageurl = imageurl;
         this.categoryId = categoryId;
+        this.discountNote = discountNote;
+        this.unit = unit;
+        this.stock = stock;
     }
 
     public String getProductId() {
@@ -78,5 +83,29 @@ public class Product {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getDiscountNote() {
+        return discountNote;
+    }
+
+    public void setDiscountNote(String discountNote) {
+        this.discountNote = discountNote;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
