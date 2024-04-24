@@ -121,7 +121,7 @@ public class ProductListActivity extends AppCompatActivity {
             }
 
             ImageView imageView = view.findViewById(R.id.imageViewProduct);
-            Picasso.get().load(product.getImageUrl()).into(imageView);
+            Picasso.get().load(product.getImageurl()).into(imageView);
 
             TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
             txtDiscountNote.setText(product.getDiscountNote());
@@ -142,7 +142,7 @@ public class ProductListActivity extends AppCompatActivity {
             view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openCartActivity(product);
+                    openAddToCartActivity(product);
                 }
             });
             view.findViewById(R.id.imageButtonCart).setOnClickListener(new View.OnClickListener() {
@@ -160,9 +160,9 @@ public class ProductListActivity extends AppCompatActivity {
             context.startActivity(intent);
         }
 
-        private void openCartActivity(Product product) {
+        private void openAddToCartActivity(Product product) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, CartActivity.class);
+            Intent intent = new Intent(context, AddToCartActivity.class);
             // Truyền thông tin sản phẩm cần thêm vào giỏ hàng nếu cần
             intent.putExtra("productId", product.getProductId());
             intent.putExtra("productName", product.getProductName());

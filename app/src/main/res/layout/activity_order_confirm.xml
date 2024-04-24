@@ -89,7 +89,8 @@
         <ListView
             android:id="@+id/lvProduct"
             android:layout_width="match_parent"
-            android:layout_height="230dp" />
+            android:layout_height="230dp"
+            android:layout_marginRight="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -110,7 +110,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         progressDialog.setTitle("Please wait");
         progressDialog.setCanceledOnTouchOutside(false);
-        
+
         // Khởi tạo các mảng quyền
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -127,7 +127,7 @@ public class AddProductActivity extends AppCompatActivity {
                     discountedNoteEt.setVisibility(View.GONE);
                 }
             }
-       });
+        });
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
