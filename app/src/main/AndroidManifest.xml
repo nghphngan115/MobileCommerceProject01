@@ -131,9 +131,7 @@
         <activity
             android:name=".java.MainActivity"
             android:exported="true" />
-        <activity
-            android:name=".java.ChangePasswordActivity"
-            android:exported="false" />
+
 
         <meta-data
             android:name="preloaded_fonts"
