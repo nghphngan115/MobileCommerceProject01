@@ -5,5 +5,10 @@
     <color name="main_green">#82CD47</color>
     <color name="dark_green">#356112</color>
     <color name="grey">#D0D3CE</color>
+    <color name="processing">#FFA500</color>
+    <color name="delivering">#0004ff</color>
+    <color name="finished">#0D894F</color>
+    <color name="cancelled">#EA4B48</color>
+
 
 </resources>

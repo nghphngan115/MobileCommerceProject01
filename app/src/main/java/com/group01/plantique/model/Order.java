@@ -1,70 +1,54 @@
 package com.group01.plantique.model;
 
-public class Order {
+import java.io.Serializable;
+import java.util.HashMap;
+
+public class Order implements Serializable {
     private String orderId;
+    private String totalCost;
+
+    private String subTotal;
     private String orderDate;
-    private int quantity;
-    private double totalPrice;
-    private String status;
-    private String finishedDate;
+    private String orderStatus;
+    private String paymentMethod;
+    private String fullName;
+    private String address;
+    private String email;
+    private String phone;
+    private String orderBy;
+    private HashMap<String, Product> items = new HashMap<>();   // Assumed Product class exists and is properly structured.
 
-    // Constructor
-    public Order(String orderId, String orderDate, int quantity, double totalPrice, String status, String finishedDate) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.finishedDate = finishedDate;
-    }
+    // No-argument constructor required for Firebase
+    public Order() {}
 
-    // Getters and Setters
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
+    // Constructor with orderId
+    public Order(String orderId) {
         this.orderId = orderId;
     }
 
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getFinishedDate() {
-        return finishedDate;
-    }
-
-    public void setFinishedDate(String finishedDate) {
-        this.finishedDate = finishedDate;
-    }
+    // Getters and setters
+    public String getOrderId() { return orderId; }
+    public void setOrderId(String orderId) { this.orderId = orderId; }
+    public String getTotalCost() { return totalCost; }
+    public void setTotalCost(String totalCost) { this.totalCost = totalCost; }
+    public String getOrderDate() { return orderDate; }
+    public void setOrderDate(String orderDate) { this.orderDate = orderDate; }
+    public String getOrderStatus() { return orderStatus; }
+    public void setOrderStatus(String orderStatus) { this.orderStatus = orderStatus; }
+    public String getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public String getOrderBy() { return orderBy; }
+    public String getSubTotal() { return totalCost; }
+    public void setSubTotal(String totalCost) { this.totalCost = totalCost; }
+    public void setOrderBy(String orderBy) { this.orderBy = orderBy; }
+    public HashMap<String, Product> getItems() { return items; }
+    public void setItems(HashMap<String, Product> items) { this.items = items; }
 }
-

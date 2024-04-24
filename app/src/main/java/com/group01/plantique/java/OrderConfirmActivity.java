@@ -1,123 +1,197 @@
 package com.group01.plantique.java;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.model.Product;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrderConfirmActivity extends AppCompatActivity {
-    private FirebaseDatabase db;
     private DatabaseReference databaseReference;
-    TextView txtFullname, txtAddress, txtEmail, txtPhone, txtPaymentMethod,txtTotal,txtOrderID;
-    ConstraintLayout btnConfirm;
+    private ArrayList<Product> productList;
+    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtSubTotal, txtShippingFee,txtTotal;
+    private ConstraintLayout btnConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirm);
-        addViews();
+        initializeFirebase();
+        initializeViews();
         populateDataFromIntent();
-        db = FirebaseDatabase.getInstance();
-        databaseReference=db.getReference();
-        txtOrderID = findViewById(R.id.txtOrderID); // Đảm bảo có TextView này trong layout
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            String orderID = intent.getStringExtra("orderID");
-            txtOrderID.setText(orderID); // Hiển thị OrderID
-        }
-
     }
 
-    private void addViews() {
-        txtFullname = findViewById(R.id.txtFullname);
+    private void initializeFirebase() {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        databaseReference = db.getReference("allorders");
+    }
+
+    private void initializeViews() {
+        txtFullName = findViewById(R.id.txtFullname);
         txtAddress = findViewById(R.id.txtAddress);
-        txtEmail = findViewById(R.id.txtEmail);
         txtPhone = findViewById(R.id.txtPhone);
+        txtEmail = findViewById(R.id.txtEmail);
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
-        txtTotal=findViewById(R.id.txtTotal);
-        btnConfirm=findViewById(R.id.btnConfirm);
+        txtTotal = findViewById(R.id.txtTotal);
+        txtSubTotal=findViewById(R.id.txtDiscount);
+        txtShippingFee=findViewById(R.id.txtShipFee);
+
+        btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String paymentMethod = txtPaymentMethod.getText().toString();
-                if ("Chuyển khoản  ngân hàng".equals(paymentMethod)) {
-                    showBankTransferDialog();
-                } else {
-                    showOrderConfirmationDialog("Dummy-Order-ID");
-                }
+                pushOrderToFirebase();
             }
         });
-
     }
-    private void showBankTransferDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_bank_transfer, null);
-        builder.setView(dialogView);
 
-        TextView txtTotalAmount = dialogView.findViewById(R.id.txtTotal);
-        ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
+    private void populateDataFromIntent() {
+        Intent intent = getIntent();
+        String fullname = intent.getStringExtra("FULL_NAME");
+        String address = intent.getStringExtra("ADDRESS");
+        String email = intent.getStringExtra("EMAIL");
+        String phone = intent.getStringExtra("PHONE");
+        String paymentMethod = intent.getStringExtra("PAYMENT_METHOD");
+        String subTotalAmount = intent.getStringExtra("totalAmount");
+        String productListJson = intent.getStringExtra("productListJson");
 
-        txtTotalAmount.setText(txtTotal.getText().toString());
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        productList = gson.fromJson(productListJson, type);
 
-        btnCompleted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Người dùng xác nhận đã thanh toán
-                showOrderConfirmationDialog("OrderID");
-            }
-        });
+        txtFullName.setText(fullname != null ? fullname : "N/A");
+        txtAddress.setText(address != null ? address : "N/A");
+        txtEmail.setText(email != null ? email : "N/A");
+        txtPhone.setText(phone != null ? phone : "N/A");
+        txtPaymentMethod.setText(paymentMethod != null ? paymentMethod : "N/A");
+        txtSubTotal.setText(subTotalAmount);
+        txtShippingFee.setText("30000");
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        // Calculate the total by adding subtotal and shipping fee
+        int subtotal = Integer.parseInt(subTotalAmount.replace("đ", "").trim());
+        int shippingFee = 30000;  // As per your fixed value
+        int total = subtotal + shippingFee;
+        txtTotal.setText(String.format("%d đ", total));
+
+
+
+        // Populate the ListView with the product list
+        CartListAdapter adapter = new CartListAdapter(this, productList);
+        ListView lvProduct = findViewById(R.id.lvProduct);
+        lvProduct.setAdapter(adapter);
     }
 
     private void pushOrderToFirebase() {
-        HashMap<String, String> orderInfo = new HashMap<>();
-        orderInfo.put("fullname", txtFullname.getText().toString());
+        String userId = getUserIdFromSharedPreferences();
+        if (userId == null) {
+            Toast.makeText(this, "User ID is not available, please sign in again.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String orderId = timestamp;
+        String cost = txtTotal.getText().toString().trim().replace("đ", "");
+
+        HashMap<String, Object> orderInfo = new HashMap<>();
+        orderInfo.put("orderId", orderId);
+        orderInfo.put("orderDate", timestamp);
+        orderInfo.put("orderStatus", "Processing");
+        orderInfo.put("orderBy", userId); // Thêm userId vào trường orderBy
+        orderInfo.put("fullName", txtFullName.getText().toString());
+        orderInfo.put("totalCost", cost);
+        orderInfo.put("subTotal",txtSubTotal);
         orderInfo.put("address", txtAddress.getText().toString());
         orderInfo.put("email", txtEmail.getText().toString());
         orderInfo.put("phone", txtPhone.getText().toString());
         orderInfo.put("paymentMethod", txtPaymentMethod.getText().toString());
 
-        DatabaseReference newOrderRef = databaseReference.push();
-        newOrderRef.setValue(orderInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+        DatabaseReference orderRef = databaseReference.child(userId).child("Orders").child(timestamp);
+        orderRef.setValue(orderInfo)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        processOrderItems(orderRef);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Firebase", "Failed to push order data", e);
+                    }
+                });
+    }
+
+
+    private void processOrderItems(DatabaseReference orderRef) {
+        for (Product product : productList) {
+            HashMap<String, Object> itemMap = new HashMap<>();
+            itemMap.put("productId", product.getProductId());
+            itemMap.put("productName", product.getProductName());
+            itemMap.put("price", product.getPrice());
+            itemMap.put("stock", product.getStock());
+            itemMap.put("discount_price", product.getDiscountPrice());
+
+            orderRef.child("Items").child(product.getProductId()).setValue(itemMap);
+
+            // Update stock in the database
+            updateProductStock(product.getProductId(), product.getStock());
+        }
+        showOrderConfirmationDialog(orderRef.getKey());
+    }
+
+    private void updateProductStock(String productId, int quantityOrdered) {
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("products").child(productId);
+
+        productRef.child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    String orderId = newOrderRef.getKey();
-                    Log.d("FirebaseSuccess", "Order ID: " + orderId);
-                    showOrderConfirmationDialog(orderId);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Integer currentStock = dataSnapshot.getValue(Integer.class);
+                if (currentStock != null && currentStock >= quantityOrdered) {
+                    productRef.child("stock").setValue(currentStock - quantityOrdered)
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Stock updated successfully!"))
+                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to update stock", e));
                 } else {
-                    Log.e("FirebaseError", "Failed to write order", task.getException());
-                    showOrderConfirmationDialog("Failed to create order");
+                    Log.e("Firebase", "Not enough stock for productId: " + productId);
+                    // Handle the case where there is not enough stock
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase", "Failed to read stock for productId: " + productId, databaseError.toException());
             }
         });
     }
 
-    public void showOrderConfirmationDialog(String orderId) {
+
+    private void showOrderConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_confirmation, null);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation, null);
         builder.setView(dialogView);
 
         TextView txtOrderIdConfirm = dialogView.findViewById(R.id.txtOrderIdConfirm);
@@ -127,11 +201,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent to go back to the home screen (MainActivity in this case)
-                Intent intent = new Intent(OrderConfirmActivity.this, HomeScreenActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish(); // Optionally finish the current activity if it shouldn't be in the back stack
+                finishHomeScreen();
             }
         });
 
@@ -139,24 +209,15 @@ public class OrderConfirmActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void finishHomeScreen() {
+        Intent intent = new Intent(OrderConfirmActivity.this, HomeScreenActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 
-
-
-
-    private void populateDataFromIntent() {
-        Intent intent = getIntent();
-
-        String fullname = intent.getStringExtra("fullname");
-        String address = intent.getStringExtra("address");
-        String email = intent.getStringExtra("email");
-        String phone = intent.getStringExtra("phone");
-        String paymentMethod = intent.getStringExtra("paymentMethod");
-
-        // Set the text of the TextViews
-        txtFullname.setText(fullname != null ? fullname : "N/A");
-        txtAddress.setText(address != null ? address : "N/A");
-        txtEmail.setText(email != null ? email : "N/A");
-        txtPhone.setText(phone != null ? phone : "N/A");
-        txtPaymentMethod.setText(paymentMethod != null ? paymentMethod : "N/A");
+    private String getUserIdFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        return sharedPreferences.getString("userID", null);
     }
 }

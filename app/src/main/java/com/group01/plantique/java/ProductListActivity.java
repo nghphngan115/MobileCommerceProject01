@@ -103,7 +103,7 @@ public class ProductListActivity extends AppCompatActivity {
             textViewPrice.setText("$" + product.getPrice());
 
             ImageView imageView = view.findViewById(R.id.imageViewProduct);
-            Picasso.get().load(product.getImageurl()).into(imageView);
+            Picasso.get().load(product.getImageUrl()).into(imageView);
 
             // Set click listener for product detail
             view.findViewById(R.id.layoutProductDetail).setOnClickListener(new View.OnClickListener() {

@@ -7,4 +7,12 @@
     <string name="strTotal">Total</string>
     <string name="strConfirmPayment">Confirm Payment</string>
     <string name="strBackButton">Back</string>
+    <string name="strtextStatus">Order Status</string>
+    <string name="strOrderDetailsInfo">Order Information</string>
+    <string name="strShippingAddress">Shipping Address</string>
+    <string name="strPhone">PHONE</string>
+    <string name="strSubTotal">Sub Total</string>
+    <string name="strShipFee">Shipping Fee</string>
+    <string name="strPaymentMethod">Payment Method</string>
+    <string name="strDiscount">Discount</string>
 </resources>
