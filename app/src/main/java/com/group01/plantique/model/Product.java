@@ -11,7 +11,7 @@ public class Product {
     private String discountNote;
     private String unit;
     private int stock;
- private int cartQuantity;
+    private int cartQuantity;
 
     public Product() {
         // Required empty constructor for Firebase

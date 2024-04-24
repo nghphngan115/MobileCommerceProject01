@@ -26,7 +26,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/btnBack"
                     android:layout_width="44dp"
                     android:layout_height="30dp"
                     android:background="#FAFAFA"
@@ -151,9 +151,9 @@
 
             <Button
                 android:id="@+id/btnMuaNgay"
-                android:layout_width="116dp"
-                android:layout_height="34dp"
-                android:layout_marginLeft="150dp"
+                android:layout_width="136dp"
+                android:layout_height="44dp"
+                android:layout_marginLeft="100dp"
                 android:background="@drawable/button_fullgreen"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"

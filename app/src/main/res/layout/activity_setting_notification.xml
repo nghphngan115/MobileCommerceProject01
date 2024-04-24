@@ -33,11 +33,12 @@
     </LinearLayout>
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchAllow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
+        android:filterTouchesWhenObscured="false"
         android:fontFamily="@font/inter_bold"
         android:text="Cho phép bật thông báo đẩy"
         android:textSize="16sp" />

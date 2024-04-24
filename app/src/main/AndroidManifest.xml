@@ -55,7 +55,7 @@
             android:exported="false" />
         <activity
             android:name=".java.AboutUsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.BlogCategoryActivity"
             android:exported="false" />
@@ -70,6 +70,9 @@
             android:exported="false" />
         <activity
             android:name=".java.SettingAddressActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.SettingNotificationActivity"
             android:exported="true" />
         <activity
             android:name=".java.SearchResultActivity"
