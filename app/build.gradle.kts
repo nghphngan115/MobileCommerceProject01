@@ -46,16 +46,14 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.android.car.ui:car-ui-lib:2.6.0")
     implementation("com.squareup.picasso:picasso:2.71828")
-    implementation ("com.google.code.gson:gson:2.8.9")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("org.mindrot:jbcrypt:0.4")
-    implementation("com.sun.mail:android-mail:1.6.5")
-    implementation("com.sun.mail:android-activation:1.6.5")
+    implementation ("org.mindrot:jbcrypt:0.4")
+    implementation ("com.sun.mail:android-mail:1.6.5")
+    implementation ("com.sun.mail:android-activation:1.6.5" )
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("com.firebaseui:firebase-ui-database:7.2.0")
-
+    implementation ("androidx.preference:preference-ktx:1.1.1" )
+    implementation ("com.firebaseui:firebase-ui-database:8.0.0" )
 
 }
