@@ -2,15 +2,15 @@ package com.group01.plantique.model;
 
 public class BlogItem {
     private String blogId; // Thêm trường blogId
-    private String title;
-    private String image;
-    private String content;
+    private String blogTitle;
+    private String blogImage;
+    private String blogContent;
 
     public BlogItem(String blogId, String title, String image, String content) {
         this.blogId = blogId;
-        this.title = title;
-        this.image = image;
-        this.content = content;
+        this.blogTitle = title;
+        this.blogImage = image;
+        this.blogContent = content;
     }
 
     public String getBlogId() {
@@ -18,14 +18,14 @@ public class BlogItem {
     }
 
     public String getTitle() {
-        return title;
+        return blogTitle;
     }
 
     public String getImage() {
-        return image;
+        return blogImage;
     }
 
     public String getContent() {
-        return content;
+        return blogContent;
     }
 }
