@@ -8,6 +8,9 @@
       <entry key="CartActivity">
         <State />
       </entry>
+      <entry key="UserInformationActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>

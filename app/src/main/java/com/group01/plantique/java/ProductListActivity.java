@@ -117,7 +117,7 @@ public class ProductListActivity extends AppCompatActivity {
             view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openCartActivity(product);
+                    openPopUpActivity(product);
                 }
             });
         }
@@ -129,9 +129,9 @@ public class ProductListActivity extends AppCompatActivity {
             context.startActivity(intent);
         }
 
-        private void openCartActivity(Product product) {
+        private void openPopUpActivity(Product product) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, CartActivity.class);
+            Intent intent = new Intent(context, PopUpActivity.class);
             // Truyền thông tin sản phẩm cần thêm vào giỏ hàng nếu cần
             intent.putExtra("productId", product.getProductId());
             intent.putExtra("productName", product.getProductName());

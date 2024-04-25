@@ -21,6 +21,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.PopUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.UserInformationActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.ProductDetailActivity"
             android:exported="false" />
         <activity
