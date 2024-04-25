@@ -1,7 +1,7 @@
 package com.group01.plantique.java;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.BlogAdapter;
+import com.group01.plantique.model.BlogItem;
 
 import java.util.ArrayList;
 
@@ -29,9 +31,8 @@ public class BlogCategoryActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ListView lvCart;
     private EditText edtSearch;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> blogTitles;
-    private ArrayList<String> blogImages;
+    private BlogAdapter adapter;
+    private ArrayList<BlogItem> blogItems;
     private ImageView imgButton2;
 
     @Override
@@ -45,14 +46,13 @@ public class BlogCategoryActivity extends AppCompatActivity {
         // Initialize views
         lvCart = findViewById(R.id.lvCart);
         edtSearch = findViewById(R.id.edtSearch);
-        imgButton2 = findViewById(R.id.imgButton2); // Ánh xạ imgButton
+        imgButton2 = findViewById(R.id.imgButton2);
 
-        // Initialize array lists to store blog titles and images
-        blogTitles = new ArrayList<>();
-        blogImages = new ArrayList<>();
+        // Initialize array list to store blog items
+        blogItems = new ArrayList<>();
 
-        // Initialize array adapter and set it to list view
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, blogTitles);
+        // Initialize adapter and set it to list view
+        adapter = new BlogAdapter(this, blogItems);
         lvCart.setAdapter(adapter);
 
         // Read data from Firebase
@@ -60,14 +60,14 @@ public class BlogCategoryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Clear previous data
-                blogTitles.clear();
-                blogImages.clear();
+                blogItems.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    // Get blog title and image URL and add them to the lists
-                    String title = snapshot.child("Title").getValue(String.class);
-                    String imageUrl = snapshot.child("Image").getValue(String.class);
-                    blogTitles.add(title);
-                    blogImages.add(imageUrl);
+                    // Get blog data and add to list
+                    String blogId = snapshot.getKey();
+                    String title = snapshot.child("blogTitle").getValue(String.class);
+                    String imageUrl = snapshot.child("blogImage").getValue(String.class);
+                    String content = snapshot.child("blogContent").getValue(String.class);
+                    blogItems.add(new BlogItem(blogId, title, imageUrl, content));
                 }
                 // Notify adapter that data set has changed
                 adapter.notifyDataSetChanged();
@@ -76,7 +76,6 @@ public class BlogCategoryActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle error
-                // Log error message or show error toast
             }
         });
 
@@ -84,50 +83,23 @@ public class BlogCategoryActivity extends AppCompatActivity {
         lvCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = blogTitles.get(position);
-                String imageUrl = blogImages.get(position);
-                // Chuyển sang BlogDetailActivity và chờ đợi kết quả
+                // Get selected blog item
+                BlogItem selectedBlog = blogItems.get(position);
+
+                // Open BlogDetailActivity with selected blog data
                 Intent intent = new Intent(BlogCategoryActivity.this, BlogDetailActivity.class);
-                intent.putExtra("blogTitle", title);
-                intent.putExtra("blogImage", imageUrl);
-                startActivityForResult(intent, REQUEST_CODE);
+                intent.putExtra("blogId", selectedBlog.getBlogId());
+                startActivity(intent);
             }
         });
 
-        // Thiết lập sự kiện click cho imgButton
+        // Handle click event for imgButton
         imgButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kết thúc activity hiện tại và quay lại activity trước đó
+                // Finish current activity and return to previous activity
                 finish();
             }
-        });
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.blog);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.home) {
-                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.blog) {
-                return true;
-            } else if (itemId == R.id.cart) {
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.notification) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
-                finish();
-                return true;
-            }
-            return false;
         });
     }
 }

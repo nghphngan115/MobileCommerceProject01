@@ -1,4 +1,3 @@
-
 package com.group01.plantique.adapter;
 
 import android.content.Context;
@@ -18,10 +17,19 @@ public class CartListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Product> cartProducts;
+    private OnQuantityChangeListener quantityChangeListener;
 
     public CartListAdapter(Context context, ArrayList<Product> cartProducts) {
         this.context = context;
         this.cartProducts = cartProducts;
+    }
+
+    public interface OnQuantityChangeListener {
+        void onQuantityChanged();
+    }
+
+    public void setOnQuantityChangeListener(OnQuantityChangeListener listener) {
+        this.quantityChangeListener = listener;
     }
 
     @Override
@@ -56,25 +64,40 @@ public class CartListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // Kiểm tra xem danh sách sản phẩm có trống không
-        if (cartProducts.isEmpty()) {
-            // Xử lý trường hợp giỏ hàng trống
-            // Ví dụ: ẩn các thành phần hoặc hiển thị một thông báo
-            return convertView;
-        }
-
-        // Tiếp tục xử lý như thông thường nếu giỏ hàng không trống
         Product product = cartProducts.get(position);
         viewHolder.txtProductName.setText(product.getProductName());
         viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice()));
-        viewHolder.edtProductQuantity.setText(String.valueOf(product.getStock()));
+        viewHolder.edtProductQuantity.setText(String.valueOf(product.getCartQuantity()));
         Picasso.get().load(product.getImageurl()).into(viewHolder.imgProductShow);
+
+        viewHolder.edtProductQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String quantityStr = viewHolder.edtProductQuantity.getText().toString();
+                    if (!quantityStr.isEmpty()) {
+                        int quantity = Integer.parseInt(quantityStr);
+                        product.setCartQuantity(quantity);
+                        if (quantityChangeListener != null) {
+                            quantityChangeListener.onQuantityChanged();
+                        }
+                    } else {
+                        // Hiển thị thông báo lỗi khi chuỗi rỗng
+                        viewHolder.edtProductQuantity.setError("Số lượng không được để trống");
+                    }
+                }
+            }
+        });
+
 
         viewHolder.imgBin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cartProducts.remove(position);
                 notifyDataSetChanged();
+                if (quantityChangeListener != null) {
+                    quantityChangeListener.onQuantityChanged();
+                }
             }
         });
 

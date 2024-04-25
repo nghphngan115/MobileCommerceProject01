@@ -26,6 +26,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private DatabaseReference productsRef;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

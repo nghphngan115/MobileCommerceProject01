@@ -13,6 +13,7 @@ import com.group01.plantique.java.BlogDetailActivity;
 import com.group01.plantique.model.BlogItem;
 import com.group01.plantique.R;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class BlogAdapter extends ArrayAdapter<BlogItem> {
@@ -37,7 +38,7 @@ public class BlogAdapter extends ArrayAdapter<BlogItem> {
         TextView titleTextView = convertView.findViewById(R.id.txtTitle1);
         titleTextView.setText(currentItem.getTitle());
 
-        ImageView imageView = convertView.findViewById(R.id.imgProductShow);
+        ImageView imageView = convertView.findViewById(R.id.imgBlog);
         Picasso.get().load(currentItem.getImage()).into(imageView);
 
         // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách
@@ -48,9 +49,10 @@ public class BlogAdapter extends ArrayAdapter<BlogItem> {
                 Intent intent = new Intent(mContext, BlogDetailActivity.class);
 
                 // Đặt dữ liệu của mục hiện tại vào Intent
-                intent.putExtra("title", currentItem.getTitle());
-                intent.putExtra("image", currentItem.getImage());
-                intent.putExtra("content", currentItem.getContent());
+                intent.putExtra("blogId", currentItem.getBlogId());
+                intent.putExtra("blogTitle", currentItem.getTitle());
+                intent.putExtra("blogImage", currentItem.getImage());
+                intent.putExtra("blogContent", currentItem.getContent());
 
                 // Khởi chạy Intent
                 mContext.startActivity(intent);
@@ -60,5 +62,3 @@ public class BlogAdapter extends ArrayAdapter<BlogItem> {
         return convertView;
     }
 }
-
-

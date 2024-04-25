@@ -24,47 +24,49 @@ public class BlogDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_detail);
 
-        // Ánh xạ các thành phần trong layout
+        // Initialize views
         TextView txtTitle = findViewById(R.id.txtTitle1);
         TextView txtContent = findViewById(R.id.txtContent);
         imgBlog = findViewById(R.id.imgBlog);
         imgButton2 = findViewById(R.id.imgButton2);
 
-        // Lấy tiêu đề của blog từ Intent trước đó
-        String blogTitle = getIntent().getStringExtra("blogTitle");
+        // Get blog ID from intent
+        String blogId = getIntent().getStringExtra("blogId");
 
-        // Tham chiếu đến nút blog trên Firebase
-        DatabaseReference blogRef = FirebaseDatabase.getInstance().getReference("Blog").child(blogTitle);
+        // Reference to the blog in Firebase
+        DatabaseReference blogRef = FirebaseDatabase.getInstance().getReference("Blog").child(blogId);
 
-        // Lắng nghe sự thay đổi dữ liệu trên Firebase
+        // Listen for changes in Firebase data
         blogRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Kiểm tra xem nút blog có tồn tại không
+                // Check if the blog exists
                 if (dataSnapshot.exists()) {
-                    // Lấy thông tin của blog từ dataSnapshot
-                    String title = dataSnapshot.child("Title").getValue(String.class);
-                    String content = dataSnapshot.child("Content").getValue(String.class);
-                    String imageUrl = dataSnapshot.child("Image").getValue(String.class);
+                    // Get blog data from dataSnapshot
+                    String title = dataSnapshot.child("blogTitle").getValue(String.class);
+                    String content = dataSnapshot.child("blogContent").getValue(String.class);
+                    String imageUrl = dataSnapshot.child("blogImage").getValue(String.class);
 
-                    // Hiển thị thông tin của blog trong layout
+                    // Display blog data in layout
                     txtTitle.setText(title);
                     txtContent.setText(content);
-                    // Sử dụng Picasso để tải hình ảnh từ URL và hiển thị vào ImageView
+                    // Use Picasso to load image from URL and display in ImageView
                     Picasso.get().load(imageUrl).into(imgBlog);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra
+                // Handle error
             }
         });
 
+        // Handle click event for imgButton
         imgButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Đóng Activity hiện tại và quay lại Activity trước đó (BlogCategoryActivity)
+                // Finish current activity and return to previous activity (BlogCategoryActivity)
+                finish();
             }
         });
     }
