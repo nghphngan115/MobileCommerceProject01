@@ -10,6 +10,9 @@ public class BlogItem {
         this.image = image;
         this.content = content;
     }
+   public BlogItem(){
+
+   }
 
     public String getTitle() {
         return title;
