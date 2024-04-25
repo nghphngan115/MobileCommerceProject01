@@ -21,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.AdminProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.ProductDetailActivity"
             android:exported="false" />
         <activity
@@ -119,9 +122,6 @@
         <activity
             android:name=".java.MainActivity"
             android:exported="true" />
-        <activity
-            android:name=".java.ChangePasswordActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

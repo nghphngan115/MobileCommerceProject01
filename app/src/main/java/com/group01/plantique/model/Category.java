@@ -17,6 +17,10 @@ public class Category {
         this.imageurl = imageurl;
 
     }
+    public Category(String cateId, String cateName) {
+        this.cateId = cateId;
+        this.cateName = cateName;
+    }
 
     public String getCateId() {
         return cateId;
