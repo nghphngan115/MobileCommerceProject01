@@ -1,24 +1,28 @@
+
 package com.group01.plantique.java;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import android.widget.Toast;
-        import androidx.annotation.Nullable;
-        import androidx.constraintlayout.widget.ConstraintLayout;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-        import com.google.firebase.database.DataSnapshot;
-        import com.google.firebase.database.DatabaseError;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.database.ValueEventListener;
-        import java.util.ArrayList;
-        import com.group01.plantique.R;
-        import com.group01.plantique.adapter.CartListAdapter;
-        import com.group01.plantique.model.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.group01.plantique.R;
+import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.model.Product;
 
 public class CartActivity extends DrawerBaseActivity {
 
@@ -63,10 +67,10 @@ public class CartActivity extends DrawerBaseActivity {
                     int quantity = productSnapshot.child("quantity").getValue(Integer.class); // Lấy số lượng từ Firebase
 
                     // Tạo đối tượng sản phẩm với số lượng
-                    Product product = new Product(productId, productName, description, price, discountPrice, imageUrl, categoryId, quantity);
+                    //Product product = new Product(productId, productName, description, price, discountPrice, imageUrl, categoryId, quantity);
 
                     // Thêm sản phẩm vào giỏ hàng
-                    cartProducts.add(product);
+                    //cartProducts.add(product);
                 }
 
                 // Hiển thị danh sách sản phẩm trong giỏ hàng
@@ -120,12 +124,12 @@ public class CartActivity extends DrawerBaseActivity {
     // Phương thức để cập nhật số lượng sản phẩm trong giỏ hàng
     private void updateQuantity(Product product, int newQuantity) {
         // Lấy số lượng có sẵn từ Firebase
-        int availableQuantity = product.getQuantity(); // Đây là giá trị từ Firebase
+        int availableQuantity = product.getStock(); // Đây là giá trị từ Firebase
 
         // Kiểm tra xem newQuantity có hợp lệ không
         if (newQuantity >= 0 && newQuantity <= availableQuantity) {
             // Cập nhật số lượng sản phẩm trong giỏ hàng
-            product.setQuantity(newQuantity);
+            product.setStock(newQuantity);
             // Hiển thị lại danh sách sản phẩm trong giỏ hàng sau khi cập nhật
             showCart();
         } else {
@@ -138,7 +142,7 @@ public class CartActivity extends DrawerBaseActivity {
     private int calculateTotalCartValue(ArrayList<Product> products) {
         int total = 0;
         for (Product product : products) {
-            total += product.getPrice() * product.getQuantity();
+            total += product.getPrice() * product.getStock();
         }
         return total;
     }
@@ -146,8 +150,24 @@ public class CartActivity extends DrawerBaseActivity {
     // Phương thức để thêm sản phẩm vào giỏ hàng
     private void addToCart(Product product) {
         // Mặc định số lượng là 1 khi thêm mới sản phẩm vào giỏ hàng
-        product.setQuantity(1);
+        product.setStock(1);
         cartProducts.add(product); // Thêm sản phẩm vào danh sách giỏ hàng
         showCart(); // Hiển thị lại danh sách sản phẩm trong giỏ hàng sau khi thêm mới
+    }
+    private void saveCartToSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(cartProducts);
+        editor.putString("cart", json);
+        editor.putInt("totalAmount", calculateTotalAmount());
+        editor.apply();
+    }
+    private int calculateTotalAmount() {
+        int total = 0;
+        for (Product product : cartProducts) {
+            total += product.getPrice();
+        }
+        return total;
     }
 }

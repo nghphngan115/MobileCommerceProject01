@@ -1,3 +1,4 @@
+
 package com.group01.plantique.adapter;
 
 import android.content.Context;
@@ -66,7 +67,7 @@ public class CartListAdapter extends BaseAdapter {
         Product product = cartProducts.get(position);
         viewHolder.txtProductName.setText(product.getProductName());
         viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice()));
-        viewHolder.edtProductQuantity.setText(String.valueOf(product.getQuantity()));
+        viewHolder.edtProductQuantity.setText(String.valueOf(product.getStock()));
         Picasso.get().load(product.getImageurl()).into(viewHolder.imgProductShow);
 
         viewHolder.imgBin.setOnClickListener(new View.OnClickListener() {

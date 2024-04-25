@@ -2,6 +2,7 @@ package com.group01.plantique.java;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class ProductListActivity extends AppCompatActivity {
         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
 
         textViewTitle = findViewById(R.id.textViewTitle);
+
         Intent intent = getIntent();
         categoryId = intent.getStringExtra("categoryId");
 
@@ -100,10 +102,33 @@ public class ProductListActivity extends AppCompatActivity {
             textViewName.setText(product.getProductName());
 
             TextView textViewPrice = view.findViewById(R.id.textViewProductPrice);
-            textViewPrice.setText("$" + product.getPrice());
+            TextView txtDiscountPrice = view.findViewById(R.id.textViewProductDiscount);
+
+            // Convert int discountPrice to String
+            String discountPrice = String.valueOf(product.getDiscount_price());
+
+            if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
+                // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
+                textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                textViewPrice.setText("$" + product.getPrice());
+                txtDiscountPrice.setVisibility(View.VISIBLE);
+                txtDiscountPrice.setText("$" + discountPrice);
+            } else {
+                // If discount_price is empty, zero, or null, show regular price and hide discount_price
+                textViewPrice.setPaintFlags(0); // Remove strike through if present
+                textViewPrice.setText("$" + product.getPrice());
+                txtDiscountPrice.setVisibility(View.GONE);
+            }
 
             ImageView imageView = view.findViewById(R.id.imageViewProduct);
             Picasso.get().load(product.getImageurl()).into(imageView);
+
+            TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
+            txtDiscountNote.setText(product.getDiscountNote());
+
+            TextView txtUnit = view.findViewById(R.id.txtUnit);
+            txtUnit.setText(product.getUnit());
+
 
             // Set click listener for product detail
             view.findViewById(R.id.layoutProductDetail).setOnClickListener(new View.OnClickListener() {
@@ -117,7 +142,13 @@ public class ProductListActivity extends AppCompatActivity {
             view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openPopUpActivity(product);
+                    openAddToCartActivity(product);
+                }
+            });
+            view.findViewById(R.id.imageButtonCart).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openAddToCartActivity(product);
                 }
             });
         }
@@ -129,9 +160,9 @@ public class ProductListActivity extends AppCompatActivity {
             context.startActivity(intent);
         }
 
-        private void openPopUpActivity(Product product) {
+        private void openAddToCartActivity(Product product) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, PopUpActivity.class);
+            Intent intent = new Intent(context, AddToCartActivity.class);
             // Truyền thông tin sản phẩm cần thêm vào giỏ hàng nếu cần
             intent.putExtra("productId", product.getProductId());
             intent.putExtra("productName", product.getProductName());
