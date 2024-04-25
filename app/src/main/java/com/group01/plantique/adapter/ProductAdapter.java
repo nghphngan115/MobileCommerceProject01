@@ -18,9 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    private List<Product> productList;
+    private static List<Product> productList;
+    private OnItemClickListener listener;
     private List<Product> filteredList; // Danh sách sản phẩm sau khi lọc
 
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
         this.filteredList = new ArrayList<>(productList); // Khởi tạo filteredList ban đầu
@@ -37,12 +44,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 
-    @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_horizontal, parent, false);
-        return new ProductViewHolder(view);
+        return new ProductViewHolder(view, listener); // Loại bỏ tham số thừa productList
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
@@ -58,10 +66,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         View view;
+        private OnItemClickListener listener;
 
-        public ProductViewHolder(@NonNull View itemView) {
+        public ProductViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
+            this.listener = listener;
             view = itemView;
+            TextView textViewName = view.findViewById(R.id.textViewProductName);
+            TextView textViewPrice = view.findViewById(R.id.textViewProductPrice);
+            ImageView imageView = view.findViewById(R.id.imageViewProduct);
+            TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
+            TextView txtDiscountPrice = view.findViewById(R.id.textViewProductDiscount);
+            TextView txtUnit = view.findViewById(R.id.txtUnit);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(productList.get(position)); // Thay thế bằng productList.get(getAdapterPosition())
+                    }
+                }
+            });
         }
 
         public void bind(Product product) {
@@ -94,5 +120,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             txtUnit.setText(product.getUnit());
         }
     }
+
 }
 

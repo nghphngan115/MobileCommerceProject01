@@ -1,6 +1,7 @@
 package com.group01.plantique.java;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,11 +20,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,7 +84,15 @@ public class AdminProductActivity extends AppCompatActivity {
                 filterProducts(searchText);
             }
         });
+        productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý sự kiện khi click vào sản phẩm
+                showBottomSheet(product);
+            }
+        });
     }
+
 
     private void loadCategories() {
         categoriesRef.addValueEventListener(new ValueEventListener() {
@@ -129,6 +141,13 @@ public class AdminProductActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         productAdapter = new ProductAdapter(productList);
+        productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý sự kiện khi click vào sản phẩm
+                showBottomSheet(product);
+            }
+        });
         recyclerViewProducts.setAdapter(productAdapter);
     }
 
@@ -218,4 +237,94 @@ public class AdminProductActivity extends AppCompatActivity {
 
         builder.show();
     }
+    private void showBottomSheet(Product product) {
+        // Khởi tạo BottomSheetDialog
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bs_product_admin, null);
+
+        // Ánh xạ các view trong bottom sheet layout
+        ImageView imageViewProduct = bottomSheetView.findViewById(R.id.imgProduct);
+        TextView txtProductName = bottomSheetView.findViewById(R.id.txtProductName);
+        TextView txtProductCategory = bottomSheetView.findViewById(R.id.txtProductCategory);
+        TextView txtPrice = bottomSheetView.findViewById(R.id.txtPrice);
+        TextView txtDiscountPrice = bottomSheetView.findViewById(R.id.txtDiscountPrice);
+        TextView txtDescription = bottomSheetView.findViewById(R.id.txtDescription);
+        TextView txtStock = bottomSheetView.findViewById(R.id.txtStock);
+        TextView txtUnit = bottomSheetView.findViewById(R.id.txtUnit);
+
+        // Hiển thị thông tin chi tiết của sản phẩm
+        txtProductName.setText(product.getProductName());
+        txtProductCategory.setText(product.getCategoryId()); // Hoặc set tên danh mục nếu có
+        txtPrice.setText("$" + product.getPrice());
+        txtDescription.setText(product.getDescription());
+        txtStock.setText(String.valueOf(product.getStock()));
+        txtUnit.setText(product.getUnit());
+
+        // Kiểm tra và hiển thị giá giảm nếu có
+        int discountPrice = product.getDiscount_price();
+        if (discountPrice > 0) {
+            txtDiscountPrice.setVisibility(View.VISIBLE);
+            txtDiscountPrice.setText("$" + discountPrice);
+            txtPrice.setPaintFlags(txtPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            txtDiscountPrice.setVisibility(View.GONE);
+        }
+
+        // Sử dụng Picasso hoặc Glide để load ảnh sản phẩm từ URL và hiển thị trong ImageView
+        Picasso.get().load(product.getImageurl()).into(imageViewProduct);
+
+        // Gán sự kiện cho các button trong bottom sheet (ví dụ: xóa, chỉnh sửa)
+        ImageButton  btnEditProduct = bottomSheetView.findViewById(R.id.btnEditProduct);
+        ImageButton btnDeleteProduct = bottomSheetView.findViewById(R.id.btnDeleteProduct);
+
+        btnEditProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminProductActivity.this, EditProductActivity.class);
+                intent.putExtra("EDIT_PRODUCT", product); // Truyền thông tin sản phẩm cần chỉnh sửa
+                startActivity(intent);
+                bottomSheetDialog.dismiss(); // Đóng bottom sheet sau khi chuyển màn hình
+            }
+        });
+
+        btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Xử lý khi nhấn nút xóa sản phẩm
+                showDeleteConfirmationDialog(product);
+                bottomSheetDialog.dismiss(); // Đóng bottom sheet sau khi xử lý
+            }
+        });
+
+        // Đặt view vào bottom sheet và hiển thị bottom sheet
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+    }
+
+    private void showDeleteConfirmationDialog(Product product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Delete");
+        builder.setMessage("Are you sure you want to delete this product?");
+
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Xử lý xóa sản phẩm từ Firebase hoặc một nguồn dữ liệu khác
+                // productsRef.child(product.getProductId()).removeValue(); // Ví dụ xóa từ Firebase
+                // Cập nhật giao diện hoặc thông báo xóa thành công
+                Toast.makeText(AdminProductActivity.this, "Product deleted successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss(); // Đóng dialog nếu người dùng chọn Cancel
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }
