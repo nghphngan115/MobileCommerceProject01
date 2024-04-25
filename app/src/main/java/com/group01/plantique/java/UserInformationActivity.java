@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-
+import com.squareup.picasso.Picasso;
 
 public class UserInformationActivity extends AppCompatActivity {
     private EditText nameEditText, addressEditText, phoneEditText, emailEditText;
@@ -30,7 +31,7 @@ public class UserInformationActivity extends AppCompatActivity {
     private ImageButton backButton;
 
     private DatabaseReference mDatabase;
-    private String currentUserID;
+    private String loggedInUserID;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -39,7 +40,6 @@ public class UserInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_information);
 
-        // Ánh xạ các view từ layout
         nameEditText = findViewById(R.id.nameEditText);
         addressEditText = findViewById(R.id.addressEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
@@ -54,131 +54,111 @@ public class UserInformationActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            // Người dùng đã đăng nhập
-            currentUserID = currentUser.getUid();
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
-            // Tiếp tục với việc load thông tin người dùng và các hoạt động khác
+            loggedInUserID = currentUser.getUid();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(loggedInUserID);
             loadUserInfo();
         } else {
-            // Người dùng chưa đăng nhập, bạn có thể xử lý tùy ý, ví dụ: chuyển người dùng đến màn hình đăng nhập
+            // If user is not logged in, redirect to LoginActivity
+            Toast.makeText(this, "Bạn cần đăng nhập trước khi xem thông tin người dùng", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(UserInformationActivity.this, LoginActivity.class));
             finish();
+            return; // Important to prevent further execution
         }
 
-        // Lắng nghe sự kiện khi người dùng bấm nút Save
         saveTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lưu thông tin người dùng sau khi chỉnh sửa
                 saveUserInfo();
             }
         });
 
-        // Lắng nghe sự kiện khi người dùng bấm vào chữ Edit ở từng dòng
         editNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cho phép chỉnh sửa tên
+                // Enable editing name
             }
         });
         editAddressTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cho phép chỉnh sửa địa chỉ
+                // Enable editing address
             }
         });
         editPhoneTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cho phép chỉnh sửa số điện thoại
+                // Enable editing phone
             }
         });
 
-        // Lắng nghe sự kiện khi người dùng bấm vào icon camera
         cameraIconImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mở gallery hoặc camera để chọn ảnh mới
                 openGallery();
             }
         });
 
-        // Lắng nghe sự kiện khi người dùng bấm nút Back
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Quay lại activity trước đó (LoginActivity)
                 finish();
             }
         });
-
-        // Load thông tin người dùng từ Firebase
-        loadUserInfo();
     }
 
-    // Phương thức để mở thư viện ảnh của người dùng
+
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
 
-    // Phương thức để xử lý kết quả trả về từ Intent khi người dùng đã chọn ảnh từ thư viện của họ
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            // Hiển thị ảnh đã chọn lên ImageView
             avatarImageView.setImageURI(imageUri);
         }
     }
 
-    // Phương thức để load thông tin người dùng từ Firebase và hiển thị lên giao diện
     private void loadUserInfo() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    // Lấy thông tin từ snapshot và hiển thị lên giao diện
-                    String name = snapshot.child("name").getValue().toString();
-                    String email = snapshot.child("email").getValue().toString();
-                    String address = snapshot.child("address").getValue().toString();
-                    String phone = snapshot.child("phone").getValue().toString();
-                    String avatarUrl = snapshot.child("avatarUrl").getValue().toString();
+                    String name = snapshot.child("username").getValue(String.class);
+                    String email = snapshot.child("email").getValue(String.class);
+                    String address = snapshot.child("shipping_addresses").getValue(String.class);
+                    String phone = snapshot.child("phone").getValue(String.class);
+                    String avatarUrl = snapshot.child("avatarUrl").getValue(String.class);
 
-                    // Hiển thị thông tin lên giao diện
                     nameEditText.setText(name);
                     emailEditText.setText(email);
                     addressEditText.setText(address);
                     phoneEditText.setText(phone);
-                    // Load avatar từ URL và hiển thị lên ImageView (cần sử dụng thư viện Picasso hoặc Glide)
-                    // Picasso.get().load(avatarUrl).into(avatarImageView);
+                    Picasso.get().load(avatarUrl).into(avatarImageView);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Xử lý khi load thông tin thất bại
+                // Handle failed to load user info
             }
         });
     }
 
-    // Phương thức để lưu thông tin người dùng sau khi chỉnh sửa
     private void saveUserInfo() {
-        // Lấy thông tin từ các EditText
         String newName = nameEditText.getText().toString();
         String newEmail = emailEditText.getText().toString();
         String newAddress = addressEditText.getText().toString();
         String newPhone = phoneEditText.getText().toString();
 
-        // Cập nhật thông tin người dùng trên Firebase Database
-        mDatabase.child("name").setValue(newName);
+        mDatabase.child("username").setValue(newName);
         mDatabase.child("email").setValue(newEmail);
-        mDatabase.child("address").setValue(newAddress);
+        mDatabase.child("shipping_addresses").setValue(newAddress);
         mDatabase.child("phone").setValue(newPhone);
 
-        // Thông báo lưu thành công
         Toast.makeText(this, "Thông tin đã được lưu", Toast.LENGTH_SHORT).show();
     }
 }

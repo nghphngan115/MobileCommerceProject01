@@ -20,12 +20,13 @@
         android:id="@+id/recyclerViewProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="58dp"
-        android:background="@android:color/white"
-        android:scrollbars="vertical"
-        android:numColumns="2"
         android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:numColumns="2"
+        android:paddingTop="58dp"
+        android:scrollbars="vertical"
         tools:listitem="@layout/item_product" />
 
 </RelativeLayout>

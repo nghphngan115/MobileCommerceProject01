@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,12 @@
             android:exported="false" />
         <activity
             android:name=".java.UserInformationActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".java.ProductDetailActivity"
             android:exported="false" />
@@ -37,7 +43,7 @@
             android:exported="false" />
         <activity
             android:name=".java.ProductCategoriesActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.PersonalInfoActivity"
             android:exported="false" />
@@ -61,13 +67,16 @@
             android:exported="false" />
         <activity
             android:name=".java.AboutUsActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.BlogCategoryActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".java.BlogDetailActivity"
+            android:exported="true" />
         <activity
             android:name=".java.CartActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.MyAccountActivity"
             android:exported="false" />
@@ -76,13 +85,13 @@
             android:exported="false" />
         <activity
             android:name=".java.SettingAddressActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SettingNotificationActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SearchResultActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SearchProductActivity"
             android:exported="true" />
@@ -97,19 +106,19 @@
             android:exported="false" />
         <activity
             android:name=".java.OrderConfirmActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SearchActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.HomeScreenActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.CheckoutActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SignUpActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.WelcomeActivity"
             android:exported="true">
@@ -121,12 +130,9 @@
         </activity>
         <activity
             android:name=".java.LoginActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".java.ChangePasswordActivity"
             android:exported="false" />
 
         <meta-data

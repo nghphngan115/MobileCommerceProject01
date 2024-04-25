@@ -28,7 +28,9 @@ public class Product {
         this.discountNote = discountNote;
         this.unit = unit;
         this.stock = stock;
+        this.cartQuantity = 1;
     }
+
 
     public String getProductId() {
         return productId;
@@ -42,7 +44,11 @@ public class Product {
     }
 
     public void setCartQuantity(int cartQuantity) {
-        this.cartQuantity = cartQuantity;
+        if (cartQuantity >= 1 && cartQuantity <= stock) {
+            this.cartQuantity = cartQuantity;
+        } else {
+            // Handle the case where cartQuantity is not within the valid range
+        }
     }
 
     public String getProductName() {
@@ -116,4 +122,5 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
 }
