@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:id="@+id/imgButton2"
             android:layout_width="50dp"
             android:layout_height="47dp"
             android:layout_marginStart="30dp"
@@ -66,7 +67,7 @@
                 android:textSize="13dp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txtTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -88,7 +89,7 @@
                 android:background="@drawable/rounded_image"
                 tools:srcCompat="@tools:sample/avatars" />
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Blog's Content"

@@ -5,10 +5,16 @@
       <entry key="HomeScreenActivity">
         <State />
       </entry>
-      <entry key="HomeScreenActivity (1)">
+      <entry key="LoginActivity">
         <State />
       </entry>
-      <entry key="SettingNotificationActivity">
+      <entry key="SignUpActivity">
+        <State />
+      </entry>
+      <entry key="WelcomeActivity">
+        <State />
+      </entry>
+      <entry key="MyAccountActivity">
         <State />
       </entry>
       <entry key="app">

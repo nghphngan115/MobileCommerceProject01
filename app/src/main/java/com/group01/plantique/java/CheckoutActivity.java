@@ -4,114 +4,160 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.model.Product;
 
-import java.util.Random;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
     ConstraintLayout btnConfirm;
-    EditText edtFullname, edtAddress, edtEmail, edtPhone;
+
     RadioButton radTransfer, radCOD;
+    TextView txtSubTotal;
+    ListView lvProduct;
+    ArrayList<Product> cartProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        addViews();
+
+        initViews();
+        cartProducts = getCartFromSharedPreferences();
+        int totalAmount = getSharedPreferences("CartPrefs", MODE_PRIVATE).getInt("totalAmount", 0);
+        txtSubTotal.setText(String.format("%d đ", totalAmount));
+
+        CartListAdapter cartListAdapter = new CartListAdapter(this, cartProducts);
+        lvProduct.setAdapter(cartListAdapter);
+
         addEvents();
     }
 
-    private void addViews() {
+    private void initViews() {
         btnConfirm = findViewById(R.id.btnConfirm);
-        edtFullname = findViewById(R.id.edtFullname);
-        edtAddress = findViewById(R.id.edtAddress);
-        edtEmail = findViewById(R.id.edtEmail);
-        edtPhone = findViewById(R.id.edtPhone);
+        txtSubTotal = findViewById(R.id.txtSubTotal);
+
+
         radTransfer = findViewById(R.id.radTransfer);
         radCOD = findViewById(R.id.radCOD);
+        lvProduct = findViewById(R.id.lvProduct);
+    }
+
+
+
+    private ArrayList<Product> getCartFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("cart", null);
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 
     private void addEvents() {
+         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validateFields()) {  // Kiểm tra xem các trường nhập liệu đã hợp lệ chưa
-                    String orderID = generateRandomOrderID();  // Tạo orderID
-                    Intent intent = new Intent(CheckoutActivity.this, OrderConfirmActivity.class);
+                EditText edtFullName = findViewById(R.id.edtFullname);
+                EditText edtAddress = findViewById(R.id.edtAddress);
+                EditText edtWard = findViewById(R.id.edtWard);
+                EditText edtDistrict = findViewById(R.id.edtDistrict);
+                EditText edtCity = findViewById(R.id.edtCity);
+                EditText edtPhone = findViewById(R.id.edtVoucher);
+                EditText edtEmail = findViewById(R.id.edtEmail);
+                RadioGroup radGroupPayment = findViewById(R.id.radGroupPayment);
 
-                    // Collect payment method
-                    String paymentMethod = radTransfer.isChecked() ? "Chuyển khoản qua ngân hàng" : "Thanh toán khi nhận hàng";
-
-                    // Put extras to intent
-                    intent.putExtra("fullname", edtFullname.getText().toString());
-                    intent.putExtra("address", edtAddress.getText().toString());
-                    intent.putExtra("email", edtEmail.getText().toString());
-                    intent.putExtra("phone", edtPhone.getText().toString());
-                    intent.putExtra("paymentMethod", paymentMethod);
-                    intent.putExtra("orderID", orderID);
-
-                    startActivity(intent);
+                int selectedId = radGroupPayment.getCheckedRadioButtonId();
+                if (selectedId == -1) {
+                    Toast.makeText(CheckoutActivity.this, "Please select a payment method.", Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                RadioButton radioButton = findViewById(selectedId);
+                String paymentMethod = radioButton.getText().toString();
+
+                if (!areFieldsValid(edtFullName, edtAddress, edtWard, edtDistrict, edtCity, edtPhone, edtEmail)) {
+                    return; // Stop the function if validation fails
+                }
+
+                // Combine address components into one string
+                String fullAddress = edtAddress.getText().toString() + ", " +
+                        edtWard.getText().toString() + ", " +
+                        edtDistrict.getText().toString() + ", " +
+                        edtCity.getText().toString();
+
+                Gson gson = new Gson();
+                String productListJson = gson.toJson(cartProducts);
+
+                // Prepare intent for passing data to ConfirmationActivity
+                Intent intent = new Intent(CheckoutActivity.this, OrderConfirmActivity.class);
+                intent.putExtra("FULL_NAME", edtFullName.getText().toString());
+                intent.putExtra("ADDRESS", fullAddress);
+                intent.putExtra("PHONE", edtPhone.getText().toString());
+                intent.putExtra("EMAIL", edtEmail.getText().toString());
+                intent.putExtra("PAYMENT_METHOD", paymentMethod);
+                intent.putExtra("productListJson", productListJson);
+                intent.putExtra("totalAmount", txtSubTotal.getText().toString());
+
+                // Start ConfirmationActivity
+                startActivity(intent);
             }
         });
     }
-
-    private String generateRandomOrderID() {
-        Random random = new Random();
-        int number = random.nextInt(999999999); // Tạo số ngẫu nhiên
-        return String.format("%09d", number); // Định dạng số với 9 chữ số, thêm số 0 ở đầu nếu cần
+    private boolean isValidEmail(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public boolean validateFields() {
-        boolean isValid = true;
-
-        // Check if the full name field is empty
-        if (isEmpty(edtFullname)) {
-            edtFullname.setError("This field cannot be empty");
-            isValid = false;
-        }
-
-        // Check if the address field is empty
-        if (isEmpty(edtAddress)) {
-            edtAddress.setError("This field cannot be empty");
-            isValid = false;
-        }
-
-        // Check if the email field is empty or not in the correct format
-        if (isEmpty(edtEmail)) {
-            edtEmail.setError("This field cannot be empty");
-            isValid = false;
-        } else if (!edtEmail.getText().toString().trim().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
-            edtEmail.setError("Invalid email address");
-            isValid = false;
-        }
-
-        // Check if the phone field is empty or not exactly 10 digits
-        if (isEmpty(edtPhone)) {
-            edtPhone.setError("This field cannot be empty");
-            isValid = false;
-        } else if (edtPhone.getText().toString().trim().length() != 10) {
-            edtPhone.setError("Phone number must be 10 digits long");
-            isValid = false;
-        }
-
-        // Check if a payment method is selected
-        if (!radTransfer.isChecked() && !radCOD.isChecked()) {
-            Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
-            isValid = false;
-        }
-
-        return isValid;
+    private boolean isValidPhone(String phone) {
+        return phone.matches("\\d{10}");
     }
 
-    // Helper method to check if EditText is empty
-    private boolean isEmpty(EditText editText) {
-        return editText.getText().toString().trim().isEmpty();
+    private boolean areFieldsValid(EditText edtFullName, EditText edtAddress, EditText edtWard,
+                                   EditText edtDistrict, EditText edtCity, EditText edtPhone, EditText edtEmail) {
+        // Check if any field is empty
+        if (edtFullName.getText().toString().trim().isEmpty() ||
+                edtAddress.getText().toString().trim().isEmpty() ||
+                edtWard.getText().toString().trim().isEmpty() ||
+                edtDistrict.getText().toString().trim().isEmpty() ||
+                edtCity.getText().toString().trim().isEmpty() ||
+                edtPhone.getText().toString().trim().isEmpty() ||
+                edtEmail.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "All fields are required.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        // Check if the phone number is valid
+        if (!isValidPhone(edtPhone.getText().toString().trim())) {
+            Toast.makeText(this, "Phone number must be exactly 10 digits.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        // Check if the email is valid
+        if (!isValidEmail(edtEmail.getText().toString().trim())) {
+            Toast.makeText(this, "Email is not valid.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
     }
+
+
+
+
 }
+
+
