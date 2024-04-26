@@ -1,16 +1,22 @@
 package com.group01.plantique.java;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,25 +28,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.ProductAdapter;
+import com.group01.plantique.adapter.CategoryAdapter;
+import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
 
 public class HomeScreenActivity extends AppCompatActivity {
+
     SearchView svSearch;
     Button btnMuangay, btnViewAll, btnViewAll2;
     RecyclerView rvCategory;
-
-    List<Product> productList;
+    List<Category> categoryList;
+    CategoryAdapter categoryAdapter;
 
 
     DatabaseReference databaseReference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        //Navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -71,15 +80,19 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnMuangay = findViewById(R.id.btnMuaNgay);
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
+
         rvCategory = findViewById(R.id.rvCategory);
-
-        productList = new ArrayList<>();
-
         rvCategory.setLayoutManager(new LinearLayoutManager(this));
 
+        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"),Category.class)
+                .build();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("products");
+        categoryAdapter = new CategoryAdapter(options);
+        rvCategory.setAdapter(categoryAdapter);
 
+
+        //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +103,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-// Bạn có thể giữ nguyên phần này nếu muốn xử lý khi người dùng thay đổi query
+        // Bạn có thể giữ nguyên phần này nếu muốn xử lý khi người dùng thay đổi query
         svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -105,25 +118,17 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        fetchProductsFromFirebase(); // Gọi phương thức để tải sản phẩm từ Firebase
     }
 
-    private void fetchProductsFromFirebase() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                productList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Product product = snapshot.getValue(Product.class);
-                    productList.add(product);
-                }
+    @Override
+    public void onStart() {
+        super.onStart();
+        categoryAdapter.startListening();
+    }
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(HomeScreenActivity.this, "Failed to read value from Firebase.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onStop() {
+        super.onStop();
+        categoryAdapter.stopListening();
     }
 }

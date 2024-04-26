@@ -1,128 +1,52 @@
-package com.group01.plantique.model;
+package com.group01.plantique.java;
 
-import java.io.Serializable;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
-public class Product implements Serializable {
-    private String productId;
-    private String productName;
-    private String description;
-    private int price;
-    private int discount_price;
-    private String imageurl;
-    private String categoryId;
-    private String discountNote;
-    private String unit;
-    private int stock;
-    private int cartQuantity;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-    public Product() {
-        // Required empty constructor for Firebase
+import com.group01.plantique.R;
+import com.group01.plantique.databinding.ActivityAboutUsBinding;
+import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
+
+public class AboutUsActivity extends DrawerBaseActivity {
+    ActivityAboutUsBinding activityAboutUsBinding;
+    Button btnMuaNgay;
+    ImageButton btnBack;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        activityAboutUsBinding= ActivityAboutUsBinding.inflate(getLayoutInflater());
+        setContentView(activityAboutUsBinding.getRoot());
+        allocateActivityTitle("About us");
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        btnMuaNgay=findViewById(R.id.btnMuaNgay);
+        btnBack=findViewById(R.id.btnBack);
+        btnMuaNgay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AboutUsActivity.this,HomeScreenActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AboutUsActivity.this, MyAccountActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    public Product(String productId, String productName, String description, int price, int discount_price, String imageurl, String categoryId, String discountNote, String unit, int stock) {
-        this.productId = productId;
-        this.productName = productName;
-        this.description = description;
-        this.price = price;
-        this.discount_price = discount_price;
-        this.imageurl = imageurl;
-        this.categoryId = categoryId;
-        this.discountNote = discountNote;
-        this.unit = unit;
-        this.stock = stock;
-        this.cartQuantity = 1;
-    }
-
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-    public int getCartQuantity() {
-        return cartQuantity;
-    }
-
-    public void setCartQuantity(int cartQuantity) {
-        if (cartQuantity >= 1 && cartQuantity <= stock) {
-            this.cartQuantity = cartQuantity;
-        } else {
-            // Handle the case where cartQuantity is not within the valid range
-        }
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getDiscount_price() {
-        return discount_price;
-    }
-
-    public void setDiscount_price(int discount_price) {
-        this.discount_price = discount_price;
-    }
-
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getDiscountNote() {
-        return discountNote;
-    }
-
-    public void setDiscountNote(String discountNote) {
-        this.discountNote = discountNote;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
 }
