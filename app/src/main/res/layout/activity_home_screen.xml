@@ -236,11 +236,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvHighlightedBlog"
+            <GridView
+                android:id="@+id/gvHighlightedBlog"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
+
         </LinearLayout>
 
         <LinearLayout

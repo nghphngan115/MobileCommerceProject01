@@ -4,15 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.BlogAdapter;
 import com.group01.plantique.adapter.CategoryAdapter;
+import com.group01.plantique.model.BlogItem;
 import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
 
@@ -39,7 +45,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     RecyclerView rvCategory;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
-
+    GridView gvHiglightedBlog;
+    BlogAdapter blogAdapter;
 
     DatabaseReference databaseReference;
 
@@ -80,9 +87,12 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnMuangay = findViewById(R.id.btnMuaNgay);
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
+        
+
+
 
         rvCategory = findViewById(R.id.rvCategory);
-        rvCategory.setLayoutManager(new LinearLayoutManager(this));
+        rvCategory.setLayoutManager(new GridLayoutManager(this, 2));
 
         FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"),Category.class)
@@ -91,6 +101,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         categoryAdapter = new CategoryAdapter(options);
         rvCategory.setAdapter(categoryAdapter);
 
+        gvHiglightedBlog= findViewById(R.id.gvHighlightedBlog);
+        blogAdapter = new BlogAdapter(this, new ArrayList<BlogItem>());
+        gvHiglightedBlog.setAdapter(blogAdapter);
+        getBlogFromFirebase();
 
         //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
@@ -103,21 +117,35 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Bạn có thể giữ nguyên phần này nếu muốn xử lý khi người dùng thay đổi query
-        svSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    }
+
+    protected void getBlogFromFirebase() {
+        // Kết nối đến Firebase Database
+        databaseReference = FirebaseDatabase.getInstance().getReference("Blog");
+
+        // Đọc dữ liệu từ Firebase và nạp vào Adapter
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Không cần xử lý khi submit vì đã chuyển màn hình khi bấm vào khung search
-                return false;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<BlogItem> blogItems = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    BlogItem blogItem = snapshot.getValue(BlogItem.class);
+                    if (blogItem != null) {
+                        blogItems.add(blogItem);
+                    }
+                }
+                // Cập nhật dữ liệu trong Adapter
+                blogAdapter.addAll(blogItems);
+                blogAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // Bạn có thể giữ nguyên hoặc xóa phương thức này, vì sẽ không cần thiết khi đã chuyển màn hình
-                return false;
-            }
+            public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý khi đọc dữ liệu không thành công
+                    Toast.makeText(HomeScreenActivity.this, "Failed to load highlighted blogs", Toast.LENGTH_SHORT).show();
+                }
+
         });
-
     }
 
     @Override
@@ -131,4 +159,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onStop();
         categoryAdapter.stopListening();
     }
+
+
+
 }
