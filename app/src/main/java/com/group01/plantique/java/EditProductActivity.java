@@ -27,9 +27,9 @@ public class EditProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
 
-        titleEt = findViewById(R.id.titleEt);
-        descriptionEt = findViewById(R.id.descriptionEt);
-        unitEt = findViewById(R.id.unitEt);
+        titleEt = findViewById(R.id.promoCodeEt);
+        descriptionEt = findViewById(R.id.promoDescriptionEt);
+        unitEt = findViewById(R.id.promoPriceEt);
         stockEt = findViewById(R.id.stockEt);
         priceEt = findViewById(R.id.priceEt);
         discountedPriceEt = findViewById(R.id.discountedPriceEt);
