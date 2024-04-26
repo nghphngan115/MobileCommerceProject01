@@ -1,6 +1,7 @@
 package com.group01.plantique.java;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,64 +9,97 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.adapter.ProductOrderAdapter;
 import com.group01.plantique.model.Order;
 import com.group01.plantique.model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrderDetailsActivity extends AppCompatActivity {
-    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtSubTotal, txtShippingFee, txtTotal, txtStatus;
+    private TextView txtStatus, txtFullname, txtAddress, txtEmail, txtPhone, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
     private ListView lvProduct;
+    private ConstraintLayout btnCancelOrder;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details);
+        setContentView(R.layout.activity_order_details); // Replace with your actual layout file name
 
-        // Initialize views
-        txtFullName = findViewById(R.id.txtFullname);
-        txtAddress = findViewById(R.id.txtAddress);
-        txtPhone = findViewById(R.id.txtPhone);
-        txtEmail = findViewById(R.id.txtEmail);
-        txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
-        txtSubTotal = findViewById(R.id.txtDiscount);  // Check if this is correct
-        txtShippingFee = findViewById(R.id.txtShipFee);
-        txtTotal = findViewById(R.id.txtTotal);
+        initializeViews();
+        populateOrderDetails();
+    }
+
+    private void initializeViews() {
         txtStatus = findViewById(R.id.txtStatus);
+        txtFullname = findViewById(R.id.txtFullname);
+        txtAddress = findViewById(R.id.txtAddress);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPhone = findViewById(R.id.txtPhone);
+        txtSubTotal = findViewById(R.id.txtSubTotal);
+        txtShipFee = findViewById(R.id.txtShipFee);
+        txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
+        txtDiscount = findViewById(R.id.txtDiscount);
+        txtTotal = findViewById(R.id.txtTotal);
         lvProduct = findViewById(R.id.lvProduct);
+        btnCancelOrder = findViewById(R.id.btnCancelOrder);
+        btnCancelOrder.setOnClickListener(v -> cancelOrder());
+    }
 
-        // Retrieve and display the order
-        Order order = (Order) getIntent().getSerializableExtra("order");
+    private void cancelOrder() {
         if (order != null) {
-            Log.d("OrderDetails", "Order loaded: " + order.getOrderId());
-            displayOrderDetails(order);
-        } else {
-            Log.e("OrderDetails", "Failed to load order details");
-            Toast.makeText(this, "Order details not available", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void displayOrderDetails(Order order) {
-        txtFullName.setText(order.getFullName());
-        txtAddress.setText(order.getAddress());
-        txtPhone.setText(order.getPhone());
-        txtEmail.setText(order.getEmail());
-        txtPaymentMethod.setText(order.getPaymentMethod());
-        txtSubTotal.setText(order.getTotalCost());
-        txtShippingFee.setText("30000");
-        txtTotal.setText(order.getTotalCost());
-        txtStatus.setText(order.getOrderStatus());
-
-        if (order.getItems() != null && !order.getItems().isEmpty()) {
-            ArrayList<Product> products = new ArrayList<>(order.getItems().values());
-            CartListAdapter adapter = new CartListAdapter(this, products);
-            lvProduct.setAdapter(adapter);
-        } else {
-            Toast.makeText(this, "No products in this order.", Toast.LENGTH_SHORT).show();
+            order.setOrderStatus("Cancelled");
+            updateOrderStatusInFirebase();
         }
     }
 
+    private void updateOrderStatusInFirebase() {
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
+                .child(order.getOrderBy())
+                .child("Orders")
+                .child(order.getOrderId());
+
+        orderRef.child("orderStatus").setValue("Cancelled")
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(OrderDetailsActivity.this, "Order has been cancelled", Toast.LENGTH_SHORT).show();
+                    txtStatus.setText("Cancelled");
+                })
+                .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to cancel order", Toast.LENGTH_SHORT).show());
+    }
+
+
+
+    private void populateOrderDetails() {
+        order = (Order) getIntent().getSerializableExtra("order");
+        if (order != null) {
+            // Set UI elements from the order, but skip orderId and orderBy
+            txtStatus.setText(order.getOrderStatus());
+            txtFullname.setText(order.getFullName());
+            txtAddress.setText(order.getAddress());
+            txtEmail.setText(order.getEmail());
+            txtPhone.setText(order.getPhone());
+            txtSubTotal.setText(String.format("%s đ", order.getSubTotal()));
+            txtShipFee.setText(String.format("%s đ", order.getShippingFee()));
+            txtPaymentMethod.setText(order.getPaymentMethod());
+            txtDiscount.setText("Calculate if applicable"); // Implement if you have discount data
+            txtTotal.setText(String.format("%s đ", order.getTotalCost()));
+
+            // Setup list adapter for products
+            setupProductList(order.getItems());
+        } else {
+            Toast.makeText(this, "Order details not available.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void setupProductList(HashMap<String, Product> items) {
+        ArrayList<Product> products = new ArrayList<>(items.values());
+        ProductOrderAdapter adapter = new ProductOrderAdapter(this, products);
+        lvProduct.setAdapter(adapter);
+    }
 }

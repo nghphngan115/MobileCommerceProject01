@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class OrderHistoryActivity extends DrawerBaseActivity {
 
-    ActivityOrderHistoryBinding activityOrderHistoryBinding;
+    ActivityOrderHistoryBinding binding;
     private ArrayList<Order> orderArrayList;
     private OrderAdapter orderAdapter;
     private RecyclerView ordersRv;
@@ -32,12 +32,16 @@ public class OrderHistoryActivity extends DrawerBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityOrderHistoryBinding = ActivityOrderHistoryBinding.inflate(getLayoutInflater());
-        setContentView(activityOrderHistoryBinding.getRoot());
+        binding = ActivityOrderHistoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         allocateActivityTitle("Order History");
-        ordersRv = findViewById(R.id.ordersRv);
-        ordersRv.setLayoutManager(new LinearLayoutManager(this));  // Correct context reference
-        ordersRv.setAdapter(orderAdapter);  // Set the adapter
+
+        ordersRv = binding.ordersRv;
+        ordersRv.setLayoutManager(new LinearLayoutManager(this));
+
+        orderArrayList = new ArrayList<>();
+        orderAdapter = new OrderAdapter(OrderHistoryActivity.this, orderArrayList);
+        ordersRv.setAdapter(orderAdapter);  // Initialize adapter with empty list
 
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         String currentUserId = sharedPreferences.getString("userID", null);
@@ -49,37 +53,25 @@ public class OrderHistoryActivity extends DrawerBaseActivity {
         }
     }
 
-
-
     private void loadOrders(String userId) {
-        orderArrayList = new ArrayList<>();
         DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference("allorders").child(userId).child("Orders");
-        ordersRef.orderByChild("orderBy").equalTo(userId).addValueEventListener(new ValueEventListener() {
+        ordersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseData", "Snapshot count: " + snapshot.getChildrenCount());
-                orderArrayList.clear();
-                for (DataSnapshot orderDs : snapshot.getChildren()) {
-                    Log.d("FirebaseData", "Order data: " + orderDs.getValue());
-                    Order order = orderDs.getValue(Order.class);
+                orderArrayList.clear(); // Clear existing data
+                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                    Order order = orderSnapshot.getValue(Order.class);
                     if (order != null) {
                         orderArrayList.add(order);
                     }
                 }
-                if (orderAdapter == null) {
-                    orderAdapter = new OrderAdapter(OrderHistoryActivity.this, orderArrayList);
-                    ordersRv.setAdapter(orderAdapter);
-                } else {
-                    orderAdapter.notifyDataSetChanged();
-                }
+                orderAdapter.notifyDataSetChanged();  // Notify adapter to update RecyclerView
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("OrderHistory", "Database error: " + error.getMessage());
+                Toast.makeText(OrderHistoryActivity.this, "Failed to load orders: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
-
 }

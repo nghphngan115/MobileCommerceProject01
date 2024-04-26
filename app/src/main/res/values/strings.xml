@@ -15,4 +15,6 @@
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
+
+
 </resources>

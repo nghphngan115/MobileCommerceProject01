@@ -32,11 +32,14 @@
         <activity
             android:name=".java.ProductDetailActivity"
             android:exported="false" />
+        <activity android:name=".java.OrderDetailsActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.AddToCartActivity"
             android:exported="false" />
 
-
+        <activity android:name=".java.UserInformationActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.AddProductActivity"
             android:exported="true"/>
@@ -48,28 +51,28 @@
             android:exported="true" />
         <activity
             android:name=".java.ProductListActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
         <activity
             android:name=".java.PersonalInfoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ContactActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.SettingNotificationActivity2"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.TermsActivity"
             android:exported="false" />
         <activity
             android:name=".java.PolicyActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.OrderHistoryActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.DrawerBaseActivity"
             android:exported="false" />
@@ -78,16 +81,16 @@
             android:exported="true" />
         <activity
             android:name=".java.BlogCategoryActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.CartActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.MyAccountActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.NotificationActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.SettingAddressActivity"
             android:exported="true" />
@@ -102,13 +105,13 @@
             android:exported="true" />
         <activity
             android:name=".java.ChangePasswordActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ResetPasswordActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ResetPasswordOTPActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.OrderConfirmActivity"
             android:exported="true" />
