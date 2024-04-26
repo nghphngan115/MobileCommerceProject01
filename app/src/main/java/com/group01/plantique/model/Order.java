@@ -11,6 +11,8 @@ public class Order implements Serializable {
     private String orderDate;
     private String orderStatus;
     private String paymentMethod;
+
+    private String orderNote;
     private String fullName;
     private String address;
     private String email;
@@ -48,6 +50,14 @@ public class Order implements Serializable {
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    public String getOrderNote() {
+        return orderNote;
+    }
+
+    public void setOrderNote(String orderNote) {
+        this.orderNote = orderNote;
+    }
+
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }

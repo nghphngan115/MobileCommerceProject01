@@ -19,6 +19,19 @@
     <string name="strOrdID">Order ID</string>
     <string name="strUserId">User ID</string>
     <string name="strOrder">Order</string>
+    <string name="strNote">Note</string>
+    <string name="strDeliveryInfo">Delivery Information</string>
+    <string name="strFullName">Full Name</string>
+    <string name="strCIty">City/Province\n</string>
+    <string name="strWard">Ward</string>
+    <string name="strDistrict">District</string>
+    <string name="strAddress">"Address (House number, Street,...) "</string>
+    <string name="strCOD">Cash on delivery (COD)</string>
+    <string name="strTransfer">Bank Account Transfer</string>
+    <string name="strConfirm">Confirm</string>
+    <string name="strConfirmOrd">Confirm Order</string>
+    <string name="strApply">Apply</string>
+    <string name="strPlaceOrder">Place Order</string>
 
 
 </resources>

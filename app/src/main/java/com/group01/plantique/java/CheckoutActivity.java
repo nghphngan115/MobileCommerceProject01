@@ -101,6 +101,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 EditText edtCity = findViewById(R.id.edtCity);
                 EditText edtPhone = findViewById(R.id.edtVoucher);
                 EditText edtEmail = findViewById(R.id.edtEmail);
+                EditText edtNote=findViewById(R.id.edtNote);
                 RadioGroup radGroupPayment = findViewById(R.id.radGroupPayment);
 
                 int selectedId = radGroupPayment.getCheckedRadioButtonId();
@@ -134,6 +135,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 intent.putExtra("PAYMENT_METHOD", paymentMethod);
                 intent.putExtra("productListJson", productListJson);
                 intent.putExtra("totalAmount", txtSubTotal.getText().toString());
+                intent.putExtra("NOTE",edtNote.getText().toString());
 
                 // Start ConfirmationActivity
                 startActivity(intent);

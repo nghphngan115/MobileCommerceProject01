@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
             android:gravity="center"
-            android:text="Thông tin giao hàng"
-            android:textColor="#040303"
+            android:text="@string/strDeliveryInfo"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -34,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Thông tin giao hàng"
+                android:text="@string/strDeliveryInfo"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -47,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="39dp"
             android:fontFamily="@font/inter_medium"
-            android:text="Họ và tên:"
+            android:text="@string/strFullName"
             android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +68,7 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Họ và tên"
+            android:hint="@string/strFullName"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +79,7 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_medium"
-            android:text="Tỉnh :"
+            android:text="@string/strCIty"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCity"
@@ -99,9 +98,9 @@
                 android:id="@+id/edtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tỉnh/Thành phố"
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
+                android:hint="@string/strCIty"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +117,7 @@
                 android:layout_marginLeft="39dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Phường xã:"
+                android:text="@string/strDistrict"
                 android:textStyle="bold" />
 
             <TextView
@@ -127,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Quận Huyện:"
+                android:text="@string/strWard"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -154,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="39dp"
                     android:layout_marginRight="2dp"
-                    android:hint="Quận/Huyện"
+                    android:hint="@string/strDistrict"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,7 +173,7 @@
                     android:id="@+id/edtWard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phường/Xã"
+                    android:hint="@string/strWard"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="39dp"
                     android:textSize="16sp" />
@@ -191,7 +190,7 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_medium"
-            android:text="Địa chỉ (Số nhà, tên đường,...)"
+            android:text="@string/strAddress"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilAddress"
@@ -209,9 +208,9 @@
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Địa chỉ cụ thể"
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
+                android:hint="@string/strAddress"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -249,9 +248,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="39dp"
-                    android:hint="Số Điện Thoại"
-                    android:maxLength="10"
+                    android:hint="@string/strPhone"
                     android:inputType="phone"
+                    android:maxLength="10"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -293,7 +292,7 @@
                 android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="39dp"
-                android:hint="Email"
+                android:hint="EMAIL"
                 android:inputType="textEmailAddress"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -307,7 +306,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="39dp"
             android:fontFamily="@font/inter_medium"
-            android:text="Phương thức thanh toán"
+            android:text="@string/strPaymentMethod"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -323,7 +322,7 @@
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Thanh toán khi nhận hàng (COD)" />
+                android:text="@string/strCOD" />
 
             <RadioButton
                 android:id="@+id/radTransfer"
@@ -332,10 +331,47 @@
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Chuyển khoản qua ngân hàng" />
+                android:text="@string/strTransfer" />
 
 
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView149"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="39dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/strNote"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="430dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/main_green"
+            app:boxStrokeWidth="2dp">
+
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="331dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="39dp"
+                android:layout_marginRight="39dp"
+                android:hint="@string/strNote"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/textView144"
             android:layout_width="match_parent"
@@ -344,7 +380,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="39dp"
             android:fontFamily="@font/inter_medium"
-            android:text="Đơn hàng"
+            android:text="@string/strOrder"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -369,10 +405,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Tạm tính"
+                android:text="@string/strSubTotal"
 
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
             <TextView
@@ -403,7 +439,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
-                android:text="Xác nhận"
+                android:text="@string/strConfirm"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"

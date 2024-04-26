@@ -3,6 +3,7 @@ package com.group01.plantique.java;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,10 +25,11 @@ import com.group01.plantique.model.Product;
 import java.util.ArrayList;
 
 public class OrderDetailsActivity extends AppCompatActivity {
-    private TextView txtStatus, txtFullname, txtAddress, txtOrderId, txtUserId, txtEmail, txtPhone, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
+    private TextView txtStatus, txtFullname, txtAddress, txtOrderId, txtUserId, txtEmail, txtPhone,txtNote, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
     private ListView lvProduct;
     private Button btnAction;
     private Order order;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         initializeViews();
         populateOrderDetails();
+
     }
 
     private void initializeViews() {
@@ -52,6 +55,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtDiscount = findViewById(R.id.txtDiscount);
         txtTotal = findViewById(R.id.txtTotal);
         lvProduct = findViewById(R.id.lvProduct);
+        txtNote=findViewById(R.id.txtNote);
 
         btnAction = findViewById(R.id.btnAction);
 
@@ -138,11 +142,30 @@ public class OrderDetailsActivity extends AppCompatActivity {
         if (order != null) {
             txtOrderId.setText(order.getOrderId());
             txtStatus.setText(order.getOrderStatus());
+            switch (order.getOrderStatus()) {
+                case "Processing":
+                    txtStatus.setTextColor(getResources().getColor(R.color.processing));
+                    break;
+                case "Delivering":
+                    txtStatus.setTextColor(getResources().getColor(R.color.delivering));
+                    break;
+                case "Finished":
+                    txtStatus.setTextColor(getResources().getColor(R.color.finished));
+                    break;
+                case "Cancelled":
+                    txtStatus.setTextColor(getResources().getColor(R.color.cancelled));
+                    break;
+                default:
+                    // Màu mặc định khi trạng thái không xác định
+                    txtStatus.setTextColor(getResources().getColor(android.R.color.black));
+                    break;
+            }
             txtFullname.setText(order.getFullName());
             txtAddress.setText(order.getAddress());
             txtUserId.setText(order.getOrderBy());
             txtEmail.setText(order.getEmail());
             txtPhone.setText(order.getPhone());
+            txtNote.setText(order.getOrderNote());
             txtSubTotal.setText(String.format("%s đ", order.getSubTotal()));
             txtShipFee.setText(String.format("%s đ", order.getShippingFee()));
             txtPaymentMethod.setText(order.getPaymentMethod());
