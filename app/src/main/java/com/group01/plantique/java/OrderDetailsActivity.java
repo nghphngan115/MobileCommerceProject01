@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.adapter.ProductOrderAdapter;
 import com.group01.plantique.model.Order;
 import com.group01.plantique.model.Product;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrderDetailsActivity extends AppCompatActivity {
-    private TextView txtStatus, txtFullname, txtAddress, txtEmail, txtPhone, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
+    private TextView txtStatus, txtFullname, txtAddress, txtOrderId,txtUserId, txtEmail, txtPhone, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
     private ListView lvProduct;
     private ConstraintLayout btnCancelOrder;
     private Order order;
@@ -40,7 +39,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtFullname = findViewById(R.id.txtFullname);
         txtAddress = findViewById(R.id.txtAddress);
         txtEmail = findViewById(R.id.txtEmail);
+        txtOrderId=findViewById(R.id.txtOrderId);
         txtPhone = findViewById(R.id.txtPhone);
+        txtUserId=findViewById(R.id.txtUserId);
         txtSubTotal = findViewById(R.id.txtSubTotal);
         txtShipFee = findViewById(R.id.txtShipFee);
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
@@ -86,9 +87,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
         order = (Order) getIntent().getSerializableExtra("order");
         if (order != null) {
             // Set UI elements from the order, but skip orderId and orderBy
+            txtOrderId.setText(order.getOrderId());
             txtStatus.setText(order.getOrderStatus());
             txtFullname.setText(order.getFullName());
             txtAddress.setText(order.getAddress());
+            txtUserId.setText(order.getOrderBy());
             txtEmail.setText(order.getEmail());
             txtPhone.setText(order.getPhone());
             txtSubTotal.setText(String.format("%s đ", order.getSubTotal()));

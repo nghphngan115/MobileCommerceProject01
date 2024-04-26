@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
-    <string name="strOrdConf">"Đặt hàng thành công "</string>
-    <string name="strOrdThank">Đơn hàng của bạn đã được xác nhận. Cảm ơn bạn vì đã mua hàng</string>
+    <string name="strOrdConf">"Placed order successfully "</string>
+    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -15,6 +15,9 @@
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
+    <string name="strCancel">Cancel Order</string>
+    <string name="strOrdID">Order ID</string>
+    <string name="strUserId">User ID</string>
 
 
 </resources>
