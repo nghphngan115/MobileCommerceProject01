@@ -10,6 +10,7 @@ import com.group01.plantique.R;
 
 public class NotificationActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

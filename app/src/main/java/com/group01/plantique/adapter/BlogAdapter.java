@@ -20,6 +20,10 @@ public class BlogAdapter extends ArrayAdapter<BlogItem> {
 
     private ArrayList<BlogItem> blogItems;
     private Context mContext;
+    public BlogItem getItem(int position) {
+        return blogItems.get(position);
+    }
+
 
     public BlogAdapter(Context context, ArrayList<BlogItem> blogItems) {
         super(context, 0, blogItems);

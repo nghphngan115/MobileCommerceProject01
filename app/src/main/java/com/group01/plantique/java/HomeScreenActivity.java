@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,14 +88,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
         
-        gvHiglightedBlog= findViewById(R.id.gvHighlightedBlog);
-        blogAdapter = new BlogAdapter(this, new ArrayList<BlogItem>());
-        gvHiglightedBlog.setAdapter(blogAdapter);
-        getBlogFromFirebase();
+
 
 
         rvCategory = findViewById(R.id.rvCategory);
-        rvCategory.setLayoutManager(new LinearLayoutManager(this));
+        rvCategory.setLayoutManager(new GridLayoutManager(this, 2));
 
         FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"),Category.class)
@@ -103,6 +101,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         categoryAdapter = new CategoryAdapter(options);
         rvCategory.setAdapter(categoryAdapter);
 
+        gvHiglightedBlog= findViewById(R.id.gvHighlightedBlog);
+        blogAdapter = new BlogAdapter(this, new ArrayList<BlogItem>());
+        gvHiglightedBlog.setAdapter(blogAdapter);
+        getBlogFromFirebase();
 
         //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
@@ -128,7 +130,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 ArrayList<BlogItem> blogItems = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     BlogItem blogItem = snapshot.getValue(BlogItem.class);
-                    blogItems.add(blogItem);
+                    if (blogItem != null) {
+                        blogItems.add(blogItem);
+                    }
                 }
                 // Cập nhật dữ liệu trong Adapter
                 blogAdapter.addAll(blogItems);
