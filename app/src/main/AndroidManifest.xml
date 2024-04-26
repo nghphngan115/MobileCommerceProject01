@@ -56,15 +56,18 @@
         <activity
             android:name=".java.SettingNotificationActivity2"
             android:exported="false" />
+
         <activity
             android:name=".java.TermsActivity"
             android:exported="false" />
         <activity
             android:name=".java.PolicyActivity"
             android:exported="false" />
+        <activity android:name=".java.OrderDetailsActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.OrderHistoryActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.DrawerBaseActivity"
             android:exported="false" />

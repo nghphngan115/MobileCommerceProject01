@@ -52,24 +52,32 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private void cancelOrder() {
-        if (order != null) {
+        if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             order.setOrderStatus("Cancelled");
             updateOrderStatusInFirebase();
+        } else {
+            Log.e("OrderDetailsActivity", "Order or essential fields are null.");
+            Toast.makeText(this, "Order details are incomplete.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void updateOrderStatusInFirebase() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
-                .child(order.getOrderBy())
-                .child("Orders")
-                .child(order.getOrderId());
 
-        orderRef.child("orderStatus").setValue("Cancelled")
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(OrderDetailsActivity.this, "Order has been cancelled", Toast.LENGTH_SHORT).show();
-                    txtStatus.setText("Cancelled");
-                })
-                .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to cancel order", Toast.LENGTH_SHORT).show());
+    private void updateOrderStatusInFirebase() {
+        if (order.getOrderBy() != null && order.getOrderId() != null) {
+            DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
+                    .child(order.getOrderBy())
+                    .child("Orders")
+                    .child(order.getOrderId());
+
+            orderRef.child("orderStatus").setValue("Cancelled")
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(OrderDetailsActivity.this, "Order has been cancelled", Toast.LENGTH_SHORT).show();
+                        txtStatus.setText("Cancelled");
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to cancel order", Toast.LENGTH_SHORT).show());
+        } else {
+            Toast.makeText(this, "Cannot update order status due to missing information.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -92,7 +100,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
             // Setup list adapter for products
             setupProductList(order.getItems());
         } else {
-            Toast.makeText(this, "Order details not available.", Toast.LENGTH_SHORT).show();
+            Log.e("OrderDetailsActivity", "Failed to retrieve the order object.");
+            Toast.makeText(this, "Failed to load order details.", Toast.LENGTH_SHORT).show();
         }
     }
 
