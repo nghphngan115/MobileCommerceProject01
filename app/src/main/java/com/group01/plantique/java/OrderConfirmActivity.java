@@ -136,6 +136,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         orderInfo.put("orderStatus", "Processing");
         orderInfo.put("fullName", txtFullName.getText().toString());
         orderInfo.put("subTotal", subTotal);
+        orderInfo.put("orderBy",userId);
         orderInfo.put("shippingFee", SHIPPING_FEE);
         orderInfo.put("totalCost", totalCost);
         orderInfo.put("address", txtAddress.getText().toString());
@@ -156,9 +157,9 @@ public class OrderConfirmActivity extends AppCompatActivity {
         for (Product product : productList) {
             HashMap<String, Object> itemMap = new HashMap<>();
             itemMap.put("productId", product.getProductId());
-            itemMap.put("name", product.getProductName());
+            itemMap.put("productName", product.getProductName());
             itemMap.put("price", product.getPrice());
-            itemMap.put("quantity", product.getCartQuantity());
+            itemMap.put("cartQuantity", product.getCartQuantity());
             itemMap.put("imageurl",product.getImageurl());
             itemMap.put("discount_price", product.getDiscount_price());
 

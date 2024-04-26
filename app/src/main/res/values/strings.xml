@@ -18,6 +18,7 @@
     <string name="strCancel">Cancel Order</string>
     <string name="strOrdID">Order ID</string>
     <string name="strUserId">User ID</string>
+    <string name="strOrder">Order</string>
 
 
 </resources>

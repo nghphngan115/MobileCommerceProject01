@@ -53,9 +53,6 @@
         <activity
             android:name=".java.ContactActivity"
             android:exported="false" />
-        <activity
-            android:name=".java.SettingNotificationActivity2"
-            android:exported="false" />
 
         <activity
             android:name=".java.TermsActivity"
@@ -79,7 +76,7 @@
             android:exported="false" />
         <activity
             android:name=".java.CartActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.MyAccountActivity"
             android:exported="false" />

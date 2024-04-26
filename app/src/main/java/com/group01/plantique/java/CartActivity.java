@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+
 public class CartActivity extends DrawerBaseActivity {
 
     private ListView lvCart;
@@ -116,7 +117,6 @@ public class CartActivity extends DrawerBaseActivity {
         }
 
         // Set adapter cho ListView
-        // Set adapter cho ListView
         cartListAdapter = new CartListAdapter(this, cartProducts);
         lvCart.setAdapter(cartListAdapter);
 
@@ -124,14 +124,31 @@ public class CartActivity extends DrawerBaseActivity {
         cartListAdapter.setOnQuantityChangeListener(new CartListAdapter.OnQuantityChangeListener() {
             @Override
             public void onQuantityChanged() {
-                saveCartToSharedPreferences();  // Lưu lại mỗi khi số lượng thay đổi
-                updateTotalCart();  // Cập nhật tổng giá trị giỏ hàng
+                // Lưu lại mỗi khi số lượng thay đổi
+                saveCartToSharedPreferences();
+
+                // Cập nhật tổng giá trị giỏ hàng
+                updateTotalCart();
+
+                // Kiểm tra số lượng nhập vào so với số lượng tồn kho
+                for (Product product : cartProducts) {
+                    if (product.getCartQuantity() > product.getStock()) {
+                        // Hiển thị thông điệp cảnh báo về số lượng tồn kho hiện tại
+                        String warningMessage = "Vượt số lượng tồn kho. Tồn kho hiện tại " + product.getStock() + " sản phẩm.";
+                        Toast.makeText(CartActivity.this, warningMessage, Toast.LENGTH_SHORT).show();
+
+                        // Đặt số lượng sản phẩm trong giỏ hàng về số lượng tồn kho hiện có
+                        product.setCartQuantity(product.getStock());
+                        cartListAdapter.notifyDataSetChanged(); // Cập nhật lại adapter
+                    }
+                }
             }
         });
 
         // Cập nhật tổng giá trị giỏ hàng
         updateTotalCart();
     }
+
 
     // Phương thức cập nhật tổng giá trị giỏ hàng
     private void updateTotalCart() {

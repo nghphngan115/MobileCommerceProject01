@@ -86,11 +86,25 @@
             android:text="TextView" />
 
 
+        <TextView
+            android:id="@+id/textView120"
+            android:layout_width="306dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/strOrder"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <ListView
             android:id="@+id/lvProduct"
             android:layout_width="match_parent"
             android:layout_height="230dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
