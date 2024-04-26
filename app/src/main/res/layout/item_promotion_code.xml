@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iconPromo"
+        android:layout_width="93dp"
+        android:layout_height="101dp"
+        app:srcCompat="@mipmap/ic_pack" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/promoCodeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Promotion Code" />
+
+        <TextView
+            android:id="@+id/promoPriceTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Promotion Price: $1.4" />
+
+        <TextView
+            android:id="@+id/minimumOrderPriceTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Order Price" />
+
+        <TextView
+            android:id="@+id/expireDateTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="25/04/2024" />
+
+        <TextView
+            android:id="@+id/promoDescriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description" />
+    </LinearLayout>
+</LinearLayout>

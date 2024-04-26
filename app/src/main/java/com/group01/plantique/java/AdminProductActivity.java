@@ -9,8 +9,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,18 +18,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.ProductAdapter;
@@ -46,7 +40,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private RecyclerView recyclerViewProducts;
     private DatabaseReference productsRef, categoriesRef;
     private EditText searchProductEt;
-    private ImageButton filterProductBtn, searchBtn;
+    private ImageButton filterProductBtn, searchBtn, btnAddProduct;
     private ProductAdapter productAdapter;
     private List<Category> categoryList = new ArrayList<>();
     private String selectedCategory = "All"; // Danh mục được chọn mặc định
@@ -60,9 +54,10 @@ public class AdminProductActivity extends AppCompatActivity {
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
 
-        searchProductEt = findViewById(R.id.searchProductEt);
-        filterProductBtn = findViewById(R.id.filterProductBtn);
+        searchProductEt = findViewById(R.id.searchEt);
+        filterProductBtn = findViewById(R.id.filterBtn);
         searchBtn = findViewById(R.id.searchBtn);
+        btnAddProduct = findViewById(R.id.btnAddProduct);
 
         productsRef = FirebaseDatabase.getInstance().getReference().child("products");
         categoriesRef = FirebaseDatabase.getInstance().getReference().child("categories");
@@ -82,6 +77,12 @@ public class AdminProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String searchText = searchProductEt.getText().toString();
                 filterProducts(searchText);
+            }
+        });
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminProductActivity.this, AddProductActivity.class));
             }
         });
         productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
@@ -271,7 +272,13 @@ public class AdminProductActivity extends AppCompatActivity {
         }
 
         // Sử dụng Picasso hoặc Glide để load ảnh sản phẩm từ URL và hiển thị trong ImageView
-        Picasso.get().load(product.getImageurl()).into(imageViewProduct);
+        String imageUrl = product.getImageurl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(imageViewProduct);
+        } else {
+            // Xử lý khi URL trống, ví dụ load ảnh mặc định
+            Picasso.get().load(R.drawable.logo).into(imageViewProduct);
+        }
 
         // Gán sự kiện cho các button trong bottom sheet (ví dụ: xóa, chỉnh sửa)
         ImageButton  btnEditProduct = bottomSheetView.findViewById(R.id.btnEditProduct);

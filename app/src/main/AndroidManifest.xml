@@ -5,19 +5,10 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-
 
     <application
         android:allowBackup="true"
@@ -30,49 +21,50 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".java.ProductDetailActivity"
+            android:name=".java.EditProductActivity"
             android:exported="false" />
-        <activity android:name=".java.OrderDetailsActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".java.AddToCartActivity"
-            android:exported="false" />
-
-        <activity android:name=".java.UserInformationActivity"
-            android:exported="true"/>
         <activity
             android:name=".java.AddProductActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name=".java.EditProductActivity"
+            android:name=".java.AdminPromotionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.AddPromotionCodeActivity"
             android:exported="true" />
         <activity
             android:name=".java.AdminProductActivity"
             android:exported="true" />
         <activity
+            android:name=".java.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.AddToCartActivity"
+            android:exported="false" />
+        <activity
             android:name=".java.ProductListActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
         <activity
             android:name=".java.PersonalInfoActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.ContactActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SettingNotificationActivity2"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.TermsActivity"
             android:exported="false" />
         <activity
             android:name=".java.PolicyActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.OrderHistoryActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.DrawerBaseActivity"
             android:exported="false" />
@@ -81,16 +73,16 @@
             android:exported="true" />
         <activity
             android:name=".java.BlogCategoryActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.CartActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.MyAccountActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.NotificationActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.SettingAddressActivity"
             android:exported="true" />
@@ -105,13 +97,13 @@
             android:exported="true" />
         <activity
             android:name=".java.ChangePasswordActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.ResetPasswordActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.ResetPasswordOTPActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".java.OrderConfirmActivity"
             android:exported="true" />
@@ -142,7 +134,6 @@
         <activity
             android:name=".java.MainActivity"
             android:exported="true" />
-
 
         <meta-data
             android:name="preloaded_fonts"
