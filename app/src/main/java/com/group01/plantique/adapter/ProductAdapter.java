@@ -111,7 +111,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
 
             ImageView imageView = view.findViewById(R.id.imageViewProduct);
-            Picasso.get().load(product.getImageurl()).into(imageView);
+            String imageUrl = product.getImageurl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                Picasso.get().load(imageUrl).into(imageView);
+            } else {
+                // Xử lý khi URL trống, ví dụ load ảnh mặc định
+                Picasso.get().load(R.drawable.logo).into(imageView);
+            }
 
             TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
             txtDiscountNote.setText(product.getDiscountNote());

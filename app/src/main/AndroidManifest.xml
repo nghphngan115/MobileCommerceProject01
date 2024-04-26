@@ -21,6 +21,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.AddProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.AdminPromotionActivity"
             android:exported="true" />
         <activity

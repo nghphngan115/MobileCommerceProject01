@@ -40,7 +40,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private RecyclerView recyclerViewProducts;
     private DatabaseReference productsRef, categoriesRef;
     private EditText searchProductEt;
-    private ImageButton filterProductBtn, searchBtn;
+    private ImageButton filterProductBtn, searchBtn, btnAddProduct;
     private ProductAdapter productAdapter;
     private List<Category> categoryList = new ArrayList<>();
     private String selectedCategory = "All"; // Danh mục được chọn mặc định
@@ -57,6 +57,7 @@ public class AdminProductActivity extends AppCompatActivity {
         searchProductEt = findViewById(R.id.searchEt);
         filterProductBtn = findViewById(R.id.filterBtn);
         searchBtn = findViewById(R.id.searchBtn);
+        btnAddProduct = findViewById(R.id.btnAddProduct);
 
         productsRef = FirebaseDatabase.getInstance().getReference().child("products");
         categoriesRef = FirebaseDatabase.getInstance().getReference().child("categories");
@@ -76,6 +77,12 @@ public class AdminProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String searchText = searchProductEt.getText().toString();
                 filterProducts(searchText);
+            }
+        });
+        btnAddProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminProductActivity.this, AddProductActivity.class));
             }
         });
         productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
@@ -265,7 +272,13 @@ public class AdminProductActivity extends AppCompatActivity {
         }
 
         // Sử dụng Picasso hoặc Glide để load ảnh sản phẩm từ URL và hiển thị trong ImageView
-        Picasso.get().load(product.getImageurl()).into(imageViewProduct);
+        String imageUrl = product.getImageurl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(imageViewProduct);
+        } else {
+            // Xử lý khi URL trống, ví dụ load ảnh mặc định
+            Picasso.get().load(R.drawable.logo).into(imageViewProduct);
+        }
 
         // Gán sự kiện cho các button trong bottom sheet (ví dụ: xóa, chỉnh sửa)
         ImageButton  btnEditProduct = bottomSheetView.findViewById(R.id.btnEditProduct);
