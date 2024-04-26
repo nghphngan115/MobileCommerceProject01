@@ -101,7 +101,7 @@ public class CartActivity extends DrawerBaseActivity {
             @Override
             public void onClick(View v) {
                 // Mở ListOrderActivity khi click vào nút "Đặt hàng"
-                startActivity(new Intent(CartActivity.this, ListOrderActivity.class));
+                startActivity(new Intent(CartActivity.this, CheckoutActivity.class));
             }
         });
     }
@@ -116,13 +116,16 @@ public class CartActivity extends DrawerBaseActivity {
         }
 
         // Set adapter cho ListView
+        // Set adapter cho ListView
         cartListAdapter = new CartListAdapter(this, cartProducts);
         lvCart.setAdapter(cartListAdapter);
+
         // Thiết lập lắng nghe sự kiện thay đổi số lượng sản phẩm
         cartListAdapter.setOnQuantityChangeListener(new CartListAdapter.OnQuantityChangeListener() {
             @Override
             public void onQuantityChanged() {
-                updateTotalCart();
+                saveCartToSharedPreferences();  // Lưu lại mỗi khi số lượng thay đổi
+                updateTotalCart();  // Cập nhật tổng giá trị giỏ hàng
             }
         });
 
@@ -146,15 +149,14 @@ public class CartActivity extends DrawerBaseActivity {
         Gson gson = new Gson();
         String json = gson.toJson(cartProducts);
         editor.putString("cart", json);
-        editor.putInt("totalAmount", calculateTotalAmount());
+        editor.putInt("totalAmount", calculateTotalAmount());  // Lưu tổng tiền vào SharedPreferences
         editor.apply();
     }
 
-    // Phương thức để tính toán tổng số lượng sản phẩm trong giỏ hàng
     private int calculateTotalAmount() {
         int total = 0;
         for (Product product : cartProducts) {
-            total += product.getCartQuantity();
+            total += product.getPrice() * product.getCartQuantity();
         }
         return total;
     }

@@ -34,8 +34,11 @@ import java.util.HashMap;
 public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
-    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal;
+    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee;
     private ConstraintLayout btnConfirm;
+    private ListView lvProduct;
+    private CartListAdapter cartListAdapter;
+    private static final int SHIPPING_FEE = 30000; // Shipping fee constant
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class OrderConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_confirm);
         initializeFirebase();
         initializeViews();
+        productList = getCartFromSharedPreferences();
+        setupListAdapter();
+        updateTotal();
         populateDataFromIntent();
     }
 
@@ -57,42 +63,46 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtPhone = findViewById(R.id.txtPhone);
         txtEmail = findViewById(R.id.txtEmail);
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
+        txtSubTotal = findViewById(R.id.txtSubTotal);
+        txtShipFee = findViewById(R.id.txtShipFee);
         txtTotal = findViewById(R.id.txtTotal);
-
+        lvProduct = findViewById(R.id.lvProduct);
         btnConfirm = findViewById(R.id.btnConfirm);
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pushOrderToFirebase();
-            }
-        });
+        btnConfirm.setOnClickListener(v -> pushOrderToFirebase());
+        txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
     }
 
-    private void populateDataFromIntent() {
-        Intent intent = getIntent();
-        String fullname = intent.getStringExtra("FULL_NAME");
-        String address = intent.getStringExtra("ADDRESS");
-        String email = intent.getStringExtra("EMAIL");
-        String phone = intent.getStringExtra("PHONE");
-        String paymentMethod = intent.getStringExtra("PAYMENT_METHOD");
-        String totalAmount = intent.getStringExtra("totalAmount");
-        String productListJson = intent.getStringExtra("productListJson");
+    private void setupListAdapter() {
+        cartListAdapter = new CartListAdapter(this, productList);
+        lvProduct.setAdapter(cartListAdapter);
+        cartListAdapter.setOnQuantityChangeListener(this::updateTotal);
+    }
 
+    private void updateTotal() {
+        int subTotal = 0;
+        for (Product product : productList) {
+            subTotal += product.getPrice() * product.getCartQuantity();
+        }
+        txtSubTotal.setText(String.format("%d đ", subTotal));
+        int total = subTotal + SHIPPING_FEE;
+        txtTotal.setText(String.format("%d đ", total));
+        saveCartToSharedPreferences();
+    }
+    private void saveCartToSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = gson.toJson(productList);
+        sharedPreferences.edit().putString("cart", json).apply();
+    }
+    private ArrayList<Product> getCartFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("cart", null);
+        if (json == null) {
+            return new ArrayList<>(); // Return an empty list if nothing is found
+        }
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<Product>>() {}.getType();
-        productList = gson.fromJson(productListJson, type);
-
-        txtFullName.setText(fullname != null ? fullname : "N/A");
-        txtAddress.setText(address != null ? address : "N/A");
-        txtEmail.setText(email != null ? email : "N/A");
-        txtPhone.setText(phone != null ? phone : "N/A");
-        txtPaymentMethod.setText(paymentMethod != null ? paymentMethod : "N/A");
-        txtTotal.setText(totalAmount);
-
-        // Populate the ListView with the product list
-        CartListAdapter adapter = new CartListAdapter(this, productList);
-        ListView lvProduct = findViewById(R.id.lvProduct);
-        lvProduct.setAdapter(adapter);
+        return gson.fromJson(json, type); // Convert the JSON string back to a List of Product
     }
 
     private void pushOrderToFirebase() {
@@ -103,15 +113,18 @@ public class OrderConfirmActivity extends AppCompatActivity {
         }
 
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String orderId = userId + "-" + timestamp;
-        String cost = txtTotal.getText().toString().trim().replace("đ", "");
+        String orderId = timestamp;
+        String subTotal = txtSubTotal.getText().toString().replace("đ", "").trim();
+        String totalCost = txtTotal.getText().toString().replace("đ", "").trim();
 
         HashMap<String, Object> orderInfo = new HashMap<>();
         orderInfo.put("orderId", orderId);
         orderInfo.put("orderDate", timestamp);
         orderInfo.put("orderStatus", "Processing");
         orderInfo.put("fullName", txtFullName.getText().toString());
-        orderInfo.put("totalCost", cost);
+        orderInfo.put("subTotal", subTotal);
+        orderInfo.put("shippingFee", SHIPPING_FEE);
+        orderInfo.put("totalCost", totalCost);
         orderInfo.put("address", txtAddress.getText().toString());
         orderInfo.put("email", txtEmail.getText().toString());
         orderInfo.put("phone", txtPhone.getText().toString());
@@ -119,18 +132,11 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         DatabaseReference orderRef = databaseReference.child(userId).child("Orders").child(timestamp);
         orderRef.setValue(orderInfo)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        processOrderItems(orderRef);
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    processOrderItems(orderRef);
+                    showOrderConfirmationDialog(orderId);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Firebase", "Failed to push order data", e);
-                    }
-                });
+                .addOnFailureListener(e -> Log.e("Firebase", "Failed to push order data", e));
     }
 
     private void processOrderItems(DatabaseReference orderRef) {
@@ -139,31 +145,24 @@ public class OrderConfirmActivity extends AppCompatActivity {
             itemMap.put("productId", product.getProductId());
             itemMap.put("name", product.getProductName());
             itemMap.put("price", product.getPrice());
-            itemMap.put("quantity", product.getStock());
+            itemMap.put("quantity", product.getCartQuantity());
             itemMap.put("discount_price", product.getDiscount_price());
 
             orderRef.child("Items").child(product.getProductId()).setValue(itemMap);
-
-            // Update stock in the database
-            updateProductStock(product.getProductId(), product.getStock());
+            updateProductStock(product.getProductId(), product.getCartQuantity());
         }
-        showOrderConfirmationDialog(orderRef.getKey());
     }
 
     private void updateProductStock(String productId, int quantityOrdered) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products").child(productId);
-
         productRef.child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Integer currentStock = dataSnapshot.getValue(Integer.class);
                 if (currentStock != null && currentStock >= quantityOrdered) {
-                    productRef.child("stock").setValue(currentStock - quantityOrdered)
-                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Stock updated successfully!"))
-                            .addOnFailureListener(e -> Log.e("Firebase", "Failed to update stock", e));
+                    productRef.child("stock").setValue(currentStock - quantityOrdered);
                 } else {
                     Log.e("Firebase", "Not enough stock for productId: " + productId);
-                    // Handle the case where there is not enough stock
                 }
             }
 
@@ -174,7 +173,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
         });
     }
 
-
     private void showOrderConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation, null);
@@ -184,19 +182,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtOrderIdConfirm.setText("Mã đơn hàng: " + orderId);
 
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finishHomeScreen();
-            }
-        });
+        btnBack.setOnClickListener(v -> finishHomeScreen());
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void finishHomeScreen() {
-        Intent intent = new Intent(OrderConfirmActivity.this, HomeScreenActivity.class);
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
@@ -206,4 +199,18 @@ public class OrderConfirmActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         return sharedPreferences.getString("userID", null);
     }
-}
+    private void populateDataFromIntent() {
+        Intent intent = getIntent();
+        String fullname = intent.getStringExtra("FULL_NAME");
+        String address = intent.getStringExtra("ADDRESS");
+        String email = intent.getStringExtra("EMAIL");
+        String phone = intent.getStringExtra("PHONE");
+        String paymentMethod = intent.getStringExtra("PAYMENT_METHOD");
+        txtFullName.setText(fullname != null ? fullname : "N/A");
+        txtAddress.setText(address != null ? address : "N/A");
+        txtEmail.setText(email != null ? email : "N/A");
+        txtPhone.setText(phone != null ? phone : "N/A");
+        txtPaymentMethod.setText(paymentMethod != null ? paymentMethod : "N/A");
+    }
+
+    }

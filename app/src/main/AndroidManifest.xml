@@ -61,7 +61,7 @@
             android:exported="false" />
         <activity
             android:name=".java.OrderHistoryActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.DrawerBaseActivity"
             android:exported="false" />
@@ -106,7 +106,7 @@
             android:exported="false" />
         <activity
             android:name=".java.OrderConfirmActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.SearchActivity"
             android:exported="false" />
@@ -115,7 +115,7 @@
             android:exported="false" />
         <activity
             android:name=".java.CheckoutActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.SignUpActivity"
             android:exported="false" />

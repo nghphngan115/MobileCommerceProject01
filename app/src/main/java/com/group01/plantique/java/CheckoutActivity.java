@@ -30,19 +30,24 @@ public class CheckoutActivity extends AppCompatActivity {
     TextView txtSubTotal;
     ListView lvProduct;
     ArrayList<Product> cartProducts;
-
+    private CartListAdapter cartListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-
         initViews();
         cartProducts = getCartFromSharedPreferences();
-        int totalAmount = getSharedPreferences("CartPrefs", MODE_PRIVATE).getInt("totalAmount", 0);
-        txtSubTotal.setText(String.format("%d đ", totalAmount));
+        updateSubTotal();
 
-        CartListAdapter cartListAdapter = new CartListAdapter(this, cartProducts);
+        cartListAdapter = new CartListAdapter(this, cartProducts);
         lvProduct.setAdapter(cartListAdapter);
+        cartListAdapter.setOnQuantityChangeListener(new CartListAdapter.OnQuantityChangeListener() {
+            @Override
+            public void onQuantityChanged() {
+                updateSubTotal();
+                saveCartToSharedPreferences();
+            }
+        });
 
         addEvents();
     }
@@ -58,14 +63,31 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
 
+    private void updateSubTotal() {
+        int totalAmount = 0;
+        for (Product product : cartProducts) {
+            totalAmount += product.getPrice() * product.getCartQuantity();
+        }
+        txtSubTotal.setText(String.format("%d đ", totalAmount));
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        sharedPreferences.edit().putInt("totalAmount", totalAmount).apply();
+    }
 
-    private ArrayList<Product> getCartFromSharedPreferences() {
+    private void saveCartToSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
+        String json = gson.toJson(cartProducts);
+        sharedPreferences.edit().putString("cart", json).apply();
+    }
+    private ArrayList<Product> getCartFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         String json = sharedPreferences.getString("cart", null);
+        Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<Product>>() {}.getType();
         return gson.fromJson(json, type);
     }
+
+
 
     private void addEvents() {
          btnConfirm = findViewById(R.id.btnConfirm);
