@@ -5,10 +5,17 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -26,9 +33,14 @@
         <activity
             android:name=".java.AddToCartActivity"
             android:exported="false" />
+
+
+        <activity
+            android:name=".java.AddProductActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.EditProductActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.AdminProductActivity"
             android:exported="true" />
@@ -125,9 +137,7 @@
         <activity
             android:name=".java.MainActivity"
             android:exported="true" />
-        <activity
-            android:name=".java.ChangePasswordActivity"
-            android:exported="false" />
+
 
         <meta-data
             android:name="preloaded_fonts"
