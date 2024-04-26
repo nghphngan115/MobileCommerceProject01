@@ -537,6 +537,6 @@ public class AddProductActivity extends AppCompatActivity {
         discountedNoteEt = findViewById(R.id.discountedNoteEt);
         discountedPriceEt = findViewById(R.id.discountedPriceEt);
         discountSwitch = findViewById(R.id.discountSwitch);
-        addProductBtn=findViewById(R.id.addProductBtn);
+        addProductBtn=findViewById(R.id.edtProductBtn);
     }
 }

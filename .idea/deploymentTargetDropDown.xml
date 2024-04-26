@@ -2,13 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CartActivity">
+      <entry key="HomeScreenActivity">
         <State />
       </entry>
-      <entry key="CheckoutActivity">
+      <entry key="LoginActivity">
         <State />
       </entry>
-      <entry key="OrderHistoryActivity">
+      <entry key="SignUpActivity">
+        <State />
+      </entry>
+      <entry key="WelcomeActivity">
+        <State />
+      </entry>
+      <entry key="MyAccountActivity">
         <State />
       </entry>
       <entry key="app">
