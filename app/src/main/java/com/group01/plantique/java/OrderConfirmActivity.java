@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,7 +71,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtTotal = findViewById(R.id.txtTotal);
         lvProduct = findViewById(R.id.lvProduct);
         btnConfirm = findViewById(R.id.btnConfirm);
-        btnConfirm.setOnClickListener(v -> pushOrderToFirebase());
+        btnConfirm.setOnClickListener(v -> finalizeOrder());
         txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
     }
 
@@ -104,14 +107,24 @@ public class OrderConfirmActivity extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Product>>() {}.getType();
         return gson.fromJson(json, type); // Convert the JSON string back to a List of Product
     }
-
-    private void pushOrderToFirebase() {
+    private void finalizeOrder() {
         String userId = getUserIdFromSharedPreferences();
         if (userId == null) {
             Toast.makeText(this, "User ID is not available, please sign in again.", Toast.LENGTH_LONG).show();
             return;
         }
 
+        // Assuming you have already populated productList with the items in the cart
+        // Update stock for each product in the order
+        for (Product product : productList) {
+            updateProductStock(product.getProductId(), product.getCartQuantity());
+        }
+
+        // After updating stock, push order details to Firebase
+        pushOrderToFirebase();
+    }
+    private void pushOrderToFirebase() {
+        String userId = getUserIdFromSharedPreferences();
         String timestamp = String.valueOf(System.currentTimeMillis());
         String orderId = timestamp;
         String subTotal = txtSubTotal.getText().toString().replace("đ", "").trim();
@@ -146,6 +159,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             itemMap.put("name", product.getProductName());
             itemMap.put("price", product.getPrice());
             itemMap.put("quantity", product.getCartQuantity());
+            itemMap.put("imageurl",product.getImageurl());
             itemMap.put("discount_price", product.getDiscount_price());
 
             orderRef.child("Items").child(product.getProductId()).setValue(itemMap);
@@ -154,24 +168,32 @@ public class OrderConfirmActivity extends AppCompatActivity {
     }
 
     private void updateProductStock(String productId, int quantityOrdered) {
-        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products").child(productId);
-        productRef.child("stock").addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products").child(productId).child("stock");
+        productRef.runTransaction(new Transaction.Handler() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Integer currentStock = dataSnapshot.getValue(Integer.class);
-                if (currentStock != null && currentStock >= quantityOrdered) {
-                    productRef.child("stock").setValue(currentStock - quantityOrdered);
-                } else {
-                    Log.e("Firebase", "Not enough stock for productId: " + productId);
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Integer currentStock = mutableData.getValue(Integer.class);
+                if (currentStock == null || currentStock < quantityOrdered) {
+                    return Transaction.abort();
                 }
+                mutableData.setValue(currentStock - quantityOrdered);
+                return Transaction.success(mutableData);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Firebase", "Failed to read stock for productId: " + productId, databaseError.toException());
+            public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
+                if (committed) {
+                    Log.d("Firebase", "Stock updated successfully for product ID: " + productId);
+                } else {
+                    Log.e("Firebase", "Failed to update stock for product ID: " + productId);
+                    if (databaseError != null) {
+                        Log.e("Firebase", "Error: " + databaseError.toException());
+                    }
+                }
             }
         });
     }
+
 
     private void showOrderConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
