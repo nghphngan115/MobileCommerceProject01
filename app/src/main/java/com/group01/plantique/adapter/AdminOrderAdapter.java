@@ -1,6 +1,5 @@
 package com.group01.plantique.adapter;
 
-// In AdminOrderAdapter
 import static com.group01.plantique.java.AdminOrderListActivity.REQUEST_CODE;
 
 
@@ -48,7 +47,8 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Or
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         Order order = ordersList.get(position);
         holder.txtOrderId.setText(order.getOrderId());
-        holder.txtTotalAmount.setText("Total: " + (order.getTotalCost() != null ? order.getTotalCost() : "N/A"));
+        holder.txtTotalAmount.setText(String.format("%s đ", (order.getTotalCost() != null ? order.getTotalCost() : "N/A")));
+
         holder.txtOrderDate.setText((order.getOrderDate() != null ? convertTimestampToDate(Long.parseLong(order.getOrderDate())) : "N/A"));
         holder.txtStatus.setText(order.getOrderStatus() != null ? order.getOrderStatus() : "Unknown");
 

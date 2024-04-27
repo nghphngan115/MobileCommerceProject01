@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AdminOrderListActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE = 1;
     private RecyclerView ordersRecyclerView;
     private AdminOrderAdapter ordersAdapter;
     private List<Order> ordersList;
@@ -44,16 +45,20 @@ public class AdminOrderListActivity extends AppCompatActivity {
     private Spinner statusSpinner;
     private String currentStatus = "All Statuses";
     private SearchView searchOrderView;
-    private ArrayAdapter<CharSequence> spinnerAdapter; // Spinner adapter
-    public static final int REQUEST_CODE = 1;
+    private ArrayAdapter<CharSequence> spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_order_list);
-        setupFirebaseListener();
-        createNotificationChannel();
 
+        createNotificationChannel();  // Ensure the notification channel is created
+        setupFirebaseListener();  // Setup listener to detect new orders
+        setupUIComponents();  // Setup UI Components
+        fetchAllOrders();  // Fetch all orders initially
+    }
+
+    private void setupUIComponents() {
         statusSpinner = findViewById(R.id.spinnerOrderStatus);
         searchOrderView = findViewById(R.id.searchOrder);
 
@@ -72,8 +77,117 @@ public class AdminOrderListActivity extends AppCompatActivity {
 
         setupSpinner();
         setupSearchView();
-        fetchAllOrders(); // Initial fetch
     }
+
+    private void setupFirebaseListener() {
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("allorders");
+        ordersRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    DataSnapshot ordersSnapshot = userSnapshot.child("Orders");
+                    for (DataSnapshot orderSnapshot : ordersSnapshot.getChildren()) {
+                        Order order = orderSnapshot.getValue(Order.class);
+                        if (order != null && (currentStatus.equals("All Statuses") || order.getOrderStatus().equalsIgnoreCase(currentStatus))) {
+                            if (!ordersListContainsOrderId(order.getOrderId())) {
+                                ordersList.add(order);
+                                Collections.reverse(ordersList);
+                                ordersAdapter.notifyDataSetChanged();
+                                sendNewOrderNotification(order);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {}
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {}
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    private boolean ordersListContainsOrderId(String orderId) {
+        for (Order order : ordersList) {
+            if (order != null && order.getOrderId() != null && order.getOrderId().equals(orderId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(getString(R.string.channel_id), name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            } else {
+                Log.e("NotificationChannel", "Failed to create notification channel");
+            }
+        }
+    }
+
+    private void fetchAllOrders() {
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("allorders");
+        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ordersList.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    DataSnapshot ordersSnapshot = userSnapshot.child("Orders");
+                    for (DataSnapshot orderSnapshot : ordersSnapshot.getChildren()) {
+                        Order order = orderSnapshot.getValue(Order.class);
+                        if (order != null && (currentStatus.equals("All Statuses") || order.getOrderStatus().equalsIgnoreCase(currentStatus))) {
+                            ordersList.add(order);
+                        }
+                    }
+                }
+                Collections.reverse(ordersList); // Filter immediately after fetching
+                ordersAdapter.notifyDataSetChanged();
+                filterOrders(currentStatus); // Notify adapter about data change
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("AdminOrderListActivity", "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void sendNewOrderNotification(Order order) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager == null) {
+            Log.e("sendNewOrderNotification", "Notification Manager not available");
+            return;
+        }
+
+        Intent intent = new Intent(this, AdminOrderDetailsActivity.class);
+        intent.putExtra("order", order);
+        int notificationId = order.getOrderId() != null ? order.getOrderId().hashCode() : new Random().nextInt();
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.channel_id))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("New Order Received")
+                .setContentText("Order ID: " + (order.getOrderId() != null ? order.getOrderId() : "Unknown ID"))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        notificationManager.notify(notificationId, builder.build());
+        Log.d("sendNewOrderNotification", "Notification sent for Order ID: " + order.getOrderId());
+    }
+
 
     private void setupSpinner() {
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,139 +198,25 @@ public class AdminOrderListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-    private void setupFirebaseListener() {
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("allorders");
-        ordersRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String orderId = userSnapshot.getKey();
-                    if (!ordersListContainsOrderId(orderId)) {
-                        Order order = userSnapshot.getValue(Order.class);
-                        if (order != null && (currentStatus.equals("All Statuses") || order.getOrderStatus().equalsIgnoreCase(currentStatus))) {
-                            ordersList.add(order);
-                            Collections.reverse(ordersList);
-                            ordersAdapter.notifyDataSetChanged();
-                            sendNewOrderNotification(order);
-                        }
-                    }
-                }
-            }
-
-            // Các phương thức còn lại có thể để trống hoặc không cần cài đặt
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {}
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {}
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
-    // Phương thức kiểm tra xem orderId đã tồn tại trong danh sách đơn hàng hay chưa
-    private boolean ordersListContainsOrderId(String orderId) {
-        for (Order order : ordersList) {
-            if (order != null && order.getOrderId() != null && order.getOrderId().equals(orderId)) {
+    private void setupSearchView() {
+        searchOrderView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchOrders(query);
                 return true;
             }
-        }
-        return false;
-    }
-
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            String channelId = getString(R.string.channel_id); // Unique ID for the notification channel
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-            channel.setDescription(description);
-
-            // Register the channel with the system
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            } else {
-                Log.e("NotificationChannel", "Failed to create notification channel");
-            }
-        }
-    }
-
-
-    private void fetchAllOrders() {
-        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference().child("allorders");
-        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ordersList.clear();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    // Correctly iterating through each user's orders
-                    DataSnapshot ordersSnapshot = userSnapshot.child("Orders");
-                    for (DataSnapshot orderSnapshot : ordersSnapshot.getChildren()) {
-                        Order order = orderSnapshot.getValue(Order.class);
-                        if (order != null && (currentStatus.equals("All Statuses") || order.getOrderStatus().equalsIgnoreCase(currentStatus))) {
-                            ordersList.add(order);
-                        }
-                    }
-                }
-                Collections.reverse(ordersList); // Filter immediately after fetching
-                ordersAdapter.notifyDataSetChanged(); // Notify adapter about data change
-            }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("AdminOrderListActivity", "Database error: " + databaseError.getMessage());
+            public boolean onQueryTextChange(String newText) {
+                searchOrders(newText);
+                return true;
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            // This code will execute when coming back from AdminOrderDetailsActivity
-            // Refresh your list
-            fetchAllOrders(); // Call your method to refresh or re-fetch the orders list
-        }
-    }
-    private void sendNewOrderNotification(Order order) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent intent = new Intent(this, AdminOrderDetailsActivity.class);
-        intent.putExtra("order", order);
-        // Default ID in case order ID is null
-        int notificationId = order.getOrderId() != null ? order.getOrderId().hashCode() : new Random().nextInt();
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.channel_id))
-                .setSmallIcon(R.drawable.ic_notification) // Replace with your notification icon
-                .setContentTitle("New Order Received")
-                .setContentText("New order: " + (order.getOrderId() != null ? order.getOrderId() : "Unknown ID"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        if (notificationManager != null) {
-            notificationManager.notify(notificationId, builder.build());
-        } else {
-            Log.e("sendNewOrderNotification", "Notification Manager not available");
-        }
-    }
-
-
-
-
-
 
     private void filterOrders(String status) {
         List<Order> filteredOrders = new ArrayList<>();
@@ -225,7 +225,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
                 filteredOrders.add(order);
             }
         }
-        filteredList = new ArrayList<>(filteredOrders); // Update filteredList
+        filteredList = new ArrayList<>(filteredOrders);
         ordersAdapter.updateList(filteredOrders); // Update the adapter with the filtered list
     }
 
@@ -239,23 +239,4 @@ public class AdminOrderListActivity extends AppCompatActivity {
         }
         ordersAdapter.updateList(searchedList); // Update the adapter with the searched list
     }
-
-
-    private void setupSearchView() {
-        searchOrderView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchOrders(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchOrders(newText);
-                return false;
-            }
-        });
-    }
-
-
 }
