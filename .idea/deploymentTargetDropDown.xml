@@ -6,6 +6,10 @@
         <State />
       </entry>
       <entry key="OrderHistoryActivity">
+      <entry key="ProductCategoriesActivity">
+        <State />
+      </entry>
+      <entry key="ProductListActivity">
         <State />
       </entry>
       <entry key="app">
