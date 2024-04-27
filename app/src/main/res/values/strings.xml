@@ -36,6 +36,7 @@
     <string name="channel_description">Notifications for new orders</string>
     <string name="channel_id">order_channel</string>
 
+
     <string-array name="order_statuses">
         <item>All Statuses</item>
         <item>Processing</item>

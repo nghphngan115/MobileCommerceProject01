@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".java.HomeScreenActivity">
     <ScrollView
@@ -37,6 +37,7 @@
                 android:layout_weight="1"
                 android:text="Trang chủ"
                 android:textAlignment="center"
+                android:textColor="@color/main_green"
                 android:textSize="20sp" />
 
             <ImageView
@@ -52,25 +53,25 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Xin chào"
-            android:fontFamily="@font/inter"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter"
+            android:text="Xin chào" />
 
         <!-- SearchView -->
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/inter"
             android:text="Bạn cần tìm gì?" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="28dp" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/svSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_searchview" />
 
         <!-- Ad Layout -->
@@ -138,10 +139,6 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="21dp" />
-
         <!-- Category Images -->
 
 
@@ -159,10 +156,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="23dp" />
 
         <!-- Highlighted Products -->
 

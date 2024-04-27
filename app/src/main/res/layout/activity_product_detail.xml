@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -36,7 +37,10 @@
                     android:id="@+id/txtProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="@color/main_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtProductCategory"
@@ -72,6 +76,7 @@
                         android:id="@+id/txtPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:text="TextView" />
 
@@ -80,26 +85,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/main_green" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView51"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Description"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView54"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Feedbacks" />
+                    android:layout_marginBottom="10dp"
+                    android:text="Feedbacks"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <ListView
                     android:layout_width="match_parent"

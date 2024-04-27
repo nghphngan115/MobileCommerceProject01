@@ -2,9 +2,7 @@ package com.group01.plantique.java;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -190,7 +188,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             txtSubTotal.setText(String.format("%s đ", order.getSubTotal()));
             txtShipFee.setText(String.format("%s đ", order.getShippingFee()));
             txtPaymentMethod.setText(order.getPaymentMethod());
-            txtDiscount.setText("Calculate if applicable");
+            txtDiscount.setText(order.getDiscount());
             txtTotal.setText(String.format("%s đ", order.getTotalCost()));
 
             DatabaseReference itemsRef = FirebaseDatabase.getInstance().getReference("allorders")
