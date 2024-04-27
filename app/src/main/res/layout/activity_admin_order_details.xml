@@ -84,7 +84,7 @@
             <Spinner
                 android:id="@+id/spinnerStatus"
                 android:layout_width="213dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:entries="@array/update_order_statuses" />
         </LinearLayout>
 
@@ -147,7 +147,7 @@
             android:text="@string/strNote"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNote"
+            android:id="@+id/tilNote1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
