@@ -261,6 +261,14 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txtPromoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Promo Description"
+            android:visibility="gone" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="41dp"
