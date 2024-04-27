@@ -131,9 +131,15 @@ public class OrderConfirmActivity extends AppCompatActivity {
         for (Product product : productList) {
             updateProductStock(product.getProductId(), product.getCartQuantity());
         }
+        String paymentMethod = txtPaymentMethod.getText().toString();
+        String transferMethod = getString(R.string.strTransfer); // Get the transfer method from resources
 
-        // After updating stock, push order details to Firebase
-        pushOrderToFirebase();
+        if (transferMethod.equals(paymentMethod)) {
+            showPaymentConfirmationDialog();
+        } else {
+            // For COD or any other methods, finalize the order immediately
+            pushOrderToFirebase();
+        }
     }
     private void pushOrderToFirebase() {
         String userId = getUserIdFromSharedPreferences();
@@ -263,6 +269,29 @@ public class OrderConfirmActivity extends AppCompatActivity {
         }
 
     }
+    private void showPaymentConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_bank_transfer, null);
+        builder.setView(dialogView);
+
+        // Get the total amount from the TextView in your activity
+        String totalAmount = txtTotal.getText().toString();
+
+        // Set the total amount on the dialog's TextView
+        TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
+        txtDialogTotal.setText(totalAmount);
+
+        // Setup the button to confirm payment
+        ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
+        btnCompleted.setOnClickListener(v -> {
+            // Logic to confirm payment, perhaps update some status or push data to Firebase
+            pushOrderToFirebase();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void sendOrderConfirmationNotification(String orderId, String orderDate) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = "order_confirmation_channel";

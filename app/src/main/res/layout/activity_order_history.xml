@@ -13,7 +13,6 @@
         android:fontFamily="@font/inter_medium"
         android:gravity="center"
         android:text="Đơn hàng của tôi"
-        android:textColor="#040303"
         android:textSize="20sp"
         android:textStyle="bold" />
 

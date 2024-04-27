@@ -32,7 +32,9 @@
     <string name="strConfirmOrd">Confirm Order</string>
     <string name="strApply">Apply</string>
     <string name="strPlaceOrder">Place Order</string>
-
+    <string name="channel_name">Order Notifications</string>
+    <string name="channel_description">Notifications for new orders</string>
+    <string name="channel_id">order_channel</string>
 
     <string-array name="order_statuses">
         <item>All Statuses</item>

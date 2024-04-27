@@ -9,6 +9,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.DialogInterface;
+import androidx.appcompat.app.AlertDialog;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +26,9 @@ import com.group01.plantique.model.Order;
 import com.group01.plantique.model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdminOrderDetailsActivity extends AppCompatActivity {
     private TextView txtStatus, txtFullname, txtOrderId, txtUserId, txtEmail, txtSubTotal, txtTotal, txtShipFee, txtPaymentMethod;
@@ -32,6 +37,7 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
     private Spinner spinnerStatus;
     private Button btnUpdateOrder;
     private Order order;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,24 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
         if (order != null) {
             txtOrderId.setText(order.getOrderId());
             txtStatus.setText(order.getOrderStatus());
+            switch (order.getOrderStatus()) {
+                case "Processing":
+                    txtStatus.setTextColor(getResources().getColor(R.color.processing));
+                    break;
+                case "Delivering":
+                    txtStatus.setTextColor(getResources().getColor(R.color.delivering));
+                    break;
+                case "Finished":
+                    txtStatus.setTextColor(getResources().getColor(R.color.finished));
+                    break;
+                case "Cancelled":
+                    txtStatus.setTextColor(getResources().getColor(R.color.cancelled));
+                    break;
+                default:
+                    // Màu mặc định khi trạng thái không xác định
+                    txtStatus.setTextColor(getResources().getColor(android.R.color.black));
+                    break;
+            }
             txtFullname.setText(order.getFullName());
             txtUserId.setText(order.getOrderBy());
             txtEmail.setText(order.getEmail());
@@ -133,33 +157,56 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
     private void setupUpdateButton() {
         btnUpdateOrder.setOnClickListener(view -> {
             if (order != null && order.getOrderId() != null) {
-                updateOrderFromUI();
+                showUpdateConfirmationDialog();
             } else {
                 Log.e("AdminOrderDetailsActivity", "Order object or Order ID is null");
                 Toast.makeText(this, "Error: Order data is incomplete.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+    private void showUpdateConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Update");
+        builder.setMessage("Are you sure you want to update this order?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateOrderFromUI();  // Proceed with the update
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();  // Dismiss the dialog and do nothing
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void updateOrderFromUI() {
+        Map<String, Object> updates = new HashMap<>();
         String newAddress = edtAddress.getText().toString();
         String newPhone = edtPhone.getText().toString();
         String newNote = edtNote.getText().toString();
         String newStatus = spinnerStatus.getSelectedItem().toString();
-        order.setAddress(newAddress);
-        order.setPhone(newPhone);
-        order.setOrderNote(newNote);
-        order.setOrderStatus(newStatus);
-        updateOrderInFirebase(order);
+
+        updates.put("address", newAddress);
+        updates.put("phone", newPhone);
+        updates.put("orderNote", newNote);
+        updates.put("orderStatus", newStatus);
+
+        updateOrderInFirebase(updates);
     }
 
-    private void updateOrderInFirebase(Order updatedOrder) {
+    private void updateOrderInFirebase(Map<String, Object> updates) {
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference()
                 .child("allorders")
-                .child(updatedOrder.getOrderBy())
+                .child(order.getOrderBy())
                 .child("Orders")
-                .child(updatedOrder.getOrderId());
+                .child(order.getOrderId());
 
-        orderRef.setValue(updatedOrder)
+        orderRef.updateChildren(updates)
                 .addOnSuccessListener(aVoid -> {
                     Log.d("Firebase", "Order updated successfully in Firebase");
                     Toast.makeText(AdminOrderDetailsActivity.this, "Order updated successfully", Toast.LENGTH_SHORT).show();
@@ -172,6 +219,8 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED);  // Set the result as CANCELED
                 });
     }
+
+
 
 }
 

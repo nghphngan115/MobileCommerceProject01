@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -104,6 +105,26 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to update order status", Toast.LENGTH_SHORT).show());
         }
     }
+    private void showCancelConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận hủy")
+                .setMessage("Bạn có chắc chắn muốn hủy đơn hàng này không?")
+                .setPositiveButton("Có", (dialog, which) -> cancelOrder())
+                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
+    private void showFinishConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận nhận hàng")
+                .setMessage("Bạn có xác nhận đã nhận được hàng đúng không?")
+                .setPositiveButton("Có", (dialog, which) -> markOrderAsFinished())
+                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
     private void updateButtonBasedOnStatus() {
         if (order != null) {
             String status = order.getOrderStatus();
@@ -112,13 +133,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 case "Processing":
                     btnAction.setText("Cancel Order");
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.cancelled));
-                    btnAction.setOnClickListener(v -> cancelOrder());
+                    btnAction.setOnClickListener(v -> showCancelConfirmationDialog());
                     break;
                 case "Delivering":
                     btnAction.setText("Đã nhận hàng");
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.delivering));
 
-                    btnAction.setOnClickListener(v -> markOrderAsFinished());
+                    btnAction.setOnClickListener(v -> showFinishConfirmationDialog());
                     break;
                 case "Finished":
                     btnAction.setText("Writing Review");
