@@ -3,12 +3,11 @@ package com.group01.plantique.java;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +21,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,8 +37,10 @@ import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -49,11 +48,12 @@ import java.util.Locale;
 public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
-    private TextView txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
-    private ConstraintLayout btnConfirm;
+    private TextView txtDiscount, txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
+    private ConstraintLayout btnConfirm, btnApply;
     private ListView lvProduct;
     private CartListAdapter cartListAdapter;
     public EditText edtVoucher;
+    private FloatingActionButton validateBtn;
     private static final int SHIPPING_FEE = 30000; // Shipping fee constant
 
     @Override
@@ -66,6 +66,16 @@ public class OrderConfirmActivity extends AppCompatActivity {
         setupListAdapter();
         updateTotal();
         populateDataFromIntent();
+
+        validateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String promotionCode = edtVoucher.getText().toString(); // Assuming you get the promo code from an EditText
+                checkCodeAvailability(promotionCode); // Pass the promo code to the method
+            }
+        });
+
+
     }
 
     private void initializeFirebase() {
@@ -89,7 +99,149 @@ public class OrderConfirmActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(v -> finalizeOrder());
         txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
         edtVoucher = findViewById(R.id.edtVoucher);
+        validateBtn = findViewById(R.id.validateBtn);
+        btnApply = findViewById(R.id.btnApply);
+        txtDiscount = findViewById(R.id.txtDiscount);
     }
+    private boolean isPromoCodeApplied =false;
+    public String promoId, promoCode, promoDescription, promoMinimumOrderPrice, promoPrice, promoExpDate;
+    private void checkCodeAvailability(String promotionCode) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Checking Promo Code...");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("promotions");
+        ref.orderByChild("promoCode").equalTo(promotionCode)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        progressDialog.dismiss();
+                        boolean isPromoCodeFound = false;
+                        if (snapshot.exists()) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                promoId = "" + ds.child("id").getValue();
+                                promoCode = "" + ds.child("promoCode").getValue();
+                                promoDescription = "" + ds.child("description").getValue();
+                                promoExpDate = "" + ds.child("expireDate").getValue();
+                                promoMinimumOrderPrice = "" + ds.child("minimumOrderPrice").getValue();
+                                promoPrice = "" + ds.child("promoPrice").getValue();
+
+                                // Kiểm tra tính khả dụng của mã
+                                boolean isAvailable = checkCodeExpireDate() && checkMinimumOrderPrice();
+
+                                if (isAvailable) {
+                                    isPromoCodeFound = true;
+                                    applyPromoCode();
+                                    break;
+                                } else {
+                                    // Nếu không tìm thấy mã hợp lệ hoặc không thỏa mãn điều kiện
+                                    isPromoCodeApplied = false;
+                                    // Ẩn nút Apply và mô tả khuyến mãi
+                                    btnApply.setVisibility(View.GONE);
+                                    txtPromoDescription.setVisibility(View.GONE);
+                                    txtPromoDescription.setText("");
+                                    priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
+                                }
+                            }
+                        } if (!isPromoCodeFound) {
+                            Toast.makeText(OrderConfirmActivity.this, "Promo code has not existed or has expired", Toast.LENGTH_SHORT).show();
+                            isPromoCodeApplied = false;
+                            // Ẩn nút Apply và mô tả khuyến mãi
+                            btnApply.setVisibility(View.GONE);
+                            txtPromoDescription.setVisibility(View.GONE);
+                            txtPromoDescription.setText("");
+                            priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(OrderConfirmActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void applyPromoCode() {
+        if (!isPromoCodeApplied) {
+            isPromoCodeApplied = true;
+            btnApply.setVisibility(View.GONE);
+            txtPromoDescription.setVisibility(View.VISIBLE);
+            txtPromoDescription.setText(promoDescription);
+            priceWithDiscount();
+        } else {
+            Toast.makeText(this, "Promo code has already been applied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    private void priceWithDiscount() {
+        try {
+            double currentPrice = Double.parseDouble(txtTotal.getText().toString().replaceAll("[^\\d.]+", ""));
+            double promoPriceValue = 0; // Giá trị mặc định
+            if (promoPrice != null && !promoPrice.equals("null")) {
+                promoPriceValue = Double.parseDouble(promoPrice);
+            }
+            double finalPrice = currentPrice - promoPriceValue;
+            txtDiscount.setText(String.format("%d đ", (int)promoPriceValue));
+            txtTotal.setText(String.format("%d đ", (int)finalPrice));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // Xử lý nếu không thể chuyển đổi thành số
+        }
+    }
+
+
+    private void priceWithoutDiscount() {
+        try {
+            double currentPrice = Double.parseDouble(txtTotal.getText().toString().replaceAll("[^\\d.]+", ""));
+            double finalPrice = currentPrice;
+            txtDiscount.setText(String.format("%d đ", 0));
+            txtTotal.setText(String.format("%d đ", (int)finalPrice));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            // Xử lý nếu không thể chuyển đổi thành số
+        }
+    }
+
+
+
+    private boolean checkCodeExpireDate() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String todayDate = day + "/" + month + "/" + year;
+        SimpleDateFormat sdformat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try {
+            Date currentDate = sdformat.parse(todayDate);
+            Date expireDate = sdformat.parse(promoExpDate != null ? promoExpDate : "01/01/1900");
+
+            return expireDate.after(currentDate) || expireDate.equals(currentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error checking promo code expiration", Toast.LENGTH_SHORT).show();
+            return false; // Mặc định trả về false nếu có lỗi xảy ra
+        }
+    }
+
+
+    private boolean checkMinimumOrderPrice() {
+        double currentPrice = Double.parseDouble(txtTotal.getText().toString().replaceAll("[^\\d.]+", ""));
+        if (promoMinimumOrderPrice != null && !promoMinimumOrderPrice.equals("null")) {
+            double minimumOrderPriceValue = Double.parseDouble(promoMinimumOrderPrice);
+            return currentPrice >= minimumOrderPriceValue;
+        } else {
+            // Xử lý khi promoMinimumOrderPrice là null
+            // Ví dụ: Báo lỗi hoặc không áp dụng điều kiện
+            return false;
+        }
+    }
+
 
     private void setupListAdapter() {
         cartListAdapter = new CartListAdapter(this, productList);
@@ -138,6 +290,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         // After updating stock, push order details to Firebase
         pushOrderToFirebase();
+        isPromoCodeApplied = false;
     }
     private void pushOrderToFirebase() {
         String userId = getUserIdFromSharedPreferences();
@@ -160,7 +313,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         orderInfo.put("email", txtEmail.getText().toString());
         orderInfo.put("phone", txtPhone.getText().toString());
         orderInfo.put("paymentMethod", txtPaymentMethod.getText().toString());
-
+        orderInfo.put("discount", txtDiscount.getText().toString());
         DatabaseReference orderRef = databaseReference.child(userId).child("Orders").child(timestamp);
         orderRef.setValue(orderInfo)
                 .addOnSuccessListener(aVoid -> {
@@ -221,6 +374,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
 
 
+    private AlertDialog confirmationDialog; // Biến để lưu trữ tham chiếu đến dialog
+
     private void showOrderConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation, null);
@@ -232,16 +387,20 @@ public class OrderConfirmActivity extends AppCompatActivity {
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finishHomeScreen());
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        confirmationDialog = builder.create(); // Lưu tham chiếu đến dialog vào biến confirmationDialog
+        confirmationDialog.show();
     }
 
     private void finishHomeScreen() {
+        if (confirmationDialog != null && confirmationDialog.isShowing()) {
+            confirmationDialog.dismiss(); // Đảm bảo rằng dialog được đóng trước khi kết thúc Activity
+        }
         Intent intent = new Intent(this, HomeScreenActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
+
 
     private String getUserIdFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
@@ -306,4 +465,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
 
 }
+
+
 
