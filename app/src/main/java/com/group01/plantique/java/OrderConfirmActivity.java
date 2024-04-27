@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.model.FormatCurrency;
 import com.group01.plantique.model.Product;
 
 import java.lang.reflect.Type;
@@ -93,16 +94,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         cartListAdapter.setOnQuantityChangeListener(this::updateTotal);
     }
 
-    private void updateTotal() {
-        int subTotal = 0;
-        for (Product product : productList) {
-            subTotal += product.getPrice() * product.getCartQuantity();
-        }
-        txtSubTotal.setText(String.format("%d đ", subTotal));
-        int total = subTotal + SHIPPING_FEE;
-        txtTotal.setText(String.format("%d đ", total));
-        saveCartToSharedPreferences();
-    }
+
     private void saveCartToSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -141,6 +133,18 @@ public class OrderConfirmActivity extends AppCompatActivity {
             pushOrderToFirebase();
         }
     }
+    private void updateTotal() {
+        int subTotal = 0;
+        for (Product product : productList) {
+            subTotal += product.getPrice() * product.getCartQuantity();
+        }
+        txtSubTotal.setText(FormatCurrency.formatCurrency(subTotal)); // Use the FormatCurrency class
+        int total = subTotal + SHIPPING_FEE;
+        txtTotal.setText(FormatCurrency.formatCurrency(total)); // Use the FormatCurrency class
+        saveCartToSharedPreferences();
+    }
+
+
     private void pushOrderToFirebase() {
         String userId = getUserIdFromSharedPreferences();
         String timestamp = String.valueOf(System.currentTimeMillis());

@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
+import com.group01.plantique.model.FormatCurrency;
 import com.group01.plantique.model.Product;
 
 import java.lang.reflect.Type;
@@ -68,7 +69,7 @@ public class CheckoutActivity extends AppCompatActivity {
         for (Product product : cartProducts) {
             totalAmount += product.getPrice() * product.getCartQuantity();
         }
-        txtSubTotal.setText(String.format("%d đ", totalAmount));
+        txtSubTotal.setText(FormatCurrency.formatCurrency(totalAmount));
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         sharedPreferences.edit().putInt("totalAmount", totalAmount).apply();
     }
