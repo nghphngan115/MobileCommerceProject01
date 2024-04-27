@@ -1,8 +1,14 @@
 package com.group01.plantique.java;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,13 +39,16 @@ import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
-    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee;
+    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
     private ConstraintLayout btnConfirm;
     private ListView lvProduct;
     private CartListAdapter cartListAdapter;
@@ -68,6 +79,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
         txtSubTotal = findViewById(R.id.txtSubTotal);
         txtShipFee = findViewById(R.id.txtShipFee);
+        txtNote=findViewById(R.id.txtNote);
         txtTotal = findViewById(R.id.txtTotal);
         lvProduct = findViewById(R.id.lvProduct);
         btnConfirm = findViewById(R.id.btnConfirm);
@@ -134,8 +146,10 @@ public class OrderConfirmActivity extends AppCompatActivity {
         orderInfo.put("orderId", orderId);
         orderInfo.put("orderDate", timestamp);
         orderInfo.put("orderStatus", "Processing");
+        orderInfo.put("orderNote", txtNote.getText().toString());
         orderInfo.put("fullName", txtFullName.getText().toString());
         orderInfo.put("subTotal", subTotal);
+        orderInfo.put("orderBy", userId);
         orderInfo.put("shippingFee", SHIPPING_FEE);
         orderInfo.put("totalCost", totalCost);
         orderInfo.put("address", txtAddress.getText().toString());
@@ -148,17 +162,22 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     processOrderItems(orderRef);
                     showOrderConfirmationDialog(orderId);
+                    sendOrderConfirmationNotification(timestamp, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+                    // After successfully writing order data, update stock
+                    for (Product product : productList) {
+                        updateProductStock(product.getProductId(), product.getCartQuantity());
+                    }
                 })
                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to push order data", e));
     }
 
-    private void processOrderItems(DatabaseReference orderRef) {
+        private void processOrderItems(DatabaseReference orderRef) {
         for (Product product : productList) {
             HashMap<String, Object> itemMap = new HashMap<>();
             itemMap.put("productId", product.getProductId());
-            itemMap.put("name", product.getProductName());
+            itemMap.put("productName", product.getProductName());
             itemMap.put("price", product.getPrice());
-            itemMap.put("quantity", product.getCartQuantity());
+            itemMap.put("cartQuantity", product.getCartQuantity());
             itemMap.put("imageurl",product.getImageurl());
             itemMap.put("discount_price", product.getDiscount_price());
 
@@ -168,31 +187,34 @@ public class OrderConfirmActivity extends AppCompatActivity {
     }
 
     private void updateProductStock(String productId, int quantityOrdered) {
-        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Products").child(productId).child("stock");
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("products").child(productId).child("stock");
+
         productRef.runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                Integer currentStock = mutableData.getValue(Integer.class);
-                if (currentStock == null || currentStock < quantityOrdered) {
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Integer stock = currentData.getValue(Integer.class);
+                if (stock == null || stock < quantityOrdered) {
                     return Transaction.abort();
                 }
-                mutableData.setValue(currentStock - quantityOrdered);
-                return Transaction.success(mutableData);
+                currentData.setValue(stock - quantityOrdered);
+                return Transaction.success(currentData);
             }
 
             @Override
-            public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot dataSnapshot) {
                 if (committed) {
-                    Log.d("Firebase", "Stock updated successfully for product ID: " + productId);
+                    Log.d("Firebase", "Stock successfully updated for product ID: " + productId);
                 } else {
                     Log.e("Firebase", "Failed to update stock for product ID: " + productId);
                     if (databaseError != null) {
-                        Log.e("Firebase", "Error: " + databaseError.toException());
+                        Log.e("Firebase", "Error updating stock: " + databaseError.getMessage(), databaseError.toException());
                     }
                 }
             }
         });
     }
+
 
 
     private void showOrderConfirmationDialog(String orderId) {
@@ -228,11 +250,56 @@ public class OrderConfirmActivity extends AppCompatActivity {
         String email = intent.getStringExtra("EMAIL");
         String phone = intent.getStringExtra("PHONE");
         String paymentMethod = intent.getStringExtra("PAYMENT_METHOD");
+        String note=intent.getStringExtra("NOTE");
         txtFullName.setText(fullname != null ? fullname : "N/A");
         txtAddress.setText(address != null ? address : "N/A");
         txtEmail.setText(email != null ? email : "N/A");
         txtPhone.setText(phone != null ? phone : "N/A");
         txtPaymentMethod.setText(paymentMethod != null ? paymentMethod : "N/A");
-    }
+        if (note != null) {
+            txtNote.setText(note);
+        } else {
+            txtNote.setVisibility(View.GONE);
+        }
 
     }
+    private void sendOrderConfirmationNotification(String orderId, String orderDate) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        String channelId = "order_confirmation_channel";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Order Confirmation",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Notifications for order confirmations");
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Intent intent = new Intent(this, OrderHistoryActivity.class);
+       // Pass order ID to handle in the destination activity
+
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            flags |= PendingIntent.FLAG_IMMUTABLE; // Adding FLAG_IMMUTABLE for Android 12 and above
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, flags);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_notification) // replace ic_notification with your notification icon
+                .setContentTitle("Order Placed Successfully")
+                .setContentText("You have successfully placed order " + orderId + " on " + orderDate)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        notificationManager.notify(1, builder.build());
+    }
+
+
+
+
+
+
+}
+

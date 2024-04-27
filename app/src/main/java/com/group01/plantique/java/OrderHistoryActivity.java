@@ -21,6 +21,7 @@ import com.group01.plantique.model.Order;
 import com.group01.plantique.databinding.ActivityOrderHistoryBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class OrderHistoryActivity extends DrawerBaseActivity {
 
@@ -65,6 +66,7 @@ public class OrderHistoryActivity extends DrawerBaseActivity {
                         orderArrayList.add(order);
                     }
                 }
+                Collections.reverse(orderArrayList);
                 orderAdapter.notifyDataSetChanged();  // Notify adapter to update RecyclerView
             }
 

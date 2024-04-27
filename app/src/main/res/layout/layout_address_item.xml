@@ -271,7 +271,7 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnCancel"
+                android:id="@+id/btnCancelOrder"
                 android:layout_width="300dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"

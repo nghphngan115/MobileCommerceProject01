@@ -46,11 +46,10 @@ public class Product implements Serializable {
     }
 
     public void setCartQuantity(int cartQuantity) {
-        if (cartQuantity >= 1 && cartQuantity <= stock) {
+
             this.cartQuantity = cartQuantity;
-        } else {
-            // Handle the case where cartQuantity is not within the valid range
-        }
+
+
     }
 
     public String getProductName() {

@@ -68,7 +68,14 @@ public class CartListAdapter extends BaseAdapter {
         viewHolder.txtProductName.setText(product.getProductName());
         viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice()));
         viewHolder.edtProductQuantity.setText(String.valueOf(product.getCartQuantity()));
-        Picasso.get().load(product.getImageurl()).into(viewHolder.imgProductShow);
+        String imageUrl = product.getImageurl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(viewHolder.imgProductShow);
+        } else {
+            // Xử lý khi URL trống, ví dụ load ảnh mặc định
+            Picasso.get().load(R.drawable.logo).into(viewHolder.imgProductShow);
+        }
+
 
         viewHolder.edtProductQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
