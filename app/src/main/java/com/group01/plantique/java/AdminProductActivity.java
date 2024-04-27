@@ -43,7 +43,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private ImageButton filterProductBtn, searchBtn, btnAddProduct;
     private ProductAdapter productAdapter;
     private List<Category> categoryList = new ArrayList<>();
-    private String selectedCategory = "All"; // Danh mục được chọn mặc định
+    private String selectedCategory = "All";
     private List<Product> productList = new ArrayList<>();
 
     @Override

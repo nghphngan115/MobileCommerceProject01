@@ -81,6 +81,7 @@
         <activity
             android:name=".java.CartActivity"
             android:exported="true" />
+
         <activity
             android:name=".java.NotificationActivity"
             android:exported="false" />
