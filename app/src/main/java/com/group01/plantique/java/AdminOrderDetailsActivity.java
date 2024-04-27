@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminOrderDetailsActivity extends AppCompatActivity {
-    private TextView txtStatus, txtFullname, txtOrderId, txtUserId, txtEmail, txtSubTotal, txtTotal, txtShipFee, txtPaymentMethod;
+    private TextView txtStatus, txtFullname, txtOrderId, txtUserId, txtEmail, txtSubTotal, txtTotal, txtShipFee, txtPaymentMethod, txtDiscount;
     private EditText edtAddress, edtPhone, edtNote;
     private ListView lvProduct;
     private Spinner spinnerStatus;
@@ -57,6 +57,7 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.txtEmail);
         txtSubTotal = findViewById(R.id.txtSubTotal);
         txtTotal = findViewById(R.id.txtTotal);
+        txtDiscount=findViewById(R.id.txtDiscount);
         txtShipFee = findViewById(R.id.txtShipFee);
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
         edtPhone = findViewById(R.id.edtPhone);
@@ -107,6 +108,7 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
             txtUserId.setText(order.getOrderBy());
             txtEmail.setText(order.getEmail());
             edtPhone.setText(order.getPhone());
+            txtDiscount.setText(order.getDiscount());
             edtAddress.setText(order.getAddress());
             edtNote.setText(order.getOrderNote());
             txtSubTotal.setText(String.format("%s đ", order.getSubTotal()));

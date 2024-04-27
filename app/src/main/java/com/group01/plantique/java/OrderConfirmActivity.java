@@ -7,9 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,6 +66,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         setupListAdapter();
         updateTotal();
         populateDataFromIntent();
+
         validateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +74,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 checkCodeAvailability(promotionCode); // Pass the promo code to the method
             }
         });
+
 
     }
 
@@ -262,8 +259,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtTotal.setText(String.format("%d đ", total));
         saveCartToSharedPreferences();
     }
-
-
     private void saveCartToSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -297,11 +292,35 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         if (transferMethod.equals(paymentMethod)) {
             showPaymentConfirmationDialog();
-        }
-        else {
+        } else {
+            // For COD or any other methods, finalize the order immediately
+
+
         // After updating stock, push order details to Firebase
         pushOrderToFirebase();
-        isPromoCodeApplied = false;
+        isPromoCodeApplied = false;}
+    }
+    private void showPaymentConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_bank_transfer, null);
+        builder.setView(dialogView);
+
+        // Get the total amount from the TextView in your activity
+        String totalAmount = txtTotal.getText().toString();
+
+        // Set the total amount on the dialog's TextView
+        TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
+        txtDialogTotal.setText(totalAmount);
+
+        // Setup the button to confirm payment
+        ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
+        btnCompleted.setOnClickListener(v -> {
+            // Logic to confirm payment, perhaps update some status or push data to Firebase
+            pushOrderToFirebase();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void pushOrderToFirebase() {
@@ -340,7 +359,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.e("Firebase", "Failed to push order data", e));
     }
 
-        private void processOrderItems(DatabaseReference orderRef) {
+    private void processOrderItems(DatabaseReference orderRef) {
         for (Product product : productList) {
             HashMap<String, Object> itemMap = new HashMap<>();
             itemMap.put("productId", product.getProductId());
@@ -383,7 +402,10 @@ public class OrderConfirmActivity extends AppCompatActivity {
             }
         });
     }
-        private AlertDialog confirmationDialog;
+
+
+
+    private AlertDialog confirmationDialog; // Biến để lưu trữ tham chiếu đến dialog
 
     private void showOrderConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -395,20 +417,21 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finishHomeScreen());
-            confirmationDialog = builder.create(); // Lưu tham chiếu đến dialog vào biến confirmationDialog
-            confirmationDialog.show();
+
+        confirmationDialog = builder.create(); // Lưu tham chiếu đến dialog vào biến confirmationDialog
+        confirmationDialog.show();
     }
 
     private void finishHomeScreen() {
-            if (confirmationDialog != null && confirmationDialog.isShowing()) {
-                confirmationDialog.dismiss(); // Đảm bảo rằng dialog được đóng trước khi kết thúc Activity
-            }
-
+        if (confirmationDialog != null && confirmationDialog.isShowing()) {
+            confirmationDialog.dismiss(); // Đảm bảo rằng dialog được đóng trước khi kết thúc Activity
+        }
         Intent intent = new Intent(this, HomeScreenActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
+
 
     private String getUserIdFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
@@ -447,7 +470,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, OrderHistoryActivity.class);
-       // Pass order ID to handle in the destination activity
+        // Pass order ID to handle in the destination activity
 
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
@@ -473,4 +496,3 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
 
 }
-
