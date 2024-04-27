@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
     private String currentStatus = "All Statuses";
     private SearchView searchOrderView;
     private ArrayAdapter<CharSequence> spinnerAdapter; // Spinner adapter
+    public static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,15 +84,17 @@ public class AdminOrderListActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ordersList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot orderSnapshot : userSnapshot.child("Orders").getChildren()) {
+                    // Correctly iterating through each user's orders
+                    DataSnapshot ordersSnapshot = userSnapshot.child("Orders");
+                    for (DataSnapshot orderSnapshot : ordersSnapshot.getChildren()) {
                         Order order = orderSnapshot.getValue(Order.class);
-                        if (order != null) {
+                        if (order != null && (currentStatus.equals("All Statuses") || order.getOrderStatus().equalsIgnoreCase(currentStatus))) {
                             ordersList.add(order);
                         }
                     }
                 }
-                filterOrders(currentStatus);
-                Collections.reverse(ordersList);// Filter immediately after fetching
+                Collections.reverse(ordersList); // Filter immediately after fetching
+                ordersAdapter.notifyDataSetChanged(); // Notify adapter about data change
             }
 
             @Override
@@ -99,6 +103,17 @@ public class AdminOrderListActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            // This code will execute when coming back from AdminOrderDetailsActivity
+            // Refresh your list
+            fetchAllOrders(); // Call your method to refresh or re-fetch the orders list
+        }
+    }
+
+
 
     private void filterOrders(String status) {
         List<Order> filteredOrders = new ArrayList<>();

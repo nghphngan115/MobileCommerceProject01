@@ -1,15 +1,24 @@
 package com.group01.plantique.adapter;
 
+// In AdminOrderAdapter
+import static com.group01.plantique.java.AdminOrderListActivity.REQUEST_CODE;
+
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group01.plantique.R;
+import com.group01.plantique.java.AdminOrderDetailsActivity;
+import com.group01.plantique.java.OrderDetailsActivity;
 import com.group01.plantique.model.Order;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +29,9 @@ import java.util.Locale;
 public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.OrderViewHolder> {
     private List<Order> ordersList;
     private LayoutInflater inflater;
+    // In AdminOrderListActivity
+   // Or any other unique integer.
+
 
     public AdminOrderAdapter(Context context, List<Order> ordersList) {
         this.inflater = LayoutInflater.from(context);
@@ -52,10 +64,20 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Or
         } else if (orderStatus.equals("Cancelled")) {
             holder.txtStatus.setTextColor(context.getResources().getColor(R.color.cancelled));
         }
+        holder.itemView.setOnClickListener(v -> {
+            Activity activity = (Activity) context;  // Cast context to Activity
+            Intent intent = new Intent(context, AdminOrderDetailsActivity.class);
+            intent.putExtra("order", order); // Ensure you're passing the correct order
+
+            // Start AdminOrderDetailsActivity expecting a result
+            activity.startActivityForResult(intent, REQUEST_CODE); // Use a constant integer for REQUEST_CODE
+        });
+
+
     }
 
 
-    private String convertTimestampToDate(long timestamp) {
+        private String convertTimestampToDate(long timestamp) {
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         return dateFormat.format(date);
