@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="– Đối với những đơn hàng có khối lượng dưới 7kg, áp dụng phí ship 35.000 VNĐ" />
+        android:text="– Đối với những đơn hàng có khối lượng dưới 7kg, áp dụng phí ship 30.000 VNĐ" />
 
     <TextView
         android:id="@+id/textView12"

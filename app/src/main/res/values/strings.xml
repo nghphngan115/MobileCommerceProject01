@@ -35,8 +35,58 @@
     <string name="channel_name">Order Notifications</string>
     <string name="channel_description">Notifications for new orders</string>
     <string name="channel_id">order_channel</string>
+    <string name="strBankAccNum">Account Number: 0366370098</string>
+    <string name="strBank">Bank: MB Bank</string>
+    <string name="strAccOwner">Account Owner: Le Chau Anh</string>
+    <string name="strDeliveryPolicy">Delivery Policy</string>
+    <string name="strExchangePolicy">Exchange and Return Policy</string>
+    <string name="strOrderInstruction">Order Instructrion</string>
+    <string name="strPrivacyPolicy">Privacy Policy</string>
+    <string name="strInspectionPolicy">Inspection Policy</string>
 
 
+
+
+    <string name="policy_details">
+        <![CDATA[
+        <h1>Policy</h1>
+        ]]>
+    </string>
+    <string name="terms_and_conditions">
+        <![CDATA[
+        <b>Terms and Conditions</b><br><br>
+
+        <b>1. Introduction</b><br>
+        Welcome to Plantique. By accessing our app, you agree to these terms and conditions.<br><br>
+
+        <b>2. Privacy Policy</b><br>
+        Our Privacy Policy details how we collect, use, and protect your data. For more information, please visit our Privacy Policy section on our app or website.<br><br>
+
+        <b>3. User Responsibilities</b><br>
+        You must use the app legally and refrain from prohibited activities. You must be 18 years old or have parental permission to use this app.<br><br>
+
+        <b>4. Intellectual Property Rights</b><br>
+        All content provided on the app is either owned by us or used with permission. No content may be copied, distributed, or used without prior permission.<br><br>
+
+        <b>5. Purchases</b><br>
+        If applicable, specific terms related to the purchase of goods or services will be detailed during the purchase process.<br><br>
+
+        <b>6. User Accounts</b><br>
+        If you create an account, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your device.<br><br>
+
+        <b>7. Termination</b><br>
+        We may terminate or suspend access to our app immediately, without prior notice or liability, for any reason whatsoever, including, without limitation, if you breach the Terms.<br><br>
+
+        <b>8. Governing Law</b><br>
+        These Terms will be governed by and construed in accordance with the laws of the Country/State in which our company is registered, without regard to its conflict of law provisions.<br><br>
+
+        <b>9. Changes to Terms</b><br>
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will notify you of any changes by posting the new Terms on our site.<br><br>
+
+        <b>10. Contact Information</b><br>
+        If you have any questions about these Terms, please contact us at [contact information].
+        ]]>
+    </string>
     <string-array name="order_statuses">
         <item>All Statuses</item>
         <item>Processing</item>

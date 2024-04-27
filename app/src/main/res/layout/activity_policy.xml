@@ -18,15 +18,10 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Chính sách vận chuyển"
+            android:text="@string/strDeliveryPolicy"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,15 +38,10 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Chính sách đổi trả"
+            android:text="@string/strExchangePolicy"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,15 +58,10 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Phương thức thanh toán"
+            android:text="@string/strPaymentMethod"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,15 +78,10 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Hướng dẫn mua hàng"
+            android:text="@string/strOrderInstruction"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,15 +98,10 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Chính sách bảo mật"
+            android:text="@string/strPrivacyPolicy"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -143,40 +118,19 @@
             android:layout_marginLeft="39dp"
             android:layout_weight="1"
             android:fontFamily="@font/inter_medium"
-            android:text="Chính sách kiểm hàng"
+            android:text="@string/strInspectionPolicy"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llCacdk"
+    <TextView
+        android:id="@+id/tvPolicyDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="39dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/inter_medium"
-            android:text="Các điều khoản và điều kiện"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_arrow_right" />
-    </LinearLayout>
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

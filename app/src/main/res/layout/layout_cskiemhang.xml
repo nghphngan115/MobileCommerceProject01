@@ -97,24 +97,26 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="8dp" />
+
                 <TextView
                     android:id="@+id/complaint_channels"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hotline: xxxxxxx"
-                    android:textSize="16sp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Hotline: 0366370098"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/complaint_channels_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email: info@plantique@gmail."
-                    android:textSize="16sp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:text="Email: plantiqueshop01@gmail."
+                    android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>
 

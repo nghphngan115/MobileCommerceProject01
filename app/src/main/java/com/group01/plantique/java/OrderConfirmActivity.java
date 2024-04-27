@@ -413,7 +413,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
         builder.setView(dialogView);
 
         TextView txtOrderIdConfirm = dialogView.findViewById(R.id.txtOrderIdConfirm);
-        txtOrderIdConfirm.setText("Mã đơn hàng: " + orderId);
+
+        txtOrderIdConfirm.setText("Your Order ID: " + orderId);
 
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finishHomeScreen());

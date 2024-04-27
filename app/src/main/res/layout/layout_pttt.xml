@@ -7,16 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_medium"
-        android:gravity="center"
-        android:text="Phương thức thanh toán"
-        android:textColor="#040303"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="@string/strPaymentMethod"
+            android:textColor="#040303"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
         <TextView
@@ -29,15 +30,15 @@
             android:text="Quý khách chọn “ Tiến hành thanh toán” sau đó lựa chọn hình thức thanh toán phù hợp trong 2 phương thức sau:"
             android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView112"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="– Thanh toán chuyển khoản qua ngân hàng"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView112"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/strTransfer"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
@@ -77,33 +78,33 @@
             android:id="@+id/textView27"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngân hàng: MB Bank"
+            android:text="@string/strBank"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chủ tài khoản: Lê Châu Anh"
+            android:text="@string/strAccOwner"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="STK: xxxxxxxxxx"
+            android:text="@string/strBankAccNum"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="– Thanh toán khi nhận hàng"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/strCOD"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView29"
