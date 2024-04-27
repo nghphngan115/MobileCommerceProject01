@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +26,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class CartActivity extends DrawerBaseActivity {
+public class CartActivity  extends AppCompatActivity {
 
     private ListView lvCart;
     private TextView txtTotalCart;
@@ -39,6 +41,33 @@ public class CartActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.cart);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.blog) {
+                startActivity(new Intent(getApplicationContext(), BlogCategoryActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.cart) {
+                return true;
+            } else if (itemId == R.id.notification) {
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.account) {
+                startActivity(new Intent(getApplicationContext(), UserInformationActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
 
         lvCart = findViewById(R.id.lvCart);
         btnContinue = findViewById(R.id.btnContinue);

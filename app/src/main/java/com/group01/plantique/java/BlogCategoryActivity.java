@@ -40,6 +40,34 @@ public class BlogCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_category);
 
+        //Navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.blog);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.blog) {
+                return true;
+            } else if (itemId == R.id.cart) {
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.notification) {
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                finish();
+                return true;
+            } else if (itemId == R.id.account) {
+                startActivity(new Intent(getApplicationContext(), UserInformationActivity.class));
+                finish();
+                return true;
+            }
+            return false;
+        });
+
         // Initialize Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
 
