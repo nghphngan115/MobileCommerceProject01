@@ -52,7 +52,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
 
         //Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.blog);
+        bottomNavigationView.setSelectedItemId(R.id.account);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();

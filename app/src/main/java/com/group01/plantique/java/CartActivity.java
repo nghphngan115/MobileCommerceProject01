@@ -42,33 +42,6 @@ public class CartActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        //Navigation
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.cart);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.cart) {
-                return true;
-            } else if (itemId == R.id.blog) {
-                startActivity(new Intent(getApplicationContext(), BlogCategoryActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.home) {
-                startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.notification) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                finish();
-                return true;
-            } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
-                finish();
-                return true;
-            }
-            return false;
-        });
 
 
         BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
