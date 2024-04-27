@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -22,11 +22,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".java.AdminOrderDetailsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".java.AdminOrderListActivity"
-            android:exported="true" />
+            android:name=".java.UserInformationActivity"
+            android:exported="false" />
         <activity
             android:name=".java.EditProductActivity"
             android:exported="false" />
@@ -60,15 +57,15 @@
         <activity
             android:name=".java.ContactActivity"
             android:exported="false" />
+
         <activity
             android:name=".java.TermsActivity"
             android:exported="false" />
         <activity
             android:name=".java.PolicyActivity"
             android:exported="false" />
-        <activity
-            android:name=".java.OrderDetailsActivity"
-            android:exported="true" />
+        <activity android:name=".java.OrderDetailsActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.OrderHistoryActivity"
             android:exported="true" />

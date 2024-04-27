@@ -44,9 +44,7 @@ public class AboutUsActivity extends DrawerBaseActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AboutUsActivity.this, MyAccountActivity.class);
-                startActivity(intent);
-            }
+                finish();             }
         });
     }
 }

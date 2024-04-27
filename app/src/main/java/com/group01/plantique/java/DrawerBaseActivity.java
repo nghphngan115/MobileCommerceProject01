@@ -50,10 +50,10 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         int itemId = item.getItemId();
 
         if (itemId == R.id.nav_account) {
-            startActivity(new Intent(this, PersonalInfoActivity.class));
+            startActivity(new Intent(this, UserInformationActivity.class));
             overridePendingTransition(0, 0);
         } else if (itemId == R.id.nav_noti) {
-            startActivity(new Intent(this, NotificationActivity.class));
+            startActivity(new Intent(this, SettingNotificationActivity.class));
             overridePendingTransition(0, 0);
         } else if (itemId == R.id.nav_order) {
             startActivity(new Intent(this, OrderHistoryActivity.class));
