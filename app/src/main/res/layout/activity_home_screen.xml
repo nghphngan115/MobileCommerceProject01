@@ -139,10 +139,6 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="21dp" />
-
         <!-- Category Images -->
 
 
@@ -160,10 +156,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="23dp" />
 
         <!-- Highlighted Products -->
 
