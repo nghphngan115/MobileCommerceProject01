@@ -166,7 +166,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
     private void sendNewOrderNotification(Order order) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager == null) {
-            Log.e("sendNewOrderNotification", "Notification Manager not available");
+            Log.e("sendNewOrderNotification", "NotificationApp Manager not available");
             return;
         }
 
@@ -185,7 +185,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
         notificationManager.notify(notificationId, builder.build());
-        Log.d("sendNewOrderNotification", "Notification sent for Order ID: " + order.getOrderId());
+        Log.d("sendNewOrderNotification", "NotificationApp sent for Order ID: " + order.getOrderId());
     }
 
 

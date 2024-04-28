@@ -18,27 +18,63 @@
             android:layout_marginRight="40dp"
             android:background="@drawable/highlight_layout"
             android:elevation="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView44"
-                android:layout_width="120dp"
-                android:layout_height="25dp"
-                android:text="@string/strTotal"
-                android:textColor="@color/main_green"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtTotal"
-                android:layout_width="129dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="TextView"
-                android:textColor="@color/main_green"
-                android:textSize="20sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/strTotal"
+                    android:textColor="@color/main_green"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
+                    android:text="TextView"
+                    android:textColor="@color/main_green"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="@string/strOrdID"
+                    android:textColor="@color/main_green"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtOrderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
+                    android:text="TextView"
+                    android:textColor="@color/main_green"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -61,32 +97,32 @@
                 android:id="@+id/textView27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGÂN HÀNG QUÂN ĐỘI (MB BANK)"
-                android:textSize="18sp"
+                android:text="@string/strBank"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NGỪOI THỤ HƯỞNG: LÊ CHÂU ANH"
-                android:textSize="18sp"
+                android:text="@string/strAccOwner"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView31"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="STK: 0366370098"
-                android:textSize="20sp"
+                android:text="@string/strBankAccNum"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView43"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nội Dung: Tên Đăng Nhập + SĐT "
-                android:textSize="20sp" />
+                android:text="@string/strTransferContent"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView
@@ -96,7 +132,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:text="*Vui lòng thanh toán trong 12h.Sau khi thanh toán đơn hàng sẽ được xử lý và vận chuyển trong 24h, nếu sau 24h đơn hàng vẫn chưa được vận chuyển, quý khách vui lòng liên hệ đến bộ phận chăm sóc khách hàng để được hỗ trợ"
+            android:text="@string/strTransferNote"
             android:textSize="16sp"
             android:textStyle="italic" />
 

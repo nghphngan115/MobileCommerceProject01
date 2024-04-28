@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,10 +8,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
+import com.group01.plantique.model.NotificationApp;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -43,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class OrderConfirmActivity extends AppCompatActivity {
@@ -67,14 +72,12 @@ public class OrderConfirmActivity extends AppCompatActivity {
         updateTotal();
         populateDataFromIntent();
 
-        validateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String promotionCode = edtVoucher.getText().toString(); // Assuming you get the promo code from an EditText
-                checkCodeAvailability(promotionCode); // Pass the promo code to the method
-            }
+        validateBtn.setOnClickListener(v -> {
+            String promotionCode = edtVoucher.getText().toString();
+            checkCodeAvailability(promotionCode);
         });
 
+        btnConfirm.setOnClickListener(v -> finalizeOrder());
 
     }
 
@@ -287,20 +290,24 @@ public class OrderConfirmActivity extends AppCompatActivity {
         for (Product product : productList) {
             updateProductStock(product.getProductId(), product.getCartQuantity());
         }
+        String orderId = generateOrderId();
         String paymentMethod = txtPaymentMethod.getText().toString();
         String transferMethod = getString(R.string.strTransfer); // Get the transfer method from resources
 
         if (transferMethod.equals(paymentMethod)) {
-            showPaymentConfirmationDialog();
+            showPaymentConfirmationDialog(orderId);
         } else {
             // For COD or any other methods, finalize the order immediately
 
 
-        // After updating stock, push order details to Firebase
-        pushOrderToFirebase();
-        isPromoCodeApplied = false;}
+            // After updating stock, push order details to Firebase
+            pushOrderToFirebase(orderId);
+            isPromoCodeApplied = false;}
     }
-    private void showPaymentConfirmationDialog() {
+    private String generateOrderId() {
+        return String.valueOf(System.currentTimeMillis());
+    }
+    private void showPaymentConfirmationDialog(String orderId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_bank_transfer, null);
         builder.setView(dialogView);
@@ -308,25 +315,41 @@ public class OrderConfirmActivity extends AppCompatActivity {
         // Get the total amount from the TextView in your activity
         String totalAmount = txtTotal.getText().toString();
 
+
         // Set the total amount on the dialog's TextView
         TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
         txtDialogTotal.setText(totalAmount);
+        TextView txtDialogOrderId = dialogView.findViewById(R.id.txtOrderId);
+        txtDialogOrderId.setText(orderId);
 
         // Setup the button to confirm payment
         ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
         btnCompleted.setOnClickListener(v -> {
             // Logic to confirm payment, perhaps update some status or push data to Firebase
-            pushOrderToFirebase();
+            pushOrderToFirebase(orderId);
         });
 
         AlertDialog dialog = builder.create();
+        dialog.setCancelable(false); // This will make it so the dialog cannot be cancelled
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+        // Set the size of the dialog to be 90% of the screen width
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.95);
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(layoutParams);
     }
 
-    private void pushOrderToFirebase() {
+
+    private void pushOrderToFirebase(String orderId) {
         String userId = getUserIdFromSharedPreferences();
+        if (userId == null) {
+            Log.e("FirebasePush", "User ID is null, cannot push order.");
+            return;
+        }
+
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String orderId = timestamp;
         String subTotal = txtSubTotal.getText().toString().replace("đ", "").trim();
         String totalCost = txtTotal.getText().toString().replace("đ", "").trim();
 
@@ -345,18 +368,22 @@ public class OrderConfirmActivity extends AppCompatActivity {
         orderInfo.put("phone", txtPhone.getText().toString());
         orderInfo.put("paymentMethod", txtPaymentMethod.getText().toString());
         orderInfo.put("discount", txtDiscount.getText().toString());
-        DatabaseReference orderRef = databaseReference.child(userId).child("Orders").child(timestamp);
+
+        DatabaseReference orderRef = databaseReference.child(userId).child("Orders").child(orderId);
         orderRef.setValue(orderInfo)
                 .addOnSuccessListener(aVoid -> {
+                    Log.d("FirebasePush", "Order data successfully pushed to Firebase.");
                     processOrderItems(orderRef);
                     showOrderConfirmationDialog(orderId);
                     sendOrderConfirmationNotification(timestamp, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                    // After successfully writing order data, update stock
                     for (Product product : productList) {
                         updateProductStock(product.getProductId(), product.getCartQuantity());
                     }
                 })
-                .addOnFailureListener(e -> Log.e("Firebase", "Failed to push order data", e));
+                .addOnFailureListener(e -> {
+                    Log.e("FirebasePush", "Failed to push order data: " + e.getMessage(), e);
+                    Toast.makeText(OrderConfirmActivity.this, "Failed to save order: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
 
     private void processOrderItems(DatabaseReference orderRef) {
@@ -416,10 +443,13 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         txtOrderIdConfirm.setText("Your Order ID: " + orderId);
 
+
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finishHomeScreen());
 
-        confirmationDialog = builder.create(); // Lưu tham chiếu đến dialog vào biến confirmationDialog
+        confirmationDialog = builder.create();
+        confirmationDialog.setCancelable(false); // This will make it so the dialog cannot be cancelled
+        confirmationDialog.setCanceledOnTouchOutside(false); // Lưu tham chiếu đến dialog vào biến confirmationDialog
         confirmationDialog.show();
     }
 
@@ -489,6 +519,30 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
         notificationManager.notify(1, builder.build());
+        saveNotificationToPreferences("Order Placed Successfully", "You have successfully placed order " + orderId + " on " + orderDate);
+
+    }
+    private void saveNotificationToPreferences(String title, String content) {
+        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("notifications", null);
+        Type type = new TypeToken<ArrayList<NotificationApp>>() {}.getType();
+        List<NotificationApp> notifications = gson.fromJson(json, type);
+
+        if (notifications == null) notifications = new ArrayList<>();
+        notifications.add(new NotificationApp(title, content, R.drawable.ic_notification)); // Assuming an icon
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("notifications", gson.toJson(notifications));
+        editor.apply();
+    }
+
+    private List<NotificationApp> loadNotifications() {
+        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        String json = sharedPreferences.getString("notifications", null);
+        Type type = new TypeToken<ArrayList<NotificationApp>>() {}.getType();
+        List<NotificationApp> notifications = new Gson().fromJson(json, type);
+        return notifications != null ? notifications : new ArrayList<>();
     }
 
 
@@ -496,4 +550,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
 
 
+
+
 }
+

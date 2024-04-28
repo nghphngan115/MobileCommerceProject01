@@ -43,10 +43,28 @@
     <string name="strOrderInstruction">Order Instructrion</string>
     <string name="strPrivacyPolicy">Privacy Policy</string>
     <string name="strInspectionPolicy">Inspection Policy</string>
+    <string name="strTransferContent">Transfer Content: Order Id + Phone Number</string>
+    <string name="strTransferNote">Please make payment within 12 hours. After payment, orders will be processed and shipped within 24 hours. If your order is not shipped after 24 hours, please contact customer support for assistance.</string>
 
 
 
 
+
+
+
+    <string-array name="order_statuses">
+        <item>All Statuses</item>
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
+    <string-array name="update_order_statuses">
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
     <string name="policy_details">
     <![CDATA[
     <b>Policy</b><br><br>
@@ -112,19 +130,5 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
-    <string-array name="order_statuses">
-        <item>All Statuses</item>
-        <item>Processing</item>
-        <item>Delivering</item>
-        <item>Finished</item>
-        <item>Cancelled</item>
-    </string-array>
-    <string-array name="update_order_statuses">
-        <item>Processing</item>
-        <item>Delivering</item>
-        <item>Finished</item>
-        <item>Cancelled</item>
-    </string-array>
-
 
 </resources>
