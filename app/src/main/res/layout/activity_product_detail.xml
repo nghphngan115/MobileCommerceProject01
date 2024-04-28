@@ -24,8 +24,7 @@
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="254dp"
-                 />
+                android:layout_height="254dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,9 +100,12 @@
                     android:layout_height="wrap_content"
                     android:text="Feedbacks" />
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="211dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewRv"
+                android:layout_width="match_parent"
+                android:layout_height="209dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_review" />
 
             </LinearLayout>
 
