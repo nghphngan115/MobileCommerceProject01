@@ -97,7 +97,7 @@
             android:name=".java.SearchResultActivity"
             android:exported="true" />
         <activity
-            android:name=".java.SearchProductActivity"
+            android:name=".java.SearchActivity"
             android:exported="true" />
         <activity
             android:name=".java.ChangePasswordActivity"

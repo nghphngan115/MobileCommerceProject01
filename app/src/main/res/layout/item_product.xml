@@ -100,10 +100,10 @@
             android:background="@drawable/dash_line" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:id="@+id/constraintLayoutAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -111,24 +111,24 @@
                 android:id="@+id/textViewAddToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:text="Add to cart"
                 android:textColor="@color/main_green"
                 android:textSize="16sp"
-                tools:layout_editor_absoluteX="2dp"
-                tools:layout_editor_absoluteY="10dp" />
+                tools:layout_editor_absoluteX="7dp"
+                tools:layout_editor_absoluteY="12dp" />
 
             <ImageButton
                 android:id="@+id/imageButtonCart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/button_circle_fullgreen"
                 android:contentDescription="Add to cart button"
                 android:src="@drawable/ic_shopping_cart_white"
                 app:layout_constraintBottom_toBottomOf="@id/textViewAddToCart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textViewAddToCart"
-                app:layout_constraintVertical_bias="0.277" />
+                app:layout_constraintVertical_bias="0.388" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
