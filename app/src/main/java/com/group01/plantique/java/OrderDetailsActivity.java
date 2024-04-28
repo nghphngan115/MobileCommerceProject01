@@ -59,14 +59,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
         btnAction = findViewById(R.id.btnAction);
 
     }
-
     private void cancelOrder() {
         if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             order.setOrderStatus("Cancelled");
             updateOrderStatusInFirebase();
         } else {
             Log.e("OrderDetailsActivity", "Order or essential fields are null.");
-            Toast.makeText(this, "Order details are incomplete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.order_incomplete), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -79,14 +78,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             orderRef.child("orderStatus").setValue("Cancelled")
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(OrderDetailsActivity.this, "Order has been cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_cancelled), Toast.LENGTH_SHORT).show();
                         txtStatus.setText("Cancelled");
                     })
-                    .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to cancel order", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, getString(R.string.cancel_order_failed), Toast.LENGTH_SHORT).show());
         } else {
-            Toast.makeText(this, "Cannot update order status due to missing information.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.missing_information), Toast.LENGTH_SHORT).show();
         }
     }
+
     private void markOrderAsFinished() {
         if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
@@ -96,29 +96,30 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             orderRef.child("orderStatus").setValue("Finished")
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(OrderDetailsActivity.this, "Order has been marked as finished", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_marked_finished), Toast.LENGTH_SHORT).show();
                         txtStatus.setText("Finished");
-                        updateButtonBasedOnStatus(); // Cập nhật lại nút
+                        updateButtonBasedOnStatus(); // Update the button again
                     })
-                    .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, "Failed to update order status", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, getString(R.string.update_order_failed), Toast.LENGTH_SHORT).show());
         }
     }
+
     private void showCancelConfirmationDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Xác nhận hủy")
-                .setMessage("Bạn có chắc chắn muốn hủy đơn hàng này không?")
-                .setPositiveButton("Có", (dialog, which) -> cancelOrder())
-                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                .setTitle(getString(R.string.cancel_confirmation_title))
+                .setMessage(getString(R.string.cancel_confirmation_message))
+                .setPositiveButton(getString(R.string.strYes), (dialog, which) -> cancelOrder())
+                .setNegativeButton(getString(R.string.strNo), (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
 
     private void showFinishConfirmationDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Xác nhận nhận hàng")
-                .setMessage("Bạn có xác nhận đã nhận được hàng đúng không?")
-                .setPositiveButton("Có", (dialog, which) -> markOrderAsFinished())
-                .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                .setTitle(getString(R.string.strReceviedConf))
+                .setMessage(getString(R.string.strReceivedMes))
+                .setPositiveButton(getString(R.string.strYes), (dialog, which) -> markOrderAsFinished())
+                .setNegativeButton(getString(R.string.strNo), (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
@@ -129,18 +130,18 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             switch (status) {
                 case "Processing":
-                    btnAction.setText("Cancel Order");
+                    btnAction.setText(getString(R.string.strCancelOrder));
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.cancelled));
                     btnAction.setOnClickListener(v -> showCancelConfirmationDialog());
                     break;
                 case "Delivering":
-                    btnAction.setText("Đã nhận hàng");
+                    btnAction.setText(getString(R.string.strReceived));
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.delivering));
 
                     btnAction.setOnClickListener(v -> showFinishConfirmationDialog());
                     break;
                 case "Finished":
-                    btnAction.setText("Writing Review");
+                    btnAction.setText(getString(R.string.strWriteReview));
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.finished));
 
                     // Xử lý thêm sự kiện cho việc viết đánh giá ở đây
@@ -219,7 +220,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             });
         } else {
             Log.e("OrderDetailsActivity", "Failed to retrieve the order object.");
-            Toast.makeText(this, "Failed to load order details.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.strFailedLoadOrder), Toast.LENGTH_SHORT).show();
         }
     }
 }

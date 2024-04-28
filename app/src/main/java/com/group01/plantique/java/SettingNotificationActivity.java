@@ -83,8 +83,8 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder mbuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_notification)
-                .setContentTitle("Welcome to Plantique!")
-                .setContentText("We are happy to see you! Find your healthy food in Plantique")
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_content))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
@@ -100,8 +100,9 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
             return;
         }
         mNotificationMgr.notify(1, mbuilder.build());
-        saveNotificationToPreferences("Welcome to Plantique!", "We are happy to see you! Find your healthy food in Plantique");
+        saveNotificationToPreferences(getString(R.string.notification_title), getString(R.string.notification_title));
     }
+
     private void saveNotificationToPreferences(String title, String content) {
         SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
         List<NotificationApp> notifications = loadNotifications();

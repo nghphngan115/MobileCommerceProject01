@@ -107,7 +107,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 int selectedId = radGroupPayment.getCheckedRadioButtonId();
                 if (selectedId == -1) {
-                    Toast.makeText(CheckoutActivity.this, "Please select a payment method.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckoutActivity.this, getString(R.string.strSelectPaymentMethod), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -161,19 +161,19 @@ public class CheckoutActivity extends AppCompatActivity {
                 edtCity.getText().toString().trim().isEmpty() ||
                 edtPhone.getText().toString().trim().isEmpty() ||
                 edtEmail.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "All fields are required.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.strAllFields), Toast.LENGTH_LONG).show();
             return false;
         }
 
         // Check if the phone number is valid
         if (!isValidPhone(edtPhone.getText().toString().trim())) {
-            Toast.makeText(this, "Phone number must be exactly 10 digits.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.strPhoneDigits), Toast.LENGTH_LONG).show();
             return false;
         }
 
         // Check if the email is valid
         if (!isValidEmail(edtEmail.getText().toString().trim())) {
-            Toast.makeText(this, "Email is not valid.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.strEmailValid), Toast.LENGTH_LONG).show();
             return false;
         }
 

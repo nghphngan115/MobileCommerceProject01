@@ -441,7 +441,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         TextView txtOrderIdConfirm = dialogView.findViewById(R.id.txtOrderIdConfirm);
 
-        txtOrderIdConfirm.setText("Your Order ID: " + orderId);
+        txtOrderIdConfirm.setText(getString(R.string.strOrdID) + orderId);
 
 
         ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
@@ -512,14 +512,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_notification) // replace ic_notification with your notification icon
-                .setContentTitle("Order Placed Successfully")
-                .setContentText("You have successfully placed order " + orderId + " on " + orderDate)
+                .setContentTitle(getString(R.string.strOrderSuccess))
+                .setContentText(getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         notificationManager.notify(1, builder.build());
-        saveNotificationToPreferences("Order Placed Successfully", "You have successfully placed order " + orderId + " on " + orderDate);
+        saveNotificationToPreferences(getString(R.string.strOrderSuccess), getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate);
 
     }
     private void saveNotificationToPreferences(String title, String content) {
