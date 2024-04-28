@@ -304,7 +304,15 @@ public class OrderConfirmActivity extends AppCompatActivity {
             // After updating stock, push order details to Firebase
             pushOrderToFirebase(orderId);
             isPromoCodeApplied = false;}
+        clearCartSharedPreferences();
     }
+    private void clearCartSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("cart");  // This removes the cart entry from SharedPreferences
+        editor.apply();  // Apply the changes
+    }
+
     private String generateOrderId() {
         return String.valueOf(System.currentTimeMillis());
     }

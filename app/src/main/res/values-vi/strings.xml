@@ -13,7 +13,7 @@
     <string name="strEmailValid">Email không khả dụng</string>
     <string name="strFailedProducts">Lỗi tải chi tiết đơn hàng</string>
     <string name="strOrderSuccess">Đặt hàng thành công</string>
-    <string name="strNotiOrder">Bạn đã đặt hàng thành công</string>
+    <string name="strNotiOrder">Bạn đã thành công đặt đơn hàng </string>
     <string name="strOn">vào</string>
     <string name="strCancelOrder">Hủy đơn hàng</string>
     <string name="strReceived">Đã nhận hàng</string>

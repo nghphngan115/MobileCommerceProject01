@@ -1,6 +1,7 @@
 package com.group01.plantique.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group01.plantique.R;
-import com.group01.plantique.model.NotificationApp;  // Make sure to import your custom NotificationApp class
+import com.group01.plantique.model.NotificationApp;
+import com.group01.plantique.java.OrderHistoryActivity;
 
 import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
-    private List<NotificationApp> notificationList;
     private Context context;
+    private List<NotificationApp> notificationList;
+    private OnNotificationClickListener listener;
 
-    public NotificationAdapter(Context context, List<NotificationApp> notificationList) {
+    public interface OnNotificationClickListener {
+        void onNotificationClicked();
+    }
+
+    public NotificationAdapter(Context context, List<NotificationApp> notificationList, OnNotificationClickListener listener) {
         this.context = context;
         this.notificationList = notificationList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -36,6 +44,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.textViewTitle.setText(notification.getTitle());
         holder.textViewDetails.setText(notification.getContent());
         holder.imageView.setImageResource(notification.getImageResId());
+
+        // Set the click listener to handle the click event
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null && holder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    listener.onNotificationClicked();
+                }
+            }
+        });
     }
 
     @Override

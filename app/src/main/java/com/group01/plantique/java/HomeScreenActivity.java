@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +15,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,11 +27,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -39,8 +44,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CategoryAdapter;
@@ -51,7 +58,9 @@ import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
 
-public class HomeScreenActivity extends AppCompatActivity {
+
+public class HomeScreenActivity extends AppCompatActivity{
+
 
     SearchView svSearch;
     Button btnViewAll, btnViewAll2, btnViewAllCate;
@@ -67,8 +76,11 @@ public class HomeScreenActivity extends AppCompatActivity {
     ViewFlipper ViewFlipper;
 
 
+
+
     DatabaseReference databaseReference;
     private String categoryId;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -76,9 +88,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
         //Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.home);
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -104,6 +118,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             return false;
         });
 
+
         //addView,addEvent
         svSearch = findViewById(R.id.svSearch);
         btnViewAll = findViewById(R.id.btnViewAll);
@@ -113,6 +128,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow1 = findViewById(R.id.btnBuynow1);
         ViewFlipper =findViewById(R.id.ViewFlipper);
 
+
         btnBuynow1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +136,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         btnBuynow2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,23 +146,37 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+
         rvCategory = findViewById(R.id.rvCategory);
         rvCategory.setLayoutManager(new GridLayoutManager(this, 4));
+
 
         FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"), Category.class)
                 .build();
 
-        categoryAdapter = new CategoryAdapter(options);
+
+
+
+        categoryAdapter = new CategoryAdapter(options, this, category -> {
+            Toast.makeText(this, "Clicked on: " + category.getCateName(), Toast.LENGTH_SHORT).show();
+            // You can add more actions here, like opening a new Activity with category details
+        });
+
+
         rvCategory.setAdapter(categoryAdapter);
+
 
         lvHiglightedBlog = findViewById(R.id.lvHighlightedBlog);
         blogItems = new ArrayList<>();
         highlightedblogAdapter = new HighlightedBlogAdapter(this, blogItems);
         lvHiglightedBlog.setAdapter(highlightedblogAdapter);
 
+
         rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
         rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
 
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {
@@ -172,10 +203,12 @@ public class HomeScreenActivity extends AppCompatActivity {
         getProductFromFirebase();
         getBlogFromFirebase();
 
+
         lvHiglightedBlog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BlogItem selectedBlog = blogItems.get(position);
+
 
                 // Open BlogDetailActivity with selected blog data
                 Intent intent = new Intent(HomeScreenActivity.this, BlogDetailActivity.class);
@@ -183,6 +216,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
@@ -195,7 +229,9 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
 
     private void getProductFromFirebase() {
         FirebaseRecyclerOptions<Product> productFirebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Product>()
@@ -208,6 +244,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                         holder.setProductDetails(model);
                     }
 
+
                     @NonNull
                     @Override
                     public HomeScreenActivity.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -216,17 +253,21 @@ public class HomeScreenActivity extends AppCompatActivity {
                     }
                 };
 
+
         rvHighlightedProduct.setAdapter(adapter);
         adapter.startListening();
     }
 
+
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         View view;
+
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
         }
+
 
         public void setProductDetails(Product products) {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
@@ -247,7 +288,9 @@ public class HomeScreenActivity extends AppCompatActivity {
                 }
             });
 
+
         }
+
 
         private void openProductDetailActivity(Product product) {
             Context context = view.getContext();
@@ -256,12 +299,16 @@ public class HomeScreenActivity extends AppCompatActivity {
             context.startActivity(intent);
         }
 
+
     }
+
+
 
 
     private void getBlogFromFirebase() {
         // Kết nối đến Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("Blog");
+
 
         // Đọc dữ liệu từ Firebase và nạp vào Adapter
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -280,26 +327,23 @@ public class HomeScreenActivity extends AppCompatActivity {
                 highlightedblogAdapter.notifyDataSetChanged();
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+
             }
+
+
 
 
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        categoryAdapter.startListening();
 
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        categoryAdapter.stopListening();
-    }
+
+
 
 }
+
