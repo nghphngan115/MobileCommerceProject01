@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,9 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity {
 
@@ -148,16 +153,18 @@ public class ProductListActivity extends AppCompatActivity {
             });
 
             // Set click listener for add to cart area
+            // Thay đổi phương thức gọi khi click vào nút "Thêm vào giỏ hàng"
             view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openCartActivity(product);
+                    addToCart(product);
                 }
             });
+
             view.findViewById(R.id.imageButtonCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openCartActivity(product);
+                    addToCart(product);
                 }
             });
         }
@@ -169,13 +176,39 @@ public class ProductListActivity extends AppCompatActivity {
             context.startActivity(intent);
         }
 
-        private void openCartActivity(Product product) {
-            Context context = view.getContext();
+        private void addToCart(Product product) {
+            // Lấy danh sách sản phẩm từ SharedPreferences
+            ArrayList<Product> cartProducts = CartUtility.getCartProducts(view.getContext());
+
+            boolean found = false;
+
+            // Tìm sản phẩm trong giỏ hàng
+            for (Product p : cartProducts) {
+                if (p.getProductId().equals(product.getProductId())) {
+                    // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1
+                    p.setCartQuantity(p.getCartQuantity() + 1);
+                    found = true;
+                    break;
+                }
+            }
+
+            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
+            if (!found) {
+                product.setCartQuantity(1);
+                cartProducts.add(product);
+            }
+
+            // Lưu danh sách sản phẩm giỏ hàng mới vào SharedPreferences
+            CartUtility.saveCartProducts(view.getContext(), cartProducts);
+
+            // Hiển thị thông báo
+            Context context = null;
+            Toast.makeText(view.getContext(), context.getString(R.string.added_to_cart_message), Toast.LENGTH_SHORT).show();
+
+
+            // Mở CartActivity khi click vào dòng toast cuối cùng
+            context = view.getContext();
             Intent intent = new Intent(context, CartActivity.class);
-            // Truyền thông tin sản phẩm cần thêm vào giỏ hàng nếu cần
-            intent.putExtra("productId", product.getProductId());
-            intent.putExtra("productName", product.getProductName());
-            intent.putExtra("price", product.getPrice());
             context.startActivity(intent);
         }
     }

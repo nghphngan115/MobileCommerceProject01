@@ -18,14 +18,14 @@
         android:layout_marginStart="30dp"
         android:src="@mipmap/ic_backarrow" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:text="Thông tin cá nhân"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="@string/strUInfo"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/avatarImageView"
@@ -50,41 +50,41 @@
         android:elevation="4dp"
         android:src="@mipmap/ic_camera" />
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avatarImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:hint="User Name"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatarImageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:hint="@string/strUserName"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:hint="Email"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="@string/strEmail"
+            android:textSize="16sp" />
 
     <!-- Details -->
 
     <!-- List thông tin -->
-    <TextView
-        android:id="@+id/detailsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/emailTextView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="20dp"
-        android:text="Chi tiết"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/detailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailTextView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/strDetail"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/detailsLayout"
@@ -107,16 +107,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Full Name"
+                android:hint="@string/strFName"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/editNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/strEdit"
                 android:textColor="#6CC51D"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Item 2: Địa chỉ -->
@@ -131,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Address"
+                android:hint="@string/strAdd"
                 android:textSize="16sp" />
 
             <TextView
@@ -155,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Phone Number"
+                android:hint="@string/strPhoneNumber"
                 android:textSize="16sp" />
 
             <TextView
@@ -208,7 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Save"
+                    android:text="@string/strSave"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -234,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Change Password"
+                    android:text="@string/strChangePwd"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -259,7 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
-                android:text="Log out"
+                android:text="@string/strLogOut"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"

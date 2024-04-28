@@ -90,7 +90,7 @@ public class CartListAdapter extends BaseAdapter {
                         }
                     } else {
                         // Hiển thị thông báo lỗi khi chuỗi rỗng
-                        viewHolder.edtProductQuantity.setError("Số lượng không được để trống");
+                        viewHolder.edtProductQuantity.setError(context.getString(R.string.quantity_blank_error_message));
                     }
                 }
             }
