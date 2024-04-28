@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,12 +35,23 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference usersRef;
     private ConstraintLayout btnSignIn;
     private int loginAttempts = 0;
+    private SharedPreferences sharedPreferences;
+    private String loggedInUserID;
+    private static final String PREF_LOGIN_STATUS = "loginStatus";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        loggedInUserID = sharedPreferences.getString("userID", null);
+
+        // Kiểm tra nếu đã có thông tin đăng nhập, tự động chuyển đến màn hình chính
+        if (loggedInUserID != null && !loggedInUserID.isEmpty()) {
+            startHomeScreen();
+            return; // Không tiếp tục hiển thị màn hình đăng nhập nếu đã đăng nhập
+        }
 
         backButton = findViewById(R.id.imgbtnBack);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +84,12 @@ public class LoginActivity extends AppCompatActivity {
                 signInUser();
             }
         });
+    }
+
+    private void startHomeScreen() {
+        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+        startActivity(intent);
+        finish(); // Đóng LoginActivity để người dùng không quay lại màn hình này khi nhấn nút back
     }
 
     private void handleEditTextClicks() {
@@ -118,7 +136,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     // Đây là biến để lưu userID của người dùng sau khi đăng nhập thành công
-    private String loggedInUserID;
 
     // Method to sign in user
     private void signInUser() {
@@ -140,12 +157,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (user != null) {
                             // Check if the entered password matches the stored hashed password
                             if (BCrypt.checkpw(password, user.getPassword())) {
-                                // Passwords match, user authenticated
-                                loggedInUserID = user.getId(); // Lấy userID từ user đã đăng nhập thành công
-                                saveUserIDToSharedPreferences(); // Lưu userID vào SharedPreferences
+                                loggedInUserID = user.getId();
+                                saveUserIDToSharedPreferences(loggedInUserID); // Lưu userID vào SharedPreferences
+                                saveLoginStatus(true); // Lưu trạng thái đăng nhập
                                 Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
                                 startActivity(intent);
-                                finish();
+                                finish(); // Kết thúc LoginActivity để người dùng không thể quay lại màn hình này bằng nút back
                                 Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Passwords do not match
@@ -171,11 +188,20 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Method to save userID to SharedPreferences
-    private void saveUserIDToSharedPreferences() {
+    private void saveLoginStatus(boolean status) {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userID", loggedInUserID);
+        editor.putBoolean(PREF_LOGIN_STATUS, status);
+        editor.apply();
+    }
+
+    private String userID;
+
+    // Method to save userID to SharedPreferences
+    private void saveUserIDToSharedPreferences(String userID) {
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userID", userID);
         editor.apply();
     }
 

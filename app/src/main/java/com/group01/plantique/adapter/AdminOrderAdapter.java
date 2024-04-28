@@ -1,17 +1,15 @@
 package com.group01.plantique.adapter;
+
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group01.plantique.R;
-import com.group01.plantique.java.OrderDetailsActivity;
 import com.group01.plantique.model.Order;
 
 import java.text.SimpleDateFormat;
@@ -19,34 +17,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
-    private Context context;
-    private List<Order> orders;
+public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.OrderViewHolder> {
+    private List<Order> ordersList;
     private LayoutInflater inflater;
 
-    public OrderAdapter(Context context, List<Order> orders) {
-        this.context = context;
-        this.orders = orders;
+    public AdminOrderAdapter(Context context, List<Order> ordersList) {
         this.inflater = LayoutInflater.from(context);
+        this.ordersList = ordersList;
     }
 
-    @NonNull
     @Override
-    public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_order, parent, false);
         return new OrderViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orders.get(position);
+    public void onBindViewHolder(OrderViewHolder holder, int position) {
+        Order order = ordersList.get(position);
         holder.txtOrderId.setText(order.getOrderId());
-        holder.txtTotalAmount.setText(String.format("%s đ", order.getTotalCost()));
-        String orderStatus = order.getOrderStatus();
+        holder.txtTotalAmount.setText("Total: " + (order.getTotalCost() != null ? order.getTotalCost() : "N/A"));
+        holder.txtOrderDate.setText((order.getOrderDate() != null ? convertTimestampToDate(Long.parseLong(order.getOrderDate())) : "N/A"));
+        holder.txtStatus.setText(order.getOrderStatus() != null ? order.getOrderStatus() : "Unknown");
 
-        holder.txtStatus.setText(orderStatus);
-
-        // Setting text color based on order status
+        // Corrected the reference to txtStatus to holder.txtStatus
+        String orderStatus = order.getOrderStatus() != null ? order.getOrderStatus() : "Unknown";
+        Context context = holder.itemView.getContext(); // Getting context from the itemView
         if (orderStatus.equals("Processing")) {
             holder.txtStatus.setTextColor(context.getResources().getColor(R.color.processing));
         } else if (orderStatus.equals("Delivering")) {
@@ -56,30 +52,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         } else if (orderStatus.equals("Cancelled")) {
             holder.txtStatus.setTextColor(context.getResources().getColor(R.color.cancelled));
         }
+    }
 
-        try {
-            long timestamp = Long.parseLong(order.getOrderDate());
-            String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date(timestamp));
-            holder.txtOrderDate.setText(formattedDate);
-        } catch (NumberFormatException e) {
-            holder.txtOrderDate.setText("Unknown date");
-            Log.e("OrderAdapter", "Failed to parse date: " + order.getOrderDate(), e);
-        }
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, OrderDetailsActivity.class);
-            intent.putExtra("order", order);  // Ensure Order is Serializable or Parcelable
-            context.startActivity(intent);
-        });
+
+    private String convertTimestampToDate(long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        return dateFormat.format(date);
     }
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        return ordersList.size();
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView txtOrderId, txtTotalAmount, txtOrderDate, txtStatus;
-        ImageView imageView;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
@@ -87,7 +75,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             txtTotalAmount = itemView.findViewById(R.id.txtTotalAmount);
             txtOrderDate = itemView.findViewById(R.id.txtOrderDate);
             txtStatus = itemView.findViewById(R.id.txtStatus);
-            imageView = itemView.findViewById(R.id.imageView13);
         }
+    }
+
+    public void updateList(List<Order> newList) {
+        ordersList.clear();
+        ordersList.addAll(newList);
+        notifyDataSetChanged();
     }
 }

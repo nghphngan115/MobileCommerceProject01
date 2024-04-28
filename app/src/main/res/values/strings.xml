@@ -34,4 +34,19 @@
     <string name="strPlaceOrder">Place Order</string>
 
 
+    <string-array name="order_statuses">
+        <item>All Statuses</item>
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
+    <string-array name="update_order_statuses">
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
+
+
 </resources>

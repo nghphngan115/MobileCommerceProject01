@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +49,11 @@ import java.util.Locale;
 public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
-    private TextView txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
+    private TextView txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
     private ConstraintLayout btnConfirm;
     private ListView lvProduct;
     private CartListAdapter cartListAdapter;
+    public EditText edtVoucher;
     private static final int SHIPPING_FEE = 30000; // Shipping fee constant
 
     @Override
@@ -83,8 +85,10 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtTotal = findViewById(R.id.txtTotal);
         lvProduct = findViewById(R.id.lvProduct);
         btnConfirm = findViewById(R.id.btnConfirm);
+        txtPromoDescription = findViewById(R.id.txtPromoDescription);
         btnConfirm.setOnClickListener(v -> finalizeOrder());
         txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
+        edtVoucher = findViewById(R.id.edtVoucher);
     }
 
     private void setupListAdapter() {
