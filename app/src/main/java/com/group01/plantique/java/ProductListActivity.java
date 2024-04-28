@@ -104,42 +104,42 @@ public class ProductListActivity extends AppCompatActivity {
 
         public void setProductDetails(Product product) {
             if (product != null) {
-            TextView textViewName = view.findViewById(R.id.textViewProductName);
-            textViewName.setText(product.getProductName());
+                TextView textViewName = view.findViewById(R.id.textViewProductName);
+                textViewName.setText(product.getProductName());
 
-            TextView textViewPrice = view.findViewById(R.id.textViewProductPrice);
-            TextView txtDiscountPrice = view.findViewById(R.id.textViewProductDiscount);
+                TextView textViewPrice = view.findViewById(R.id.textViewProductPrice);
+                TextView txtDiscountPrice = view.findViewById(R.id.textViewProductDiscount);
 
-            // Convert int discountPrice to String
-            String discountPrice = String.valueOf(product.getDiscount_price());
+                // Convert int discountPrice to String
+                String discountPrice = String.valueOf(product.getDiscount_price());
 
-            if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
-                // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
-                textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                textViewPrice.setText("$" + product.getPrice());
-                txtDiscountPrice.setVisibility(View.VISIBLE);
-                txtDiscountPrice.setText("$" + discountPrice);
-            } else {
-                // If discount_price is empty, zero, or null, show regular price and hide discount_price
-                textViewPrice.setPaintFlags(0); // Remove strike through if present
-                textViewPrice.setText("$" + product.getPrice());
-                txtDiscountPrice.setVisibility(View.GONE);
-            }
+                if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
+                    // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
+                    textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textViewPrice.setText("$" + product.getPrice());
+                    txtDiscountPrice.setVisibility(View.VISIBLE);
+                    txtDiscountPrice.setText("$" + discountPrice);
+                } else {
+                    // If discount_price is empty, zero, or null, show regular price and hide discount_price
+                    textViewPrice.setPaintFlags(0); // Remove strike through if present
+                    textViewPrice.setText("$" + product.getPrice());
+                    txtDiscountPrice.setVisibility(View.GONE);
+                }
 
-            ImageView imageView = view.findViewById(R.id.imageViewProduct);
-            String imageUrl = product.getImageurl();
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                Picasso.get().load(imageUrl).into(imageView);
-            } else {
-                // Xử lý khi URL trống, ví dụ load ảnh mặc định
-                Picasso.get().load(R.drawable.logo).into(imageView);
-            }
+                ImageView imageView = view.findViewById(R.id.imageViewProduct);
+                String imageUrl = product.getImageurl();
+                if (imageUrl != null && !imageUrl.isEmpty()) {
+                    Picasso.get().load(imageUrl).into(imageView);
+                } else {
+                    // Xử lý khi URL trống, ví dụ load ảnh mặc định
+                    Picasso.get().load(R.drawable.logo).into(imageView);
+                }
 
-            TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
-            txtDiscountNote.setText(product.getDiscountNote());
+                TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
+                txtDiscountNote.setText(product.getDiscountNote());
 
-            TextView txtUnit = view.findViewById(R.id.txtUnit);
-            txtUnit.setText(product.getUnit());
+                TextView txtUnit = view.findViewById(R.id.txtUnit);
+                txtUnit.setText(product.getUnit());
             } else {
                 Log.e("ProductListActivity", "Product object is null");
             }
@@ -202,12 +202,10 @@ public class ProductListActivity extends AppCompatActivity {
             CartUtility.saveCartProducts(view.getContext(), cartProducts);
 
             // Hiển thị thông báo
-            Context context = null;
-            Toast.makeText(view.getContext(), context.getString(R.string.added_to_cart_message), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(view.getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
 
             // Mở CartActivity khi click vào dòng toast cuối cùng
-            context = view.getContext();
+            Context context = view.getContext();
             Intent intent = new Intent(context, CartActivity.class);
             context.startActivity(intent);
         }
