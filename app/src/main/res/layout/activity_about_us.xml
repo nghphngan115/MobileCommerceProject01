@@ -38,8 +38,9 @@
                     android:layout_width="339dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginRight="40dp"
                     android:fontFamily="@font/inter_bold"
-                    android:text="Về chúng tôi           "
+                    android:text="@string/strAboutUs"
                     android:textAlignment="center"
                     android:textColor="#002603"
                     android:textSize="20sp" />
@@ -51,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter"
-                android:text="Plantique được thành lập vào năm 2024"
+                android:text="@string/strIntro"
                 android:textAlignment="center"
                 android:textColor="#002603" />
 
@@ -62,7 +63,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="100% tự nhiên"
+                android:text="@string/strTitle1"
                 android:textColor="#002603"
                 android:textSize="20sp" />
 
@@ -70,10 +71,10 @@
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Plantique ra đời với khát khao mang những thực phẩm sạch, 100% từ tự nhiên, không phẩm màu, không chất bảo quản, không chất phụ gia với chất lượng dinh dưỡng tốt nhất được sản xuất trực tiếp tại các làng nghề truyền thống trên đất nước đến khách hàng. Chúng tôi mong muốn được trở thành cánh tay đắc lực hỗ trợ khách hàng trong việc chăm sóc sức khỏe, giữ dáng, làm đẹp và kiểm soát cân nặng. Chúng tôi lắng nghe và thấu hiểu những mong muốn về sức khỏe, từ đó mang đến lựa chọn tốt nhất cho khách hàng trong cuộc sống ăn lành mạnh, ăn sạch của khách hàng hằng ngày."
-                android:textColor="#808080"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:text="@string/strDesc1"
+                android:textColor="#808080" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -82,7 +83,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Đơn vị cung cấp có chất lượng tốt nhất "
+                android:text="@string/strTitle2"
                 android:textColor="#002603"
                 android:textSize="20sp" />
 
@@ -90,10 +91,10 @@
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Với tôn chỉ &quot;Ăn sạch - Sống khỏe&quot;, Plantique trân trọng mang đến cho khách hàng thực phẩm eat clean chất lượng tốt nhất với nguyên liệu 100% từ tự nhiên an toàn cho mọi đối tượng sử dụng. "
-                android:textColor="#808080"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:text="@string/strDessc2"
+                android:textColor="#808080" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -108,7 +109,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Giao hàng tận nơi"
+                android:text="Delivery"
                 android:textColor="#002603"
                 android:textSize="20sp" />
 
@@ -122,11 +123,11 @@
                 android:id="@+id/btnMuaNgay"
                 android:layout_width="136dp"
                 android:layout_height="44dp"
-                android:layout_marginLeft="100dp"
-                android:background="@drawable/button_fullgreen"
+                android:layout_marginLeft="120dp"
+                android:backgroundTint="@color/main_green"
                 android:fontFamily="@font/inter_medium"
                 android:gravity="center"
-                android:text="Mua ngay"
+                android:text="@string/strBuyNow"
                 android:textColor="#FDFCFC" />
 
         </LinearLayout>

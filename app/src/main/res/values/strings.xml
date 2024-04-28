@@ -55,6 +55,22 @@
     <string name="strOrderHistory">Order History</string>
     <string name="strPromoDescrip">Promo Description</string>
 
+    <string name="strWelcome1">Nice to meet you</string>
+    <string name="strWelcome2">What are you looking for?</string>
+    <string name="strTitleSale">SUMMER SALE OFF</string>
+    <string name="strCate">Categories</string>
+    <string name="strViewAll">View all</string>
+    <string name="strHiglightedProducts">Higlighted Products</string>
+    <string name="strHiglightedBlogs" >Higlighted Blogs</string>
+    <string name="strAboutUs">About Us</string>
+    <string name="strIntro">Plantique was founded in 2024</string>
+    <string name="strTitle1">100% natural</string>
+    <string name="strTitle2">Has the best quality</string>
+    <string name="strDesc1">Plantique was born with the desire to bring clean, 100% natural foods, no colors, no preservatives, no additives with the best nutritional quality produced directly in traditional craft villages across the world. country to customer. We wish to become a powerful arm supporting customers in health care, fitness, beauty and weight control. We listen and understand health wishes, thereby providing the best choice for customers in their daily healthy, clean eating life.</string>
+    <string name="strDessc2">With the motto \"Eat clean - Live healthy\", Plantique respectfully brings customers the best quality eat clean food with 100% natural ingredients that are safe for all users.</string>
+    <string name="strBuyNow">Buy Now</string>
+
+
     <string name="progress_dialog_title">Please wait</string>
     <string name="delete_success_message">Deleted...</string>
     <string name="delete_fail_message">Failed to delete</string>
