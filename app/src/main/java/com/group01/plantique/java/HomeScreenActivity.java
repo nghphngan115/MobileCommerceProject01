@@ -11,7 +11,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,13 +42,14 @@ import com.group01.plantique.model.Product;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
-    SearchView svSearch;
     Button btnMuangay, btnViewAll, btnViewAll2;
     RecyclerView rvCategory;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
     GridView gvHiglightedBlog;
     BlogAdapter blogAdapter;
+    EditText searchEt;
+    ImageButton searchBtn;
 
     DatabaseReference databaseReference;
 
@@ -83,10 +86,19 @@ public class HomeScreenActivity extends AppCompatActivity {
             return false;
         });
 
-        svSearch = findViewById(R.id.svSearch);
         btnMuangay = findViewById(R.id.btnMuaNgay);
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
+        searchBtn = findViewById(R.id.searchBtn);
+        searchEt = findViewById(R.id.searchEt);
+
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this, AllProductsActivity.class);
+                startActivity(intent);
+            }
+        });
         
 
 
@@ -107,7 +119,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         getBlogFromFirebase();
 
         //Search
-        svSearch.setOnSearchClickListener(new View.OnClickListener() {
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Tạo một Intent để chuyển từ HomeScreenActivity sang SearchProductActivity
@@ -116,6 +128,16 @@ public class HomeScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        searchEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo một Intent để chuyển từ HomeScreenActivity sang SearchProductActivity
+                Intent intent = new Intent(HomeScreenActivity.this, SearchActivity.class);
+                // Bắt đầu SearchProductActivity
+                startActivity(intent);
+            }
+        });
+
 
     }
 

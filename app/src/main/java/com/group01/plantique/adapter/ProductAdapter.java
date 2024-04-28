@@ -34,13 +34,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     // Phương thức filterList để cập nhật danh sách sản phẩm sau khi lọc
-    public void filterList(List<Product> filteredList) {
-        this.filteredList = new ArrayList<>(filteredList);
-        notifyDataSetChanged(); // Cập nhật RecyclerView sau khi thay đổi danh sách sản phẩm
-    }
+
     public void updateProductList(List<Product> productList) {
         this.productList = productList;
+        this.filteredList = new ArrayList<>(productList);
         notifyDataSetChanged(); // Cập nhật giao diện sau khi thay đổi dữ liệu
+    }
+    public void filterList(List<Product> filteredList) {
+        this.filteredList = new ArrayList<>(filteredList);
+        notifyDataSetChanged();
     }
 
 

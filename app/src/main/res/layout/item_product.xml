@@ -41,7 +41,8 @@
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/ad_layout_rounded"
                 android:padding="5dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <TextView
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="10dp"
                 android:text="TextView"
                 android:textSize="14sp" />
 
@@ -82,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
                 android:text="TextView"
                 android:textColor="@color/main_green"
