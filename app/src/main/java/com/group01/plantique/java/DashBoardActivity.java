@@ -1,6 +1,8 @@
 package com.group01.plantique.java;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,5 +28,23 @@ public class DashBoardActivity extends AppCompatActivity {
         btnBlog = findViewById(R.id.btnBlog);
         btnFeedback = findViewById(R.id.btnFeedback);
 
+        btnProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoardActivity.this, AdminProductActivity.class);
+            }
+        });
+        btnPromotion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoardActivity.this, AdminPromotionActivity.class);
+            }
+        });
+        btnOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoardActivity.this, AdminOrderListActivity.class);
+            }
+        });
     }
 }

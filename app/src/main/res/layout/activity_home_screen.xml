@@ -36,8 +36,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Trang chủ"
+                android:fontFamily="@font/inter_bold"
+                android:text="PLANTIQUE"
                 android:textAlignment="center"
+                android:textColor="@color/main_green"
                 android:textSize="20sp" />
 
             <ImageView
@@ -53,25 +55,30 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Xin chào"
-            android:fontFamily="@font/inter"/>
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/strWelcome1"
+            android:textSize="13sp" />
 
         <!-- SearchView -->
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/inter"
-            android:text="Bạn cần tìm gì?" />
+            android:text="@string/strWelcome2"
+            android:textSize="12sp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="28dp" />
+            android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/svSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:background="@drawable/rounded_searchview" />
 
         <!-- Ad Layout -->
@@ -127,7 +134,7 @@
                                 android:layout_marginTop="24dp"
                                 android:layout_marginEnd="120dp"
                                 android:fontFamily="@font/inter_bold"
-                                android:text="SUMMER SALE OFF"
+                                android:text="@string/strTitleSale"
                                 android:textColor="@color/main_green"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.545"
@@ -274,7 +281,7 @@
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="Danh mục sản phẩm"
+                android:text="@string/strCate"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -287,7 +294,7 @@
                 android:drawableEnd="@mipmap/ic_arrow"
                 android:fontFamily="@font/inter_medium"
                 android:pointerIcon="arrow"
-                android:text="Xem tất cả"
+                android:text="@string/strViewAll"
                 android:textColor="#00B207"
                 android:textStyle="bold" />
 
@@ -333,7 +340,7 @@
                 android:layout_width="219dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="Sản phẩm nổi bật"
+                android:text="@string/strHiglightedProducts"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -346,7 +353,7 @@
                 android:drawableEnd="@mipmap/ic_arrow"
                 android:fontFamily="@font/inter_medium"
                 android:pointerIcon="arrow"
-                android:text="Xem tất cả"
+                android:text="@string/strViewAll"
                 android:textColor="#00B207"
                 android:textStyle="bold" />
 
@@ -377,7 +384,7 @@
                 android:layout_width="219dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:text="Tin tức nổi bật"
+                android:text="@string/strHiglightedBlogs"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -390,7 +397,7 @@
                 android:drawableEnd="@mipmap/ic_arrow"
                 android:fontFamily="@font/inter_medium"
                 android:pointerIcon="arrow"
-                android:text="Xem tất cả"
+                android:text="@string/strViewAll"
                 android:textColor="#00B207"
                 android:textStyle="bold" />
         </LinearLayout>

@@ -282,8 +282,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Xử lý khi đọc dữ liệu không thành công
-                Toast.makeText(HomeScreenActivity.this, "Failed to load highlighted blogs", Toast.LENGTH_SHORT).show();
+
             }
 
 
