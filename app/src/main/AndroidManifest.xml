@@ -112,9 +112,6 @@
             android:name=".java.OrderConfirmActivity"
             android:exported="true" />
         <activity
-            android:name=".java.SearchActivity"
-            android:exported="true" />
-        <activity
             android:name=".java.HomeScreenActivity"
             android:exported="true" />
         <activity
