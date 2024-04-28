@@ -114,8 +114,12 @@
                 android:text="Add to cart"
                 android:textColor="@color/main_green"
                 android:textSize="16sp"
-                tools:layout_editor_absoluteX="7dp"
-                tools:layout_editor_absoluteY="12dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageButtonCart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
 
             <ImageButton
                 android:id="@+id/imageButtonCart"
