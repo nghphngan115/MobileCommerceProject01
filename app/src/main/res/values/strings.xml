@@ -38,20 +38,23 @@
     <string name="strBankAccNum">Account Number: 0366370098</string>
     <string name="strBank">Bank: MB Bank</string>
     <string name="strAccOwner">Account Owner: Le Chau Anh</string>
-    <string name="strDeliveryPolicy">Delivery Policy</string>
-    <string name="strExchangePolicy">Exchange and Return Policy</string>
-    <string name="strOrderInstruction">Order Instructrion</string>
-    <string name="strPrivacyPolicy">Privacy Policy</string>
-    <string name="strInspectionPolicy">Inspection Policy</string>
     <string name="strTransferContent">Transfer Content: Order Id + Phone Number</string>
     <string name="strTransferNote">Please make payment within 12 hours. After payment, orders will be processed and shipped within 24 hours. If your order is not shipped after 24 hours, please contact customer support for assistance.</string>
+    <string name="strSelectPaymentMethod">Please select a payment method.</string>
+    <string name="strAllFields">All fields are required.</string>
+    <string name="strPhoneDigits">Phone number must be exactly 10 digits.</string>
+    <string name="strEmailValid">Email is not valid.</string>
+    <string name="strFailedProducts">Failed to load order details.</string>
+    <string name="strOrderSuccess">Order Placed Successfully</string>
+    <string name="strNotiOrder">You have successfully placed order</string>
+    <string name="strOn">on</string>
+    <string name="strCancelOrder">Cancel Order</string>
+    <string name="strReceived">Recceived Order</string>
+    <string name="strWriteReview">Write a review</string>
+    <string name="strFailedLoadOrder">Failed to load orders:</string>
+    <string name="strOrderHistory">Order History</string>
+    <string name="strPromoDescrip">Promo Description</string>
 
-
-
-    <string-array name="promo_options">
-        <item>Edit</item>
-        <item>Delete</item>
-    </string-array>
     <string name="progress_dialog_title">Please wait</string>
     <string name="delete_success_message">Deleted...</string>
     <string name="delete_fail_message">Failed to delete</string>
@@ -122,9 +125,13 @@
     <string name="otp_resent">OTP Resent</string>
     <string name="enter_phone_number">Please enter your phone number</string>
     <string name="failed_to_send_otp">Failed to send OTP</string>
+    <string name="strpolicy">Policy</string>
 
 
-
+    <string-array name="promo_options">
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
     <string-array name="image_picker_options">
         <item>Camera</item>
         <item>Gallery</item>

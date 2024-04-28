@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
+
 import com.group01.plantique.databinding.ActivityPolicyBinding;
 
 public class PolicyActivity extends DrawerBaseActivity {

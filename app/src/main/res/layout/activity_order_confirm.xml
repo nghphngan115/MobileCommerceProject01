@@ -227,7 +227,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_medium"
-                android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -279,7 +278,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:text="Promo Description"
+            android:text="@string/strPromoDescrip"
             android:visibility="visible" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
