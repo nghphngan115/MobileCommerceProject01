@@ -136,17 +136,17 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     private void filterDialog() {
-        String[] options = {"Price: Ascending", "Price: Descending", "Sort by category", "All Products"};
+        String[] options = {getString(R.string.price_ascending), getString(R.string.price_descending), getString(R.string.sort_by_category), getString(R.string.all_products)};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Filter Products")
+        builder.setTitle(getString(R.string.filter_products))
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         if (i == 0) {
-                            filterTv.setText("Price: Ascending");
+                            filterTv.setText(getString(R.string.price_ascending));
                             loadPriceAscending();
                         } else if (i == 1) {
-                            filterTv.setText("Price: Descending");
+                            filterTv.setText(getString(R.string.price_descending));
                             loadPriceDescending();
                         } else if (i == 2) {
                             Intent intent = new Intent(ProductListActivity.this, ProductCategoriesActivity.class);
@@ -159,6 +159,7 @@ public class ProductListActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
 
 
     private void loadPriceAscending() {

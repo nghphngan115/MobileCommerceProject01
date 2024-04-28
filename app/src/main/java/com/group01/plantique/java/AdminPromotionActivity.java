@@ -86,26 +86,27 @@ public class AdminPromotionActivity extends AppCompatActivity {
     }
 
     private void filterDialog() {
-        String[] options = {"All", "Expired", "Not Expired"};
+        String[] options = getResources().getStringArray(R.array.filter_promo_options);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Filter Promotion Codes")
+        builder.setTitle(R.string.filter_promo_title)
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         if (i == 0) {
-                            filterTv.setText("All Promotion Codes");
+                            filterTv.setText(getString(R.string.all_promo_codes));
                             loadAllPromoCodes();
                         } else if (i == 1) {
-                            filterTv.setText("Expired Promotion Codes");
+                            filterTv.setText(getString(R.string.expired_promo_codes));
                             loadExpiredPromoCodes();
                         } else if (i == 2) {
-                            filterTv.setText("No Expired Promotion Codes");
+                            filterTv.setText(getString(R.string.no_expired_promo_codes));
                             loadNoExpiredPromoCodes();
                         }
                     }
                 })
                 .show();
     }
+
 
     private void loadAllPromoCodes() {
         promotionArrayList = new ArrayList<>();
@@ -130,7 +131,9 @@ public class AdminPromotionActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý khi có lỗi
-                Toast.makeText(AdminPromotionActivity.this, "Failed to load promotions: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminPromotionActivity.this,
+                        getString(R.string.toast_load_promotions_failed, error.getMessage()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -172,7 +175,9 @@ public class AdminPromotionActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý khi có lỗi
-                Toast.makeText(AdminPromotionActivity.this, "Failed to load promotions: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminPromotionActivity.this,
+                        getString(R.string.toast_load_promotions_failed, error.getMessage()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -215,7 +220,10 @@ public class AdminPromotionActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý khi có lỗi
-                Toast.makeText(AdminPromotionActivity.this, "Failed to load promotions: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminPromotionActivity.this,
+                        getString(R.string.toast_load_promotions_failed, error.getMessage()),
+                        Toast.LENGTH_SHORT).show();
+
             }
         });
     }

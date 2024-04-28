@@ -85,14 +85,15 @@ public class EditProductActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            // Cập nhật thành công, hiển thị thông báo hoặc chuyển trang khác
-                            Toast.makeText(EditProductActivity.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
-                            // Chuyển về màn hình trước hoặc màn hình khác
-                            finish(); // Đóng màn hình EditProductActivity
+                            // Product updated successfully
+                            Toast.makeText(EditProductActivity.this, getString(R.string.toast_product_updated), Toast.LENGTH_SHORT).show();
+                            finish(); // Close the EditProductActivity screen
                         } else {
-                            // Xử lý khi cập nhật không thành công
-                            Toast.makeText(EditProductActivity.this, "Failed to update product: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            // Failed to update product
+                            String errorMessage = getString(R.string.toast_update_failed, task.getException().getMessage());
+                            Toast.makeText(EditProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
     }
