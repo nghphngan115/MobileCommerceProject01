@@ -48,10 +48,35 @@
 
 
     <string name="policy_details">
-        <![CDATA[
-        <h1>Policy</h1>
-        ]]>
-    </string>
+    <![CDATA[
+    <b>Policy</b><br><br>
+    <b>1. Goods Inspection Policy</b><br>
+    <b>Definition</b><br>
+    Goods inspection is the process of checking and controlling the quantity, quality, and condition of goods during transportation, storage, or delivery. This process ensures that the goods are of the correct quantity, undamaged, and meet quality standards.<br><br>
+    <b>Regulations</b><br>
+    – Inspection time: Plantique accepts customers to inspect with delivery personnel at the time of receiving the goods.<br>
+    – Scope of goods inspection: Customers can inspect the actual products based on confirmed criteria.<br>
+    – Handling steps for non-compliance with orders: Contact the hotline or email to reach the customer care department.<br>
+    – Complaint channels for customers: Complaint hotline, Email.<br>
+    Hotline: 0366370098<br>
+    Email: plantiqueshop01@gmail.com<br><br>
+    <b>Guide to Payment Methods:</b><br>
+    - Cash on Delivery (COD): Payment will be made directly to the delivery person upon receipt of the order.<br>
+    - Bank Transfer: Please transfer the total amount to the designated bank account. Your order will be processed upon confirmation of payment.<br><br>
+    <b>3. Shipping Information:</b><br>
+    - Delivery time: Typically, orders are processed and delivered within 5 business days.<br>
+    - Shipping fee: Shipping costs may vary depending on the delivery location and order weight. Please refer to the shipping policy for detailed information.<br><br>
+    <b>4. Return and Refund Policy:</b><br>
+    - Returns: We accept returns within 7 days of purchase. Items must be in their original condition and packaging.<br>
+    - Refunds: Refunds will be processed within 7 days after the returned items are received and inspected.<br>
+    - Exchange: We offer exchanges for items of equal or lesser value. Please contact our customer service for assistance.<br><br>
+    <b>5. Customer Support:</b><br>
+    - For any inquiries or assistance, please contact our customer service team:<br>
+    + Hotline: 0938152400<br>
+    + Email: plantiqueshop01@gmail.com<br><br>
+    ]]>
+</string>
+
     <string name="terms_and_conditions">
         <![CDATA[
         <b>Terms and Conditions</b><br><br>

@@ -25,7 +25,7 @@ public class PolicyActivity extends DrawerBaseActivity {
 
 
     ActivityPolicyBinding activityPolicyBinding;
-    private TextView tvPolicyDetail;
+    private TextView txtPolicyContent;
 
 
     @Override
@@ -34,8 +34,8 @@ public class PolicyActivity extends DrawerBaseActivity {
         activityPolicyBinding=ActivityPolicyBinding.inflate(getLayoutInflater());
         setContentView(activityPolicyBinding.getRoot());
         allocateActivityTitle("Policy");
-        TextView tvPolicyDetail = findViewById(R.id.tvPolicyDetail);
-        tvPolicyDetail.setText(Html.fromHtml(getString(R.string.policy_details), Html.FROM_HTML_MODE_COMPACT));
+        TextView txtPolicyContent = findViewById(R.id.txtPolicyContent);
+        txtPolicyContent.setText(Html.fromHtml(getString(R.string.policy_details), Html.FROM_HTML_MODE_COMPACT));
 
 
 
