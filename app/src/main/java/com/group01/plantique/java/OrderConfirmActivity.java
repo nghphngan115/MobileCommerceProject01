@@ -94,7 +94,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void setupListAdapter() {
         cartListAdapter = new CartListAdapter(this, productList);
         lvProduct.setAdapter(cartListAdapter);
-        cartListAdapter.setOnQuantityChangeListener(this::updateTotal);
+        // Thiết lập trình lắng nghe sự thay đổi số lượng
+        cartListAdapter.setOnQuantityChangeListener(() -> updateTotal());
     }
 
     private void updateTotal() {
