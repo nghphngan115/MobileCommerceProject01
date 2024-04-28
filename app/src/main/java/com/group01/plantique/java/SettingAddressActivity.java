@@ -1,5 +1,6 @@
 package com.group01.plantique.java;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.ShippingAddressAdapter;
 import com.group01.plantique.model.ShippingAddress;
@@ -117,10 +119,14 @@ public class SettingAddressActivity extends AppCompatActivity {
         lvAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShippingAddress selectedShippingAddress = shippingAddressList.get(position);
-                populateAddressFields(selectedShippingAddress);
+                ShippingAddress selectedAddress = shippingAddressList.get(position);
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selectedAddress", new Gson().toJson(selectedAddress));
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
             }
         });
+
 
         // Xử lý sự kiện khi giữ lâu trên một địa chỉ trong danh sách
         lvAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -130,6 +136,7 @@ public class SettingAddressActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
 
         // Xử lý sự kiện khi thay đổi switchSaveDefault
