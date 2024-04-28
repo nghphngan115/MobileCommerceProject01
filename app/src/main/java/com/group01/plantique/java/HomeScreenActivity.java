@@ -97,7 +97,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.account) {
-                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
+                startActivity(new Intent(getApplicationContext(), UserInformationActivity.class));
                 finish();
                 return true;
             }

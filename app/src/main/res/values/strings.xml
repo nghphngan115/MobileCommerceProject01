@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
-    <string name="strOrdConf">"Đặt hàng thành công "</string>
-    <string name="strOrdThank">Đơn hàng của bạn đã được xác nhận. Cảm ơn bạn vì đã mua hàng</string>
+    <string name="strOrdConf">"Placed order successfully "</string>
+    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -15,4 +15,38 @@
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
+    <string name="strCancel">Cancel Order</string>
+    <string name="strOrdID">Order ID</string>
+    <string name="strUserId">User ID</string>
+    <string name="strOrder">Order</string>
+    <string name="strNote">Note</string>
+    <string name="strDeliveryInfo">Delivery Information</string>
+    <string name="strFullName">Full Name</string>
+    <string name="strCIty">City/Province\n</string>
+    <string name="strWard">Ward</string>
+    <string name="strDistrict">District</string>
+    <string name="strAddress">"Address (House number, Street,...) "</string>
+    <string name="strCOD">Cash on delivery (COD)</string>
+    <string name="strTransfer">Bank Account Transfer</string>
+    <string name="strConfirm">Confirm</string>
+    <string name="strConfirmOrd">Confirm Order</string>
+    <string name="strApply">Apply</string>
+    <string name="strPlaceOrder">Place Order</string>
+
+
+    <string-array name="order_statuses">
+        <item>All Statuses</item>
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
+    <string-array name="update_order_statuses">
+        <item>Processing</item>
+        <item>Delivering</item>
+        <item>Finished</item>
+        <item>Cancelled</item>
+    </string-array>
+
+
 </resources>

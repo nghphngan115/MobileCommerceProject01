@@ -528,15 +528,15 @@ public class AddProductActivity extends AppCompatActivity {
     private void addViews() {
         backBtn = findViewById(R.id.backBtn);
         productIconIv = findViewById(R.id.productIconIv);
-        titleEt = findViewById(R.id.titleEt);
-        descriptionEt = findViewById(R.id.descriptionEt);
+        titleEt = findViewById(R.id.promoCodeEt);
+        descriptionEt = findViewById(R.id.promoDescriptionEt);
         categoryTv = findViewById(R.id.categoryTv);
         stockEt = findViewById(R.id.stockEt);
-        unitEt = findViewById(R.id.unitEt);
+        unitEt = findViewById(R.id.promoPriceEt);
         priceEt = findViewById(R.id.priceEt);
         discountedNoteEt = findViewById(R.id.discountedNoteEt);
         discountedPriceEt = findViewById(R.id.discountedPriceEt);
         discountSwitch = findViewById(R.id.discountSwitch);
-        addProductBtn=findViewById(R.id.addProductBtn);
+        addProductBtn=findViewById(R.id.edtProductBtn);
     }
 }

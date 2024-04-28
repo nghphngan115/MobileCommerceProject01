@@ -1,6 +1,8 @@
 package com.group01.plantique.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String productId;
     private String productName;
     private String description;
@@ -44,11 +46,10 @@ public class Product {
     }
 
     public void setCartQuantity(int cartQuantity) {
-        if (cartQuantity >= 1 && cartQuantity <= stock) {
+
             this.cartQuantity = cartQuantity;
-        } else {
-            // Handle the case where cartQuantity is not within the valid range
-        }
+
+
     }
 
     public String getProductName() {
