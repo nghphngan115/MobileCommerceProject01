@@ -84,6 +84,27 @@
     <string name="strDessc2">With the motto \"Eat clean - Live healthy\", Plantique respectfully brings customers the best quality eat clean food with 100% natural ingredients that are safe for all users.</string>
     <string name="strBuyNow">Buy Now</string>
 
+    <string name="strHello">Hello</string>
+    <string name="strBlog">Blog</string>
+    <string name="strWhat">What are you looking for?</string>
+    <string name="strSearch">Search</string>
+    <string name="strCart">Cart</string>
+    <string name="strUInfo">User Information</string>
+    <string name="strUserName">User Name</string>
+    <string name="strEmail">Email</string>
+    <string name="strFName">Full Name</string>
+    <string name="strAdd">Address</string>
+    <string name="strPhoneNumber">Phone Number</string>
+    <string name="strSave">Save</string>
+    <string name="strChangePwd">Change Password</string>
+    <string name="strLogOut">Log Out</string>
+    <string name="strEdit">Edit</string>
+    <string name="strDetail">Details</string>
+    <string name="cart_empty_message">Your cart is empty!</string>
+    <string name="quantity_blank_error_message">Quantity cannot be left blank</string>
+    <string name="added_to_cart_message">Product added to cart</string>
+
+
 
     <string name="progress_dialog_title">Please wait</string>
     <string name="delete_success_message">Deleted...</string>

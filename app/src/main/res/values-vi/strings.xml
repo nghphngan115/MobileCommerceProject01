@@ -199,6 +199,25 @@
     <string name="toast_password_change_failed">Không thể thay đổi mật khẩu</string>
     <string name="toast_user_not_found">Không tìm thấy người dùng</string>
     <string name="toast_database_error">Lỗi Cơ sở dữ liệu</string>
+    <string name="strHello">Xin chào</string>
+    <string name="strBlog">Tin tức</string>
+    <string name="strWhat">Bạn muốn tìm kiếm gì?</string>
+    <string name="strSearch">Tìm kiếm</string>
+    <string name="strCart">Giỏ hàng</string>
+    <string name="strUInfo">Thông tin cá nhân</string>
+    <string name="strUserName">User Name</string>
+    <string name="strEmail">Email</string>
+    <string name="strFName">Họ và tên</string>
+    <string name="strAdd">Địa chỉ</string>
+    <string name="strPhoneNumber">Số điện thoại</string>
+    <string name="strSave">Lưu</string>
+    <string name="strChangePwd">Đổi mật khẩu</string>
+    <string name="strLogOut">Đăng xuất</string>
+    <string name="strEdit">Sửa</string>
+    <string name="strDetail">Chi tiết</string>
+    <string name="cart_empty_message">Giỏ hàng của bạn đang trống</string>
+    <string name="quantity_blank_error_message">Số lượng không được để trống!</string>
+    <string name="added_to_cart_message">Đã thêm sản phẩm vào giỏ hàng</string>
 
 
     <string name="policy_details">

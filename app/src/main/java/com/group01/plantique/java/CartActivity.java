@@ -19,11 +19,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.reflect.TypeToken;
+import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -33,18 +36,15 @@ public class CartActivity extends DrawerBaseActivity {
     private TextView txtTotalCart;
     private ArrayList<Product> cartProducts;
     private CartListAdapter cartListAdapter;
-    private DatabaseReference productsRef;
     private ConstraintLayout btnContinue;
     private ConstraintLayout btnOrder;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-
-        BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.cart);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -75,55 +75,11 @@ public class CartActivity extends DrawerBaseActivity {
         btnContinue = findViewById(R.id.btnContinue);
         btnOrder = findViewById(R.id.btnOrder);
         txtTotalCart = findViewById(R.id.txtTotalCart);
-
-        // Khởi tạo danh sách sản phẩm trong giỏ hàng
-        cartProducts = new ArrayList<>();
-
-        // Lấy tham chiếu đến cơ sở dữ liệu Firebase
-        productsRef = FirebaseDatabase.getInstance().getReference().child("products");
-
-        // Thực hiện lắng nghe sự kiện khi dữ liệu thay đổi
-        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Duyệt qua danh sách sản phẩm
-                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                    // Lấy thông tin về sản phẩm
-                    String productId = productSnapshot.getKey();
-                    String productName = productSnapshot.child("productName").getValue(String.class);
-                    String description = productSnapshot.child("description").getValue(String.class);
-                    int price = productSnapshot.child("price").getValue(Integer.class);
-                    int discountPrice = productSnapshot.child("discount_price").getValue(Integer.class);
-                    String imageUrl = productSnapshot.child("imageurl").getValue(String.class);
-                    String categoryId = productSnapshot.child("categoryId").getValue(String.class);
-                    int stock = productSnapshot.child("stock").getValue(Integer.class); // Lấy số lượng từ Firebase
-                    // Tạo đối tượng sản phẩm với thông tin từ Firebase
-                    String discountNote = productSnapshot.child("discountNote").getValue(String.class);
-                    String unit = productSnapshot.child("unit").getValue(String.class);
-                    Product product = new Product(productId, productName, description, price, discountPrice, imageUrl, categoryId, discountNote, unit, stock);
-
-                    // Thêm sản phẩm vào giỏ hàng
-                    cartProducts.add(product);
-                }
-
-                // Hiển thị danh sách sản phẩm trong giỏ hàng
-                showCart();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra
-                Log.e("Firebase", "Error fetching data", databaseError.toException());
-                Toast.makeText(CartActivity.this, "Lỗi khi lấy dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Thiết lập sự kiện click cho nút "Tiếp tục mua hàng"
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mở ProductListActivity khi click vào nút "Tiếp tục mua hàng"
-                startActivity(new Intent(CartActivity.this, ProductListActivity.class));
+                // Mở ProductCategoriesActivity khi click vào nút "Tiếp tục mua hàng"
+                startActivity(new Intent(CartActivity.this, ProductCategoriesActivity.class));
             }
         });
 
@@ -135,13 +91,37 @@ public class CartActivity extends DrawerBaseActivity {
                 startActivity(new Intent(CartActivity.this, CheckoutActivity.class));
             }
         });
+
+        // Khởi tạo danh sách sản phẩm trong giỏ hàng từ SharedPreferences
+        loadCartFromSharedPreferences();
     }
 
-    // Phương thức để hiển thị danh sách sản phẩm trong giỏ hàng
+    // Phương thức để lấy dữ liệu giỏ hàng từ SharedPreferences
+    private void loadCartFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("cart", null);
+        Type type = new TypeToken<ArrayList<Product>>() {
+        }.getType();
+        if (json != null) {
+            cartProducts = gson.fromJson(json, type);
+        } else {
+            cartProducts = new ArrayList<>(); // Nếu không có dữ liệu, tạo một danh sách mới
+        }
+        // Hiển thị danh sách sản phẩm trong giỏ hàng
+        showCart();
+    }
+
+    // Phương thức để lưu giỏ hàng vào SharedPreferences
+    private void saveCartToSharedPreferences() {
+        // Lưu danh sách sản phẩm vào SharedPreferences sử dụng CartUtility
+        CartUtility.saveCartProducts(this, cartProducts);
+    }
+
     private void showCart() {
         // Kiểm tra nếu giỏ hàng trống
         if (cartProducts.isEmpty()) {
-            Toast.makeText(this, "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.cart_empty_message), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -150,35 +130,9 @@ public class CartActivity extends DrawerBaseActivity {
         cartListAdapter = new CartListAdapter(this, cartProducts);
         lvCart.setAdapter(cartListAdapter);
 
-        // Thiết lập lắng nghe sự kiện thay đổi số lượng sản phẩm
-        cartListAdapter.setOnQuantityChangeListener(new CartListAdapter.OnQuantityChangeListener() {
-            @Override
-            public void onQuantityChanged() {
-                // Lưu lại mỗi khi số lượng thay đổi
-                saveCartToSharedPreferences();
-
-                // Cập nhật tổng giá trị giỏ hàng
-                updateTotalCart();
-
-                // Kiểm tra số lượng nhập vào so với số lượng tồn kho
-                for (Product product : cartProducts) {
-                    if (product.getCartQuantity() > product.getStock()) {
-                        // Hiển thị thông điệp cảnh báo về số lượng tồn kho hiện tại
-                        String warningMessage = "Vượt số lượng tồn kho. Tồn kho hiện tại " + product.getStock() + " sản phẩm.";
-                        Toast.makeText(CartActivity.this, warningMessage, Toast.LENGTH_SHORT).show();
-
-                        // Đặt số lượng sản phẩm trong giỏ hàng về số lượng tồn kho hiện có
-                        product.setCartQuantity(product.getStock());
-                        cartListAdapter.notifyDataSetChanged(); // Cập nhật lại adapter
-                    }
-                }
-            }
-        });
-
         // Cập nhật tổng giá trị giỏ hàng
         updateTotalCart();
     }
-
 
     // Phương thức cập nhật tổng giá trị giỏ hàng
     private void updateTotalCart() {
@@ -187,24 +141,5 @@ public class CartActivity extends DrawerBaseActivity {
             totalCart += product.getPrice() * product.getCartQuantity();
         }
         txtTotalCart.setText(String.valueOf(totalCart));
-    }
-
-    // Phương thức để lưu giỏ hàng vào SharedPreferences
-    private void saveCartToSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(cartProducts);
-        editor.putString("cart", json);
-        editor.putInt("totalAmount", calculateTotalAmount());  // Lưu tổng tiền vào SharedPreferences
-        editor.apply();
-    }
-
-    private int calculateTotalAmount() {
-        int total = 0;
-        for (Product product : cartProducts) {
-            total += product.getPrice() * product.getCartQuantity();
-        }
-        return total;
     }
 }

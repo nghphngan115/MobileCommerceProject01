@@ -1,7 +1,6 @@
 package com.group01.plantique.java;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -9,12 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,24 +24,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.ProductListAdapter;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewProducts;
     private DatabaseReference productsRef;
     private String categoryId;
-    private TextView textViewTitle, filterTv;
-    EditText searchEt;
-    ImageButton searchBtn, filterBtn, imgbtnBack;
+    private TextView textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,40 +47,6 @@ public class ProductListActivity extends AppCompatActivity {
         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
 
         textViewTitle = findViewById(R.id.textViewTitle);
-        searchBtn = findViewById(R.id.searchBtn);
-        searchEt = findViewById(R.id.searchEt);
-        filterBtn = findViewById(R.id.filterBtn);
-        filterTv = findViewById(R.id.filterTv);
-        imgbtnBack = findViewById(R.id.imgbtnBack);
-
-        imgbtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Kết thúc activity để quay lại màn hình trước đó
-                finish();
-            }
-        });
-
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductListActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        searchEt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductListActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        filterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterDialog();
-            }
-        });
 
         Intent intent = getIntent();
         categoryId = intent.getStringExtra("categoryId");
@@ -116,18 +75,18 @@ public class ProductListActivity extends AppCompatActivity {
                         .setQuery(query, Product.class)
                         .build();
 
-        FirebaseRecyclerAdapter<Product, ProductListAdapter.ProductViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Product, ProductListAdapter.ProductViewHolder>(options) {
+        FirebaseRecyclerAdapter<Product, ProductViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Product, ProductViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductListAdapter.ProductViewHolder holder, int position, @NonNull Product model) {
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Product model) {
                         holder.setProductDetails(model);
                     }
 
                     @NonNull
                     @Override
-                    public ProductListAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
-                        return new ProductListAdapter.ProductViewHolder(view);
+                        return new ProductViewHolder(view);
                     }
                 };
 
@@ -135,107 +94,120 @@ public class ProductListActivity extends AppCompatActivity {
         adapter.startListening();
     }
 
-    private void filterDialog() {
-        String[] options = {getString(R.string.price_ascending), getString(R.string.price_descending), getString(R.string.sort_by_category), getString(R.string.all_products)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.filter_products))
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        if (i == 0) {
-                            filterTv.setText(getString(R.string.price_ascending));
-                            loadPriceAscending();
-                        } else if (i == 1) {
-                            filterTv.setText(getString(R.string.price_descending));
-                            loadPriceDescending();
-                        } else if (i == 2) {
-                            Intent intent = new Intent(ProductListActivity.this, ProductCategoriesActivity.class);
-                            startActivity(intent);
-                        } else if (i == 3) {
-                            Intent intent = new Intent(ProductListActivity.this, AllProductsActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                })
-                .show();
-    }
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+        View view;
 
+        public ProductViewHolder(@NonNull View itemView) {
+            super(itemView);
+            view = itemView;
+        }
 
+        public void setProductDetails(Product product) {
+            if (product != null) {
+                TextView textViewName = view.findViewById(R.id.textViewProductName);
+                textViewName.setText(product.getProductName());
 
-    private void loadPriceAscending() {
-        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference().child("products");
-        Query query = productsRef.orderByChild("categoryId").equalTo(categoryId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<Product> productList = new ArrayList<>();
-                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                        Product product = productSnapshot.getValue(Product.class);
-                        if (product != null) {
-                            productList.add(product);
-                        }
-                    }
-                    // Sắp xếp danh sách sản phẩm theo giá tăng dần
-                    Collections.sort(productList, new Comparator<Product>() {
-                        @Override
-                        public int compare(Product p1, Product p2) {
-                            return Double.compare(p1.getPrice(), p2.getPrice());
-                        }
-                    });
-                    // Hiển thị danh sách sản phẩm sau khi đã sắp xếp
-                    displaySortedProducts(productList);
+                TextView textViewPrice = view.findViewById(R.id.textViewProductPrice);
+                TextView txtDiscountPrice = view.findViewById(R.id.textViewProductDiscount);
+
+                // Convert int discountPrice to String
+                String discountPrice = String.valueOf(product.getDiscount_price());
+
+                if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
+                    // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
+                    textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textViewPrice.setText("$" + product.getPrice());
+                    txtDiscountPrice.setVisibility(View.VISIBLE);
+                    txtDiscountPrice.setText("$" + discountPrice);
+                } else {
+                    // If discount_price is empty, zero, or null, show regular price and hide discount_price
+                    textViewPrice.setPaintFlags(0); // Remove strike through if present
+                    textViewPrice.setText("$" + product.getPrice());
+                    txtDiscountPrice.setVisibility(View.GONE);
+                }
+
+                ImageView imageView = view.findViewById(R.id.imageViewProduct);
+                String imageUrl = product.getImageurl();
+                if (imageUrl != null && !imageUrl.isEmpty()) {
+                    Picasso.get().load(imageUrl).into(imageView);
+                } else {
+                    // Xử lý khi URL trống, ví dụ load ảnh mặc định
+                    Picasso.get().load(R.drawable.logo).into(imageView);
+                }
+
+                TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
+                txtDiscountNote.setText(product.getDiscountNote());
+
+                TextView txtUnit = view.findViewById(R.id.txtUnit);
+                txtUnit.setText(product.getUnit());
+            } else {
+                Log.e("ProductListActivity", "Product object is null");
+            }
+
+            // Set click listener for product detail
+            view.findViewById(R.id.layoutProductDetail).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProductDetailActivity(product);
+                }
+            });
+
+            // Set click listener for add to cart area
+            // Thay đổi phương thức gọi khi click vào nút "Thêm vào giỏ hàng"
+            view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addToCart(product);
+                }
+            });
+
+            view.findViewById(R.id.imageButtonCart).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addToCart(product);
+                }
+            });
+        }
+
+        private void openProductDetailActivity(Product product) {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            intent.putExtra("productId", product.getProductId());
+            context.startActivity(intent);
+        }
+
+        private void addToCart(Product product) {
+            // Lấy danh sách sản phẩm từ SharedPreferences
+            ArrayList<Product> cartProducts = CartUtility.getCartProducts(view.getContext());
+
+            boolean found = false;
+
+            // Tìm sản phẩm trong giỏ hàng
+            for (Product p : cartProducts) {
+                if (p.getProductId().equals(product.getProductId())) {
+                    // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1
+                    p.setCartQuantity(p.getCartQuantity() + 1);
+                    found = true;
+                    break;
                 }
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("AllProductsActivity", "Failed to fetch products data: " + error.getMessage());
-            }
-        });
-    }
-
-    private void loadPriceDescending() {
-        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference().child("products");
-        Query query = productsRef.orderByChild("categoryId").equalTo(categoryId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<Product> productList = new ArrayList<>();
-                    for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                        Product product = productSnapshot.getValue(Product.class);
-                        if (product != null) {
-                            productList.add(product);
-                        }
-                    }
-                    // Sắp xếp danh sách sản phẩm theo giá giảm dần
-                    Collections.sort(productList, new Comparator<Product>() {
-                        @Override
-                        public int compare(Product p1, Product p2) {
-                            return Double.compare(p2.getPrice(), p1.getPrice());
-                        }
-                    });
-                    // Hiển thị danh sách sản phẩm sau khi đã sắp xếp
-                    displaySortedProducts(productList);
-                }
+            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
+            if (!found) {
+                product.setCartQuantity(1);
+                cartProducts.add(product);
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("AllProductsActivity", "Failed to fetch products data: " + error.getMessage());
-            }
-        });
-    }
+            // Lưu danh sách sản phẩm giỏ hàng mới vào SharedPreferences
+            CartUtility.saveCartProducts(view.getContext(), cartProducts);
 
+            // Hiển thị thông báo
+            Toast.makeText(view.getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
 
-    private void displaySortedProducts(List<Product> productList) {
-        // Hiển thị danh sách sản phẩm đã sắp xếp trên RecyclerView hoặc giao diện của bạn
-        // Ví dụ:
-        RecyclerView sortedRecyclerView = findViewById(R.id.recyclerViewProducts);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        sortedRecyclerView.setLayoutManager(layoutManager); // Đổi LayoutManager tùy vào giao diện của bạn
-        ProductListAdapter adapter = new ProductListAdapter(productList); // Tạo adapter với danh sách đã sắp xếp
-        sortedRecyclerView.setAdapter(adapter);
+            // Mở CartActivity khi click vào dòng toast cuối cùng
+            Context context = view.getContext();
+            Intent intent = new Intent(context, CartActivity.class);
+            context.startActivity(intent);
+        }
     }
 }
