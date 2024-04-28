@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
@@ -24,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.DashBoardActivity"
+            android:exported="false" />
+        <activity
             android:name=".java.PopUpActivity"
             android:exported="false" />
         <activity
@@ -31,6 +33,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -42,7 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".java.ProductListActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ProductCategoriesActivity"
             android:exported="false" />

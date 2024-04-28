@@ -5,6 +5,12 @@
       <entry key="HomeScreenActivity (1)">
         <State />
       </entry>
+      <entry key="ProductListActivity">
+        <State />
+      </entry>
+      <entry key="SettingNotificationActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
