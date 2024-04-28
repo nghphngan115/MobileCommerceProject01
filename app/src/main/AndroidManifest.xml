@@ -23,7 +23,7 @@
         tools:targetApi="31">
         <activity
             android:name=".java.UserInformationActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.EditProductActivity"
             android:exported="false" />
@@ -41,13 +41,13 @@
             android:exported="true" />
         <activity
             android:name=".java.ProductDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.AddToCartActivity"
             android:exported="false" />
         <activity
             android:name=".java.ProductListActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
@@ -77,7 +77,10 @@
             android:exported="true" />
         <activity
             android:name=".java.BlogCategoryActivity"
-            android:exported="false" />
+            android:exported="true" />
+        <activity
+            android:name=".java.BlogDetailActivity"
+            android:exported="true" />
         <activity
             android:name=".java.CartActivity"
             android:exported="true" />
@@ -103,6 +106,9 @@
         <activity
             android:name=".java.ResetPasswordActivity"
             android:exported="false" />
+        <activity
+            android:name=".java.ListOrderActivity"
+            android:exported="true" />
         <activity
             android:name=".java.ResetPasswordOTPActivity"
             android:exported="false" />

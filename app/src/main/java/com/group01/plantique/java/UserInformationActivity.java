@@ -3,11 +3,17 @@ package com.group01.plantique.java;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,19 +22,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivityUserInformationBinding;
 import com.squareup.picasso.Picasso;
 
 public class UserInformationActivity extends DrawerBaseActivity {
+    private static final int STORAGE_REQUEST_CODE = 101;
+    private static final int CAMERA_REQUEST_CODE = 102;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_IMAGE_CAMERA_CODE = 2;
+
     private EditText nameEditText, addressEditText, phoneEditText, emailEditText;
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;
     private ImageView avatarImageView, cameraIconImageView;
@@ -36,11 +44,8 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private ConstraintLayout btnChangePassword, btnLogOut;
 
     private DatabaseReference mDatabase;
-    private String loggedInUserID;
-    private SharedPreferences sharedPreferences;
+    private Uri image_uri;
     private static final String PREF_LOGIN_STATUS = "loginStatus";
-
-    private static final int PICK_IMAGE_REQUEST = 1;
     ActivityUserInformationBinding activityUserInformationBinding;
 
     @Override
@@ -190,8 +195,14 @@ public class UserInformationActivity extends DrawerBaseActivity {
 
 
     private void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+        // Check storage permission
+        if (checkStoragePermission()) {
+            // If permission is granted, open gallery
+            pickFromGallery();
+        } else {
+            // If permission is not granted, request it
+            requestStoragePermission();
+        }
     }
 
     @Override
@@ -201,6 +212,83 @@ public class UserInformationActivity extends DrawerBaseActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
             avatarImageView.setImageURI(imageUri);
+            saveAvatarUrl(imageUri.toString()); // Lưu URL của ảnh vào cơ sở dữ liệu Firebase
+        } else if (requestCode == PICK_IMAGE_CAMERA_CODE && resultCode == RESULT_OK) {
+            avatarImageView.setImageURI(image_uri);
+            saveAvatarUrl(image_uri.toString()); // Lưu URL của ảnh vào cơ sở dữ liệu Firebase
+        }
+    }
+    private void pickFromGallery() {
+        // Intent to pick image from gallery
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void requestStoragePermission() {
+        // Request storage permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+    }
+
+    private void openCamera() {
+        // Check camera and storage permissions
+        if (checkCameraPermission()) {
+            // If permissions granted, open camera
+            pickFromCamera();
+        } else {
+            // If permissions not granted, request them
+            requestCameraPermission();
+        }
+    }
+
+    private void pickFromCamera() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image_Title");
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image_Description");
+
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(intent, PICK_IMAGE_CAMERA_CODE);
+    }
+
+    private void requestCameraPermission() {
+        // Request camera and storage permissions
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
+    }
+
+    private boolean checkStoragePermission() {
+        // Check storage permission
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private boolean checkCameraPermission() {
+        // Check camera and storage permissions
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Handle permission request result
+        if (requestCode == STORAGE_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // If storage permission granted, open gallery
+                pickFromGallery();
+            } else {
+                // If storage permission not granted, show toast
+                Toast.makeText(this, "Storage permission is required...", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // If camera and storage permission granted, open camera
+                pickFromCamera();
+            } else {
+                // If camera or storage permission not granted, show toast
+                Toast.makeText(this, "Camera & Storage permissions are required...", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -244,5 +332,8 @@ public class UserInformationActivity extends DrawerBaseActivity {
         mDatabase.child("phone").setValue(newPhone);
 
         Toast.makeText(this, "Thông tin đã được lưu", Toast.LENGTH_SHORT).show();
+    }
+    private void saveAvatarUrl(String avatarUrl) {
+        mDatabase.child("avatarUrl").setValue(avatarUrl);
     }
 }

@@ -5,6 +5,18 @@
       <entry key="BlogCategoryActivity">
         <State />
       </entry>
+      <entry key="CartActivity">
+        <State />
+      </entry>
+      <entry key="ProductCategoriesActivity">
+        <State />
+      </entry>
+      <entry key="ProductListActivity">
+        <State />
+      </entry>
+      <entry key="UserInformationActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>

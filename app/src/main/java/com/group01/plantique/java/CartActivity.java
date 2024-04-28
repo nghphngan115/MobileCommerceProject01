@@ -19,11 +19,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -44,7 +46,7 @@ public class CartActivity extends DrawerBaseActivity {
         setContentView(R.layout.activity_cart);
 
 
-        BottomNavigationView bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.cart);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -78,52 +80,57 @@ public class CartActivity extends DrawerBaseActivity {
 
         // Khởi tạo danh sách sản phẩm trong giỏ hàng
         cartProducts = new ArrayList<>();
+        loadCartFromSharedPreferences();
 
-        // Lấy tham chiếu đến cơ sở dữ liệu Firebase
-        productsRef = FirebaseDatabase.getInstance().getReference().child("products");
+        Intent intent = getIntent();
+        if (intent != null) {
+            String productId = intent.getStringExtra("productId");
 
-        // Thực hiện lắng nghe sự kiện khi dữ liệu thay đổi
-        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Duyệt qua danh sách sản phẩm
-                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                    // Lấy thông tin về sản phẩm
-                    String productId = productSnapshot.getKey();
-                    String productName = productSnapshot.child("productName").getValue(String.class);
-                    String description = productSnapshot.child("description").getValue(String.class);
-                    int price = productSnapshot.child("price").getValue(Integer.class);
-                    int discountPrice = productSnapshot.child("discount_price").getValue(Integer.class);
-                    String imageUrl = productSnapshot.child("imageurl").getValue(String.class);
-                    String categoryId = productSnapshot.child("categoryId").getValue(String.class);
-                    int stock = productSnapshot.child("stock").getValue(Integer.class); // Lấy số lượng từ Firebase
-                    // Tạo đối tượng sản phẩm với thông tin từ Firebase
-                    String discountNote = productSnapshot.child("discountNote").getValue(String.class);
-                    String unit = productSnapshot.child("unit").getValue(String.class);
-                    Product product = new Product(productId, productName, description, price, discountPrice, imageUrl, categoryId, discountNote, unit, stock);
+            if (productId != null) {
+                DatabaseReference productRef = FirebaseDatabase.getInstance().getReference().child("products").child(productId);
+                productRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String productName = dataSnapshot.child("productName").getValue(String.class);
+                            int price = dataSnapshot.child("price").getValue(Integer.class);
+                            String imageurl = dataSnapshot.child("imageurl").getValue(String.class);
 
-                    // Thêm sản phẩm vào giỏ hàng
-                    cartProducts.add(product);
-                }
 
-                // Hiển thị danh sách sản phẩm trong giỏ hàng
-                showCart();
+                            String categoryId = dataSnapshot.child("categoryId").getValue(String.class);
+                            String description = dataSnapshot.child("description").getValue(String.class);
+                            String discountNote = dataSnapshot.child("discountNote").getValue(String.class);
+                            int discount_price = dataSnapshot.child("discount_price").getValue(Integer.class);
+                            int stock = dataSnapshot.child("stock").getValue(Integer.class);
+                            String unit = dataSnapshot.child("unit").getValue(String.class);
+                            Product product = new Product(productId, productName, price, imageurl, categoryId, description, discountNote, discount_price, stock, unit);
+                            product.setCartQuantity(1);
+
+                            cartProducts.add(product);
+
+
+                            showCart();
+                        } else {
+                            Toast.makeText(CartActivity.this, "Sản phẩm không tồn tại", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("Firebase", "Error fetching product details", databaseError.toException());
+                        Toast.makeText(CartActivity.this, "Lỗi khi lấy thông tin sản phẩm từ Firebase", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
             }
+        }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra
-                Log.e("Firebase", "Error fetching data", databaseError.toException());
-                Toast.makeText(CartActivity.this, "Lỗi khi lấy dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Thiết lập sự kiện click cho nút "Tiếp tục mua hàng"
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Mở ProductListActivity khi click vào nút "Tiếp tục mua hàng"
-                startActivity(new Intent(CartActivity.this, ProductListActivity.class));
+                startActivity(new Intent(CartActivity.this, ProductCategoriesActivity.class));
             }
         });
 
@@ -137,7 +144,38 @@ public class CartActivity extends DrawerBaseActivity {
         });
     }
 
-    // Phương thức để hiển thị danh sách sản phẩm trong giỏ hàng
+    // Phương thức để lấy dữ liệu giỏ hàng từ SharedPreferences
+    private void loadCartFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("cart", null);
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        cartProducts = gson.fromJson(json, type);
+        if (cartProducts == null) {
+            cartProducts = new ArrayList<>();
+        }
+    }
+
+    // Phương thức để lưu giỏ hàng vào SharedPreferences
+    private void saveCartToSharedPreferences() {
+        Log.d("CartActivity", "saveCartToSharedPreferences: Saving cart data to SharedPreferences");
+        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(cartProducts);
+        editor.putString("cart", json);
+        editor.putInt("totalAmount", calculateTotalAmount());  // Lưu tổng tiền vào SharedPreferences
+        editor.apply();
+    }
+
+    private int calculateTotalAmount() {
+        int total = 0;
+        for (Product product : cartProducts) {
+            total += product.getPrice() * product.getCartQuantity();
+        }
+        return total;
+    }
+
     private void showCart() {
         // Kiểm tra nếu giỏ hàng trống
         if (cartProducts.isEmpty()) {
@@ -179,7 +217,6 @@ public class CartActivity extends DrawerBaseActivity {
         updateTotalCart();
     }
 
-
     // Phương thức cập nhật tổng giá trị giỏ hàng
     private void updateTotalCart() {
         int totalCart = 0;
@@ -187,24 +224,5 @@ public class CartActivity extends DrawerBaseActivity {
             totalCart += product.getPrice() * product.getCartQuantity();
         }
         txtTotalCart.setText(String.valueOf(totalCart));
-    }
-
-    // Phương thức để lưu giỏ hàng vào SharedPreferences
-    private void saveCartToSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(cartProducts);
-        editor.putString("cart", json);
-        editor.putInt("totalAmount", calculateTotalAmount());  // Lưu tổng tiền vào SharedPreferences
-        editor.apply();
-    }
-
-    private int calculateTotalAmount() {
-        int total = 0;
-        for (Product product : cartProducts) {
-            total += product.getPrice() * product.getCartQuantity();
-        }
-        return total;
     }
 }
