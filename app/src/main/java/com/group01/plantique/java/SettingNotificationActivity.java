@@ -19,8 +19,6 @@ import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityNotificationBinding;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivitySettingNotificationBinding;
 
 public class SettingNotificationActivity extends DrawerBaseActivity {

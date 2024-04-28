@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivityUserInformationBinding;
 import com.squareup.picasso.Picasso;
 

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivityTermsBinding;
 
 public class TermsActivity extends DrawerBaseActivity {

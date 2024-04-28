@@ -55,9 +55,6 @@
             android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
         <activity
-            android:name=".java.PersonalInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".java.ContactActivity"
             android:exported="false" />
         <activity

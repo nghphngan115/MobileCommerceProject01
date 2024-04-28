@@ -121,7 +121,7 @@ public class SettingAddressActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(SettingAddressActivity.this, "Failed to load addresses.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingAddressActivity.this, getString(R.string.failed_to_load_addresses), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,7 +134,7 @@ public class SettingAddressActivity extends AppCompatActivity {
         String phoneNumber = edtPhoneNumber.getText().toString().trim();
 
         if (fullName.isEmpty() || address1.isEmpty() || district.isEmpty() || province.isEmpty() || phoneNumber.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -150,7 +150,7 @@ public class SettingAddressActivity extends AppCompatActivity {
 
         if (addressId != null) {
             userAddressRef.child(addressId).setValue(address);
-            Toast.makeText(this, "Address saved successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.address_saved_success), Toast.LENGTH_SHORT).show();
         }
 
         clearFields();
@@ -171,15 +171,15 @@ public class SettingAddressActivity extends AppCompatActivity {
     private void deleteAddress(int position) {
         Address address = addressList.get(position);
         databaseReference.child(address.getAddressId()).removeValue();
-        Toast.makeText(this, "Address deleted successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.address_deleted_success), Toast.LENGTH_SHORT).show();
     }
 
     // Phương thức để hiển thị dialog xác nhận xóa địa chỉ
     private void showDeleteConfirmationDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to delete this address?")
-                .setPositiveButton("Delete", (dialog, which) -> deleteAddress(position))
-                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.setMessage(getString(R.string.delete_confirmation_message))
+                .setPositiveButton(getString(R.string.delete_button_text), (dialog, which) -> deleteAddress(position))
+                .setNegativeButton(getString(R.string.cancel_button_text), (dialog, which) -> dialog.dismiss());
         builder.create().show();
     }
 

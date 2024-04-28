@@ -59,7 +59,6 @@ public class SearchActivity extends AppCompatActivity {
         imgbtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kết thúc activity để quay lại màn hình trước đó
                 finish();
             }
         });
@@ -160,7 +159,7 @@ public class SearchActivity extends AppCompatActivity {
                         productList.add(product);
                     }
                 }
-                searchProducts(""); // Hiển thị tất cả sản phẩm khi màn hình được tạo
+                searchProducts("");
             }
 
             @Override
