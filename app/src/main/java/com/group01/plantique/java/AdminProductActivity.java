@@ -43,7 +43,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private ImageButton filterProductBtn, searchBtn, btnAddProduct;
     private ProductAdapter productAdapter;
     private List<Category> categoryList = new ArrayList<>();
-    private String selectedCategory = "All";
+    private String selectedCategory;
     private List<Product> productList = new ArrayList<>();
 
     @Override
@@ -114,7 +114,9 @@ public class AdminProductActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AdminProductActivity.this, "Failed to load categories: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminProductActivity.this,
+                        getString(R.string.toast_load_categories_failed, error.getMessage()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -135,7 +137,10 @@ public class AdminProductActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AdminProductActivity.this, "Failed to load products: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminProductActivity.this,
+                        getString(R.string.toast_load_products_failed, error.getMessage()),
+                        Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -155,7 +160,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private void filterProducts(String keyword) {
         List<Product> filteredList;
 
-        if (selectedCategory.equals("All")) {
+        if (selectedCategory.equals(getString(R.string.all_category))) {
             // Lọc theo từ khóa khi danh mục được chọn là "All"
             filteredList = filterByKeyword(productList, keyword);
         } else {
@@ -220,7 +225,7 @@ public class AdminProductActivity extends AppCompatActivity {
 
     private void showCategoryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Category");
+        builder.setTitle(getString(R.string.dialog_title_choose_category));
 
         String[] categoryNames = new String[categoryList.size()];
         for (int i = 0; i < categoryList.size(); i++) {
@@ -276,7 +281,6 @@ public class AdminProductActivity extends AppCompatActivity {
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Picasso.get().load(imageUrl).into(imageViewProduct);
         } else {
-            // Xử lý khi URL trống, ví dụ load ảnh mặc định
             Picasso.get().load(R.drawable.logo).into(imageViewProduct);
         }
 
@@ -310,23 +314,21 @@ public class AdminProductActivity extends AppCompatActivity {
 
     private void showDeleteConfirmationDialog(Product product) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Delete");
-        builder.setMessage("Are you sure you want to delete this product?");
+        builder.setTitle(getString(R.string.confirm_delete_title));
+        builder.setMessage(getString(R.string.confirm_delete_message));
 
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.delete_button_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Xử lý xóa sản phẩm từ Firebase hoặc một nguồn dữ liệu khác
-                // productsRef.child(product.getProductId()).removeValue(); // Ví dụ xóa từ Firebase
-                // Cập nhật giao diện hoặc thông báo xóa thành công
-                Toast.makeText(AdminProductActivity.this, "Product deleted successfully", Toast.LENGTH_SHORT).show();
+                productsRef.child(product.getProductId()).removeValue();
+                Toast.makeText(AdminProductActivity.this, R.string.product_deleted_success, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel_button_label), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss(); // Đóng dialog nếu người dùng chọn Cancel
+                dialog.dismiss(); // Dismiss dialog if Cancel is clicked
             }
         });
 

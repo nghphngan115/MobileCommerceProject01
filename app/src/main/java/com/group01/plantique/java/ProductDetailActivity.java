@@ -68,7 +68,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Failed to fetch product data!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, getString(R.string.failed_to_fetch_data), Toast.LENGTH_SHORT).show();
             }
         });
     }

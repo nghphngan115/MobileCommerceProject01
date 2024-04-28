@@ -116,7 +116,7 @@
     <string name="failed_to_load_addresses">Failed to load addresses.</string>
     <string name="address_saved_success">Address saved successfully</string>
     <string name="address_deleted_success">Address deleted successfully</string>
-    <string name="delete_confirmation_message">Are you sure you want to delete this address?</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this shippingAddress?</string>
     <string name="delete_button_text">Delete</string>
     <string name="cancel_button_text">Cancel</string>
     <string name="enter_otp_message">Please enter OTP</string>
@@ -126,7 +126,61 @@
     <string name="otp_resent">OTP Resent</string>
     <string name="enter_phone_number">Please enter your phone number</string>
     <string name="failed_to_send_otp">Failed to send OTP</string>
-
+    <string name="price_ascending">Price: Ascending</string>
+    <string name="price_descending">Price: Descending</string>
+    <string name="sort_by_category">Sort by category</string>
+    <string name="all_products">All Products</string>
+    <string name="filter_products">Filter Products</string>
+    <string name="failed_to_fetch_data">Failed to fetch product data!</string>
+    <string name="user_id_not_found">User ID not found</string>
+    <string name="invalid_default_address">Invalid default address position</string>
+    <string name="only_choose_one_default">Only choose 1 default shipping address</string>
+    <string name="hint_enter_username">Enter username</string>
+    <string name="hint_enter_password">Enter password</string>
+    <string name="toast_enter_credentials">Please enter username and password</string>
+    <string name="toast_signin_success">Sign in successful</string>
+    <string name="toast_invalid_password">Invalid password</string>
+    <string name="toast_username_not_found">Username not found</string>
+    <string name="toast_error_prefix">Error: </string>
+    <string name="dialog_reset_password_title">Reset Password</string>
+    <string name="dialog_reset_password_message">Do you want to reset your password?</string>
+    <string name="dialog_reset_password_yes">Yes</string>
+    <string name="dialog_reset_password_no">No</string>
+    <string name="toast_product_updated">Product updated successfully</string>
+    <string name="toast_update_failed">Failed to update product: %s</string>
+    <string name="toast_enter_passwords">Please enter new password and confirm password</string>
+    <string name="toast_passwords_not_match">Passwords do not match</string>
+    <string name="toast_phone_number_not_found">Phone number not found</string>
+    <string name="toast_password_changed">Password changed successfully</string>
+    <string name="toast_password_change_failed">Failed to change password</string>
+    <string name="toast_user_not_found">User not found</string>
+    <string name="toast_database_error">Database Error</string>
+    <string-array name="filter_options">
+        <item>Price: Ascending</item>
+        <item>Price: Descending</item>
+        <item>Sort by category</item>
+        <item>All Products</item>
+    </string-array>
+    <string name="filter_promo_title">Filter Promotion Codes</string>
+    <string-array name="filter_promo_options">
+        <item>All</item>
+        <item>Expired</item>
+        <item>Not Expired</item>
+    </string-array>
+    <string name="all_promo_codes">All Promotion Codes</string>
+    <string name="expired_promo_codes">Expired Promotion Codes</string>
+    <string name="no_expired_promo_codes">No Expired Promotion Codes</string>
+    <string name="toast_load_promotions_failed">Failed to load promotions: %s</string>
+    <string name="default_category">All</string>
+    <string name="toast_load_categories_failed">Failed to load categories: %s</string>
+    <string name="toast_load_products_failed">Failed to load products: %s</string>
+    <string name="all_category">All</string>
+    <string name="dialog_title_choose_category">Choose Category</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this product?</string>
+    <string name="delete_button_label">Delete</string>
+    <string name="cancel_button_label">Cancel</string>
+    <string name="product_deleted_success">Product deleted successfully</string>
 
 
 

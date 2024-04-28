@@ -1,13 +1,15 @@
 package com.group01.plantique.java;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.AddressAdapter;
-import com.group01.plantique.model.Address;
+import com.group01.plantique.adapter.ShippingAddressAdapter;
+import com.group01.plantique.model.ShippingAddress;
 
 import java.util.ArrayList;
 
@@ -32,23 +34,40 @@ public class SettingAddressActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private EditText edtFullName, edtAddress1, edtDistrict, edtProvince, edtPhoneNumber;
+    private EditText edtFullName, edtAddress1, edtDistrict, edtProvince, edtPhoneNumber, edtWard;
     private ListView lvAddress;
-    private ImageButton imgbtnAddAddress;
-    private ArrayList<Address> addressList;
-    private AddressAdapter adapter;
+    private ImageButton imgbtnAddAddress, imgbtnBack;
+    private ArrayList<ShippingAddress> shippingAddressList;
+    private ShippingAddressAdapter adapter;
     private ConstraintLayout btnSave;
+    private Switch switchSaveDefault;
+    private String defaultAddressId;
     private boolean isInputFieldVisible = false;
+    private String userID; // Lưu userID tạm thời ở đây
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_address);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        userID = sharedPreferences.getString("userID", "");
+        // Khởi tạo defaultAddressId từ SharedPreferences (nếu có)
+        defaultAddressId = sharedPreferences.getString("defaultAddressId", "");
+
+        // Kiểm tra xem userID có tồn tại không
+        if (userID.isEmpty()) {
+            Toast.makeText(this, getString(R.string.user_id_not_found), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SettingAddressActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
-                .child(currentUser.getUid())
+                .child(userID)
                 .child("shipping_addresses");
 
         // Khai báo các view
@@ -60,10 +79,13 @@ public class SettingAddressActivity extends AppCompatActivity {
         lvAddress = findViewById(R.id.lvAddress);
         btnSave = findViewById(R.id.btnSave);
         imgbtnAddAddress = findViewById(R.id.imgbtnAddAddress);
+        edtWard = findViewById(R.id.edtWard);
+        switchSaveDefault = findViewById(R.id.switchSaveDefault);
+        imgbtnBack = findViewById(R.id.imgbtnBack);
 
         // Khởi tạo danh sách địa chỉ và adapter
-        addressList = new ArrayList<>();
-        adapter = new AddressAdapter(this, R.layout.layout_address_item, addressList);
+        shippingAddressList = new ArrayList<>();
+        adapter = new ShippingAddressAdapter(this, R.layout.layout_address_item, shippingAddressList);
         lvAddress.setAdapter(adapter);
 
         // Xử lý sự kiện khi nhấn nút "Lưu"
@@ -73,6 +95,13 @@ public class SettingAddressActivity extends AppCompatActivity {
                 addOrUpdateAddress();
             }
         });
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         // Xử lý sự kiện khi nhấn nút "Thêm địa chỉ"
         imgbtnAddAddress.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +117,8 @@ public class SettingAddressActivity extends AppCompatActivity {
         lvAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Address selectedAddress = addressList.get(position);
-                populateAddressFields(selectedAddress);
+                ShippingAddress selectedShippingAddress = shippingAddressList.get(position);
+                populateAddressFields(selectedShippingAddress);
             }
         });
 
@@ -102,21 +131,35 @@ public class SettingAddressActivity extends AppCompatActivity {
             }
         });
 
-        // Load danh sách địa chỉ từ Firebase
+
+        // Xử lý sự kiện khi thay đổi switchSaveDefault
+        switchSaveDefault.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                int defaultPosition = adapter.getDefaultAddressPosition();
+                if (defaultPosition >= 0 && defaultPosition < shippingAddressList.size()) {
+                    defaultAddressId = shippingAddressList.get(defaultPosition).getAddressId();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("defaultAddressId", defaultAddressId);
+                    editor.apply();
+                } else {
+                    Toast.makeText(this, getString(R.string.invalid_default_address), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         loadAddresses();
     }
 
-    // Phương thức để load danh sách địa chỉ từ Firebase
     private void loadAddresses() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addressList.clear();
+                shippingAddressList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Address address = dataSnapshot.getValue(Address.class);
-                    addressList.add(address);
+                    ShippingAddress shippingAddress = dataSnapshot.getValue(ShippingAddress.class);
+                    shippingAddressList.add(shippingAddress);
                 }
-                adapter.notifyDataSetChanged(); // Cập nhật danh sách trong adapter
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -132,49 +175,56 @@ public class SettingAddressActivity extends AppCompatActivity {
         String district = edtDistrict.getText().toString().trim();
         String province = edtProvince.getText().toString().trim();
         String phoneNumber = edtPhoneNumber.getText().toString().trim();
+        String ward = edtWard.getText().toString().trim();
 
         if (fullName.isEmpty() || address1.isEmpty() || district.isEmpty() || province.isEmpty() || phoneNumber.isEmpty()) {
             Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", "");
-
         DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference("users")
                 .child(userID)
                 .child("shipping_addresses");
 
         String addressId = userAddressRef.push().getKey(); // Tạo một addressId mới
-        Address address = new Address(addressId, fullName, address1, district, province, phoneNumber);
+        ShippingAddress address = new ShippingAddress(addressId, ward, fullName, address1, district, province, phoneNumber);
 
         if (addressId != null) {
             userAddressRef.child(addressId).setValue(address);
             Toast.makeText(this, getString(R.string.address_saved_success), Toast.LENGTH_SHORT).show();
         }
+        if (switchSaveDefault.isChecked()) {
+            // Kiểm tra nếu đã tồn tại địa chỉ mặc định khác
+            if (!defaultAddressId.isEmpty() && !defaultAddressId.equals(address.getAddressId())) {
+                // Báo lỗi vì chỉ được lưu một địa chỉ mặc định
+                Toast.makeText(this, getString(R.string.only_choose_one_default), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Lưu địa chỉ mặc định vào SharedPreferences và cập nhật defaultAddressId
+            defaultAddressId = address.getAddressId();
+            SharedPreferences.Editor editor = getSharedPreferences("userData", MODE_PRIVATE).edit();
+            editor.putString("defaultAddressId", defaultAddressId);
+            editor.apply();
+        }
 
         clearFields();
     }
 
-
-
-    // Phương thức để hiển thị thông tin của một địa chỉ lên các input fields
-    private void populateAddressFields(Address address) {
-        edtFullName.setText(address.getFullName());
-        edtAddress1.setText(address.getAddress1());
-        edtDistrict.setText(address.getDistrict());
-        edtProvince.setText(address.getProvince());
-        edtPhoneNumber.setText(address.getPhoneNumber());
+    private void populateAddressFields(ShippingAddress shippingAddress) {
+        edtFullName.setText(shippingAddress.getFullName());
+        edtAddress1.setText(shippingAddress.getAddress1());
+        edtWard.setText(shippingAddress.getWard());
+        edtDistrict.setText(shippingAddress.getDistrict());
+        edtProvince.setText(shippingAddress.getProvince());
+        edtPhoneNumber.setText(shippingAddress.getPhoneNumber());
     }
 
-    // Phương thức để xóa một địa chỉ
     private void deleteAddress(int position) {
-        Address address = addressList.get(position);
-        databaseReference.child(address.getAddressId()).removeValue();
+        ShippingAddress shippingAddress = shippingAddressList.get(position);
+        databaseReference.child(shippingAddress.getAddressId()).removeValue();
         Toast.makeText(this, getString(R.string.address_deleted_success), Toast.LENGTH_SHORT).show();
     }
 
-    // Phương thức để hiển thị dialog xác nhận xóa địa chỉ
     private void showDeleteConfirmationDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.delete_confirmation_message))
@@ -183,12 +233,12 @@ public class SettingAddressActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    // Phương thức để xóa dữ liệu trên các input fields
     private void clearFields() {
         edtFullName.setText("");
         edtAddress1.setText("");
         edtDistrict.setText("");
         edtProvince.setText("");
         edtPhoneNumber.setText("");
+        edtWard.setText("");
     }
 }
