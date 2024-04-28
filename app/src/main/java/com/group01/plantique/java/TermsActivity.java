@@ -7,7 +7,6 @@ import android.text.Html;
 import android.widget.TextView;
 
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivityTermsBinding;
 
 public class TermsActivity extends DrawerBaseActivity {

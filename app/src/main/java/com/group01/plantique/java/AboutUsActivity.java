@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.group01.plantique.R;
 import com.group01.plantique.databinding.ActivityAboutUsBinding;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
+
 
 public class AboutUsActivity extends DrawerBaseActivity {
     ActivityAboutUsBinding activityAboutUsBinding;

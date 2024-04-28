@@ -8,9 +8,17 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageButton
+        android:id="@+id/imgbtnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@mipmap/ic_back" />
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="640dp">
+        android:layout_height="600dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,11 +30,20 @@
 
             <!-- Additional layout elements here, such as reviews -->
 
+            <TextView
+                android:id="@+id/txtDiscountNote"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:background="@drawable/ad_layout_rounded"
+                android:padding="5dp"
+                android:text="TextView"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="254dp"
-                 />
+                android:layout_height="254dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,8 +93,7 @@
                         android:id="@+id/txtPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
                         android:text="TextView" />
 
                     <TextView

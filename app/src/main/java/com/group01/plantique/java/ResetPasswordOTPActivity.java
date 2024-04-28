@@ -58,7 +58,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                 if (!enteredOTP.isEmpty()) {
                     verifyOTPAndProceed(enteredOTP);
                 } else {
-                    Toast.makeText(ResetPasswordOTPActivity.this, "Please enter OTP", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordOTPActivity.this, getString(R.string.enter_otp_message), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -90,7 +90,8 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
 
     private void updateCountdownText() {
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
-        resendOtpTextView.setText("Resend OTP in " + seconds + "s");
+        String resendMessage = getString(R.string.resend_otp_format, seconds);
+        resendOtpTextView.setText(resendMessage);
     }
 
     private void verifyOTPAndProceed(String enteredOTP) {
@@ -111,7 +112,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(ResetPasswordOTPActivity.this, "OTP verification failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ResetPasswordOTPActivity.this, R.string.otp_verification_failed, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -133,7 +134,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(ResetPasswordOTPActivity.this, "Failed to resend OTP", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordOTPActivity.this, R.string.failed_resend_otp, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -141,7 +142,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                         super.onCodeSent(newVerificationId, forceResendingToken);
                         verificationId = newVerificationId;
                         startCountdownTimer();
-                        Toast.makeText(ResetPasswordOTPActivity.this, "OTP Resent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResetPasswordOTPActivity.this, R.string.otp_resent, Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 });

@@ -20,7 +20,7 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private static List<Product> productList;
     private OnItemClickListener listener;
-    private List<Product> filteredList; // Danh sách sản phẩm sau khi lọc
+    private List<Product> filteredList;
 
     public interface OnItemClickListener {
         void onItemClick(Product product);
@@ -30,24 +30,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
-        this.filteredList = new ArrayList<>(productList); // Khởi tạo filteredList ban đầu
+        this.filteredList = new ArrayList<>(productList);
     }
 
     // Phương thức filterList để cập nhật danh sách sản phẩm sau khi lọc
-    public void filterList(List<Product> filteredList) {
-        this.filteredList = new ArrayList<>(filteredList);
-        notifyDataSetChanged(); // Cập nhật RecyclerView sau khi thay đổi danh sách sản phẩm
-    }
+
     public void updateProductList(List<Product> productList) {
         this.productList = productList;
-        notifyDataSetChanged(); // Cập nhật giao diện sau khi thay đổi dữ liệu
+        this.filteredList = new ArrayList<>(productList);
+        notifyDataSetChanged();
+    }
+    public void filterList(List<Product> filteredList) {
+        this.filteredList = new ArrayList<>(filteredList);
+        notifyDataSetChanged();
     }
 
 
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_horizontal, parent, false);
-        return new ProductViewHolder(view, listener); // Loại bỏ tham số thừa productList
+        return new ProductViewHolder(view, listener);
     }
 
 
@@ -84,7 +86,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onItemClick(productList.get(position)); // Thay thế bằng productList.get(getAdapterPosition())
+                        listener.onItemClick(productList.get(position));
                     }
                 }
             });
@@ -115,7 +117,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 Picasso.get().load(imageUrl).into(imageView);
             } else {
-                // Xử lý khi URL trống, ví dụ load ảnh mặc định
                 Picasso.get().load(R.drawable.logo).into(imageView);
             }
 

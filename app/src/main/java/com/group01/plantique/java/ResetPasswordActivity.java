@@ -43,7 +43,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 if (!phoneNumber.isEmpty()) {
                     sendOTPToPhoneNumber(phoneNumber);
                 } else {
-                    Toast.makeText(ResetPasswordActivity.this, "Please enter your phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.enter_phone_number), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -59,13 +59,12 @@ public class ResetPasswordActivity extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                // Xác thực tự động hoàn tất (không cần nhập mã OTP)
                                 progressBar.setVisibility(View.GONE);
                             }
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(ResetPasswordActivity.this, "Failed to send OTP", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ResetPasswordActivity.this, getString(R.string.failed_to_send_otp), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
 

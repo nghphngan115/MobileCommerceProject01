@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,9 @@
         android:theme="@style/Theme.MobileCommerceProject01"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".java.AllProductsActivity"
+            android:exported="true" />
         <activity
             android:name=".java.UserInformationActivity"
             android:exported="false" />
@@ -56,20 +59,17 @@
             android:name=".java.ProductCategoriesActivity"
             android:exported="true" />
         <activity
-            android:name=".java.PersonalInfoActivity"
-            android:exported="false" />
-        <activity
             android:name=".java.ContactActivity"
             android:exported="false" />
-
         <activity
             android:name=".java.TermsActivity"
             android:exported="true" />
         <activity
             android:name=".java.PolicyActivity"
             android:exported="false" />
-        <activity android:name=".java.OrderDetailsActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".java.OrderDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".java.OrderHistoryActivity"
             android:exported="true" />
@@ -88,7 +88,6 @@
         <activity
             android:name=".java.CartActivity"
             android:exported="true" />
-
         <activity
             android:name=".java.NotificationActivity"
             android:exported="false" />
@@ -102,7 +101,7 @@
             android:name=".java.SearchResultActivity"
             android:exported="true" />
         <activity
-            android:name=".java.SearchProductActivity"
+            android:name=".java.SearchActivity"
             android:exported="true" />
         <activity
             android:name=".java.ChangePasswordActivity"
@@ -115,9 +114,6 @@
             android:exported="false" />
         <activity
             android:name=".java.OrderConfirmActivity"
-            android:exported="true" />
-        <activity
-            android:name=".java.SearchActivity"
             android:exported="true" />
         <activity
             android:name=".java.HomeScreenActivity"
