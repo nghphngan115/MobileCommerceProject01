@@ -1,28 +1,35 @@
 package com.group01.plantique.model;
 
 public class ModelReview {
-    //use same spellings of variables as used in sending to firebase
-    String uid, ratings, review, timestamp;
-    public ModelReview(String uid, String ratings, String review, String  timestamp) {
-        this.uid = uid;
+    private String userId;
+    private double ratings;
+    private String review;
+    private long timestamp;
+
+    public ModelReview(String userId, double ratings, String review, long timestamp) {
+        this.userId = userId;
         this.ratings = ratings;
         this.review = review;
         this.timestamp = timestamp;
     }
 
-    public String getUid() {
-        return uid;
+
+    // Getter và Setter cho các trường
+    // ...
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getRatings() {
+    public double getRatings() {
         return ratings;
     }
 
-    public void setRatings(String ratings) {
+    public void setRatings(double ratings) {
         this.ratings = ratings;
     }
 
@@ -34,11 +41,11 @@ public class ModelReview {
         this.review = review;
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

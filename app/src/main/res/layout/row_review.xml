@@ -67,6 +67,8 @@
             android:textColor="@color/black"
             android:text="The review of the user"/>
 
+
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -1,9 +1,7 @@
 package com.group01.plantique.java;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.AdapterReview;
+import com.group01.plantique.adapter.ReviewAdapter;
 import com.group01.plantique.model.ModelReview;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
-import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 
@@ -37,7 +34,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private DatabaseReference productsRef;
     private RatingBar ratingBar; //ANH THU
     private ArrayList<ModelReview> reviewArrayList; //ANH THU, contain list of all reviews
-    private AdapterReview adapterReview; //ANH THU
+    private ReviewAdapter adapterReview; //ANH THU
     private FirebaseAuth firebaseAuth; //ANH THU
     private RecyclerView reviewRv; //ANH THU
     private TextView ratingsTv; //ANH THU
@@ -91,7 +88,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 reviewArrayList.add(modelReview);
                             }
                             //set up adapter
-                            adapterReview = new AdapterReview(ProductDetailActivity.this, reviewArrayList);
+                            adapterReview = new ReviewAdapter(ProductDetailActivity.this, reviewArrayList);
                             //set to recyclerview
                             reviewRv.setAdapter(adapterReview);
 
