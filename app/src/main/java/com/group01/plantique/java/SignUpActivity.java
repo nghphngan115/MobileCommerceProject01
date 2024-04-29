@@ -121,28 +121,28 @@ public class SignUpActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) ||
                 TextUtils.isEmpty(username) || TextUtils.isEmpty(phone)) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             signUpButton.setEnabled(true); // Re-enable button
             txtSignUp.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.dark_green)));
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.passwords_not_match), Toast.LENGTH_SHORT).show();
             signUpButton.setEnabled(true); // Re-enable button
             return;
         }
 
-        // Check email format
+
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edtEmail.setError("Invalid email format");
+            edtEmail.setError(getString(R.string.invalid_email_format));
             signUpButton.setEnabled(true);
             return;
         }
 
-        // Check password complexity
+
         if (!isPasswordValid(password)) {
-            edtPassword.setError("Password must be at least 8 characters, contain a digit, and a special character");
+            edtPassword.setError(getString(R.string.invalid_password_format));
             signUpButton.setEnabled(true);
             return;
         }
@@ -152,14 +152,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    edtUsername.setError("Username already exists");
+                    edtUsername.setError(getString(R.string.username_exists));
                     signUpButton.setEnabled(true);
                 } else {
                     usersRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                edtEmail.setError("Email already exists");
+                                edtEmail.setError(getString(R.string.email_exists));
                                 signUpButton.setEnabled(true);
                             } else {
                                 // Hash the password using BCrypt
@@ -169,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 String userId = "UID_" + username; // Create a custom user ID
                                 User newUser = new User(userId, username, email, phone, hashedPassword);
                                 usersRef.child(userId).setValue(newUser);
-                                Toast.makeText(SignUpActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
                                 // Redirect to login or home activity
                                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                 finish();
@@ -178,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Toast.makeText(SignUpActivity.this, "Database error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, getString(R.string.database_error), Toast.LENGTH_SHORT).show();
                             signUpButton.setEnabled(true);
                         }
                     });
@@ -187,7 +187,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(SignUpActivity.this, "Database error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, getString(R.string.database_error), Toast.LENGTH_SHORT).show();
                 signUpButton.setEnabled(true);
             }
         });
@@ -202,7 +202,7 @@ public class SignUpActivity extends AppCompatActivity {
             } else {
                 String phoneNumber = edtPhoneNumber.getText().toString().trim();
                 if (TextUtils.isEmpty(phoneNumber)) {
-                    tilPhoneNumber.setHint("Enter phone number");
+                    tilPhoneNumber.setHint(getString(R.string.hint_phone_number));
                 } else {
                     txtPhoneError.setVisibility(View.GONE);
                 }
@@ -212,15 +212,17 @@ public class SignUpActivity extends AppCompatActivity {
         edtConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 String confirmPass = edtConfirmPassword.getText().toString().trim();
-                if (!confirmPass.equals(edtPassword.getText().toString())) {
+                String password = edtPassword.getText().toString().trim();
+                if (!confirmPass.equals(password)) {
                     txtConfirmPasswordError.setVisibility(View.VISIBLE);
-                    txtConfirmPasswordError.setText("Passwords do not match");
+                    txtConfirmPasswordError.setText(getString(R.string.error_passwords_not_match));
                 } else {
                     txtConfirmPasswordError.setVisibility(View.GONE);
                 }
             }
-            tilConfirmPassword.setHint(hasFocus || !TextUtils.isEmpty(edtConfirmPassword.getText().toString()) ? "" : "Enter Confirm Password");
+            tilConfirmPassword.setHint(hasFocus || !TextUtils.isEmpty(edtConfirmPassword.getText().toString()) ? "" : getString(R.string.hint_confirm_password));
         });
+
 
         // Set onFocusChangeListener for Email EditText
         edtEmail.setOnFocusChangeListener((v, hasFocus) -> {
@@ -228,29 +230,27 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString().trim();
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     txtEmailError.setVisibility(View.VISIBLE);
-                    txtEmailError.setText("Invalid email format");
+                    txtEmailError.setText(getString(R.string.error_invalid_email));
                 } else {
                     txtEmailError.setVisibility(View.GONE);
                 }
             }
-            tilEmail.setHint(hasFocus || !TextUtils.isEmpty(edtEmail.getText().toString()) ? "" : "Enter Email");
+            tilEmail.setHint(hasFocus || !TextUtils.isEmpty(edtEmail.getText().toString()) ? "" : getString(R.string.hint_email));
         });
 
-        // Set onFocusChangeListener for Password EditText
         edtPassword.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 String password = edtPassword.getText().toString().trim();
                 if (!isPasswordValid(password)) {
                     txtPasswordError.setVisibility(View.VISIBLE);
-                    txtPasswordError.setText("Password must be at least 8 characters, contain a digit, and a special character");
+                    txtPasswordError.setText(getString(R.string.error_invalid_password));
                 } else {
                     txtPasswordError.setVisibility(View.GONE);
                 }
             }
-            tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtPassword.getText().toString()) ? "" : "Enter Password");
+            tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtPassword.getText().toString()) ? "" : getString(R.string.hint_password));
         });
 
-        // Set onFocusChangeListener for Username EditText
         edtUsername.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 tilUsername.setHint("");
@@ -258,10 +258,10 @@ public class SignUpActivity extends AppCompatActivity {
             } else {
                 String username = edtUsername.getText().toString().trim();
                 if (TextUtils.isEmpty(username)) {
-                    tilUsername.setHint("Enter username");
+                    tilUsername.setHint(getString(R.string.hint_username));
                 } else if (!isUsernameValid(username)) {
                     txtUsernameError.setVisibility(View.VISIBLE);
-                    txtUsernameError.setText("Username must contain both letters and numbers");
+                    txtUsernameError.setText(getString(R.string.error_invalid_username));
                 } else {
                     txtUsernameError.setVisibility(View.GONE);
                 }

@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivityUserInformationBinding;
 import com.squareup.picasso.Picasso;
 
@@ -212,7 +211,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
                 if (snapshot.exists()) {
                     String name = snapshot.child("username").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
-                    String address = snapshot.child("shipping_addresses").getValue(String.class);
+                    String address = snapshot.child("addresses").getValue(String.class);
                     String phone = snapshot.child("phone").getValue(String.class);
                     String avatarUrl = snapshot.child("avatarUrl").getValue(String.class);
 
@@ -221,6 +220,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
                     addressEditText.setText(address);
                     phoneEditText.setText(phone);
                     Picasso.get().load(avatarUrl).into(avatarImageView);
+
                 }
             }
 
@@ -240,7 +240,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
 
         mDatabase.child("username").setValue(newName);
         mDatabase.child("email").setValue(newEmail);
-        mDatabase.child("shipping_addresses").setValue(newAddress);
+        mDatabase.child("addresses").setValue(newAddress);
         mDatabase.child("phone").setValue(newPhone);
 
         Toast.makeText(this, "Thông tin đã được lưu", Toast.LENGTH_SHORT).show();

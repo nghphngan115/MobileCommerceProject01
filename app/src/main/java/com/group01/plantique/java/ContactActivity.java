@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.group01.plantique.R;
 import com.group01.plantique.databinding.ActivityContactBinding;
 
@@ -26,9 +27,13 @@ public class  ContactActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityContactBinding=ActivityContactBinding.inflate(getLayoutInflater());
+
         setContentView(activityContactBinding.getRoot());
         allocateActivityTitle("Contact");
         addViews();
+
+
+
     }
 
 

@@ -1,25 +1,36 @@
 package com.group01.plantique.java;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
-import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -32,24 +43,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.BlogAdapter;
 import com.group01.plantique.adapter.CategoryAdapter;
+import com.group01.plantique.adapter.HighlightedBlogAdapter;
+import com.group01.plantique.adapter.ProductAdapter;
 import com.group01.plantique.model.BlogItem;
 import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
+import com.squareup.picasso.Picasso;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
     SearchView svSearch;
-    Button btnMuangay, btnViewAll, btnViewAll2;
-    RecyclerView rvCategory;
+    Button btnViewAll, btnViewAll2, btnViewAllCate;
+    RecyclerView rvCategory, rvHighlightedProduct;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
-    GridView gvHiglightedBlog;
-    BlogAdapter blogAdapter;
+    ListView lvHiglightedBlog;
+    HighlightedBlogAdapter highlightedblogAdapter;
+    private ArrayList<BlogItem> blogItems;
+    private ArrayList<Product> products;
+    LinearLayout llProduct;
+    ConstraintLayout  btnBuynow1, btnBuynow2;
+    ViewFlipper ViewFlipper;
+
 
     DatabaseReference databaseReference;
+    private String categoryId;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,28 +104,85 @@ public class HomeScreenActivity extends AppCompatActivity {
             return false;
         });
 
+        //addView,addEvent
         svSearch = findViewById(R.id.svSearch);
-        btnMuangay = findViewById(R.id.btnMuaNgay);
         btnViewAll = findViewById(R.id.btnViewAll);
         btnViewAll2 = findViewById(R.id.btnViewAll2);
-        
+        btnViewAllCate= findViewById(R.id.btnViewAllCate);
+        btnBuynow2= findViewById(R.id.btnBuynow2);
+        btnBuynow1 = findViewById(R.id.btnBuynow1);
+        ViewFlipper =findViewById(R.id.ViewFlipper);
 
+        btnBuynow1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        btnBuynow2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         rvCategory = findViewById(R.id.rvCategory);
-        rvCategory.setLayoutManager(new GridLayoutManager(this, 2));
+        rvCategory.setLayoutManager(new GridLayoutManager(this, 4));
 
         FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"),Category.class)
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"), Category.class)
                 .build();
 
         categoryAdapter = new CategoryAdapter(options);
         rvCategory.setAdapter(categoryAdapter);
 
-        gvHiglightedBlog= findViewById(R.id.gvHighlightedBlog);
-        blogAdapter = new BlogAdapter(this, new ArrayList<BlogItem>());
-        gvHiglightedBlog.setAdapter(blogAdapter);
+        lvHiglightedBlog = findViewById(R.id.lvHighlightedBlog);
+        blogItems = new ArrayList<>();
+        highlightedblogAdapter = new HighlightedBlogAdapter(this, blogItems);
+        lvHiglightedBlog.setAdapter(highlightedblogAdapter);
+
+        rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
+        rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this,ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnViewAll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this,BlogCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnViewAllCate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreenActivity.this,ProductCategoriesActivity.class);
+                startActivity(intent);
+            }
+        });
+        getProductFromFirebase();
         getBlogFromFirebase();
+
+        lvHiglightedBlog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BlogItem selectedBlog = blogItems.get(position);
+
+                // Open BlogDetailActivity with selected blog data
+                Intent intent = new Intent(HomeScreenActivity.this, BlogDetailActivity.class);
+                intent.putExtra("blogId", selectedBlog.getBlogId());
+                startActivity(intent);
+            }
+        });
 
         //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
@@ -119,7 +197,69 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     }
 
-    protected void getBlogFromFirebase() {
+    private void getProductFromFirebase() {
+        FirebaseRecyclerOptions<Product> productFirebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Product>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("products"), Product.class)
+                .build();
+        FirebaseRecyclerAdapter<Product, HomeScreenActivity.ProductViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Product, HomeScreenActivity.ProductViewHolder>(productFirebaseRecyclerOptions) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Product model) {
+                        holder.setProductDetails(model);
+                    }
+
+                    @NonNull
+                    @Override
+                    public HomeScreenActivity.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.highlighted_product, parent, false);
+                        return new HomeScreenActivity.ProductViewHolder(view);
+                    }
+                };
+
+        rvHighlightedProduct.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+        View view;
+
+        public ProductViewHolder(@NonNull View itemView) {
+            super(itemView);
+            view = itemView;
+        }
+
+        public void setProductDetails(Product products) {
+            TextView txtProductName = view.findViewById(R.id.txtProductName);
+            txtProductName.setText(products.getProductName());
+            TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
+            txtUnitPrice.setText(String.valueOf(products.getPrice()));
+            TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
+            txtItemUnit.setText(products.getUnit());
+            ImageView imgProduct =view.findViewById(R.id.imgProduct);
+            String imageUrl = products.getImageurl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                Picasso.get().load(imageUrl).into(imgProduct);
+            }
+            view.findViewById(R.id.llProduct).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProductDetailActivity(products);
+                }
+            });
+
+        }
+
+        private void openProductDetailActivity(Product product) {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            intent.putExtra("productId", product.getProductId());
+            context.startActivity(intent);
+        }
+
+    }
+
+
+    private void getBlogFromFirebase() {
         // Kết nối đến Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("Blog");
 
@@ -127,23 +267,24 @@ public class HomeScreenActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<BlogItem> blogItems = new ArrayList<>();
+                blogItems.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    BlogItem blogItem = snapshot.getValue(BlogItem.class);
-                    if (blogItem != null) {
-                        blogItems.add(blogItem);
-                    }
+                    // Get blog data and add to list
+                    String blogId = snapshot.getKey();
+                    String title = snapshot.child("blogTitle").getValue(String.class);
+                    String imageUrl = snapshot.child("blogImage").getValue(String.class);
+                    String content = snapshot.child("blogContent").getValue(String.class);
+                    blogItems.add(new BlogItem(blogId, title, imageUrl, content));
                 }
-                // Cập nhật dữ liệu trong Adapter
-                blogAdapter.addAll(blogItems);
-                blogAdapter.notifyDataSetChanged();
+                // Notify adapter that data set has changed
+                highlightedblogAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    // Xử lý khi đọc dữ liệu không thành công
-                    Toast.makeText(HomeScreenActivity.this, "Failed to load highlighted blogs", Toast.LENGTH_SHORT).show();
-                }
+
+            }
+
 
         });
     }
@@ -152,6 +293,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         categoryAdapter.startListening();
+
     }
 
     @Override
@@ -159,7 +301,5 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onStop();
         categoryAdapter.stopListening();
     }
-
-
 
 }

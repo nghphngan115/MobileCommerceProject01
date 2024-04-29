@@ -18,12 +18,22 @@ public class Order implements Serializable {
     private String email;
     private String phone;
     private String orderBy;
+    private String discount;
     private HashMap<String, Product> items = new HashMap<>();
 
     // No-argument constructor required for Firebase
     public Order() {}
 
     // Getters and setters
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
     public String getOrderId() { return orderId; }
     public void setOrderId(String orderId) { this.orderId = orderId; }
 

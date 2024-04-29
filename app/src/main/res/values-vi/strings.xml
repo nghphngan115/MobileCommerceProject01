@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">Thông báo đặt hàng</string>
+    <string name="channel_description">Thông báo đơn hàng mới</string>
+    <string name="channel_id">kênh đơn hàng</string>
+    <string name="strBankAccNum">Số tài khoản: 0366370098</string>
+    <string name="strBank">Ngân Hàng: MB Bank</string>
+    <string name="strAccOwner">Người Thụ Hưởng: Lê Châu Anh</string>
+    <string name="strTransferContent">Nội dung chuyển khoản: Mã đơn hàng + SĐT</string>
+    <string name="strSelectPaymentMethod">Vui lòng chọn phương thức thanh toán</string>
+    <string name="strAllFields">Phải điền đủ các mục</string>
+    <string name="strPhoneDigits">Số điện thoại phải đủ 10 số</string>
+    <string name="strEmailValid">Email không khả dụng</string>
+    <string name="strFailedProducts">Lỗi tải chi tiết đơn hàng</string>
+    <string name="strOrderSuccess">Đặt hàng thành công</string>
+    <string name="strNotiOrder">Bạn đã đặt hàng thành công</string>
+    <string name="strOn">vào</string>
+    <string name="strCancelOrder">Hủy đơn hàng</string>
+    <string name="strReceived">Đã nhận hàng</string>
+    <string name="strWriteReview">Viết Đánh Giá</string>
+    <string name="strFailedLoadOrder">Lỗi khi tải đơn hàng</string>
+    <string name="strOrderHistory">"Lịch Sử Đơn Hàng "</string>
+    <string name="strPromoDescrip">Mô tả giảm giá</string>
+    <string name="strWelcome1">Xin chào</string>
+    <string name="strWelcome2">Bạn cần tìm kiếm gì?</string>
+    <string name="strTitleSale">TIỆC SALE MÙA HÈ</string>
+    <string name="strCate">Danh mục sản phẩm</string>
+    <string name="strReceviedConf">"Xác nhận nhận hàng"</string>
+    <string name="strYes">Có</string>
+    <string name="strNo">Không</string>
+    <string name="strReceivedMes">"Bạn có xác nhận đã nhận được hàng đúng không?"</string>
+    <string name="order_incomplete">Thông tin đơn hàng chưa đầy đủ.</string>
+    <string name="order_cancelled">Đơn hàng đã được hủy.</string>
+    <string name="cancel_order_failed">Không thể hủy đơn hàng.</string>
+    <string name="update_order_failed">Không thể cập nhật trạng thái đơn hàng.</string>
+    <string name="missing_information">Không thể cập nhật trạng thái đơn hàng do thiếu thông tin.</string>
+    <string name="order_marked_finished">Đơn hàng đã được đánh dấu hoàn thành.</string>
+    <string name="cancel_confirmation_title">Xác nhận hủy</string>
+    <string name="cancel_confirmation_message">Bạn có chắc chắn muốn hủy đơn hàng này không?</string>
+    <string name="notification_title">Chào mừng bạn đến với Plantique!</string>
+    <string name="notification_content">Chúng tôi rất vui khi gặp bạn! Tìm thức ăn lành mạnh của bạn tại Plantique</string>
+
+    <string name="strViewAll">Xem tất cả</string>
+    <string name="strHiglightedProducts">Sản phẩm nổi bật</string>
+    <string name="strHiglightedBlogs">Tin tức nổi bật</string>
+    <string name="strDesc1">Plantique ra đời với khát khao mang những thực phẩm sạch, 100% từ tự nhiên, không phẩm màu, không chất bảo quản, không chất phụ gia với chất lượng dinh dưỡng tốt nhất được sản xuất trực tiếp tại các làng nghề truyền thống trên đất nước đến khách hàng. Chúng tôi mong muốn được trở thành cánh tay đắc lực hỗ trợ khách hàng trong việc chăm sóc sức khỏe, giữ dáng, làm đẹp và kiểm soát cân nặng. Chúng tôi lắng nghe và thấu hiểu những mong muốn về sức khỏe, từ đó mang đến lựa chọn tốt nhất cho khách hàng trong cuộc sống ăn lành mạnh, ăn sạch của khách hàng hằng ngày.</string>
+    <string name="app_name">Plantique</string>
+    <string name="strOrdConf">Đã đặt hàng thành công</string>
+    <string name="strOrdThank">Đơn hàng của bạn đang được xử lý. Cảm ơn bạn đã đặt hàng.</string>
+    <string name="menu_drawer_open">Mở Drawer</string>
+    <string name="menu_drawer_close">Đóng Drawer</string>
+    <string name="strTotal">Thành tiền</string>
+    <string name="strConfirmPayment">Xác nhận thanh toán</string>
+    <string name="strBackButton">Quay về</string>
+    <string name="strtextStatus">Trạng thái đơn hàng</string>
+    <string name="strOrderDetailsInfo">Thông tin đơn hàng</string>
+    <string name="strShippingAddress">Địa chỉ nhận hàng</string>
+    <string name="strPhone">SĐT</string>
+    <string name="strSubTotal">Tạm tính</string>
+    <string name="strShipFee">Phí vận chuyển</string>
+    <string name="strPaymentMethod">Phương thức thanh toán</string>
+    <string name="strDiscount">Mã giảm giá</string>
+    <string name="strCancel">Hủy đơn hàng</string>
+    <string name="strOrdID">Mã đơn hàng</string>
+    <string name="strUserId">Mã khách hàng</string>
+    <string name="strOrder">Đơn hàng</string>
+    <string name="strNote">Ghi chú</string>
+    <string name="strDeliveryInfo">Thông tin vận chuyển</string>
+    <string name="strFullName">Họ và tên</string>
+    <string name="strCIty">Thành phố/Tỉnh</string>
+    <string name="strWard">Phường/Xã</string>
+    <string name="strDistrict">Quận/Huyện</string>
+    <string name="strAddress">Địa chỉ (Số nhà, đường,..)</string>
+    <string name="strCOD">Thanh toán bằng tiền mặt</string>
+    <string name="strTransfer">"Chuyển khoản "</string>
+    <string name="strConfirm">Xác nhận</string>
+    <string name="strConfirmOrd">Xác nhận đơn hàng</string>
+    <string name="strApply">Áp dụng</string>
+    <string name="strPlaceOrder">Đặt hàng</string>
+    <string name="strDessc2">"Với tôn chỉ \"Ăn sạch - Sống khỏe\", Plantique trân trọng mang đến cho khách hàng thực phẩm eat clean chất lượng tốt nhất với nguyên liệu 100% từ tự nhiên an toàn cho mọi đối tượng sử dụng. "</string>
+    <string name="strBuyNow">Mua Ngay</string>
+    <string name="progress_dialog_title">Vui lòng chờ</string>
+    <string name="strAboutUs">Về chúng tôi</string>
+    <string name="strTitle1">100% từ thiên nhiên</string>
+    <string name="strIntro">Plantique được thành lập vào năm 2024 với mong muốn mang lại những thực phẩm sạch và tự nhiên nhất từ các làng nghề truyền thống đến tay người tiêu dùng. Chúng tôi cam kết đem lại cho khách hàng những sản phẩm chất lượng nhất, giúp hỗ trợ sức khỏe, làm đẹp và kiểm soát cân nặng.</string>
+    <string name="strTitle2">"Chất lượng hàng đầu"</string>
+    <string name="strpolicy">Chính sách</string>
+    <string name="delete_success_message">Đã xóa...</string>
+    <string name="delete_fail_message">Xóa thất bại</string>
+    <string name="code_label">Mã: %1$s</string>
+    <string name="expire_date_label">Ngày Hết Hạn: %1$s</string>
+    <string name="choose_option_title">Chọn Lựa</string>
+    <string name="deleting_promotion">Đang Xóa Mã Khuyến Mãi...</string>
+    <string name="please_wait_title">Vui lòng đợi</string>
+    <string name="title_required">Tiêu đề là bắt buộc...</string>
+    <string name="category_required">Danh mục là bắt buộc...</string>
+    <string name="price_required">Giá là bắt buộc...</string>
+    <string name="discount_price_required">Giá Giảm giá là bắt buộc...</string>
+    <string name="adding_product">Đang Thêm Sản phẩm...</string>
+    <string name="category_not_found">Không tìm thấy danh mục!</string>
+    <string name="product_added">Sản phẩm đã được thêm...</string>
+    <string name="failed_to_add_product">Không thể thêm sản phẩm: %s</string>
+    <string name="error_message">Lỗi: %s</string>
+    <string name="product_added_failed">Thêm sản phẩm thất bại...</string>
+    <string name="dialog_title_product_category">Danh mục Sản phẩm</string>
+    <string name="no_categories_found">Không tìm thấy danh mục nào!</string>
+    <string name="categories_data_empty">Dữ liệu danh mục trống!</string>
+    <string name="dialog_title_pick_image">Chọn Hình Ảnh</string>
+    <string name="permission_required_message">Quyền Máy ảnh &amp; Bộ nhớ cần được cấp quyền...</string>
+    <string name="storage_permission_required_message">Quyền Bộ nhớ cần được cấp quyền...</string>
+    <string name="please_wait">Vui lòng đợi</string>
+    <string name="update_promotion_title">Cập Nhật Mã Khuyến Mãi</string>
+    <string name="add_promotion_title">Thêm Mã Khuyến Mãi</string>
+    <string name="update_button">Cập Nhật</string>
+    <string name="add_button">Thêm</string>
+    <string name="enter_discount_code">Nhập mã giảm giá...</string>
+    <string name="enter_promotion_description">Nhập mô tả khuyến mãi...</string>
+    <string name="enter_promotion_price">Nhập giá khuyến mãi...</string>
+    <string name="enter_minimum_order_price">Nhập giá đơn hàng tối thiểu...</string>
+    <string name="choose_expired_date">Chọn ngày hết hạn...</string>
+    <string name="updating_promotion">Đang cập nhật Mã Khuyến Mãi...</string>
+    <string name="promotion_updated">Đã cập nhật...</string>
+    <string name="promotion_update_failed">Cập nhật thất bại: %s</string>
+    <string name="adding_promotion">Đang thêm Mã Khuyến Mãi...</string>
+    <string name="promotion_added_success">Mã Khuyến Mãi được thêm thành công</string>
+    <string name="failed_get_promo_id">Không thể lấy ID mã khuyến mãi cuối cùng</string>
+    <string name="fill_all_fields">Vui lòng điền đầy đủ thông tin</string>
+    <string name="passwords_not_match">Mật khẩu không khớp</string>
+    <string name="invalid_email_format">Định dạng email không hợp lệ</string>
+    <string name="invalid_password_format">Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm một chữ số và một ký tự đặc biệt</string>
+    <string name="username_exists">Tên người dùng đã tồn tại</string>
+    <string name="email_exists">Email đã tồn tại</string>
+    <string name="registration_successful">Đăng ký thành công</string>
+    <string name="database_error">Lỗi Cơ sở dữ liệu</string>
+    <string name="strTransferNote">Vui lòng thanh toán trong vòng 12 giờ. Sau khi thanh toán, đơn hàng sẽ được xử lý và gửi đi trong vòng 24 giờ. Nếu đơn hàng của bạn không được gửi đi sau 24 giờ, vui lòng liên hệ bộ phận hỗ trợ khách hàng để được trợ giúp.</string>
+    <string name="hint_phone_number">Nhập số điện thoại</string>
+    <string name="error_passwords_not_match">Mật khẩu không khớp</string>
+    <string name="hint_confirm_password">Nhập Xác nhận Mật khẩu</string>
+    <string name="hint_email">Nhập Email</string>
+    <string name="hint_password">Nhập Mật khẩu</string>
+    <string name="hint_username">Nhập Tên người dùng</string>
+    <string name="error_invalid_email">Định dạng email không hợp lệ</string>
+    <string name="error_invalid_password">Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm một chữ số và một ký tự đặc biệt</string>
+    <string name="error_invalid_username">Tên người dùng phải chứa cả chữ và số</string>
+    <string name="failed_to_load_addresses">Không thể tải địa chỉ.</string>
+    <string name="address_saved_success">Địa chỉ đã được lưu thành công</string>
+    <string name="address_deleted_success">Địa chỉ đã được xóa thành công</string>
+    <string name="delete_button_text">Xóa</string>
+    <string name="cancel_button_text">Hủy</string>
+    <string name="enter_otp_message">Vui lòng nhập OTP</string>
+    <string name="resend_otp_format">Gửi lại OTP trong %d giây</string>
+    <string name="otp_verification_failed">Xác minh OTP thất bại</string>
+    <string name="failed_resend_otp">Gửi lại OTP thất bại</string>
+    <string name="otp_resent">OTP đã được gửi lại</string>
+    <string name="enter_phone_number">Vui lòng nhập số điện thoại của bạn</string>
+    <string name="failed_to_send_otp">Không thể gửi OTP</string>
+    <string name="all_promo_codes">Tất cả Mã Khuyến Mãi</string>
+    <string name="expired_promo_codes">Mã Khuyến Mãi Hết Hạn</string>
+    <string name="no_expired_promo_codes">Không có Mã Khuyến Mãi Hết Hạn</string>
+    <string name="toast_load_promotions_failed">Không thể tải các mã khuyến mãi: %s</string>
+    <string name="default_category">Tất cả</string>
+    <string name="toast_load_categories_failed">Không thể tải các danh mục: %s</string>
+    <string name="toast_load_products_failed">Không thể tải các sản phẩm: %s</string>
+    <string name="all_category">Tất cả</string>
+    <string name="dialog_title_choose_category">Chọn Danh Mục</string>
+    <string name="confirm_delete_title">Xác Nhận Xóa</string>
+    <string name="confirm_delete_message">Bạn có chắc chắn muốn xóa sản phẩm này không?</string>
+    <string name="delete_button_label">Xóa</string>
+    <string name="cancel_button_label">Hủy</string>
+    <string name="product_deleted_success">Sản phẩm đã được xóa thành công</string>
+    <string name="delete_confirmation_message">Bạn có chắc chắn muốn xóa địa chỉ giao hàng này không?</string>
+    <string name="filter_promo_title">Lọc Mã Khuyến Mãi</string>
+    <string name="price_ascending">Giá: Tăng dần</string>
+    <string name="price_descending">Giá: Giảm dần</string>
+    <string name="sort_by_category">Sắp xếp theo danh mục</string>
+    <string name="all_products">Tất cả Sản phẩm</string>
+    <string name="filter_products">Lọc Sản phẩm</string>
+    <string name="failed_to_fetch_data">Không thể lấy dữ liệu sản phẩm!</string>
+    <string name="user_id_not_found">Không tìm thấy ID người dùng</string>
+    <string name="invalid_default_address">Vị trí địa chỉ mặc định không hợp lệ</string>
+    <string name="only_choose_one_default">Chỉ chọn 1 địa chỉ giao hàng mặc định</string>
+    <string name="hint_enter_username">Nhập tên người dùng</string>
+    <string name="hint_enter_password">Nhập mật khẩu</string>
+    <string name="toast_enter_credentials">Vui lòng nhập tên người dùng và mật khẩu</string>
+    <string name="toast_signin_success">Đăng nhập thành công</string>
+    <string name="toast_invalid_password">Mật khẩu không hợp lệ</string>
+    <string name="toast_username_not_found">Không tìm thấy tên người dùng</string>
+    <string name="toast_error_prefix">Lỗi: </string>
+    <string name="dialog_reset_password_title">Đặt lại Mật khẩu</string>
+    <string name="dialog_reset_password_message">Bạn có muốn đặt lại mật khẩu không?</string>
+    <string name="dialog_reset_password_yes">Có</string>
+    <string name="dialog_reset_password_no">Không</string>
+    <string name="toast_product_updated">Cập nhật sản phẩm thành công</string>
+    <string name="toast_update_failed">Không thể cập nhật sản phẩm: %s</string>
+    <string name="toast_enter_passwords">Vui lòng nhập mật khẩu mới và xác nhận mật khẩu</string>
+    <string name="toast_passwords_not_match">Mật khẩu không khớp</string>
+    <string name="toast_phone_number_not_found">Không tìm thấy số điện thoại</string>
+    <string name="toast_password_changed">Đổi mật khẩu thành công</string>
+    <string name="toast_password_change_failed">Không thể thay đổi mật khẩu</string>
+    <string name="toast_user_not_found">Không tìm thấy người dùng</string>
+    <string name="toast_database_error">Lỗi Cơ sở dữ liệu</string>
+
+
+    <string name="policy_details">
+    <![CDATA[
+    <b>Chính sách</b><br><br>
+    <b>1. Chính sách kiểm hàng</b><br>
+    <b>Định nghĩa</b><br>
+    Kiểm hàng là quy trình kiểm tra và kiểm soát số lượng, chất lượng và tình trạng của hàng hóa trong quá trình vận chuyển, lưu trữ hoặc giao hàng. Quy trình này đảm bảo rằng hàng hóa có đúng số lượng, không bị hỏng và đáp ứng các tiêu chuẩn chất lượng.<br><br>
+    <b>Quy định</b><br>
+    – Thời gian kiểm hàng: Plantique chấp nhận khách hàng kiểm tra với nhân viên giao hàng tại thời điểm nhận hàng.<br>
+    – Phạm vi kiểm hàng: Khách hàng có thể kiểm tra các sản phẩm thực tế dựa trên các tiêu chí đã được xác nhận.<br>
+    – Các bước xử lý cho các đơn hàng không tuân thủ: Liên hệ qua đường dây nóng hoặc email để liên lạc với bộ phận chăm sóc khách hàng.<br>
+    – Kênh phản ánh khiếu nại cho khách hàng: Đường dây nóng khiếu nại, Email.<br>
+    Đường dây nóng: 0366370098<br>
+    Email: plantiqueshop01@gmail.com<br><br>
+    <b>Hướng dẫn về Phương thức Thanh toán:</b><br>
+    - Thanh toán khi nhận hàng (COD): Thanh toán sẽ được thực hiện trực tiếp cho người giao hàng khi nhận đơn hàng.<br>
+    - Chuyển khoản Ngân hàng: Vui lòng chuyển số tiền tổng cộng vào tài khoản ngân hàng được chỉ định. Đơn hàng của bạn sẽ được xử lý sau khi xác nhận thanh toán.<br><br>
+    <b>3. Thông tin về Vận chuyển:</b><br>
+    - Thời gian giao hàng: Thông thường, đơn hàng sẽ được xử lý và giao trong vòng 5 ngày làm việc.<br>
+    - Phí vận chuyển: Chi phí vận chuyển có thể thay đổi tùy thuộc vào địa điểm giao hàng và trọng lượng đơn hàng. Vui lòng tham khảo chính sách vận chuyển để biết thông tin chi tiết.<br><br>
+    <b>4. Chính sách Đổi trả và Hoàn tiền:</b><br>
+    - Đổi trả: Chúng tôi chấp nhận đổi trả trong vòng 7 ngày kể từ ngày mua hàng. Các mặt hàng phải ở trong tình trạng và bao bì ban đầu của chúng.<br>
+    - Hoàn tiền: Hoàn tiền sẽ được xử lý trong vòng 7 ngày sau khi các mặt hàng đã được trả lại và kiểm tra.<br>
+    - Trao đổi: Chúng tôi cung cấp dịch vụ trao đổi cho các mặt hàng có giá trị bằng hoặc ít hơn. Vui lòng liên hệ với dịch vụ khách hàng của chúng tôi để được hỗ trợ.<br><br>
+    <b>5. Hỗ trợ Khách hàng:</b><br>
+    - Đối với mọi thắc mắc hoặc hỗ trợ, vui lòng liên hệ với đội ngũ dịch vụ khách hàng của chúng tôi:<br>
+    + Đường dây nóng: 0938152400<br>
+    + Email: plantiqueshop01@gmail.com<br><br>
+    ]]>
+</string>
+
+    <string name="terms_and_conditions">
+    <![CDATA[
+    <b>Điều Khoản và Điều Kiện</b><br><br>
+
+    <b>1. Giới thiệu</b><br>
+    Chào mừng bạn đến với Plantique. Bằng cách truy cập vào ứng dụng của chúng tôi, bạn đồng ý với các điều khoản và điều kiện này.<br><br>
+
+    <b>2. Chính sách Bảo mật</b><br>
+    Chính sách Bảo mật của chúng tôi mô tả cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu của bạn. Để biết thêm thông tin, vui lòng truy cập phần Chính sách Bảo mật trên ứng dụng hoặc trang web của chúng tôi.<br><br>
+
+    <b>3. Trách nhiệm của Người dùng</b><br>
+    Bạn phải sử dụng ứng dụng một cách hợp pháp và tránh các hoạt động bị cấm. Bạn phải đủ 18 tuổi hoặc có sự cho phép của phụ huynh để sử dụng ứng dụng này.<br><br>
+
+    <b>4. Quyền Sở hữu Trí tuệ</b><br>
+    Tất cả nội dung được cung cấp trên ứng dụng hoặc được sử dụng với sự cho phép của chúng tôi. Không có nội dung nào được sao chép, phân phối hoặc sử dụng mà không có sự cho phép trước.<br><br>
+
+    <b>5. Mua hàng</b><br>
+    Nếu có áp dụng, các điều khoản cụ thể liên quan đến việc mua hàng hoặc dịch vụ sẽ được chi tiết trong quá trình mua hàng.<br><br>
+
+    <b>6. Tài khoản Người dùng</b><br>
+    Nếu bạn tạo một tài khoản, bạn chịu trách nhiệm bảo mật thông tin tài khoản và mật khẩu của mình và hạn chế truy cập vào thiết bị của bạn.<br><br>
+
+    <b>7. Chấm dứt</b><br>
+    Chúng tôi có thể chấm dứt hoặc tạm ngừng quyền truy cập vào ứng dụng của chúng tôi ngay lập tức, mà không cần thông báo trước hoặc chịu trách nhiệm, vì bất kỳ lý do nào, bao gồm, nhưng không giới hạn, nếu bạn vi phạm các điều khoản.<br><br>
+
+    <b>8. Luật pháp áp dụng</b><br>
+    Các điều khoản này sẽ được điều chỉnh và diễn giải theo luật pháp của Quốc gia / Tiểu bang mà công ty của chúng tôi đăng ký, không phụ thuộc vào các quy định về mâu thuẫn pháp luật của nó.<br><br>
+
+    <b>9. Thay đổi Điều khoản</b><br>
+    Chúng tôi giữ quyền, tùy theo ý định của chúng tôi, sửa đổi hoặc thay thế các điều khoản này vào bất kỳ thời điểm nào. Chúng tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng các Điều khoản mới trên trang web của chúng tôi.<br><br>
+
+    <b>10. Thông tin Liên hệ</b><br>
+    Nếu bạn có bất kỳ câu hỏi nào về các Điều khoản này, vui lòng liên hệ với chúng tôi tại [thông tin liên hệ].
+    ]]>
+</string>
+
+</resources>

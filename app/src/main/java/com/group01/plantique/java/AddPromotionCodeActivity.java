@@ -55,28 +55,27 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         titleTv = findViewById(R.id.titleTv);
         Button addBtn = findViewById(R.id.addBtn);
 
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please wait");
+        progressDialog.setTitle(getString(R.string.please_wait));
         progressDialog.setCanceledOnTouchOutside(false);
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("promoId") !=null) {
+        if (intent.getStringExtra("promoId") != null) {
             promoId = intent.getStringExtra("promoId");
-            titleTv.setText("Update Promotion Code");
-            addBtn.setText("Update");
+            titleTv.setText(getString(R.string.update_promotion_title));
+            addBtn.setText(getString(R.string.update_button));
 
             isUpdating = true;
 
             loadPromoInfo();
-        }
-        else {
-            titleTv.setText("Add Promotion Code");
-            addBtn.setText("Add");
+        } else {
+            titleTv.setText(getString(R.string.add_promotion_title));
+            addBtn.setText(getString(R.string.add_button));
 
-            isUpdating = true;
-
+            isUpdating = false;
         }
+
 
         // Xử lý sự kiện khi nút "Add Promotion Code" được click
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,27 +159,27 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         String expireDate = expireDateTv.getText().toString().trim();
 
         if (TextUtils.isEmpty(promoCode)){
-            Toast.makeText(this, "Enter discount code...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_discount_code), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(promoDescription)){
-            Toast.makeText(this, "Enter promotion description...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_promotion_description), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(promoPrice)){
-            Toast.makeText(this, "Enter promotion price...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_promotion_price), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(minOrderPrice)){
-            Toast.makeText(this, "Enter minimum order price...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_minimum_order_price), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(expireDate)){
-            Toast.makeText(this, "Choose expired date...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.choose_expired_date), Toast.LENGTH_SHORT).show();
             return;
         }
         if (isUpdating){
@@ -194,7 +193,7 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
     }
 
     private void updateDataToDb() {
-        progressDialog.setMessage("Updating Promotion Code...");
+        progressDialog.setMessage(getString(R.string.updating_promotion));
         progressDialog.show();
 
         // Lấy thông tin từ các EditText và TextView
@@ -213,27 +212,28 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         hashMap.put("expireDate", expireDate);
 
         DatabaseReference promotionsRef = FirebaseDatabase.getInstance().getReference("promotions");
-        promotionsRef.child(promoId) // Sử dụng promoId để chỉ định mục cần cập nhật
+        promotionsRef.child(promoId)
                 .updateChildren(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPromotionCodeActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPromotionCodeActivity.this, getString(R.string.promotion_updated), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPromotionCodeActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        String errorMessage = getString(R.string.promotion_update_failed, e.getMessage());
+                        Toast.makeText(AddPromotionCodeActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
 
     private void addDatatoDb() {
-        progressDialog.setMessage("Adding Promotion Code...");
+        progressDialog.setMessage(getString(R.string.adding_promotion));
         progressDialog.show();
 
         // Gọi phương thức để lấy số tiếp theo và truyền callback để xử lý
@@ -261,7 +261,7 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
         // Kiểm tra xem các trường có đầy đủ thông tin không
         if (TextUtils.isEmpty(promoCode) || TextUtils.isEmpty(promoDescription) || TextUtils.isEmpty(promoPrice) ||
                 TextUtils.isEmpty(minOrderPrice) || TextUtils.isEmpty(expireDate)) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
         }
@@ -281,8 +281,8 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddPromotionCodeActivity.this, "Promotion Code added successfully", Toast.LENGTH_SHORT).show();
-                        finish(); // Đóng activity sau khi thêm thành công
+                        Toast.makeText(AddPromotionCodeActivity.this, getString(R.string.promotion_added_success), Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -295,7 +295,6 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
     }
 
 
-    // Phương thức để lấy số tiếp theo trong chuỗi ID
     // Phương thức để lấy số tiếp theo trong chuỗi ID
     public interface NextCodeIdCallback {
         void onNextCodeId(int nextCodeId);
@@ -323,7 +322,7 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi có lỗi
-                Toast.makeText(AddPromotionCodeActivity.this, "Failed to get last promotion code ID", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPromotionCodeActivity.this, getString(R.string.failed_get_promo_id), Toast.LENGTH_SHORT).show();
             }
         });
     }

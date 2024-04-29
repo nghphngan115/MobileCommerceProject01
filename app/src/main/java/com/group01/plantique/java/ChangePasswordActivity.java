@@ -55,20 +55,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String confirmPassword = edtConfirmPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(confirmPassword)) {
-            Toast.makeText(this, "Please enter new password and confirm password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_enter_passwords), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_passwords_not_match), Toast.LENGTH_SHORT).show();
             return;
         }
 
         final String phoneNumber = getIntent().getStringExtra("phoneNumber");
         if (phoneNumber == null || phoneNumber.isEmpty()) {
-            Toast.makeText(this, "Phone number not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_phone_number_not_found), Toast.LENGTH_SHORT).show();
             return;
         }
+
         // Mã hóa mật khẩu trước khi lưu vào database
         final String hashedPassword = hashPassword(newPassword);
 
@@ -84,22 +85,22 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(ChangePasswordActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
-                                            finish(); // Đóng activity sau khi thay đổi mật khẩu thành công
+                                            Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_password_changed), Toast.LENGTH_SHORT).show();
+                                            finish();
                                         } else {
-                                            Toast.makeText(ChangePasswordActivity.this, "Failed to change password", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_password_change_failed), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
                     }
                 } else {
-                    Toast.makeText(ChangePasswordActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_user_not_found), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ChangePasswordActivity.this, "Database Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_database_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
