@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class WriteReviewActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("reviews");
+        mAuth = FirebaseAuth.getInstance();
 
         // Lấy thông tin sản phẩm từ Intent (nếu có)
         Intent intent = getIntent();
@@ -72,34 +75,50 @@ public class WriteReviewActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (currentUser != null) {
-                    String userId = currentUser.getUid();
-                    double rating = ratingBar.getRating();
-                    String reviewText = reviewEt.getText().toString().trim();
-                    long timestamp = System.currentTimeMillis();
-
-                    ModelReview review = new ModelReview(userId, rating, reviewText, timestamp);
-
-                    databaseReference.child(userId).push().setValue(review)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(WriteReviewActivity.this, "Review submitted successfully", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(WriteReviewActivity.this, "Failed to submit review", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                } else {
-                    // Xử lý trường hợp người dùng chưa đăng nhập
-                    Toast.makeText(WriteReviewActivity.this, "Please sign in to submit a review", Toast.LENGTH_SHORT).show();
-                }
+                submitReview();
             }
         });
+    }
+    private boolean isUserLoggedIn() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        return currentUser != null;
+    }
+
+    private void submitReview() {
+        if (isUserLoggedIn()) {
+            SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+            String userId = sharedPreferences.getString("userID", null);
+
+            if (userId != null && !userId.isEmpty()) {
+                double rating = ratingBar.getRating();
+                String reviewText = reviewEt.getText().toString().trim();
+                long timestamp = System.currentTimeMillis();
+
+                ModelReview review = new ModelReview(userId, rating, reviewText, timestamp);
+
+                databaseReference.child(userId).push().setValue(review)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(WriteReviewActivity.this, "Review submitted successfully", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(WriteReviewActivity.this, "Failed to submit review", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(WriteReviewActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(WriteReviewActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            Toast.makeText(WriteReviewActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(WriteReviewActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

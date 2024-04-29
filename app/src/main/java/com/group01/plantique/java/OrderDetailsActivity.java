@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -125,6 +126,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.finished));
 
                     // Xử lý thêm sự kiện cho việc viết đánh giá ở đây
+                    btnAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Tạo một Intent mới để chuyển đến ReviewWriteActivity
+                            Intent intent = new Intent(OrderDetailsActivity.this, WriteReviewActivity.class);
+                            // Bắt sự kiện kết thúc và chuyển hướng đến ReviewWriteActivity
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case "Cancelled":
                     btnAction.setVisibility(View.GONE); // Ẩn nút
@@ -135,7 +145,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
 
     private void populateOrderDetails() {
         order = (Order) getIntent().getSerializableExtra("order");

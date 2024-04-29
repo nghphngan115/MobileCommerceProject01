@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Write Review"
+            android:text="@string/title_review"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_store_gray"
+        android:src="@drawable/logo"
         android:layout_gravity="center_horizontal"
         tools:ignore="UnknownId" />
 
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="How do you feel about this product?"
+        android:text="@string/text_think_ab_product"
         android:textAlignment="center"
         android:textColor="@color/black"/>
     <RatingBar
@@ -87,16 +87,17 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="top"
-        android:hint="Type Review ... "
+        android:hint="... "
         android:minHeight="100dp"
         android:padding="10dp" />
-
 
     <Button
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/reviewEt"
-        android:text="Submit" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_submit"
+        android:textColorHighlight="#4CAF50"
+        android:textColorLink="#004D40" />
 </RelativeLayout>
