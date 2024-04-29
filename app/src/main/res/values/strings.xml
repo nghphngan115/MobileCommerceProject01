@@ -46,6 +46,9 @@
     <string name="strConfirmOrd">Confirm Order</string>
     <string name="strApply">Apply</string>
     <string name="strPlaceOrder">Place Order</string>
+    <string name="title_review">Viết đánh giá</string>
+    <string name="btn_submit">Gửi đánh giá</string>
+    <string name="text_think_ab_product">Bạn nghĩ gì về sản phẩm này?</string>
     <string name="channel_name">Order Notifications</string>
     <string name="channel_description">Notifications for new orders</string>
     <string name="channel_id">order_channel</string>

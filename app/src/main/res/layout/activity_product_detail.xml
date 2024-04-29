@@ -15,7 +15,6 @@
         android:backgroundTint="@color/white"
         app:srcCompat="@mipmap/ic_back" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="600dp">
@@ -131,9 +130,12 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="211dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewRv"
+                android:layout_width="match_parent"
+                android:layout_height="209dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/row_review" />
 
             </LinearLayout>
 

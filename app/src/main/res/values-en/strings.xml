@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_review">Write Review</string>
+    <string name="btn_submit">Submit</string>
+    <string name="text_think_ab_product">How is the product?</string>
+</resources>
