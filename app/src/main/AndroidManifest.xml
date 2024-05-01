@@ -22,15 +22,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.WriteReviewActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.AllProductsActivity"
             android:exported="true" />
         <activity
             android:name=".java.UserInformationActivity"
             android:exported="false" />
-        <activity android:name=".java.AdminOrderListActivity"
-            android:exported="true"/>
-        <activity android:name=".java.AdminOrderDetailsActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".java.AdminOrderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.AdminOrderDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".java.EditProductActivity"
             android:exported="false" />
@@ -48,10 +53,10 @@
             android:exported="true" />
         <activity
             android:name=".java.ProductDetailActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.AddToCartActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".java.ProductListActivity"
             android:exported="true" />
@@ -84,7 +89,7 @@
             android:exported="false" />
         <activity
             android:name=".java.BlogDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".java.CartActivity"
             android:exported="true" />

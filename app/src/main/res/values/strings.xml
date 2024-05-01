@@ -68,6 +68,13 @@
     <string name="strFailedLoadOrder">Failed to load orders:</string>
     <string name="strOrderHistory">Order History</string>
     <string name="strPromoDescrip">Promo Description</string>
+    <string name="name">Name</string>
+    <string name="date">dd/mm/yy</string>
+    <string name="review">Feedback from customer</string>
+    <string name="write_review">Write Review</string>
+    <string name="how_do_you_feel">How is the order?</string>
+    <string name="submit">Submit</string>
+    <string name="type_review">Typing...</string>
 
     <string name="strWelcome1">Nice to meet you</string>
     <string name="strWelcome2">What are you looking for?</string>
@@ -75,7 +82,7 @@
     <string name="strCate">Categories</string>
     <string name="strViewAll">View all</string>
     <string name="strHiglightedProducts">Higlighted Products</string>
-    <string name="strHiglightedBlogs" >Higlighted Blogs</string>
+    <string name="strHiglightedBlogs">Higlighted Blogs</string>
     <string name="strAboutUs">About Us</string>
     <string name="strIntro">Plantique was founded in 2024</string>
     <string name="strTitle1">100% natural</string>
@@ -213,7 +220,6 @@
     <string name="product_deleted_success">Product deleted successfully</string>
 
 
-
     <string-array name="promo_options">
         <item>Edit</item>
         <item>Delete</item>
@@ -300,7 +306,7 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
-
+    <string name="plantique">Plantique</string>
 
 
 </resources>

@@ -39,6 +39,16 @@
     <string name="cancel_confirmation_message">Bạn có chắc chắn muốn hủy đơn hàng này không?</string>
     <string name="notification_title">Chào mừng bạn đến với Plantique!</string>
     <string name="notification_content">Chúng tôi rất vui khi gặp bạn! Tìm thức ăn lành mạnh của bạn tại Plantique</string>
+    <string name="name">Tên</string>
+    <string name="date">Ngày</string>
+    <string name="review">Nhận xét của người dùng</string>
+
+    <string name="write_review">Viết đánh giá</string>
+    <string name="how_do_you_feel">Bạn cảm thấy thế nào về sản phẩm này?</string>
+    <string name="submit">Gửi</string>
+    <string name="type_review">Nhập đánh giá ...</string>
+
+
 
     <string name="strViewAll">Xem tất cả</string>
     <string name="strHiglightedProducts">Sản phẩm nổi bật</string>
