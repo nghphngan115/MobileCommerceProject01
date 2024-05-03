@@ -4,12 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <ImageButton
+        android:id="@+id/imgbtnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@mipmap/ic_back" />
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="640dp">
+        android:layout_height="600dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,11 +30,20 @@
 
             <!-- Additional layout elements here, such as reviews -->
 
+            <TextView
+                android:id="@+id/txtDiscountNote"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:background="@drawable/ad_layout_rounded"
+                android:padding="5dp"
+                android:text="TextView"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="254dp"
-                 />
+                android:layout_height="254dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +54,10 @@
                     android:id="@+id/txtProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="@color/main_green"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtProductCategory"
@@ -72,7 +93,7 @@
                         android:id="@+id/txtPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
                         android:text="TextView" />
 
                     <TextView
@@ -80,26 +101,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textColor="@color/main_green" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView51"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Description"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:text="TextView" />
 
                 <TextView
                     android:id="@+id/textView54"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Feedbacks" />
+                    android:layout_marginBottom="10dp"
+                    android:text="Feedbacks"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <ListView
                     android:layout_width="match_parent"

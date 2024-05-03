@@ -11,18 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.group01.plantique.R;
-import com.group01.plantique.model.Address;
+import com.group01.plantique.model.ShippingAddress;
 
 import java.util.ArrayList;
 
-public class AddressAdapter extends ArrayAdapter<Address> {
+public class ShippingAddressAdapter extends ArrayAdapter<ShippingAddress> {
     private Context mContext;
     private int mResource;
+    private int defaultAddressPosition = 0;
+    private String defaultAddressId = "";
 
-    public AddressAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Address> objects) {
+    public ShippingAddressAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ShippingAddress> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
+    }
+    public int getDefaultAddressPosition() {
+        return defaultAddressPosition;
     }
 
     @NonNull
@@ -34,25 +39,31 @@ public class AddressAdapter extends ArrayAdapter<Address> {
             listItem = inflater.inflate(mResource, parent, false);
         }
 
-        Address address = getItem(position);
+        ShippingAddress shippingAddress = getItem(position);
 
         // Kiểm tra convertView và address có null không
-        if (listItem != null && address != null) {
+        if (listItem != null && shippingAddress != null) {
             TextView txtFullName = listItem.findViewById(R.id.txtFullName);
             TextView txtAddress1 = listItem.findViewById(R.id.txtAddress1);
             TextView txtAddress2 = listItem.findViewById(R.id.txtAddress2);
-            TextView txtPhone = listItem.findViewById(R.id.txtPhone);
+            TextView txtPhone = listItem.findViewById(R.id.txtPhoneNumber);
 
             // Kiểm tra TextView có null không
             if (txtFullName != null && txtAddress1 != null && txtAddress2 != null && txtPhone != null) {
-                txtFullName.setText(address.getFullName());
-                txtAddress1.setText(address.getAddress1());
-                txtAddress2.setText(address.getDistrict() + ", " + address.getProvince());
-                txtPhone.setText(address.getPhoneNumber());
+                txtFullName.setText(shippingAddress.getFullName());
+                txtAddress1.setText(shippingAddress.getAddress1());
+                txtAddress2.setText(shippingAddress.getWard() + ", " + shippingAddress.getDistrict() + ", " + shippingAddress.getProvince());
+                txtPhone.setText(shippingAddress.getPhoneNumber());
+            }
+            // Kiểm tra nếu địa chỉ đang xét là địa chỉ mặc định
+
+            if (shippingAddress.getAddressId().equals(defaultAddressId)) {
+                defaultAddressPosition = position; // Cập nhật vị trí địa chỉ mặc định
             }
         }
 
         return listItem;
     }
+
 
 }

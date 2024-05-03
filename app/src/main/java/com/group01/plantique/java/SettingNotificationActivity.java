@@ -1,6 +1,5 @@
 package com.group01.plantique.java;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -10,6 +9,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,10 +18,15 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
-import com.group01.plantique.databinding.ActivityNotificationBinding;
-import com.group01.plantique.databinding.ActivityPersonalInfoBinding;
 import com.group01.plantique.databinding.ActivitySettingNotificationBinding;
+import com.group01.plantique.model.NotificationApp;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingNotificationActivity extends DrawerBaseActivity {
     Switch switchAllow;
@@ -29,7 +34,7 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
 
     private static final String CHANNEL_ID = "plantique";
     private static final String CHANNEL_NAME = "Plantique";
-    private static final String CHANNEL_DESC = "Plantique Notification";
+    private static final String CHANNEL_DESC = "Plantique NotificationApp";
 
     private FirebaseAuth firebaseAuth;
 
@@ -49,7 +54,7 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
             manager.createNotificationChannel(channel);
         }
 
-        allocateActivityTitle("Notification");
+        allocateActivityTitle("NotificationApp");
         switchAllow = findViewById(R.id.switchAllow);
         imgbtnBack = findViewById(R.id.imgbtnBack);
 
@@ -78,8 +83,8 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder mbuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_notification)
-                .setContentTitle("Welcome to Plantique!")
-                .setContentText("We are happy to see you! Find your healthy food in Plantique")
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_content))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
@@ -95,6 +100,27 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
             return;
         }
         mNotificationMgr.notify(1, mbuilder.build());
-
+        saveNotificationToPreferences(getString(R.string.notification_title), getString(R.string.notification_title));
     }
+
+    private void saveNotificationToPreferences(String title, String content) {
+        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        List<NotificationApp> notifications = loadNotifications();
+        notifications.add(new NotificationApp(title, content, R.mipmap.ic_notification)); // Assuming an icon is associated
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(notifications);
+        editor.putString("notifications", json);
+        editor.apply();
+    }
+
+    private List<NotificationApp> loadNotifications() {
+        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("notifications", null);
+        Type type = new TypeToken<ArrayList<NotificationApp>>() {}.getType();
+        List<NotificationApp> notifications = gson.fromJson(json, type);
+        return notifications != null ? notifications : new ArrayList<>();
+    }
+
 }

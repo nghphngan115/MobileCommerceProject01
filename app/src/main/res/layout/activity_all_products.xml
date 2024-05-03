@@ -29,7 +29,7 @@
             android:layout_height="50dp"
             android:layout_marginRight="30dp"
             android:gravity="center"
-            android:text="Product"
+            android:text="All Products"
             android:textAlignment="center"
             android:textColor="@color/main_green"
             android:textSize="20sp"
