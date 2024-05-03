@@ -1,9 +1,12 @@
 package com.group01.plantique.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.group01.plantique.R;
+import com.group01.plantique.java.HomeScreenActivity;
+import com.group01.plantique.java.ProductCategoriesActivity;
 import com.group01.plantique.java.ProductListActivity;
 import com.group01.plantique.model.Category;
 import com.squareup.picasso.Picasso;
@@ -48,11 +53,14 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter <Category, Category
         ImageView imgCat;
         ConstraintLayout clCate;
 
+
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             txtCateName = itemView.findViewById(R.id.txtCateName);
             imgCat = itemView.findViewById(R.id.imgCat);
             clCate= itemView.findViewById(R.id.clCate);
+
+
 
         }
     }
