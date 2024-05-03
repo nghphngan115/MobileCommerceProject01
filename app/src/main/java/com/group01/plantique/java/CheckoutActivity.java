@@ -52,8 +52,19 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
 
+        String cartJson = getIntent().getStringExtra("cartJson");
+        if (cartJson != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+            cartProducts = gson.fromJson(cartJson, type);
+        } else {
+            // Fallback to loading from SharedPreferences if no intent data is provided
+            cartProducts = getCartFromSharedPreferences();
+        }
+        updateSubTotal();
         cartListAdapter = new CartListAdapter(this, cartProducts);
         lvProduct.setAdapter(cartListAdapter);
+
         cartListAdapter.setOnQuantityChangeListener(new CartListAdapter.OnQuantityChangeListener() {
             @Override
             public void onQuantityChanged() {
