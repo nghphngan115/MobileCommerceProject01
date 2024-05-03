@@ -17,27 +17,44 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.group01.plantique.R;
 import com.group01.plantique.java.HomeScreenActivity;
 import com.group01.plantique.java.ProductCategoriesActivity;
+import com.group01.plantique.java.ProductDetailActivity;
 import com.group01.plantique.java.ProductListActivity;
 import com.group01.plantique.model.Category;
+import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class CategoryAdapter extends FirebaseRecyclerAdapter <Category, CategoryAdapter.CategoryViewHolder>{
 
     public CategoryViewHolder holder;
+    private Context mContext;
+    Category category;
 
-    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options) {
+    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options,  Context context) {
         super(options);
+        mContext = context;
     }
+
 
     @Override
     protected void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, int i, @NonNull Category category) {
+        categoryViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ProductListActivity.class);
+                intent.putExtra("categoryId", category.getCateId());
+                intent.putExtra("categoryName", category.getCateName());
+                mContext.startActivity(intent);
+            }
+        });
+
         if (categoryViewHolder != null) {
             categoryViewHolder.txtCateName.setText(category.getCateName());
             Picasso.get()
                     .load(category.getImageurl())
                     .into(categoryViewHolder.imgCat);
         }
+
     }
 
     @NonNull
@@ -61,7 +78,7 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter <Category, Category
             clCate= itemView.findViewById(R.id.clCate);
 
 
-
         }
+
     }
 }

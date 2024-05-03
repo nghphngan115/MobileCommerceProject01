@@ -1,5 +1,7 @@
 package com.group01.plantique.java;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -63,8 +65,10 @@ public class HomeScreenActivity extends AppCompatActivity {
     private ArrayList<BlogItem> blogItems;
     private ArrayList<Product> products;
     LinearLayout llProduct;
-    ConstraintLayout  btnBuynow1, btnBuynow2;
+    ConstraintLayout  btnBuynow1, btnBuynow2, clCate;
     ViewFlipper ViewFlipper;
+    Context context = this;
+
 
 
     DatabaseReference databaseReference;
@@ -112,6 +116,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow2= findViewById(R.id.btnBuynow2);
         btnBuynow1 = findViewById(R.id.btnBuynow1);
         ViewFlipper =findViewById(R.id.ViewFlipper);
+        clCate = findViewById(R.id.clCate);
 
         btnBuynow1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +141,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"), Category.class)
                 .build();
 
-        categoryAdapter = new CategoryAdapter(options);
+        categoryAdapter = new CategoryAdapter(options, HomeScreenActivity.this);
         rvCategory.setAdapter(categoryAdapter);
 
         lvHiglightedBlog = findViewById(R.id.lvHighlightedBlog);
@@ -146,7 +151,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
         rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
