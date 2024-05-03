@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +9,6 @@
     tools:context=".java.WriteReviewActivity"
     tools:ignore="MissingClass">
 
-
     <!--toolbar-->
     <RelativeLayout
         android:id="@+id/toolBarRL"
@@ -18,14 +16,12 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-
         <ImageButton
             android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@null"
             android:src="@drawable/ic_back_white" />
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,9 +32,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-
     </RelativeLayout>
-
 
     <ImageView
         android:id="@+id/imgProduct"
@@ -51,7 +45,6 @@
         android:layout_gravity="center_horizontal"
         tools:ignore="UnknownId" />
 
-
     <TextView
         android:id="@+id/txtProductName"
         android:layout_below="@+id/imgProduct"
@@ -63,7 +56,6 @@
         android:textColor="@color/car_ui_text_color_hint"
         android:textSize="20sp"
         android:textStyle="bold" />
-
 
     <TextView
         android:id="@+id/labelTv"
@@ -84,7 +76,6 @@
         android:numStars="5"
         android:layout_marginTop="10dp"/>
 
-
     <EditText
         android:id="@+id/reviewEt"
         android:layout_width="match_parent"
@@ -95,11 +86,9 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="top"
-        android:hint="@string/type_review"
+        android:hint="... "
         android:minHeight="100dp"
         android:padding="10dp" />
-
-
 
 
     <Button
@@ -109,4 +98,5 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/reviewEt"
         android:text="@string/submit" />
+
 </RelativeLayout>

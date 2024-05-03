@@ -1,11 +1,5 @@
 package com.group01.plantique.java;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,19 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,10 +30,6 @@ import com.group01.plantique.model.Product;
 import com.group01.plantique.model.Review;
 import com.squareup.picasso.Picasso;
 
-
-import java.util.HashMap;
-
-
 public class WriteReviewActivity extends AppCompatActivity {
     private ImageView imgProduct;
     private TextView txtProductName;
@@ -49,21 +37,17 @@ public class WriteReviewActivity extends AppCompatActivity {
     private EditText reviewEt;
     private Button submitBtn;
 
-
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
 
-
     private String productId;
     private static final String TAG = "WriteReviewActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_review);
-
 
         imgProduct = findViewById(R.id.imgProduct);
         txtProductName = findViewById(R.id.txtProductName);
@@ -71,11 +55,9 @@ public class WriteReviewActivity extends AppCompatActivity {
         reviewEt = findViewById(R.id.reviewEt);
         submitBtn = findViewById(R.id.submitBtn);
 
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("reviews");
         mAuth = FirebaseAuth.getInstance();
-
 
         // Lấy productId từ Intent
         Intent intent = getIntent();
@@ -94,7 +76,6 @@ public class WriteReviewActivity extends AppCompatActivity {
             Toast.makeText(this, "Invalid intent", Toast.LENGTH_SHORT).show();
         }
 
-
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +83,6 @@ public class WriteReviewActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void loadProductDetails(String productId) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("products").child(productId);
@@ -118,7 +98,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                 }
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(WriteReviewActivity.this, "Failed to fetch product data", Toast.LENGTH_SHORT).show();
@@ -126,28 +105,30 @@ public class WriteReviewActivity extends AppCompatActivity {
         });
     }
 
-
-
-
     private boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userID", null);
-        return userId != null && !userId.isEmpty();
+        String userName = sharedPreferences.getString("userName", null);
+        return userId != null && !userId.isEmpty() && userName != null && !userName.isEmpty();
     }
 
+    private String getUserName() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        return sharedPreferences.getString("userName", null);
+    }
 
     private void submitReview(String productId) {
         if (isUserLoggedIn()) {
             if (productId != null && !productId.isEmpty()) {
                 // Người dùng đã đăng nhập và productId không phải là null hoặc rỗng
-                String userId = mAuth.getUid(); // Lấy userId từ SharedPreferences hoặc FirebaseAuth
+                String userId = mAuth.getUid(); // Lấy userId từ FirebaseAuth
                 double rating = ratingBar.getRating();
+                String userName = getUserName(); // Lấy userName từ SharedPreferences
                 String reviewText = reviewEt.getText().toString().trim();
                 long timestamp = System.currentTimeMillis();
 
-
                 Review review = new Review(userId, rating, reviewText, timestamp);
-
+                review.setUserName(userName); // Gán userName vào đối tượng Review
 
                 DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("reviews").child(productId);
                 reviewsRef.push().setValue(review)
@@ -179,7 +160,6 @@ public class WriteReviewActivity extends AppCompatActivity {
         }
     }
 
-
     private void showLoginPrompt() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Login Required");
@@ -193,7 +173,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                 editor.remove("userID");
                 editor.remove("loginStatus"); // Nếu có lưu trạng thái đăng nhập
                 editor.apply();
-
 
                 // Chuyển đến LoginActivity
                 Intent intent = new Intent(WriteReviewActivity.this, LoginActivity.class);

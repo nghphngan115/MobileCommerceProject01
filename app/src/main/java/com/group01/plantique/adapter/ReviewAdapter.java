@@ -9,9 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.group01.plantique.R;
 import com.group01.plantique.model.Review;
 
@@ -83,6 +80,7 @@ public class ReviewAdapter extends BaseAdapter {
             reviewTextView.setText(review.getReview());
             timestampTextView.setText(formatTimestamp(review.getTimestamp()));
         }
+
 
         private String formatTimestamp(long timestamp) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

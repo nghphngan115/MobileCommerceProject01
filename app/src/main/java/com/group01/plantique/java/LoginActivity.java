@@ -1,11 +1,6 @@
 package com.group01.plantique.java;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.java.ResetPasswordActivity;
 import com.group01.plantique.model.User;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -38,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private String loggedInUserID;
     private static final String PREF_LOGIN_STATUS = "loginStatus";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,9 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-    // Đây là biến để lưu userID của người dùng sau khi đăng nhập thành công
 
     // Method to sign in user
     private void signInUser() {
@@ -158,8 +154,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Check if the entered password matches the stored hashed password
                             if (BCrypt.checkpw(password, user.getPassword())) {
                                 loggedInUserID = user.getId();
-                                saveUserIDToSharedPreferences(loggedInUserID); // Lưu userID vào SharedPreferences
-                                saveLoginStatus(true); // Lưu trạng thái đăng nhập
+                                saveUserName(user.getUsername()); // Lưu userName vào SharedPreferences
+                                saveUserIDToSharedPreferences(loggedInUserID);
+                                saveLoginStatus(true);
                                 Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -190,22 +187,26 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveLoginStatus(boolean status) {
-        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(PREF_LOGIN_STATUS, status);
         editor.apply();
     }
 
-    private String userID;
-
-    // Method to save userID to SharedPreferences
     private void saveUserIDToSharedPreferences(String userID) {
-        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("userID", userID);
         editor.apply();
     }
 
+    private void saveUserName(String userName) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userName", userName);
+        editor.apply();
+    }
+
+    private String getUserName() {
+        return sharedPreferences.getString("userName", null);
+    }
 
     // Method to show reset password dialog
     private void showResetPasswordDialog() {
@@ -215,7 +216,6 @@ public class LoginActivity extends AppCompatActivity {
         builder.setPositiveButton(getString(R.string.dialog_reset_password_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Navigate to ResetPasswordActivity
                 Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
@@ -229,5 +229,4 @@ public class LoginActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
 }

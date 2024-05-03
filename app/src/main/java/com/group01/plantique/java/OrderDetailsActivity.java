@@ -1,12 +1,5 @@
 package com.group01.plantique.java;
 
-
-import static android.os.Build.VERSION_CODES.R;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,21 +9,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.group01.plantique.R;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.group01.plantique.R;
 import com.group01.plantique.adapter.ProductOrderAdapter;
 import com.group01.plantique.model.Order;
 import com.group01.plantique.model.Product;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class OrderDetailsActivity extends AppCompatActivity {
     private TextView txtStatus, txtFullname, txtAddress, txtOrderId, txtUserId, txtEmail, txtPhone,txtNote, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
@@ -39,20 +32,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private Order order;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
 
-
         initializeViews();
         populateOrderDetails();
 
-
     }
-
 
     private void initializeViews() {
         txtStatus = findViewById(R.id.txtStatus);
@@ -70,9 +58,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         lvProduct = findViewById(R.id.lvProduct);
         txtNote=findViewById(R.id.txtNote);
 
-
         btnAction = findViewById(R.id.btnAction);
-
 
     }
     private void cancelOrder() {
@@ -85,15 +71,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     private void updateOrderStatusInFirebase() {
         if (order.getOrderBy() != null && order.getOrderId() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
                     .child(order.getOrderBy()) // Sử dụng getOrderBy()
                     .child("Orders")
                     .child(order.getOrderId()); // Sử dụng getOrderId()
-
-
 
 
             orderRef.child("orderStatus").setValue("Cancelled")
@@ -107,14 +90,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     private void markOrderAsFinished() {
         if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
                     .child(order.getOrderBy())
                     .child("Orders")
                     .child(order.getOrderId());
-
 
             orderRef.child("orderStatus").setValue("Finished")
                     .addOnSuccessListener(aVoid -> {
@@ -126,7 +107,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     private void showCancelConfirmationDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.cancel_confirmation_title))
@@ -136,7 +116,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
-
 
     private void showFinishConfirmationDialog() {
         new AlertDialog.Builder(this)
@@ -148,11 +127,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 .show();
     }
 
-
     private void updateButtonBasedOnStatus() {
         if (order != null) {
             String status = order.getOrderStatus();
-
 
             switch (status) {
                 case "Processing":
@@ -164,13 +141,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     btnAction.setText(getString(R.string.strReceived));
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.delivering));
 
-
                     btnAction.setOnClickListener(v -> showFinishConfirmationDialog());
                     break;
                 case "Finished":
                     btnAction.setText("Writing Review");
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.finished));
-
 
                     // Xử lý thêm sự kiện cho việc viết đánh giá ở đây
                     btnAction.setOnClickListener(new View.OnClickListener() {
@@ -179,12 +154,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             if (order != null && order.getItems() != null && !order.getItems().isEmpty()) {
                                 HashMap<String, Product> products = order.getItems();
 
-
                                 // Kiểm tra xem có ít nhất một sản phẩm trong đơn hàng
                                 if (!products.isEmpty()) {
                                     // Lấy productId của sản phẩm đầu tiên
                                     String productId = products.keySet().iterator().next();
-
 
                                     // Tạo một Intent mới để chuyển đến WriteReviewActivity
                                     Intent intent = new Intent(OrderDetailsActivity.this, WriteReviewActivity.class);
@@ -201,7 +174,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         }
                     });
 
-
                     break;
                 case "Cancelled":
                     btnAction.setVisibility(View.GONE); // Ẩn nút
@@ -212,8 +184,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
     private void populateOrderDetails() {
@@ -251,13 +221,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
             txtDiscount.setText(order.getDiscount());
             txtTotal.setText(String.format("%s đ", order.getTotalCost()));
 
-
             DatabaseReference itemsRef = FirebaseDatabase.getInstance().getReference("allorders")
                     .child(order.getOrderBy())
                     .child("Orders")
                     .child(order.getOrderId())
                     .child("Items");
-
 
             itemsRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -269,12 +237,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         products.add(product);
                     }
 
-
                     ProductOrderAdapter adapter = new ProductOrderAdapter(OrderDetailsActivity.this, products);
                     lvProduct.setAdapter(adapter);
                     runOnUiThread(() -> updateButtonBasedOnStatus());
                 }
-
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
