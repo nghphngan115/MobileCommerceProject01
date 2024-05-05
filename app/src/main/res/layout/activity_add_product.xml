@@ -185,13 +185,15 @@
             android:hint="Discount Note e.g. 10% Off"
             android:inputType="textCapWords"
             android:padding="10dp" />
+
         <Button
             android:id="@+id/edtProductBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Product"
             android:layout_below="@id/discountedNoteEt"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/main_green"
+            android:text="Add Product" />
 
     </RelativeLayout>
 

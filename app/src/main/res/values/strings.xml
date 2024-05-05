@@ -10,7 +10,7 @@
     <string name="strtextStatus">Order Status</string>
     <string name="strOrderDetailsInfo">Order Information</string>
     <string name="strShippingAddress">Shipping Address</string>
-    <string name="strPhone">PHONE</string>
+    <string name="strPhone">Phone</string>
     <string name="strSubTotal">Sub Total</string>
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
@@ -321,6 +321,8 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
+
+
 
 
 
