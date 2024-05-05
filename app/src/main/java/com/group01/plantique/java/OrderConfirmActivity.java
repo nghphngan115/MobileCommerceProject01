@@ -569,7 +569,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         }
 
         TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
-        txtDialogTotal.setText(amount);
+        txtDialogTotal.setText(amount +"đ");
 
         Button btnCompleted = dialogView.findViewById(R.id.btnCompleted);
         btnCompleted.setOnClickListener(v -> {

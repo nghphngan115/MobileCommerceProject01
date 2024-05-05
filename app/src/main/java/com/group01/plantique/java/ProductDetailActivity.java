@@ -81,12 +81,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
             textViewProductPrice.setPaintFlags(textViewProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            textViewProductPrice.setText("$" + product.getPrice());
+            textViewProductPrice.setText(product.getPrice() +"đ");
             textViewProductDiscountPrice.setVisibility(View.VISIBLE);
-            textViewProductDiscountPrice.setText("$" + discountPrice);
+            textViewProductDiscountPrice.setText(discountPrice +"đ");
         } else {
             textViewProductPrice.setPaintFlags(0);
-            textViewProductPrice.setText("$" + product.getPrice());
+            textViewProductPrice.setText(product.getPrice() +"đ");
             textViewProductDiscountPrice.setVisibility(View.GONE);
         }
 

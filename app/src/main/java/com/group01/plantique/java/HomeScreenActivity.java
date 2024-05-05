@@ -266,7 +266,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getPrice()));
+            txtUnitPrice.setText(String.valueOf(products.getPrice() +"đ"));
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());
             ImageView imgProduct =view.findViewById(R.id.imgProduct);

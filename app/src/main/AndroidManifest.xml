@@ -129,6 +129,8 @@
         <activity
             android:name=".java.SignUpActivity"
             android:exported="true" />
+        <activity android:name=".java.DashBoardActivity"
+            android:exported="true"/>
         <activity
             android:name=".java.WelcomeActivity"
             android:exported="true">

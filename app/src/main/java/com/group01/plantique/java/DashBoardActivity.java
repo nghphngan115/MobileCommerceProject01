@@ -32,18 +32,21 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashBoardActivity.this, AdminProductActivity.class);
+                startActivity(intent);
             }
         });
         btnPromotion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashBoardActivity.this, AdminPromotionActivity.class);
+                startActivity(intent);
             }
         });
         btnOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashBoardActivity.this, AdminOrderListActivity.class);
+                startActivity(intent);
             }
         });
     }
