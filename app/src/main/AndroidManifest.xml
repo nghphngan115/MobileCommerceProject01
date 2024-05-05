@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -48,9 +51,6 @@
             android:exported="true" />
         <activity
             android:name=".java.ProductDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".java.AddToCartActivity"
             android:exported="false" />
         <activity
             android:name=".java.ProductListActivity"
