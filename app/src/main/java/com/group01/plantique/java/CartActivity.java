@@ -128,7 +128,7 @@ public class CartActivity extends AppCompatActivity {
         for (Product product : cartProducts) {
             totalCart += product.getPrice() * product.getCartQuantity();
         }
-        txtTotalCart.setText(String.valueOf(totalCart));
+        txtTotalCart.setText(String.valueOf(totalCart)+ "đ");
     }
 
     @Override

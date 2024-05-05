@@ -75,7 +75,7 @@
     <string name="strCate">Categories</string>
     <string name="strViewAll">View all</string>
     <string name="strHiglightedProducts">Higlighted Products</string>
-    <string name="strHiglightedBlogs" >Higlighted Blogs</string>
+    <string name="strHiglightedBlogs">Higlighted Blogs</string>
     <string name="strAboutUs">About Us</string>
     <string name="strIntro">Plantique was founded in 2024</string>
     <string name="strTitle1">100% natural</string>
@@ -103,7 +103,6 @@
     <string name="cart_empty_message">Your cart is empty!</string>
     <string name="quantity_blank_error_message">Quantity cannot be left blank</string>
     <string name="added_to_cart_message">Product added to cart</string>
-
 
 
     <string name="progress_dialog_title">Please wait</string>
@@ -234,7 +233,6 @@
     <string name="product_deleted_success">Product deleted successfully</string>
 
 
-
     <string-array name="promo_options">
         <item>Edit</item>
         <item>Delete</item>
@@ -321,9 +319,6 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
-
-
-
 
 
 </resources>
