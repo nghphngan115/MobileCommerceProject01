@@ -3,6 +3,7 @@ package com.group01.plantique.java;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,11 +83,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         txtStatus.setText("Cancelled");
                     })
                     .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, getString(R.string.cancel_order_failed), Toast.LENGTH_SHORT).show());
+            navigateBackToOrderList();
         } else {
             Toast.makeText(this, getString(R.string.missing_information), Toast.LENGTH_SHORT).show();
         }
     }
-
+    private void navigateBackToOrderList() {
+        Intent intent = new Intent(this, OrderHistoryActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish(); // Đảm bảo rằng Activity hiện tại được đóng và không quay lại được
+    }
     private void markOrderAsFinished() {
         if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
