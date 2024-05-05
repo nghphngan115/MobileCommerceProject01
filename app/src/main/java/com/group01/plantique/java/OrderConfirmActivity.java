@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -309,6 +310,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             pushOrderToFirebase(orderId);
             isPromoCodeApplied = false;}
         clearCartSharedPreferences();
+        sendNotificationToAdmin(orderId);
     }
     private void clearCartSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
@@ -589,10 +591,25 @@ public class OrderConfirmActivity extends AppCompatActivity {
         List<NotificationApp> notifications = new Gson().fromJson(json, type);
         return notifications != null ? notifications : new ArrayList<>();
     }
+    private void sendNotificationToAdmin(String orderId) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("admin_channel", "Order Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
 
+        Intent intent = new Intent(this, AdminOrderListActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "admin_channel")
+                .setContentTitle("New Order")
+                .setContentText("Order ID: " + orderId + " is ready for processing.")
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
-
+        notificationManager.notify(0, builder.build());
+    }
 
 
 

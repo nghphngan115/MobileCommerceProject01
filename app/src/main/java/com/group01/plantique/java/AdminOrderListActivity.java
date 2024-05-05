@@ -77,6 +77,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
 
         setupSpinner();
         setupSearchView();
+        setupNotificationChannel();
     }
 
     private void setupFirebaseListener() {
@@ -110,7 +111,19 @@ public class AdminOrderListActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
-
+    private void setupNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            String channelId = getString(R.string.channel_id);
+            if (notificationManager.getNotificationChannel(channelId) == null) {
+                CharSequence name = getString(R.string.channel_name);
+                String description = getString(R.string.channel_description);
+                NotificationChannel channel = new NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription(description);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
     private boolean ordersListContainsOrderId(String orderId) {
         for (Order order : ordersList) {
             if (order != null && order.getOrderId() != null && order.getOrderId().equals(orderId)) {
@@ -151,7 +164,7 @@ public class AdminOrderListActivity extends AppCompatActivity {
                         }
                     }
                 }
-                Collections.reverse(ordersList); // Filter immediately after fetching
+                // Filter immediately after fetching
                 ordersAdapter.notifyDataSetChanged();
                 filterOrders(currentStatus); // Notify adapter about data change
             }
