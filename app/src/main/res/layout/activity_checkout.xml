@@ -93,7 +93,7 @@
 
         <EditText
             android:id="@+id/edtFullname"
-            android:layout_width="330dp"
+            android:layout_width="310dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
