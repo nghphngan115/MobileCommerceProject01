@@ -13,7 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        app:srcCompat="@mipmap/ic_back" />
+        android:contentDescription="@android:string/untitled"
+        app:srcCompat="@mipmap/ic_back"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
     <ScrollView
@@ -80,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="tổng review" />
 
                 </LinearLayout>
 
@@ -132,8 +134,9 @@
                     android:textStyle="bold" />
 
                 <ListView
+                    android:id="@+id/listViewReviews"
                     android:layout_width="match_parent"
-                    android:layout_height="211dp" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

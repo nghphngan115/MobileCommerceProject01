@@ -26,10 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
-import com.group01.plantique.adapter.CategoryAdapter;
 import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +43,9 @@ public class SearchActivity extends AppCompatActivity {
     private List<Product> productList = new ArrayList<>();
     private List<Category> categoryList = new ArrayList<>();
     private DatabaseReference productsRef, categoriesRef;
-    private FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryViewHolder> adapter;
-    private CategoryAdapter.OnCategoryClickListener categoryClickListener = new CategoryAdapter.OnCategoryClickListener() {
-        @Override
-        public void onCategoryClick(Category category) {
-            handleCategoryClick(category);
-        }
-    };
+    private FirebaseRecyclerAdapter<Category, ProductCategoriesActivity.CategoryViewHolder> adapter;
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -64,75 +56,98 @@ public class SearchActivity extends AppCompatActivity {
         lvSearchResults = findViewById(R.id.lvSearchResults);
         rvSearchSuggestion = findViewById(R.id.rvSearchSuggestion);
 
-        imgbtnBack.setOnClickListener(v -> finish());
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         searchEt.requestFocus();
 
-        // Setup RecyclerView
+        // Khởi tạo adapter cho rvSearchSuggestion
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         rvSearchSuggestion.setLayoutManager(layoutManager);
 
-        // Setup ListView adapter
+        // Khởi tạo adapter cho ListView
         searchHistoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, searchHistoryList);
         lvSearchResults.setAdapter(searchHistoryAdapter);
 
-        // Firebase references
+        // Khởi tạo Firebase references
         productsRef = FirebaseDatabase.getInstance().getReference().child("products");
         categoriesRef = FirebaseDatabase.getInstance().getReference().child("categories");
 
         loadProducts();
         loadCategories();
 
-        // ListView item click listener
-        lvSearchResults.setOnItemClickListener((parent, view, position, id) -> {
-            String selectedSearch = searchHistoryList.get(position);
-            startSearchResultActivity(selectedSearch);
+        // Xử lý khi click vào item trong lvSearchResults
+        lvSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedSearch = searchHistoryList.get(position);
+                startSearchResultActivity(selectedSearch);
+            }
         });
 
-        // RecyclerView item touch listener setup
-        setupRecyclerViewItemTouchListener();
+        // Xử lý khi click vào item trong rvSearchSuggestion
+        rvSearchSuggestion.addOnItemTouchListener(new RecyclerItemClickListener(this, rvSearchSuggestion,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Category selectedCategory = categoryList.get(position);
+                        startSearchResultActivity(selectedCategory.getCateName());
+                    }
+                }));
 
-        // EditText text changes listener
+        // Xử lý tìm kiếm khi người dùng nhập text vào EditText
         searchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchProducts(s.toString().trim().toLowerCase());
+                String searchText = s.toString().trim().toLowerCase();
+                searchProducts(searchText);
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        // Initialize FirebaseRecyclerAdapter
-        setupFirebaseRecyclerAdapter();
-    }
+        // Khởi tạo adapter
+        adapter = new FirebaseRecyclerAdapter<Category, ProductCategoriesActivity.CategoryViewHolder>(
+                new FirebaseRecyclerOptions.Builder<Category>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"), Category.class)
+                        .build()
+        ) {
+            @Override
+            protected void onBindViewHolder(@NonNull ProductCategoriesActivity.CategoryViewHolder holder, int position, @NonNull Category model) {
+                holder.setCategoryName(model.getCateName());
+                holder.setCategoryImage(getApplicationContext(), model.getImageurl());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        handleCategoryClick(model);
+                    }
+                });
+            }
 
-    private void setupFirebaseRecyclerAdapter() {
-        FirebaseRecyclerOptions<Category> options = new FirebaseRecyclerOptions.Builder<Category>()
-                .setQuery(categoriesRef, Category.class)
-                .build();
+            @NonNull
+            @Override
+            public ProductCategoriesActivity.CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+                return new ProductCategoriesActivity.CategoryViewHolder(view);
+            }
+        };
 
-        adapter = new CategoryAdapter(options, this, categoryClickListener); // Pass the listener here
         rvSearchSuggestion.setAdapter(adapter);
         adapter.startListening();
     }
-    private void setupRecyclerViewItemTouchListener() {
-        rvSearchSuggestion.addOnItemTouchListener(new RecyclerItemClickListener(this, rvSearchSuggestion,
-                (view, position) -> {
-                    Category selectedCategory = categoryList.get(position);
-                    startSearchResultActivity(selectedCategory.getCateName());
-                }));
-    }
-
     private void startSearchResultActivity(String searchKey) {
         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
         intent.putExtra("searchKey", searchKey);
         startActivity(intent);
     }
-
     private void loadProducts() {
         productsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -144,12 +159,12 @@ public class SearchActivity extends AppCompatActivity {
                         productList.add(product);
                     }
                 }
-                searchProducts(searchEt.getText().toString());
+                searchProducts("");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible database errors
+                // Xử lý khi có lỗi xảy ra
             }
         });
     }
@@ -169,25 +184,29 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible database errors
+                // Xử lý khi có lỗi xảy ra
             }
         });
     }
 
     private void searchProducts(String keyword) {
         searchHistoryList.clear();
+
         for (Product product : productList) {
             if (product.getProductName().toLowerCase().contains(keyword)) {
                 searchHistoryList.add(product.getProductName());
             }
         }
+
         for (Category category : categoryList) {
             if (category.getCateName().toLowerCase().contains(keyword)) {
                 searchHistoryList.add(category.getCateName());
             }
         }
+
         searchHistoryAdapter.notifyDataSetChanged();
     }
+
 
     private void handleCategoryClick(Category category) {
         addToSearchHistory(category.getCateName());
@@ -199,6 +218,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private void addToSearchHistory(String itemName) {
         searchHistoryList.add(itemName);
-        searchHistoryAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 }

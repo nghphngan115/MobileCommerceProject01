@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
 import com.group01.plantique.model.Category;
 import com.group01.plantique.model.Product;
@@ -285,39 +283,21 @@ public class SearchResultActivity extends AppCompatActivity {
 
             }
 
-                private void openProductDetailActivity(Product product) {
-                    Context context = itemView.getContext();
-                    Intent intent = new Intent(context, ProductDetailActivity.class);
-                    intent.putExtra("productId", product.getProductId());
-                    context.startActivity(intent);
-                }
+            private void openProductDetailActivity(Product product) {
+                Context context = itemView.getContext();
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("productId", product.getProductId());
+                context.startActivity(intent);
+            }
             private void openCartActivity(Product product) {
                 Context context = itemView.getContext();
-
-                // Retrieve the current cart
-                ArrayList<Product> cartProducts = CartUtility.getCartProducts(context);
-                boolean found = false;
-
-                // Check if the product is already in the cart
-                for (Product p : cartProducts) {
-                    if (p.getProductId().equals(product.getProductId())) {
-                        p.setCartQuantity(p.getCartQuantity() + 1);
-                        found = true;
-                        break;
-                    }
-                }
-
-                // If the product is not found in the cart, add it with quantity 1
-                if (!found) {
-                    product.setCartQuantity(1);
-                    cartProducts.add(product);
-                }
-
-                // Save the updated cart
-                CartUtility.saveCartProducts(context, cartProducts);
-                Toast.makeText(context, "Product added to cart", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, CartActivity.class);
+                // Truyền thông tin sản phẩm cần thêm vào giỏ hàng
+                intent.putExtra("productId", product.getProductId());
+                intent.putExtra("productName", product.getProductName());
+                intent.putExtra("price", product.getPrice());
+                context.startActivity(intent);
             }
-
         }
     }
 }

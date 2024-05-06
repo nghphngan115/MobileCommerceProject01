@@ -15,21 +15,24 @@ public class Product implements Serializable {
     private int stock;
     private int cartQuantity;
 
-    // Required empty constructor for Firebase
-    public Product() {}
+    public Product() {
+        // Required empty constructor for Firebase
+    }
 
-    public Product(String productId, String productName, int price, String imageUrl, String categoryId, String description, String discountNote, int discountPrice, int stock, String unit) {
+    public Product(String productId, String productName, String description, int price, int discount_price, String imageurl, String categoryId, String discountNote, String unit, int stock) {
         this.productId = productId;
         this.productName = productName;
-        this.price = price;
-        this.imageurl = imageUrl;
-        this.categoryId = categoryId;
         this.description = description;
-        this.discountNote = discountNote;
+        this.price = price;
         this.discount_price = discount_price;
-        this.stock = stock;
+        this.imageurl = imageurl;
+        this.categoryId = categoryId;
+        this.discountNote = discountNote;
         this.unit = unit;
+        this.stock = stock;
+        this.cartQuantity = 1;
     }
+
 
     public String getProductId() {
         return productId;
@@ -38,7 +41,6 @@ public class Product implements Serializable {
     public void setProductId(String productId) {
         this.productId = productId;
     }
-
     public int getCartQuantity() {
         return cartQuantity;
     }
@@ -121,4 +123,5 @@ public class Product implements Serializable {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
 }

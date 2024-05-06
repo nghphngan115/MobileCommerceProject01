@@ -9,16 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +39,6 @@ import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 import com.group01.plantique.model.NotificationApp;
-import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -254,8 +249,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void setupListAdapter() {
         cartListAdapter = new CartListAdapter(this, productList);
         lvProduct.setAdapter(cartListAdapter);
-        // Thiết lập trình lắng nghe sự thay đổi số lượng
-        cartListAdapter.setOnQuantityChangeListener(() -> updateTotal());
+        cartListAdapter.setOnQuantityChangeListener(this::updateTotal);
     }
 
     private void updateTotal() {
@@ -301,7 +295,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         String transferMethod = getString(R.string.strTransfer); // Get the transfer method from resources
 
         if (transferMethod.equals(paymentMethod)) {
-            generateAndDisplayQRCode(orderId);
+            showPaymentConfirmationDialog(orderId);
         } else {
             // For COD or any other methods, finalize the order immediately
 
@@ -309,16 +303,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             // After updating stock, push order details to Firebase
             pushOrderToFirebase(orderId);
             isPromoCodeApplied = false;}
-        clearCartSharedPreferences();
-        sendNotificationToAdmin(orderId);
     }
-    private void clearCartSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("cart");  // This removes the cart entry from SharedPreferences
-        editor.apply();  // Apply the changes
-    }
-
     private String generateOrderId() {
         return String.valueOf(System.currentTimeMillis());
     }
@@ -334,7 +319,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
         // Set the total amount on the dialog's TextView
         TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
         txtDialogTotal.setText(totalAmount);
-
+        TextView txtDialogOrderId = dialogView.findViewById(R.id.txtOrderId);
+        txtDialogOrderId.setText(orderId);
 
         // Setup the button to confirm payment
         ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
@@ -550,39 +536,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
         editor.putString("notifications", gson.toJson(notifications));
         editor.apply();
     }
-    private void generateAndDisplayQRCode(String orderId) {
-        String bankId = "970422";
-        String accountNo = "115952872022";
-        String template = "print";
-        String accountName = Uri.encode("NGUYEN HOANG PHUONG NGAN");
-        String amount = txtTotal.getText().toString().replaceAll("[^\\d.]+", ""); // Remove non-numeric characters
-        String description = Uri.encode(orderId);
-
-        String quickLinkUrl = "https://img.vietqr.io/image/" + bankId + "-" + accountNo + "-" + template + ".png?amount=" + amount + "&addInfo=" + description + "&accountName=" + accountName;
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_bank_transfer, null);
-        builder.setView(dialogView);
-
-        ImageView qrImageView = dialogView.findViewById(R.id.imgQRCode);
-        if (qrImageView != null) {
-            Picasso.get().load(quickLinkUrl).into(qrImageView);
-        }
-
-        TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
-        txtDialogTotal.setText(amount +"đ");
-
-        Button btnCompleted = dialogView.findViewById(R.id.btnCompleted);
-        btnCompleted.setOnClickListener(v -> {
-            pushOrderToFirebase(orderId);
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-    }
 
     private List<NotificationApp> loadNotifications() {
         SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
@@ -591,25 +544,10 @@ public class OrderConfirmActivity extends AppCompatActivity {
         List<NotificationApp> notifications = new Gson().fromJson(json, type);
         return notifications != null ? notifications : new ArrayList<>();
     }
-    private void sendNotificationToAdmin(String orderId) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("admin_channel", "Order Notifications", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
 
-        Intent intent = new Intent(this, AdminOrderListActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "admin_channel")
-                .setContentTitle("New Order")
-                .setContentText("Order ID: " + orderId + " is ready for processing.")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
 
-        notificationManager.notify(0, builder.build());
-    }
+
 
 
 

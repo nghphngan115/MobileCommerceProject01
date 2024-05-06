@@ -29,7 +29,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Or
     private List<Order> ordersList;
     private LayoutInflater inflater;
     // In AdminOrderListActivity
-   // Or any other unique integer.
+    // Or any other unique integer.
 
 
     public AdminOrderAdapter(Context context, List<Order> ordersList) {
@@ -77,7 +77,7 @@ public class AdminOrderAdapter extends RecyclerView.Adapter<AdminOrderAdapter.Or
     }
 
 
-        private String convertTimestampToDate(long timestamp) {
+    private String convertTimestampToDate(long timestamp) {
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         return dateFormat.format(date);

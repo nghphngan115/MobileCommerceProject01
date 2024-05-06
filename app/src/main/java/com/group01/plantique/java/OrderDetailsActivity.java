@@ -23,6 +23,7 @@ import com.group01.plantique.model.Order;
 import com.group01.plantique.model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrderDetailsActivity extends AppCompatActivity {
     private TextView txtStatus, txtFullname, txtAddress, txtOrderId, txtUserId, txtEmail, txtPhone,txtNote, txtSubTotal, txtShipFee, txtPaymentMethod, txtDiscount, txtTotal;
@@ -73,9 +74,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private void updateOrderStatusInFirebase() {
         if (order.getOrderBy() != null && order.getOrderId() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
-                    .child(order.getOrderBy())
+                    .child(order.getOrderBy()) // Sử dụng getOrderBy()
                     .child("Orders")
-                    .child(order.getOrderId());
+                    .child(order.getOrderId()); // Sử dụng getOrderId()
+
 
             orderRef.child("orderStatus").setValue("Cancelled")
                     .addOnSuccessListener(aVoid -> {
@@ -83,17 +85,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         txtStatus.setText("Cancelled");
                     })
                     .addOnFailureListener(e -> Toast.makeText(OrderDetailsActivity.this, getString(R.string.cancel_order_failed), Toast.LENGTH_SHORT).show());
-            navigateBackToOrderList();
         } else {
             Toast.makeText(this, getString(R.string.missing_information), Toast.LENGTH_SHORT).show();
         }
     }
-    private void navigateBackToOrderList() {
-        Intent intent = new Intent(this, OrderHistoryActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish(); // Đảm bảo rằng Activity hiện tại được đóng và không quay lại được
-    }
+
     private void markOrderAsFinished() {
         if (order != null && order.getOrderId() != null && order.getOrderBy() != null) {
             DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("allorders")
@@ -148,10 +144,36 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     btnAction.setOnClickListener(v -> showFinishConfirmationDialog());
                     break;
                 case "Finished":
-                    btnAction.setText(getString(R.string.strWriteReview));
+                    btnAction.setText("Writing Review");
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.finished));
 
                     // Xử lý thêm sự kiện cho việc viết đánh giá ở đây
+                    btnAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (order != null && order.getItems() != null && !order.getItems().isEmpty()) {
+                                HashMap<String, Product> products = order.getItems();
+
+                                // Kiểm tra xem có ít nhất một sản phẩm trong đơn hàng
+                                if (!products.isEmpty()) {
+                                    // Lấy productId của sản phẩm đầu tiên
+                                    String productId = products.keySet().iterator().next();
+
+                                    // Tạo một Intent mới để chuyển đến WriteReviewActivity
+                                    Intent intent = new Intent(OrderDetailsActivity.this, WriteReviewActivity.class);
+                                    intent.putExtra("productId", productId);
+                                    startActivity(intent);
+                                } else {
+                                    // Xử lý trường hợp không có sản phẩm nào trong đơn hàng
+                                    Toast.makeText(OrderDetailsActivity.this, "No products found in the order!", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // Xử lý trường hợp order hoặc order.getItems() là null hoặc rỗng
+                                Toast.makeText(OrderDetailsActivity.this, "Order or items are null or empty!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                     break;
                 case "Cancelled":
                     btnAction.setVisibility(View.GONE); // Ẩn nút

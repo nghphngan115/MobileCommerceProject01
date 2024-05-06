@@ -280,13 +280,13 @@ public class AllProductsActivity extends AppCompatActivity {
                     if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
                         // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
                         textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        textViewPrice.setText(product.getPrice() +"đ");
+                        textViewPrice.setText("$" + product.getPrice());
                         txtDiscountPrice.setVisibility(View.VISIBLE);
-                        txtDiscountPrice.setText(discountPrice +"đ");
+                        txtDiscountPrice.setText("$" + discountPrice);
                     } else {
                         // If discount_price is empty, zero, or null, show regular price and hide discount_price
                         textViewPrice.setPaintFlags(0); // Remove strike through if present
-                        textViewPrice.setText(product.getPrice() +"đ");
+                        textViewPrice.setText("$" + product.getPrice());
                         txtDiscountPrice.setVisibility(View.GONE);
                     }
 

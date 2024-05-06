@@ -1,73 +1,59 @@
 package com.group01.plantique.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.group01.plantique.R;
+import com.group01.plantique.java.ProductListActivity;
 import com.group01.plantique.model.Category;
 import com.squareup.picasso.Picasso;
+import java.util.List;
 
-public class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends FirebaseRecyclerAdapter <Category, CategoryAdapter.CategoryViewHolder>{
 
-    private Context mContext;
-    private OnCategoryClickListener listener;
+    public CategoryViewHolder holder;
 
-    public interface OnCategoryClickListener {
-        void onCategoryClick(Category category);
+    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options) {
+        super(options);
     }
 
-    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options, Context context, OnCategoryClickListener listener) {
-        super(options);
-        this.mContext = context;
-        this.listener = listener;
+    @Override
+    protected void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, int i, @NonNull Category category) {
+        if (categoryViewHolder != null) {
+            categoryViewHolder.txtCateName.setText(category.getCateName());
+            Picasso.get()
+                    .load(category.getImageurl())
+                    .into(categoryViewHolder.imgCat);
+        }
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category,parent,false);
         return new CategoryViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull Category model) {
-        holder.setCategoryName(model.getCateName());
-        Picasso.get()
-                .load(model.getImageurl())
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(holder.getImageView());
+    class CategoryViewHolder extends RecyclerView.ViewHolder{
 
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onCategoryClick(model);
-            }
-        });
-    }
-
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtCateName;
-        private ImageView imgCat;
+        TextView txtCateName;
+        ImageView imgCat;
+        ConstraintLayout clCate;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtCateName = itemView.findViewById(R.id.textViewCategoryName);
-            imgCat = itemView.findViewById(R.id.imageViewCategory);
-        }
+            txtCateName = itemView.findViewById(R.id.txtCateName);
+            imgCat = itemView.findViewById(R.id.imgCat);
+            clCate= itemView.findViewById(R.id.clCate);
 
-        public void setCategoryName(String name) {
-            txtCateName.setText(name);
-        }
-
-        public ImageView getImageView() {
-            return imgCat;
         }
     }
 }

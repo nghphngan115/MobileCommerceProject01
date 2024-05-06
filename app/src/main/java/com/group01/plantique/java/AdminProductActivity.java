@@ -261,7 +261,7 @@ public class AdminProductActivity extends AppCompatActivity {
         // Hiển thị thông tin chi tiết của sản phẩm
         txtProductName.setText(product.getProductName());
         txtProductCategory.setText(product.getCategoryId()); // Hoặc set tên danh mục nếu có
-        txtPrice.setText(product.getPrice() +"đ");
+        txtPrice.setText("$" + product.getPrice());
         txtDescription.setText(product.getDescription());
         txtStock.setText(String.valueOf(product.getStock()));
         txtUnit.setText(product.getUnit());
@@ -270,7 +270,7 @@ public class AdminProductActivity extends AppCompatActivity {
         int discountPrice = product.getDiscount_price();
         if (discountPrice > 0) {
             txtDiscountPrice.setVisibility(View.VISIBLE);
-            txtDiscountPrice.setText(discountPrice  +"đ");
+            txtDiscountPrice.setText("$" + discountPrice);
             txtPrice.setPaintFlags(txtPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
             txtDiscountPrice.setVisibility(View.GONE);

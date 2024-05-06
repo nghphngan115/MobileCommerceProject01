@@ -6,18 +6,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
+import com.group01.plantique.adapter.ReviewAdapter;
 import com.group01.plantique.model.Product;
+import com.group01.plantique.model.Review;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -30,6 +39,12 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ImageButton imgbtnBack;
 
     private DatabaseReference productsRef;
+
+    private ListView listViewReviews;
+    private ReviewAdapter reviewAdapter;
+    private List<Review> reviewList;
+    private TextView txtNumberOfReviews;
+    private long totalReviews;
 
 
     @Override
@@ -52,9 +67,26 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        String productId = getIntent().getStringExtra("productId");
-        productsRef = FirebaseDatabase.getInstance().getReference().child("products").child(productId);
+        listViewReviews = findViewById(R.id.listViewReviews);
+        reviewList = new ArrayList<>();
+        reviewAdapter = new ReviewAdapter(this, reviewList);
+        listViewReviews.setAdapter(reviewAdapter);
 
+        String productId = getIntent().getStringExtra("productId");
+        if (productId != null) {
+            productsRef = FirebaseDatabase.getInstance().getReference().child("products").child(productId);
+            loadProductDetails(productId);
+            loadReviews(productId);
+        } else {
+            Toast.makeText(this, getString(R.string.failed_to_fetch_data), Toast.LENGTH_SHORT).show();
+        }
+        txtNumberOfReviews = findViewById(R.id.txtNumberOfReviews);
+
+        loadProductDetails(productId);
+    }
+
+    private void loadProductDetails(String productId) {
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("products").child(productId);
         productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -62,6 +94,21 @@ public class ProductDetailActivity extends AppCompatActivity {
                     Product product = snapshot.getValue(Product.class);
                     if (product != null) {
                         displayProductDetails(product);
+
+                        // Lấy danh sách đánh giá
+                        DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("reviews").child(productId);
+                        reviewsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot reviewsSnapshot) {
+                                totalReviews = reviewsSnapshot.getChildrenCount();
+                                txtNumberOfReviews.setText(String.valueOf("Tổng Review" + totalReviews));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                // Xử lý lỗi khi lấy danh sách đánh giá
+                            }
+                        });
                     }
                 }
             }
@@ -81,12 +128,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
             textViewProductPrice.setPaintFlags(textViewProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            textViewProductPrice.setText(product.getPrice() +"đ");
+            textViewProductPrice.setText("$" + product.getPrice());
             textViewProductDiscountPrice.setVisibility(View.VISIBLE);
-            textViewProductDiscountPrice.setText(discountPrice +"đ");
+            textViewProductDiscountPrice.setText("$" + discountPrice);
         } else {
             textViewProductPrice.setPaintFlags(0);
-            textViewProductPrice.setText(product.getPrice() +"đ");
+            textViewProductPrice.setText("$" + product.getPrice());
             textViewProductDiscountPrice.setVisibility(View.GONE);
         }
 
@@ -102,6 +149,27 @@ public class ProductDetailActivity extends AppCompatActivity {
         } else {
             textViewDiscountNote.setVisibility(View.GONE);
         }
+    }
 
+    private void loadReviews(String productId) {
+        DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("reviews").child(productId);
+        reviewsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reviewList.clear();
+                for (DataSnapshot reviewSnapshot : snapshot.getChildren()) {
+                    Review review = reviewSnapshot.getValue(Review.class);
+                    if (review != null) {
+                        reviewList.add(review);
+                    }
+                }
+                reviewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this, getString(R.string.failed_to_fetch_data), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

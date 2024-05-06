@@ -1,7 +1,5 @@
 package com.group01.plantique.java;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -65,11 +63,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     private ArrayList<BlogItem> blogItems;
     private ArrayList<Product> products;
     LinearLayout llProduct;
-    ConstraintLayout  btnBuynow1, btnBuynow2, clCate;
+    ConstraintLayout  btnBuynow1, btnBuynow2;
     ViewFlipper ViewFlipper;
-
-    Context context = this;
-
 
 
     DatabaseReference databaseReference;
@@ -117,7 +112,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow2= findViewById(R.id.btnBuynow2);
         btnBuynow1 = findViewById(R.id.btnBuynow1);
         ViewFlipper =findViewById(R.id.ViewFlipper);
-        clCate = findViewById(R.id.clCate);
 
         btnBuynow1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,37 +136,8 @@ public class HomeScreenActivity extends AppCompatActivity {
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("categories"), Category.class)
                 .build();
 
-        CategoryAdapter.OnCategoryClickListener categoryClickListener = null;
-        categoryAdapter = new CategoryAdapter(options, HomeScreenActivity.this, categoryClickListener);
+        categoryAdapter = new CategoryAdapter(options);
         rvCategory.setAdapter(categoryAdapter);
-
-        FirebaseRecyclerAdapter<Category, HomeScreenActivity.CategoryViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Category, HomeScreenActivity.CategoryViewHolder>(options) {
-                    @NonNull
-                    @Override
-                    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category, parent, false);
-                        return new HomeScreenActivity.CategoryViewHolder(view);
-                    }
-
-                    @Override
-                    protected void onBindViewHolder(@NonNull HomeScreenActivity.CategoryViewHolder holder, int position, @NonNull Category model) {
-                        holder.setCategoryName(model.getCateName());
-                        holder.setCategoryImage(getApplicationContext(), model.getImageurl());
-
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
-                                intent.putExtra("categoryId", model.getCateId());
-                                intent.putExtra("categoryName", model.getCateName());
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                };
-        rvCategory.setAdapter(adapter);
-        adapter.startListening();
 
         lvHiglightedBlog = findViewById(R.id.lvHighlightedBlog);
         blogItems = new ArrayList<>();
@@ -181,6 +146,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
         rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,7 +232,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getPrice() +"đ"));
+            txtUnitPrice.setText(String.valueOf(products.getPrice()));
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());
             ImageView imgProduct =view.findViewById(R.id.imgProduct);
@@ -336,22 +302,4 @@ public class HomeScreenActivity extends AppCompatActivity {
         categoryAdapter.stopListening();
     }
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        View view;
-        public CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            view = itemView;
-        }
-
-        public void setCategoryName(String cateName) {
-            TextView textView = view.findViewById(R.id.txtCateName);
-            textView.setText(cateName);
-        }
-
-        public void setCategoryImage(Context applicationContext, String imageurl) {
-            ImageView imageView = view.findViewById(R.id.imgCat);
-            Picasso.get().load(imageurl).into(imageView);
-        }
-    }
 }
-

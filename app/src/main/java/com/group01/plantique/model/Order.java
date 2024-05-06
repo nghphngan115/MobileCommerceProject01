@@ -19,8 +19,8 @@ public class Order implements Serializable {
     private String phone;
     private String orderBy;
     private String discount;
-    private HashMap<String, Product> items = new HashMap<>();
 
+    private HashMap<String, Product> Items = new HashMap<>();
     // No-argument constructor required for Firebase
     public Order() {}
 
@@ -78,6 +78,6 @@ public class Order implements Serializable {
     public String getOrderBy() { return orderBy; }
     public void setOrderBy(String orderBy) { this.orderBy = orderBy; }
 
-    public HashMap<String, Product> getItems() { return items; }
-    public void setItems(HashMap<String, Product> items) { this.items = items; }
+    public HashMap<String, Product> getItems() { return Items; }
+    public void setItems(HashMap<String, Product> items) { Items = items; }
 }
