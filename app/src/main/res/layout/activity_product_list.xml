@@ -57,21 +57,13 @@
 
         <EditText
             android:id="@+id/searchEt"
-            android:layout_width="0dp"
+            android:layout_width="291dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@drawable/button_white_greenborder"
             android:drawablePadding="10dp"
             android:hint="Search"
             android:padding="10dp" />
-        <ImageButton
-            android:id="@+id/filterBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_filter" />
 
     </LinearLayout>
 

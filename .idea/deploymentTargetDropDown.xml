@@ -5,6 +5,15 @@
       <entry key="AboutUsActivity">
         <State />
       </entry>
+      <entry key="AddProductActivity">
+        <State />
+      </entry>
+      <entry key="AdminProductActivity">
+        <State />
+      </entry>
+      <entry key="AllProductsActivity">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>

@@ -122,7 +122,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this, AllProductsActivity.class);
                 startActivity(intent);
             }
         });
@@ -130,7 +130,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this, AllProductsActivity.class);
                 startActivity(intent);
             }
         });
@@ -185,7 +185,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this,ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this,AllProductsActivity.class);
                 startActivity(intent);
             }
         });

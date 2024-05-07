@@ -156,7 +156,7 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
     }
-    private  String productName, description, categoryId, cateName, stock, unit, price, discount_price, discountNote;
+    private  String productName, description, categoryId, cateName, stock, unit, price, discountNote, discount_price;
     private boolean discountAvailable = false;
     private void inputData() {
         productName = titleEt.getText().toString().trim();
@@ -179,17 +179,32 @@ public class AddProductActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.price_required, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (discountAvailable){
-            discount_price = discountedPriceEt.getText().toString().trim();
+        if (discountAvailable) {
             discountNote = discountedNoteEt.getText().toString().trim();
-            if (TextUtils.isEmpty(discount_price)) {
-                Toast.makeText(this, R.string.discount_price_required, Toast.LENGTH_SHORT).show();
-                return;
+            String discount = discountedNoteEt.getText().toString().trim();
+            if (!discountNote.isEmpty()) {
+                // Xác định discountRate từ discountNote
+                double discountRate = Double.parseDouble(discount.replace("%", "").trim()) / 100.0;
+
+
+                // Chuyển đổi chuỗi price sang kiểu double
+                double productPrice = Double.parseDouble(price);
+
+                // Tính discount_price dựa trên discountRate
+                double discountedPrice = productPrice * (1 - discountRate);
+
+                // Cập nhật discount_price
+                discount_price = String.valueOf(discountedPrice);
+                Log.d("DiscountNoteValue", "Discount Note: " + discountNote);
+            } else {
+                // Nếu discountNote rỗng, giảm giá và discount_price = 0
+                discount_price = "0";
             }
-        }
-        else {
+        } else {
+            // Nếu không có giảm giá, discount_price = 0
             discount_price = "0";
-            discountNote ="";
+            discountNote = "";
+
         }
         addProduct();
     }
@@ -351,34 +366,38 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Tải lên thành công, lấy URL tải xuống
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful()) ;
-                        Uri downloadImageUri = uriTask.getResult();
-                        if (uriTask.isSuccessful()) {
-                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("products")
-                                    .child(productId);
+                        uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Lấy URL thành công
+                                String downloadImageUri = uri.toString();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("products")
+                                        .child(productId);
 
-                            // Cập nhật URL hình ảnh vào database
-                            reference.child("imageurl").setValue(downloadImageUri.toString())
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(AddProductActivity.this, getString(R.string.product_added), Toast.LENGTH_SHORT).show();
-                                            clearData();
-                                            productIdCounter++;
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.dismiss();
-                                            String errorMessage = getString(R.string.error_message) + e.getMessage();
-                                            Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                // Cập nhật URL hình ảnh vào database
+                                reference.child("imageurl").setValue(downloadImageUri)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(AddProductActivity.this, getString(R.string.product_added), Toast.LENGTH_SHORT).show();
+                                                clearData();
+                                                productIdCounter++;
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                String errorMessage = getString(R.string.error_message) + e.getMessage();
+                                                Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
 
-                                        }
-                                    });
-                        }
+                                            }
+                                        });
+                            }
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -389,6 +408,7 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void clearData(){
         titleEt.setText("");
@@ -401,6 +421,7 @@ public class AddProductActivity extends AppCompatActivity {
         discountedNoteEt.setText("");
         productIconIv.setImageResource(R.drawable.ic_shopping_cart);
         image_uri=null;
+        discountNote = "";
     }
     private void categoryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
