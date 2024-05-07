@@ -152,6 +152,7 @@
     <string name="username_exists">Username already exists</string>
     <string name="email_exists">Email already exists</string>
     <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Register failed, please try again</string>
     <string name="database_error">Database error</string>
     <string name="hint_phone_number">Enter phone number</string>
     <string name="error_passwords_not_match">Passwords do not match</string>
@@ -205,6 +206,8 @@
     <string name="toast_password_change_failed">Failed to change password</string>
     <string name="toast_user_not_found">User not found</string>
     <string name="toast_database_error">Database Error</string>
+
+
     <string-array name="filter_options">
         <item>Price: Ascending</item>
         <item>Price: Descending</item>

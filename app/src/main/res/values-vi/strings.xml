@@ -131,6 +131,7 @@
     <string name="username_exists">Tên người dùng đã tồn tại</string>
     <string name="email_exists">Email đã tồn tại</string>
     <string name="registration_successful">Đăng ký thành công</string>
+    <string name="registration_failed">Đăng ký không thành công, vui lòng thử lại</string>
     <string name="database_error">Lỗi Cơ sở dữ liệu</string>
     <string name="strTransferNote">Vui lòng thanh toán trong vòng 12 giờ. Sau khi thanh toán, đơn hàng sẽ được xử lý và gửi đi trong vòng 24 giờ. Nếu đơn hàng của bạn không được gửi đi sau 24 giờ, vui lòng liên hệ bộ phận hỗ trợ khách hàng để được trợ giúp.</string>
     <string name="hint_phone_number">Nhập số điện thoại</string>

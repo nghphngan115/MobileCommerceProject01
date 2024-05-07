@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -76,6 +80,7 @@
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/txtEmailError"
         android:layout_width="match_parent"
@@ -83,6 +88,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inter_medium"
+        android:textColor="#F44336"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -120,6 +126,7 @@
             android:hint="Enter username"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/txtUsernameError"
         android:layout_width="match_parent"
@@ -127,6 +134,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inter_medium"
+        android:textColor="#F44336"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -159,10 +167,10 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter phone number"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/txtPhoneError"
         android:layout_width="match_parent"
@@ -170,6 +178,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inter_medium"
+        android:textColor="#F44336"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -194,7 +203,8 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/main_green"
-        app:boxStrokeWidth="2dp">
+        app:boxStrokeWidth="2dp"
+        app:endIconMode="password_toggle">
 
         <EditText
             android:id="@+id/edtPassword"
@@ -204,9 +214,11 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
             android:hint="Enter password"
+            android:inputType="text|textPassword"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/txtPasswordError"
         android:layout_width="match_parent"
@@ -214,6 +226,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inter_medium"
+        android:textColor="#F44336"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -238,7 +251,8 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/main_green"
-        app:boxStrokeWidth="2dp">
+        app:boxStrokeWidth="2dp"
+        app:endIconMode="password_toggle">
 
         <EditText
             android:id="@+id/edtConfirmPassword"
@@ -248,9 +262,11 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
             android:hint="Confirm password"
+            android:inputType="text|textPassword"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/txtConfirmPasswordError"
         android:layout_width="match_parent"
@@ -258,6 +274,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inter_medium"
+        android:textColor="#F44336"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -291,6 +308,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"
         android:orientation="horizontal">
 
         <TextView
@@ -301,7 +319,7 @@
             android:text="Already have account?" />
 
         <TextView
-            android:id="@+id/txtProductPrice"
+            android:id="@+id/txtSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -312,3 +330,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>
