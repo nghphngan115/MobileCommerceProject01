@@ -58,7 +58,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
     private TextView txtDiscount, txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
-    private ConstraintLayout btnConfirm, btnApply;
+    private ConstraintLayout btnConfirm;
     private ListView lvProduct;
     private CartListAdapter cartListAdapter;
     public EditText edtVoucher;
@@ -107,7 +107,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
         edtVoucher = findViewById(R.id.edtVoucher);
         validateBtn = findViewById(R.id.validateBtn);
-        btnApply = findViewById(R.id.btnApply);
+
         txtDiscount = findViewById(R.id.txtDiscount);
     }
     private boolean isPromoCodeApplied =false;
@@ -146,7 +146,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                                     // Nếu không tìm thấy mã hợp lệ hoặc không thỏa mãn điều kiện
                                     isPromoCodeApplied = false;
                                     // Ẩn nút Apply và mô tả khuyến mãi
-                                    btnApply.setVisibility(View.GONE);
+
                                     txtPromoDescription.setVisibility(View.GONE);
                                     txtPromoDescription.setText("");
                                     priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
@@ -156,7 +156,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                             Toast.makeText(OrderConfirmActivity.this, "Promo code has not existed or has expired", Toast.LENGTH_SHORT).show();
                             isPromoCodeApplied = false;
                             // Ẩn nút Apply và mô tả khuyến mãi
-                            btnApply.setVisibility(View.GONE);
+
                             txtPromoDescription.setVisibility(View.GONE);
                             txtPromoDescription.setText("");
                             priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
@@ -174,7 +174,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void applyPromoCode() {
         if (!isPromoCodeApplied) {
             isPromoCodeApplied = true;
-            btnApply.setVisibility(View.GONE);
+
             txtPromoDescription.setVisibility(View.VISIBLE);
             txtPromoDescription.setText(promoDescription);
             priceWithDiscount();
@@ -447,23 +447,11 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private AlertDialog confirmationDialog; // Biến để lưu trữ tham chiếu đến dialog
 
     private void showOrderConfirmationDialog(String orderId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation, null);
-        builder.setView(dialogView);
-
-        TextView txtOrderIdConfirm = dialogView.findViewById(R.id.txtOrderIdConfirm);
-
-        txtOrderIdConfirm.setText(getString(R.string.strOrdID) + orderId);
-
-
-        ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> finishHomeScreen());
-
-        confirmationDialog = builder.create();
-        confirmationDialog.setCancelable(false); // This will make it so the dialog cannot be cancelled
-        confirmationDialog.setCanceledOnTouchOutside(false); // Lưu tham chiếu đến dialog vào biến confirmationDialog
-        confirmationDialog.show();
+        Intent intent = new Intent(this, OrderSuccessActivity.class);
+        intent.putExtra("ORDER_ID", orderId);
+        startActivity(intent);
     }
+
 
     private void finishHomeScreen() {
         if (confirmationDialog != null && confirmationDialog.isShowing()) {

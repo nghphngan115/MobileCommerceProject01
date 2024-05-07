@@ -83,7 +83,7 @@ public class SettingAddressActivity extends AppCompatActivity {
         imgbtnAddAddress = findViewById(R.id.imgbtnAddAddress);
         edtWard = findViewById(R.id.edtWard);
         switchSaveDefault = findViewById(R.id.switchSaveDefault);
-        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack = findViewById(R.id.imgBack);
 
         // Khởi tạo danh sách địa chỉ và adapter
         shippingAddressList = new ArrayList<>();

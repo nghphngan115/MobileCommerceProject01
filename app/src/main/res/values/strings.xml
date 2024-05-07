@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
     <string name="strOrdConf">"Placed order successfully "</string>
-    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
+    <string name="strOrdThank">"Your order are processing. Thank you for your order "</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -16,7 +16,7 @@
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
     <string name="strCancel">Cancel Order</string>
-    <string name="strOrdID">Order ID</string>
+    <string name="strOrdID">Order ID </string>
     <string name="strUserId">User ID</string>
     <string name="strOrder">Order</string>
     <string name="strNote">Note</string>
