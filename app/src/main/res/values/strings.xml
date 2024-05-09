@@ -334,7 +334,6 @@
     <string name="sign_in" >Sign in</string>
     <string name="str_no_acc">Don\'t have any account?</string>
     <string name="sign_up">Sign up</string>
-    <string name="noti">Notification</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="product_desc">Description</string>
     <string name="feedback">Feedbacks</string>
@@ -350,6 +349,7 @@
     <string name="str_alr_acc">Already have account?</string>
     <string name="welcome">Welcome to Platique App</string>
     <string name="allow_mess">If you allow, we will send the latest notification to the screen bar</string>
+    <string name="strNotification">Notification</string>
 
 
 </resources>

@@ -20,7 +20,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
         String orderId = getIntent().getStringExtra("ORDER_ID");
 
         TextView txtOrderIdConfirm = findViewById(R.id.txtOrderIdConfirm);
-        txtOrderIdConfirm.setText(getString(R.string.strOrdID) + orderId);
+        txtOrderIdConfirm.setText(getString(R.string.strOrdID)+ " " + orderId);
         Button btnBack=findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

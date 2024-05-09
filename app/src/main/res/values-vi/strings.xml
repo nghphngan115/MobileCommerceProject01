@@ -64,6 +64,7 @@
     <string name="strOrdID">Mã đơn hàng </string>
     <string name="strUserId">Mã khách hàng</string>
     <string name="strOrder">Đơn hàng</string>
+    <string name="write_review">Viết đánh giá</string>
     <string name="strNote">Ghi chú</string>
     <string name="strDeliveryInfo">Thông tin vận chuyển</string>
     <string name="strFullName">Họ và tên</string>
@@ -71,6 +72,8 @@
     <string name="strWard">Phường/Xã</string>
     <string name="strDistrict">Quận/Huyện</string>
     <string name="strAddress">Địa chỉ (Số nhà, đường,..)</string>
+    <string name="how_do_you_feel">Bạn cảm thấy thế nào về sản phẩm này?</string>
+    <string name="submit">Submit</string>
     <string name="strCOD">Thanh toán bằng tiền mặt</string>
     <string name="strTransfer">"Chuyển khoản "</string>
     <string name="strConfirm">Xác nhận</string>
@@ -219,6 +222,29 @@
     <string name="cart_empty_message">Giỏ hàng của bạn đang trống</string>
     <string name="quantity_blank_error_message">Số lượng không được để trống!</string>
     <string name="added_to_cart_message">Đã thêm sản phẩm vào giỏ hàng</string>
+    <string name="processing_status">Đang xử lý</string>
+    <string name="delivering_status">Đang giao hàng</string>
+    <string name="finished_status">Hoàn thành</string>
+    <string name="cancelled_status">Đã hủy</string>
+    <string name="default_status">Không xác định</string>
+    <string name="send_info_to_us">GỬI THÔNG TIN CHO CHÚNG TÔI !</string>
+    <string name="contact_us_for_queries">Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="content">Nội dung</string>
+    <string name="send_info">Gửi thông tin</string>
+    <string name="product_image_url_empty">URL hình ảnh sản phẩm trống</string>
+    <string name="product_is_null">Sản phẩm không tồn tại</string>
+    <string name="product_not_exist">Sản phẩm không tồn tại</string>
+    <string name="failed_to_fetch_product_data">Không thể lấy dữ liệu sản phẩm</string>
+    <string name="review_submitted_successfully">Nhận xét được gửi thành công</string>
+    <string name="failed_to_submit_review">Không thể gửi nhận xét</string>
+    <string name="invalid_product_id">ID sản phẩm không hợp lệ</string>
+    <string name="login_required_title">Yêu cầu đăng nhập</string>
+    <string name="login_required_message">Bạn cần đăng nhập để viết nhận xét. Bạn có muốn đăng nhập ngay bây giờ không?</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="order_items_null">Đơn hàng hoặc các mục là null hoặc trống!</string>
+    <string name="strNotification">Thông báo</string>
 
 
     <string name="policy_details">

@@ -35,7 +35,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
 
-                android:text="User ID:"
+                android:text="@string/strUserId"
                 android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
 
-                android:text="Order ID:"
+                android:text="@string/strOrdID"
                 android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
