@@ -358,7 +358,8 @@
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strCOD"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/textColor"
+                app:buttonTint="@color/main_green"/>
 
             <RadioButton
                 android:id="@+id/radTransfer"
@@ -368,7 +369,8 @@
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strTransfer"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/textColor"
+                app:buttonTint="@color/main_green"/>
 
 
         </RadioGroup>
