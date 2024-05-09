@@ -160,8 +160,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private void filterProducts(String keyword) {
         List<Product> filteredList;
 
-        if (selectedCategory.equals(getString(R.string.all_category))) {
-            // Lọc theo từ khóa khi danh mục được chọn là "All"
+        if (selectedCategory.equals("All")) {
             filteredList = filterByKeyword(productList, keyword);
         } else {
             // Lọc theo danh mục và từ khóa

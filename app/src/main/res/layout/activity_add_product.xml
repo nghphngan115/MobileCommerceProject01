@@ -163,13 +163,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/discountSwitch"
-            android:layout_margin="5dp"
-            android:hint="Discounted Price"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_cart_grey"
             android:drawablePadding="10dp"
+            android:hint="Discounted Price"
             android:inputType="numberDecimal"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:visibility="gone" />
         <EditText
             android:layout_below="@id/discountedPriceEt"
             android:id="@+id/discountedNoteEt"

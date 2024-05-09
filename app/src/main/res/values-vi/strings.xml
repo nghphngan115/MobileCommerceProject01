@@ -46,7 +46,7 @@
     <string name="strDesc1">Plantique ra đời với khát khao mang những thực phẩm sạch, 100% từ tự nhiên, không phẩm màu, không chất bảo quản, không chất phụ gia với chất lượng dinh dưỡng tốt nhất được sản xuất trực tiếp tại các làng nghề truyền thống trên đất nước đến khách hàng. Chúng tôi mong muốn được trở thành cánh tay đắc lực hỗ trợ khách hàng trong việc chăm sóc sức khỏe, giữ dáng, làm đẹp và kiểm soát cân nặng. Chúng tôi lắng nghe và thấu hiểu những mong muốn về sức khỏe, từ đó mang đến lựa chọn tốt nhất cho khách hàng trong cuộc sống ăn lành mạnh, ăn sạch của khách hàng hằng ngày.</string>
     <string name="app_name">Plantique</string>
     <string name="strOrdConf">Đã đặt hàng thành công</string>
-    <string name="strOrdThank">Đơn hàng của bạn đang được xử lý. Cảm ơn bạn đã đặt hàng.</string>
+    <string name="strOrdThank">"Đơn hàng của bạn đang được xử lý. Cảm ơn bạn đã đặt hàng. "</string>
     <string name="menu_drawer_open">Mở Drawer</string>
     <string name="menu_drawer_close">Đóng Drawer</string>
     <string name="strTotal">Thành tiền</string>
@@ -59,9 +59,9 @@
     <string name="strSubTotal">Tạm tính</string>
     <string name="strShipFee">Phí vận chuyển</string>
     <string name="strPaymentMethod">Phương thức thanh toán</string>
-    <string name="strDiscount">Mã giảm giá</string>
-    <string name="strCancel">Hủy đơn hàng</string>
-    <string name="strOrdID">Mã đơn hàng</string>
+    <string name="strDiscount">Mã giảm giá </string>
+    <string name="strCancel">Hủy đơn hàng </string>
+    <string name="strOrdID">Mã đơn hàng </string>
     <string name="strUserId">Mã khách hàng</string>
     <string name="strOrder">Đơn hàng</string>
     <string name="strNote">Ghi chú</string>
@@ -131,6 +131,7 @@
     <string name="username_exists">Tên người dùng đã tồn tại</string>
     <string name="email_exists">Email đã tồn tại</string>
     <string name="registration_successful">Đăng ký thành công</string>
+    <string name="registration_failed">Đăng ký không thành công, vui lòng thử lại</string>
     <string name="database_error">Lỗi Cơ sở dữ liệu</string>
     <string name="strTransferNote">Vui lòng thanh toán trong vòng 12 giờ. Sau khi thanh toán, đơn hàng sẽ được xử lý và gửi đi trong vòng 24 giờ. Nếu đơn hàng của bạn không được gửi đi sau 24 giờ, vui lòng liên hệ bộ phận hỗ trợ khách hàng để được trợ giúp.</string>
     <string name="hint_phone_number">Nhập số điện thoại</string>

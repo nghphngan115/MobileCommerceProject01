@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
     <string name="strOrdConf">"Placed order successfully "</string>
-    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
+    <string name="strOrdThank">"Your order are processing. Thank you for your order "</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -16,7 +16,7 @@
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
     <string name="strCancel">Cancel Order</string>
-    <string name="strOrdID">Order ID</string>
+    <string name="strOrdID">Order ID </string>
     <string name="strUserId">User ID</string>
     <string name="strOrder">Order</string>
     <string name="strNote">Note</string>
@@ -152,6 +152,7 @@
     <string name="username_exists">Username already exists</string>
     <string name="email_exists">Email already exists</string>
     <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Register failed, please try again</string>
     <string name="database_error">Database error</string>
     <string name="hint_phone_number">Enter phone number</string>
     <string name="error_passwords_not_match">Passwords do not match</string>
@@ -205,6 +206,8 @@
     <string name="toast_password_change_failed">Failed to change password</string>
     <string name="toast_user_not_found">User not found</string>
     <string name="toast_database_error">Database Error</string>
+
+
     <string-array name="filter_options">
         <item>Price: Ascending</item>
         <item>Price: Descending</item>

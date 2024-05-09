@@ -5,15 +5,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -30,6 +33,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilUsername, tilPassword;
+    private TextView txtForgotPassword, txtSignUp;
     private EditText edtUsername, edtPassword;
     private ImageButton backButton;
     private DatabaseReference usersRef;
@@ -67,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         tilPassword = findViewById(R.id.tilPassword);
         edtPassword = findViewById(R.id.edtPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
+        txtForgotPassword = findViewById(R.id.txtForgotPassword);
+        txtSignUp = findViewById(R.id.txtSignUp);
 
         // Initialize Firebase
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -82,6 +88,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signInUser();
+            }
+        });
+        int color = ContextCompat.getColor(LoginActivity.this, R.color.dark_green);
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtSignUp.setTextColor(color);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtForgotPassword.setTextColor(color);
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

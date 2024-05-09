@@ -6,9 +6,6 @@
     </style>
 
     <style name="Theme.MobileCommerceProject01" parent="Base.Theme.MobileCommerceProject01">
-
-
-        <!-- Status bar color -->
         <item name="android:statusBarColor">@color/black</item>
     </style>
 

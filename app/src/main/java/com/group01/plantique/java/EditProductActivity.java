@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,8 +68,12 @@ public class EditProductActivity extends AppCompatActivity {
         String unit = unitEt.getText().toString().trim();
         int stock = Integer.parseInt(stockEt.getText().toString().trim());
         double price = Double.parseDouble(priceEt.getText().toString().trim());
-        int discountedPrice = Integer.parseInt(discountedPriceEt.getText().toString().trim());
+
         String discountNote = discountedNoteEt.getText().toString().trim();
+        String discount = discountNote.trim();
+        double discountRate = Double.parseDouble(discount.replace("%", "").trim()) / 100.0;
+        double discountedPrice = price * (1 - discountRate);
+
 
         // Tạo HashMap để chứa thông tin cập nhật
         HashMap<String, Object> updateMap = new HashMap<>();

@@ -40,7 +40,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private EditText nameEditText, addressEditText, phoneEditText, emailEditText;
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;
     private ImageView avatarImageView, cameraIconImageView;
-    private ImageButton backButton;
+
     private ConstraintLayout btnChangePassword, btnLogOut;
 
     private DatabaseReference mDatabase;
@@ -93,7 +93,6 @@ public class UserInformationActivity extends DrawerBaseActivity {
         saveTextView = findViewById(R.id.textView3);
         avatarImageView = findViewById(R.id.avatarImageView);
         cameraIconImageView = findViewById(R.id.cameraIconImageView);
-        backButton = findViewById(R.id.imgButton3);
         btnChangePassword = findViewById(R.id.btnChangePassword);
         btnLogOut = findViewById(R.id.btnLogOut);
 
@@ -143,12 +142,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

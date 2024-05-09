@@ -6,8 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:backgroundTint="@color/white"
     android:orientation="vertical"
     tools:context=".java.HomeScreenActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,8 +30,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:fontFamily="@font/inter">
+                android:fontFamily="@font/inter"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView"
@@ -85,27 +87,26 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
                 android:fillViewport="true"
                 android:measureAllChildren="false"
-                >
+                android:scrollbars="none">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_margin="8dp"
                     android:gravity="center"
-                    >
+                    android:orientation="horizontal">
 
                     <ViewFlipper
                         android:id="@+id/ViewFlipper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:flipInterval="2000"
                         android:autoStart="true"
+                        android:flipInterval="2000"
+                        android:gravity="center"
                         android:inAnimation="@anim/slide_in"
                         android:outAnimation="@anim/slide_out">
 
@@ -358,10 +359,12 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="none">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -401,9 +404,11 @@
                     android:textColor="#00B207"
                     android:textStyle="bold" />
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:id="@+id/llBlog"
                     android:layout_width="match_parent"
@@ -413,32 +418,32 @@
                     <ListView
                         android:id="@+id/lvHighlightedBlog"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </HorizontalScrollView>
+
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp" />
 
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomNavigationView"
         android:layout_alignParentBottom="true"
-        android:elevation="2dp"
-        app:labelVisibilityMode="unlabeled"
-        android:background="@color/white"
-        app:menu="@menu/bottom_menu"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="0dp"
+        android:background="@color/white"
+        android:elevation="2dp"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
-        />
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_menu" />
 </RelativeLayout>
 
 
