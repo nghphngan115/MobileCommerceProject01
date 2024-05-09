@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/strBlog"
             android:textColor="@color/main_green"
             android:textSize="20dp"
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="60dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strHello"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -42,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strWhat"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -56,6 +59,7 @@
                 android:background="@drawable/rounded_corner"
                 android:drawableStart="@mipmap/ic_search"
                 android:drawablePadding="10dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strSearch"
                 android:padding="10dp"
                 android:textColor="#9E000000"

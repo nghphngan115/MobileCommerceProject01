@@ -16,7 +16,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="8dp"
-        android:text="GỬI THÔNG TIN CHO CHÚNG TÔI !"
+        android:text="@string/strContact"
         android:textAlignment="center"
         android:textColor="@color/main_green"
         android:textSize="22sp"
@@ -29,7 +29,7 @@
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="16dp"
-        android:text="Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!"
+        android:text="@string/pls_contact"
         android:textAlignment="viewStart"
         android:textColor="@color/textColor"
         android:textSize="16sp" />

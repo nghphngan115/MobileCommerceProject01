@@ -61,8 +61,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strDesc1"
-                android:textColor="#808080" />
+                android:textColor="@color/textColor" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -81,8 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strDessc2"
-                android:textColor="#808080" />
+                android:textColor="@color/textColor" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -97,7 +99,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Delivery"
+                android:text="@string/strTitle3"
                 android:textColor="@color/main_green"
                 android:textSize="20sp" />
 

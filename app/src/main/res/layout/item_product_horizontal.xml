@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/ad_layout_rounded"
+                android:fontFamily="@font/inter"
                 android:padding="5dp"
                 android:text="TextView" />
 
@@ -42,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_medium"
                 android:text="TextView"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -50,6 +52,7 @@
                 android:id="@+id/txtUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:gravity="center"
                 android:text="TextView" />
 
@@ -64,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/inter"
                     android:text="TextView"
                     android:textSize="14sp" />
 
@@ -74,6 +78,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="4dp"
+                    android:fontFamily="@font/inter"
                     android:text="TextView"
                     android:textColor="@color/main_green"
                     android:textSize="14sp" />

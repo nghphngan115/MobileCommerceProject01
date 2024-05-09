@@ -32,6 +32,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
+            android:fontFamily="@font/inter"
             android:text="Blog's Title"
             android:textAlignment="center"
             android:textAllCaps="false"

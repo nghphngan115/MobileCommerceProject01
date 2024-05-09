@@ -17,22 +17,27 @@
             android:id="@+id/backBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="26dp"
             android:background="@color/white"
-            android:src="@mipmap/ic_backarrow" />
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/inter_bold"
             android:text="Edit Product"
             android:textAlignment="center"
+            android:textColor="@color/main_green"
             android:textSize="20sp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="26dp">
 
         <ImageView
             android:id="@+id/productIconIv"
@@ -61,6 +66,7 @@
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_title_gray"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Title"
             android:inputType="textPersonName|textCapWords"
             android:padding="10dp" />
@@ -77,6 +83,7 @@
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_title_gray"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Description"
             android:inputType="textCapSentences|textMultiLine"
             android:padding="10dp" />
@@ -91,9 +98,11 @@
             android:drawableStart="@drawable/ic_category"
             android:drawableEnd="@drawable/ic_arrow_drop_down"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Category"
             android:inputType="textCapSentences|textMultiLine"
             android:padding="10dp" />
+
         <EditText
             android:id="@+id/promoPriceEt"
             android:layout_width="match_parent"
@@ -106,6 +115,7 @@
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_title_gray"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Unit"
             android:inputType="textCapWords"
             android:padding="10dp" />
@@ -122,6 +132,7 @@
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_stock"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Stock"
             android:inputType="number"
             android:padding="10dp" />
@@ -132,10 +143,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/stockEt"
             android:layout_margin="5dp"
-            android:hint="Price"
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_cart_grey"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
+            android:hint="Price"
             android:inputType="numberDecimal"
             android:padding="10dp" />
 
@@ -148,6 +160,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
+            android:fontFamily="@font/inter_medium"
             android:text="Discount" />
 
         <EditText
@@ -156,17 +169,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/discountSwitch"
             android:layout_margin="5dp"
-            android:hint="Discounted Price"
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_cart_grey"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
+            android:hint="Discounted Price"
             android:inputType="numberDecimal"
             android:padding="10dp" />
+
         <EditText
-            android:layout_below="@id/discountedPriceEt"
             android:id="@+id/discountedNoteEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/discountedPriceEt"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -174,16 +189,21 @@
             android:background="@drawable/button_white_greenborder"
             android:drawableStart="@drawable/ic_cart_grey"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter"
             android:hint="Discount Note e.g. 10% Off"
             android:inputType="textCapWords"
             android:padding="10dp" />
+
         <Button
             android:id="@+id/edtProductBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Product"
             android:layout_below="@id/discountedNoteEt"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/main_green"
+            android:fontFamily="@font/inter_medium"
+            android:text="Update Product"
+            />
 
     </RelativeLayout>
 

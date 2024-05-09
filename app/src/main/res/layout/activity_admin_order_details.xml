@@ -10,20 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="26dp"
+        >
 
         <!-- Order Details Heading -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:tint="@color/main_green"
+                app:srcCompat="@drawable/ic_back" />
+
         <TextView
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
             android:gravity="center"
+            android:layout_marginRight="10dp"
             android:text="@string/strOrderDetailsInfo"
             android:textColor="@color/main_green"
             android:textSize="20sp"
             android:textStyle="bold" />
-
+        </LinearLayout>
         <!-- User ID -->
 
         <!-- Order ID -->

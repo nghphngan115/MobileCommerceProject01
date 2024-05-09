@@ -39,6 +39,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
         android:text="Sign Up"
         android:textAlignment="center"
         android:textColor="@color/main_green"
@@ -52,7 +53,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Email:"
+        android:text="@string/strEmail"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -75,7 +76,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter email"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
@@ -100,7 +102,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Username:"
+        android:text="@string/strUserName"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -123,7 +125,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter username"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_username"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +147,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Phone number:"
+        android:text="@string/strPhoneNumber"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -167,6 +170,7 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
+            android:fontFamily="@font/inter"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -189,7 +193,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Password:"
+        android:text="@string/strPwd"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -213,7 +217,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter password"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_enter_password"
             android:inputType="text|textPassword"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
@@ -237,7 +242,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Confirm Password:"
+        android:text="@string/confirm_password"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -261,7 +266,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Confirm password"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_confirm_password"
             android:inputType="text|textPassword"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
@@ -292,7 +298,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
-            android:text="Sign up"
+            android:text="@string/sign_up"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -316,7 +322,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter"
-            android:text="Already have account?" />
+            android:text="@string/str_alr_acc" />
 
         <TextView
             android:id="@+id/txtSignIn"
@@ -324,7 +330,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/inter_bold"
-            android:text=" Sign In"
+            android:text="@string/sign_in"
             android:textColor="@color/main_green"
             android:textStyle="bold" />
     </LinearLayout>

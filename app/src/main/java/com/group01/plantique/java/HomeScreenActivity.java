@@ -5,6 +5,7 @@ import static java.security.AccessController.getContext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import androidx.appcompat.widget.SearchView;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -182,6 +185,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
         rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,7 +270,12 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getPrice() +"đ"));
+            txtUnitPrice.setText(String.valueOf(products.getDiscount_price() +"đ"));
+
+            TextView txtPriceNoSale = view.findViewById(R.id.txtPriceNoSale);
+            txtPriceNoSale.setText(String.valueOf(products.getPrice() +"đ"));
+            txtPriceNoSale.setPaintFlags(txtPriceNoSale.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());
             ImageView imgProduct =view.findViewById(R.id.imgProduct);
@@ -353,5 +362,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             Picasso.get().load(imageurl).into(imageView);
         }
     }
+
+
 }
 

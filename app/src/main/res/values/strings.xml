@@ -322,6 +322,34 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
+    <string name="strTitle3">Delivery</string>
+    <string name="strAllProduct">All Products</string>
+    <string name="hint_search">Search</string>
+    <string name="continue_shopping">Continue shopping</string>
+    <string name="strPwd">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="strContact">SEND US INFORMATION!</string>
+    <string name="pls_contact">Please contact us immediately to have your questions answered and receive many attractive offers for you!</string>
+    <string name="forgot_pwd">Forget password?</string>
+    <string name="sign_in" >Sign in</string>
+    <string name="str_no_acc">Don\'t have any account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="noti">Notification</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="product_desc">Description</string>
+    <string name="feedback">Feedbacks</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="pls_resent">Please enter your registered phone number. We will resend the confirmation code to you</string>
+    <string name="str_enter_OTP">Enter OTP</string>
+    <string name="verify_OTP">Verify OTP</string>
+    <string name="resend_OTP">Resend OTP</string>
+    <string name="strRecommend">Things you can search fro...</string>
+    <string name="str_also_like">You may also like</string>
+    <string name="set_default">Set default</string>
+    <string name="allow_push_noti">Enable push notifications</string>
+    <string name="str_alr_acc">Already have account?</string>
+    <string name="welcome">Welcome to Platique App</string>
+    <string name="allow_mess">If you allow, we will send the latest notification to the screen bar</string>
 
 
 </resources>

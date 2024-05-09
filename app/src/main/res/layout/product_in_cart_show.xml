@@ -22,6 +22,7 @@
             android:id="@+id/txtProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
             android:text="Product Name"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -37,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/inter"
                 android:text="000000 đ"
                 android:textColor="#00B207"
                 android:textSize="18sp" />

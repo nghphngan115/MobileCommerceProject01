@@ -44,9 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/avatarImageView"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="26dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="20dp"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/strDetail"
             android:textColor="@color/textColor"
             android:textSize="20sp"
@@ -59,8 +60,8 @@
         android:orientation="vertical"
         android:layout_below="@id/detailsTextView"
         android:layout_marginTop="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:paddingStart="26dp"
+        android:paddingEnd="26dp">
 
         <!-- Item 1: Tên -->
         <LinearLayout
@@ -73,6 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strFName"
                 android:textColor="@color/textColor"
                 android:textSize="16sp" />
@@ -81,6 +83,7 @@
                 android:id="@+id/editNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="@string/strEdit"
                 android:textColor="#6CC51D"
                 android:textSize="16sp" />
@@ -98,6 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strAdd"
                 android:textColor="@color/textColor"
                 android:textSize="16sp" />
@@ -106,9 +110,10 @@
                 android:id="@+id/editAddressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Edit"
                 android:textColor="#6CC51D"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <!-- Item 3: Số điện thoại -->
@@ -123,6 +128,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strPhoneNumber"
                 android:textColor="@color/textColor"
                 android:textSize="16sp" />
@@ -131,9 +137,10 @@
                 android:id="@+id/editPhoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Edit"
                 android:textColor="#6CC51D"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
         <!-- Item 3: Email -->
         <LinearLayout
@@ -147,6 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/inter"
                 android:hint="Email"
                 android:textColor="@color/textColor"
                 android:textSize="16sp" />
@@ -155,9 +163,10 @@
                 android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Edit"
                 android:textColor="#6CC51D"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout

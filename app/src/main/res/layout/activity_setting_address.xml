@@ -27,8 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:fontFamily="@font/inter_bold"
-            android:text="Địa chỉ mua hàng"
+            android:text="@string/strShippingAddress"
             android:textAlignment="center"
+            android:textColor="@color/main_green"
             android:textSize="20sp" />
 
         <ImageButton
@@ -66,7 +67,7 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
-                android:hint="Họ và tên"
+                android:hint="@string/strFName"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +89,7 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
-                android:hint="Địa chỉ (Số nhà, tên đường)"
+                android:hint="@string/strAddress"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +110,7 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
-                android:hint="Phường/Thị trấn"
+                android:hint="@string/strWard"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="26dp"
                     android:fontFamily="@font/inter"
-                    android:hint="Quận/Huyện"
+                    android:hint="@string/strDistrict"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +158,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
-                    android:hint="Tỉnh/Thành phố"
+                    android:hint="@string/strCIty"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -181,7 +182,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="26dp"
                 android:fontFamily="@font/inter"
-                android:hint="Số điện thoại"
+                android:hint="@string/strPhoneNumber"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -198,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
                 android:fontFamily="@font/inter"
-                android:text="Lưu mặc định" />
+                android:text="@string/set_default" />
 
         </LinearLayout>
 
@@ -223,7 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Xóa"
+                    android:text="@string/delete_button_label"
                     android:textAlignment="center"
                     android:textColor="@color/main_green"
                     android:textSize="20sp"
@@ -249,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Lưu"
+                    android:text="@string/strSave"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="20sp"
