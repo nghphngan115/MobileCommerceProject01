@@ -6,7 +6,6 @@
     android:padding="26dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".java.OrderHistoryActivity"
     tools:ignore="ExtraText"><![CDATA[>
 

@@ -244,7 +244,7 @@
     <string name="login_required_message">Bạn cần đăng nhập để viết nhận xét. Bạn có muốn đăng nhập ngay bây giờ không?</string>
     <string name="login_button">Đăng nhập</string>
     <string name="order_items_null">Đơn hàng hoặc các mục là null hoặc trống!</string>
-
+    <string name="strNotification">Thông báo</string>
 
 
     <string name="policy_details">
