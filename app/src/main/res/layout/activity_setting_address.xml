@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:tint="@color/dark_green" />
 
         <TextView
             android:id="@+id/textView28"
@@ -62,9 +63,8 @@
                 android:id="@+id/edtFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="39dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="39dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
                 android:hint="Họ và tên"
                 android:textSize="16sp" />
@@ -85,9 +85,8 @@
                 android:id="@+id/edtAddress1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="39dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="39dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
                 android:hint="Địa chỉ (Số nhà, tên đường)"
                 android:textSize="16sp" />
@@ -107,16 +106,15 @@
                 android:id="@+id/edtWard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="39dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="39dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/inter"
                 android:hint="Phường/Thị trấn"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -135,9 +133,7 @@
                     android:id="@+id/edtDistrict"
                     android:layout_width="164dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="39dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="39dp"
+                    android:layout_marginStart="26dp"
                     android:fontFamily="@font/inter"
                     android:hint="Quận/Huyện"
                     android:textSize="16sp" />
@@ -145,7 +141,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="162dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -156,10 +152,10 @@
 
                 <EditText
                     android:id="@+id/edtProvince"
-                    android:layout_width="159dp"
+                    android:layout_width="174dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:layout_marginRight="39dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:hint="Tỉnh/Thành phố"
                     android:textSize="16sp" />
@@ -181,9 +177,9 @@
                 android:id="@+id/edtPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="39dp"
+                android:layout_marginLeft="26dp"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="39dp"
+                android:layout_marginRight="26dp"
                 android:fontFamily="@font/inter"
                 android:hint="Số điện thoại"
                 android:textSize="16sp" />
@@ -193,6 +189,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Switch
@@ -203,14 +200,6 @@
                 android:fontFamily="@font/inter"
                 android:text="Lưu mặc định" />
 
-            <TextView
-                android:id="@+id/textView39"
-                android:layout_width="187dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:text="Chọn từ bản đồ"
-                android:textAlignment="textEnd"
-                android:textColor="@color/main_green" />
         </LinearLayout>
 
         <LinearLayout
@@ -277,6 +266,7 @@
     <ListView
         android:id="@+id/lvAddress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>

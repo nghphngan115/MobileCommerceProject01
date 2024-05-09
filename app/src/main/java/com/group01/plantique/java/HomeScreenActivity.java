@@ -56,7 +56,7 @@ import com.squareup.picasso.Picasso;
 public class HomeScreenActivity extends AppCompatActivity {
 
     SearchView svSearch;
-    Button btnViewAll, btnViewAll2, btnViewAllCate;
+    TextView btnViewAll, btnViewAll2, btnViewAllCate;
     RecyclerView rvCategory, rvHighlightedProduct;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;

@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ScrollView
         android:layout_width="match_parent"
@@ -11,23 +12,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="150dp"
+            android:layout_height="159dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:text="@string/strUInfo"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/avatarImageView"
-        android:layout_width="150dp"
-        android:layout_height="159dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/circle_background"
-        android:src="@mipmap/ic_avatar" />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_background"
+            android:src="@mipmap/ic_avatar" />
 
     <!-- Icon Camera -->
 
@@ -43,40 +35,21 @@
         android:elevation="4dp"
         android:src="@mipmap/ic_camera" />
 
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/avatarImageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:hint="@string/strUserName"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:hint="@string/strEmail"
-            android:textSize="16sp" />
-
-    <!-- Details -->
+        <!-- Details -->
 
     <!-- List thông tin -->
         <TextView
             android:id="@+id/detailsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/emailTextView"
+            android:layout_below="@id/avatarImageView"
             android:layout_alignParentStart="true"
             android:layout_marginStart="22dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="20dp"
             android:text="@string/strDetail"
-            android:textSize="30dp"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     <LinearLayout
@@ -101,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/strFName"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -125,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/strAdd"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -149,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/strPhoneNumber"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -172,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Email"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -186,6 +163,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,7 +198,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_fullgreen"
+                android:background="@drawable/button_white_greenborder"
                 android:padding="10dp">
 
                 <TextView
@@ -229,7 +207,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:text="@string/strChangePwd"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_green"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -238,14 +216,16 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnLogOut"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
 
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/button_fullgreen">
+            android:background="@drawable/button_full_grey">
 
             <TextView
                 android:id="@+id/textView3"
@@ -280,6 +260,7 @@
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
+        style="@style/BottomNavigationStyle"
         />
 
 </RelativeLayout>

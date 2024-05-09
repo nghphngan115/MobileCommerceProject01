@@ -59,12 +59,6 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
         imgbtnBack = findViewById(R.id.imgbtnBack);
 
         firebaseAuth = firebaseAuth.getInstance();
-        imgbtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
         switchAllow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
