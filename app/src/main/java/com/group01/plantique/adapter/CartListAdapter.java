@@ -47,6 +47,7 @@ public class CartListAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -66,7 +67,7 @@ public class CartListAdapter extends BaseAdapter {
 
         Product product = cartProducts.get(position);
         viewHolder.txtProductName.setText(product.getProductName());
-        viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice()));
+        viewHolder.txtProductPrice.setText(String.valueOf(product.getPrice() +"đ"));
         viewHolder.edtProductQuantity.setText(String.valueOf(product.getCartQuantity()));
         String imageUrl = product.getImageurl();
         if (imageUrl != null && !imageUrl.isEmpty()) {

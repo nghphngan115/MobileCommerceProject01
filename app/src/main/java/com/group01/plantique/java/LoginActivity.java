@@ -5,15 +5,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -30,6 +33,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilUsername, tilPassword;
+    private TextView txtForgotPassword, txtSignUp;
     private EditText edtUsername, edtPassword;
     private ImageButton backButton;
     private DatabaseReference usersRef;
@@ -67,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         tilPassword = findViewById(R.id.tilPassword);
         edtPassword = findViewById(R.id.edtPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
+        txtForgotPassword = findViewById(R.id.txtForgotPassword);
+        txtSignUp = findViewById(R.id.txtSignUp);
 
         // Initialize Firebase
         usersRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -84,12 +90,31 @@ public class LoginActivity extends AppCompatActivity {
                 signInUser();
             }
         });
+        int color = ContextCompat.getColor(LoginActivity.this, R.color.dark_green);
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtSignUp.setTextColor(color);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtForgotPassword.setTextColor(color);
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void startHomeScreen() {
         Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
         startActivity(intent);
-        finish(); // Đóng LoginActivity để người dùng không quay lại màn hình này khi nhấn nút back
+        finish();
     }
 
     private void handleEditTextClicks() {
@@ -116,24 +141,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && TextUtils.isEmpty(edtUsername.getText().toString().trim())) {
-                    tilUsername.setHint("Enter username");
+                    tilUsername.setHint(getString(R.string.hint_enter_username));
                 } else {
                     tilUsername.setHint("");
                 }
             }
         });
 
-        // Handle focus change event for Password EditText
         edtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && TextUtils.isEmpty(edtPassword.getText().toString().trim())) {
-                    tilPassword.setHint("Enter password");
+                    tilPassword.setHint(getString(R.string.hint_enter_password));
                 } else {
                     tilPassword.setHint("");
                 }
             }
         });
+
     }
     // Đây là biến để lưu userID của người dùng sau khi đăng nhập thành công
 
@@ -143,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-            Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.toast_enter_credentials), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -162,28 +187,29 @@ public class LoginActivity extends AppCompatActivity {
                                 saveLoginStatus(true); // Lưu trạng thái đăng nhập
                                 Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
                                 startActivity(intent);
-                                finish(); // Kết thúc LoginActivity để người dùng không thể quay lại màn hình này bằng nút back
-                                Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                                finish();
+                                Toast.makeText(LoginActivity.this, getString(R.string.toast_signin_success), Toast.LENGTH_SHORT).show();
                             } else {
                                 // Passwords do not match
                                 loginAttempts++;
                                 if (loginAttempts >= 3) {
                                     showResetPasswordDialog();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, getString(R.string.toast_invalid_password), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
                     }
                 } else {
                     // Username not found
-                    Toast.makeText(LoginActivity.this, "Username not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.toast_username_not_found), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(LoginActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                String errorMessage = getString(R.string.toast_error_prefix) + databaseError.getMessage();
+                Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -209,9 +235,9 @@ public class LoginActivity extends AppCompatActivity {
     // Method to show reset password dialog
     private void showResetPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Reset Password");
-        builder.setMessage("Do you want to reset your password?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.dialog_reset_password_title));
+        builder.setMessage(getString(R.string.dialog_reset_password_message));
+        builder.setPositiveButton(getString(R.string.dialog_reset_password_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Navigate to ResetPasswordActivity
@@ -220,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.dialog_reset_password_no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -228,4 +254,5 @@ public class LoginActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
 }

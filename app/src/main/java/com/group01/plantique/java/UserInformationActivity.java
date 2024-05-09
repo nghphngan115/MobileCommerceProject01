@@ -40,7 +40,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private EditText nameEditText, addressEditText, phoneEditText, emailEditText;
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;
     private ImageView avatarImageView, cameraIconImageView;
-    private ImageButton backButton;
+
     private ConstraintLayout btnChangePassword, btnLogOut;
 
     private DatabaseReference mDatabase;
@@ -93,7 +93,6 @@ public class UserInformationActivity extends DrawerBaseActivity {
         saveTextView = findViewById(R.id.textView3);
         avatarImageView = findViewById(R.id.avatarImageView);
         cameraIconImageView = findViewById(R.id.cameraIconImageView);
-        backButton = findViewById(R.id.imgButton3);
         btnChangePassword = findViewById(R.id.btnChangePassword);
         btnLogOut = findViewById(R.id.btnLogOut);
 
@@ -143,12 +142,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,7 +294,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
                 if (snapshot.exists()) {
                     String name = snapshot.child("username").getValue(String.class);
                     String email = snapshot.child("email").getValue(String.class);
-                    String address = snapshot.child("shipping_addresses").getValue(String.class);
+                    String address = snapshot.child("addresses").getValue(String.class);
                     String phone = snapshot.child("phone").getValue(String.class);
                     String avatarUrl = snapshot.child("avatarUrl").getValue(String.class);
 
@@ -309,6 +303,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
                     addressEditText.setText(address);
                     phoneEditText.setText(phone);
                     Picasso.get().load(avatarUrl).into(avatarImageView);
+
                 }
             }
 
@@ -328,7 +323,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
 
         mDatabase.child("username").setValue(newName);
         mDatabase.child("email").setValue(newEmail);
-        mDatabase.child("shipping_addresses").setValue(newAddress);
+        mDatabase.child("addresses").setValue(newAddress);
         mDatabase.child("phone").setValue(newPhone);
 
         Toast.makeText(this, "Thông tin đã được lưu", Toast.LENGTH_SHORT).show();

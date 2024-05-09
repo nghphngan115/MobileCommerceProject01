@@ -10,7 +10,7 @@
     android:elevation="8dp">
 
     <ImageButton
-        android:id="@+id/imgCate"
+        android:id="@+id/imgCat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

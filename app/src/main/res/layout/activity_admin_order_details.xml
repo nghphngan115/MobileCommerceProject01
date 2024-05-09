@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,23 +20,28 @@
             android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="@string/strOrderDetailsInfo"
+            android:textColor="@color/main_green"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <!-- User ID -->
+
+        <!-- Order ID -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/textView49"
+                android:id="@+id/textView4"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:text="User ID:"
+                android:text="Order ID:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/txtUserId"
+                android:id="@+id/txtOrderId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
@@ -45,25 +51,71 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Order ID -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:text="User ID:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtUserId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text=""
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView59"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:text="Order ID:"
+                android:text="@string/strFullName"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/txtOrderId"
+                android:id="@+id/txtFullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:text=""
-                android:textColor="@color/main_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text=""
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -80,11 +132,34 @@
                 android:text="@string/strtextStatus"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text=""
+                android:textColor="@color/main_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:text="Change Status"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinnerStatus"
                 android:layout_width="213dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:entries="@array/update_order_statuses" />
         </LinearLayout>
 
@@ -107,7 +182,7 @@
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidth="2dp">
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,6 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/strPhone"
+            android:textSize="18sp"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPhone"
@@ -132,7 +208,8 @@
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidth="2dp">
-            <EditText
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,9 +222,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/strNote"
+            android:textSize="18sp"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNote"
+            android:id="@+id/tilNote1"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,7 +235,8 @@
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidth="2dp">
-            <EditText
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,9 +245,9 @@
 
         <TextView
             android:id="@+id/textView120"
-            android:layout_width="306dp"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/strOrder"

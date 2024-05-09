@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
     <string name="strOrdConf">"Placed order successfully "</string>
-    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
+    <string name="strOrdThank">"Your order are processing. Thank you for your order "</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -10,13 +10,13 @@
     <string name="strtextStatus">Order Status</string>
     <string name="strOrderDetailsInfo">Order Information</string>
     <string name="strShippingAddress">Shipping Address</string>
-    <string name="strPhone">PHONE</string>
+    <string name="strPhone">Phone</string>
     <string name="strSubTotal">Sub Total</string>
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
     <string name="strCancel">Cancel Order</string>
-    <string name="strOrdID">Order ID</string>
+    <string name="strOrdID">Order ID </string>
     <string name="strUserId">User ID</string>
     <string name="strOrder">Order</string>
     <string name="strNote">Note</string>
@@ -26,12 +26,64 @@
     <string name="strWard">Ward</string>
     <string name="strDistrict">District</string>
     <string name="strAddress">"Address (House number, Street,...) "</string>
+    <string name="strReceviedConf">"Confirm Received"</string>
+    <string name="strYes">Yes</string>
+    <string name="strNo">No</string>
+    <string name="strReceivedMes">"Do you confirm that you have received the order correctly?"</string>
+    <string name="order_incomplete">Order details are incomplete.</string>
+    <string name="order_cancelled">The order has been cancelled.</string>
+    <string name="cancel_order_failed">Failed to cancel the order.</string>
+    <string name="update_order_failed">Failed to update the order status.</string>
+    <string name="missing_information">Cannot update the order status due to missing information.</string>
+    <string name="order_marked_finished">The order has been marked as finished.</string>
+    <string name="cancel_confirmation_title">Cancel Confirmation</string>
+    <string name="cancel_confirmation_message">Are you sure you want to cancel this order?</string>
+    <string name="notification_title">Welcome to Plantique!</string>
+    <string name="notification_content">We are happy to see you! Find your healthy food in Plantique</string>
     <string name="strCOD">Cash on delivery (COD)</string>
     <string name="strTransfer">Bank Account Transfer</string>
     <string name="strConfirm">Confirm</string>
     <string name="strConfirmOrd">Confirm Order</string>
     <string name="strApply">Apply</string>
     <string name="strPlaceOrder">Place Order</string>
+    <string name="channel_name">Order Notifications</string>
+    <string name="channel_description">Notifications for new orders</string>
+    <string name="channel_id">order_channel</string>
+    <string name="strBankAccNum">Account Number: 0366370098</string>
+    <string name="strBank">Bank: MB Bank</string>
+    <string name="strAccOwner">Account Owner: Le Chau Anh</string>
+    <string name="strTransferContent">Transfer Content: Order Id + Phone Number</string>
+    <string name="strTransferNote">Please make payment within 12 hours. After payment, orders will be processed and shipped within 24 hours. If your order is not shipped after 24 hours, please contact customer support for assistance.</string>
+    <string name="strSelectPaymentMethod">Please select a payment method.</string>
+    <string name="strAllFields">All fields are required.</string>
+    <string name="strPhoneDigits">Phone number must be exactly 10 digits.</string>
+    <string name="strEmailValid">Email is not valid.</string>
+    <string name="strFailedProducts">Failed to load order details.</string>
+    <string name="strOrderSuccess">Order Placed Successfully</string>
+    <string name="strNotiOrder">You have successfully placed order</string>
+    <string name="strOn">on</string>
+    <string name="strCancelOrder">Cancel Order</string>
+    <string name="strReceived">Recceived Order</string>
+    <string name="strWriteReview">Write a review</string>
+    <string name="strFailedLoadOrder">Failed to load orders:</string>
+    <string name="strOrderHistory">Order History</string>
+    <string name="strPromoDescrip">Promo Description</string>
+
+    <string name="strWelcome1">Nice to meet you</string>
+    <string name="strWelcome2">What are you looking for?</string>
+    <string name="strTitleSale">SUMMER SALE OFF</string>
+    <string name="strCate">Categories</string>
+    <string name="strViewAll">View all</string>
+    <string name="strHiglightedProducts">Higlighted Products</string>
+    <string name="strHiglightedBlogs">Higlighted Blogs</string>
+    <string name="strAboutUs">About Us</string>
+    <string name="strIntro">Plantique was founded in 2024</string>
+    <string name="strTitle1">100% natural</string>
+    <string name="strTitle2">Has the best quality</string>
+    <string name="strDesc1">Plantique was born with the desire to bring clean, 100% natural foods, no colors, no preservatives, no additives with the best nutritional quality produced directly in traditional craft villages across the world. country to customer. We wish to become a powerful arm supporting customers in health care, fitness, beauty and weight control. We listen and understand health wishes, thereby providing the best choice for customers in their daily healthy, clean eating life.</string>
+    <string name="strDessc2">With the motto \"Eat clean - Live healthy\", Plantique respectfully brings customers the best quality eat clean food with 100% natural ingredients that are safe for all users.</string>
+    <string name="strBuyNow">Buy Now</string>
+
     <string name="strHello">Hello</string>
     <string name="strBlog">Blog</string>
     <string name="strWhat">What are you looking for?</string>
@@ -53,7 +105,145 @@
     <string name="added_to_cart_message">Product added to cart</string>
 
 
+    <string name="progress_dialog_title">Please wait</string>
+    <string name="delete_success_message">Deleted...</string>
+    <string name="delete_fail_message">Failed to delete</string>
+    <string name="code_label">Code: %1$s</string>
+    <string name="expire_date_label">Expire Date: %1$s</string>
+    <string name="choose_option_title">Choose Option</string>
+    <string name="deleting_promotion">Deleting Promotion Code...</string>
+    <string name="please_wait_title">Please wait</string>
+    <string name="title_required">Title is required...</string>
+    <string name="category_required">Category is required...</string>
+    <string name="price_required">Price is required...</string>
+    <string name="discount_price_required">Discount Price is required...</string>
+    <string name="adding_product">Adding Product...</string>
+    <string name="category_not_found">Category not found!</string>
+    <string name="product_added">Product added...</string>
+    <string name="failed_to_add_product">Failed to add product: %s</string>
+    <string name="error_message">Error: %s</string>
+    <string name="product_added_failed">Product added failed...</string>
+    <string name="dialog_title_product_category">Product Category</string>
+    <string name="no_categories_found">No categories found!</string>
+    <string name="categories_data_empty">Categories data is empty!</string>
+    <string name="dialog_title_pick_image">Pick Image</string>
+    <string name="permission_required_message">Camera &amp; Storage permissions are required...</string>
+    <string name="storage_permission_required_message">Storage permission is required...</string>
+    <string name="please_wait">Please wait</string>
+    <string name="update_promotion_title">Update Promotion Code</string>
+    <string name="add_promotion_title">Add Promotion Code</string>
+    <string name="update_button">Update</string>
+    <string name="add_button">Add</string>
+    <string name="enter_discount_code">Enter discount code...</string>
+    <string name="enter_promotion_description">Enter promotion description...</string>
+    <string name="enter_promotion_price">Enter promotion price...</string>
+    <string name="enter_minimum_order_price">Enter minimum order price...</string>
+    <string name="choose_expired_date">Choose expired date...</string>
+    <string name="updating_promotion">Updating Promotion Code...</string>
+    <string name="promotion_updated">Updated...</string>
+    <string name="promotion_update_failed">Update failed: %s</string>
+    <string name="adding_promotion">Adding Promotion Code...</string>
+    <string name="promotion_added_success">Promotion Code added successfully</string>
+    <string name="failed_get_promo_id">Failed to get last promotion code ID</string>
+    <string name="fill_all_fields">Please fill in all fields</string>
+    <string name="passwords_not_match">Passwords do not match</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="invalid_password_format">Password must be at least 8 characters, contain a digit, and a special character</string>
+    <string name="username_exists">Username already exists</string>
+    <string name="email_exists">Email already exists</string>
+    <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Register failed, please try again</string>
+    <string name="database_error">Database error</string>
+    <string name="hint_phone_number">Enter phone number</string>
+    <string name="error_passwords_not_match">Passwords do not match</string>
+    <string name="hint_confirm_password">Enter Confirm Password</string>
+    <string name="hint_email">Enter Email</string>
+    <string name="hint_password">Enter Password</string>
+    <string name="hint_username">Enter Username</string>
+    <string name="error_invalid_email">Invalid email format</string>
+    <string name="error_invalid_password">Password must be at least 8 characters, contain a digit, and a special character</string>
+    <string name="error_invalid_username">Username must contain both letters and numbers</string>
+    <string name="failed_to_load_addresses">Failed to load addresses.</string>
+    <string name="address_saved_success">Address saved successfully</string>
+    <string name="address_deleted_success">Address deleted successfully</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this shippingAddress?</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="enter_otp_message">Please enter OTP</string>
+    <string name="resend_otp_format">Resend OTP in %d s</string>
+    <string name="otp_verification_failed">OTP verification failed</string>
+    <string name="failed_resend_otp">Failed to resend OTP</string>
+    <string name="otp_resent">OTP Resent</string>
+    <string name="enter_phone_number">Please enter your phone number</string>
+    <string name="failed_to_send_otp">Failed to send OTP</string>
+    <string name="strpolicy">Policy</string>
+    <string name="price_ascending">Price: Ascending</string>
+    <string name="price_descending">Price: Descending</string>
+    <string name="sort_by_category">Sort by category</string>
+    <string name="all_products">All Products</string>
+    <string name="filter_products">Filter Products</string>
+    <string name="failed_to_fetch_data">Failed to fetch product data!</string>
+    <string name="user_id_not_found">User ID not found</string>
+    <string name="invalid_default_address">Invalid default address position</string>
+    <string name="only_choose_one_default">Only choose 1 default shipping address</string>
+    <string name="hint_enter_username">Enter username</string>
+    <string name="hint_enter_password">Enter password</string>
+    <string name="toast_enter_credentials">Please enter username and password</string>
+    <string name="toast_signin_success">Sign in successful</string>
+    <string name="toast_invalid_password">Invalid password</string>
+    <string name="toast_username_not_found">Username not found</string>
+    <string name="toast_error_prefix">Error: </string>
+    <string name="dialog_reset_password_title">Reset Password</string>
+    <string name="dialog_reset_password_message">Do you want to reset your password?</string>
+    <string name="dialog_reset_password_yes">Yes</string>
+    <string name="dialog_reset_password_no">No</string>
+    <string name="toast_product_updated">Product updated successfully</string>
+    <string name="toast_update_failed">Failed to update product: %s</string>
+    <string name="toast_enter_passwords">Please enter new password and confirm password</string>
+    <string name="toast_passwords_not_match">Passwords do not match</string>
+    <string name="toast_phone_number_not_found">Phone number not found</string>
+    <string name="toast_password_changed">Password changed successfully</string>
+    <string name="toast_password_change_failed">Failed to change password</string>
+    <string name="toast_user_not_found">User not found</string>
+    <string name="toast_database_error">Database Error</string>
 
+
+    <string-array name="filter_options">
+        <item>Price: Ascending</item>
+        <item>Price: Descending</item>
+        <item>Sort by category</item>
+        <item>All Products</item>
+    </string-array>
+    <string name="filter_promo_title">Filter Promotion Codes</string>
+    <string-array name="filter_promo_options">
+        <item>All</item>
+        <item>Expired</item>
+        <item>Not Expired</item>
+    </string-array>
+    <string name="all_promo_codes">All Promotion Codes</string>
+    <string name="expired_promo_codes">Expired Promotion Codes</string>
+    <string name="no_expired_promo_codes">No Expired Promotion Codes</string>
+    <string name="toast_load_promotions_failed">Failed to load promotions: %s</string>
+    <string name="default_category">All</string>
+    <string name="toast_load_categories_failed">Failed to load categories: %s</string>
+    <string name="toast_load_products_failed">Failed to load products: %s</string>
+    <string name="all_category">All</string>
+    <string name="dialog_title_choose_category">Choose Category</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this product?</string>
+    <string name="delete_button_label">Delete</string>
+    <string name="cancel_button_label">Cancel</string>
+    <string name="product_deleted_success">Product deleted successfully</string>
+
+
+    <string-array name="promo_options">
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="image_picker_options">
+        <item>Camera</item>
+        <item>Gallery</item>
+    </string-array>
     <string-array name="order_statuses">
         <item>All Statuses</item>
         <item>Processing</item>
@@ -67,6 +257,71 @@
         <item>Finished</item>
         <item>Cancelled</item>
     </string-array>
+    <string name="policy_details">
+    <![CDATA[
+    <b>Policy</b><br><br>
+    <b>1. Goods Inspection Policy</b><br>
+    <b>Definition</b><br>
+    Goods inspection is the process of checking and controlling the quantity, quality, and condition of goods during transportation, storage, or delivery. This process ensures that the goods are of the correct quantity, undamaged, and meet quality standards.<br><br>
+    <b>Regulations</b><br>
+    – Inspection time: Plantique accepts customers to inspect with delivery personnel at the time of receiving the goods.<br>
+    – Scope of goods inspection: Customers can inspect the actual products based on confirmed criteria.<br>
+    – Handling steps for non-compliance with orders: Contact the hotline or email to reach the customer care department.<br>
+    – Complaint channels for customers: Complaint hotline, Email.<br>
+    Hotline: 0366370098<br>
+    Email: plantiqueshop01@gmail.com<br><br>
+    <b>Guide to Payment Methods:</b><br>
+    - Cash on Delivery (COD): Payment will be made directly to the delivery person upon receipt of the order.<br>
+    - Bank Transfer: Please transfer the total amount to the designated bank account. Your order will be processed upon confirmation of payment.<br><br>
+    <b>3. Shipping Information:</b><br>
+    - Delivery time: Typically, orders are processed and delivered within 5 business days.<br>
+    - Shipping fee: Shipping costs may vary depending on the delivery location and order weight. Please refer to the shipping policy for detailed information.<br><br>
+    <b>4. Return and Refund Policy:</b><br>
+    - Returns: We accept returns within 7 days of purchase. Items must be in their original condition and packaging.<br>
+    - Refunds: Refunds will be processed within 7 days after the returned items are received and inspected.<br>
+    - Exchange: We offer exchanges for items of equal or lesser value. Please contact our customer service for assistance.<br><br>
+    <b>5. Customer Support:</b><br>
+    - For any inquiries or assistance, please contact our customer service team:<br>
+    + Hotline: 0938152400<br>
+    + Email: plantiqueshop01@gmail.com<br><br>
+    ]]>
+</string>
+
+    <string name="terms_and_conditions">
+        <![CDATA[
+        <b>Terms and Conditions</b><br><br>
+
+        <b>1. Introduction</b><br>
+        Welcome to Plantique. By accessing our app, you agree to these terms and conditions.<br><br>
+
+        <b>2. Privacy Policy</b><br>
+        Our Privacy Policy details how we collect, use, and protect your data. For more information, please visit our Privacy Policy section on our app or website.<br><br>
+
+        <b>3. User Responsibilities</b><br>
+        You must use the app legally and refrain from prohibited activities. You must be 18 years old or have parental permission to use this app.<br><br>
+
+        <b>4. Intellectual Property Rights</b><br>
+        All content provided on the app is either owned by us or used with permission. No content may be copied, distributed, or used without prior permission.<br><br>
+
+        <b>5. Purchases</b><br>
+        If applicable, specific terms related to the purchase of goods or services will be detailed during the purchase process.<br><br>
+
+        <b>6. User Accounts</b><br>
+        If you create an account, you are responsible for maintaining the confidentiality of your account and password and for restricting access to your device.<br><br>
+
+        <b>7. Termination</b><br>
+        We may terminate or suspend access to our app immediately, without prior notice or liability, for any reason whatsoever, including, without limitation, if you breach the Terms.<br><br>
+
+        <b>8. Governing Law</b><br>
+        These Terms will be governed by and construed in accordance with the laws of the Country/State in which our company is registered, without regard to its conflict of law provisions.<br><br>
+
+        <b>9. Changes to Terms</b><br>
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will notify you of any changes by posting the new Terms on our site.<br><br>
+
+        <b>10. Contact Information</b><br>
+        If you have any questions about these Terms, please contact us at [contact information].
+        ]]>
+    </string>
 
 
 </resources>

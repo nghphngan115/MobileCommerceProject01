@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,8 +68,12 @@ public class EditProductActivity extends AppCompatActivity {
         String unit = unitEt.getText().toString().trim();
         int stock = Integer.parseInt(stockEt.getText().toString().trim());
         double price = Double.parseDouble(priceEt.getText().toString().trim());
-        int discountedPrice = Integer.parseInt(discountedPriceEt.getText().toString().trim());
+
         String discountNote = discountedNoteEt.getText().toString().trim();
+        String discount = discountNote.trim();
+        double discountRate = Double.parseDouble(discount.replace("%", "").trim()) / 100.0;
+        double discountedPrice = price * (1 - discountRate);
+
 
         // Tạo HashMap để chứa thông tin cập nhật
         HashMap<String, Object> updateMap = new HashMap<>();
@@ -85,14 +92,15 @@ public class EditProductActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            // Cập nhật thành công, hiển thị thông báo hoặc chuyển trang khác
-                            Toast.makeText(EditProductActivity.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
-                            // Chuyển về màn hình trước hoặc màn hình khác
-                            finish(); // Đóng màn hình EditProductActivity
+                            // Product updated successfully
+                            Toast.makeText(EditProductActivity.this, getString(R.string.toast_product_updated), Toast.LENGTH_SHORT).show();
+                            finish(); // Close the EditProductActivity screen
                         } else {
-                            // Xử lý khi cập nhật không thành công
-                            Toast.makeText(EditProductActivity.this, "Failed to update product: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            // Failed to update product
+                            String errorMessage = getString(R.string.toast_update_failed, task.getException().getMessage());
+                            Toast.makeText(EditProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
     }

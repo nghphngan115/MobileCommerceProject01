@@ -14,23 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
-import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-
-public class CartActivity extends DrawerBaseActivity {
+public class CartActivity extends AppCompatActivity {
 
     private ListView lvCart;
     private TextView txtTotalCart;
@@ -75,71 +69,71 @@ public class CartActivity extends DrawerBaseActivity {
         btnContinue = findViewById(R.id.btnContinue);
         btnOrder = findViewById(R.id.btnOrder);
         txtTotalCart = findViewById(R.id.txtTotalCart);
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Mở ProductCategoriesActivity khi click vào nút "Tiếp tục mua hàng"
-                startActivity(new Intent(CartActivity.this, ProductCategoriesActivity.class));
-            }
+
+        btnOrder.setOnClickListener(v -> {
+            Gson gson = new Gson();
+            String cartJson = gson.toJson(cartProducts);
+            Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+            intent.putExtra("cartJson", cartJson);
+            startActivity(intent);
         });
 
-        // Thiết lập sự kiện click cho nút "Đặt hàng"
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Mở ListOrderActivity khi click vào nút "Đặt hàng"
-                startActivity(new Intent(CartActivity.this, CheckoutActivity.class));
-            }
+        btnContinue.setOnClickListener(v -> {
+            startActivity(new Intent(CartActivity.this, ProductCategoriesActivity.class));
         });
 
-        // Khởi tạo danh sách sản phẩm trong giỏ hàng từ SharedPreferences
+        // Initialize the product list from SharedPreferences
         loadCartFromSharedPreferences();
     }
 
-    // Phương thức để lấy dữ liệu giỏ hàng từ SharedPreferences
     private void loadCartFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("cart", null);
-        Type type = new TypeToken<ArrayList<Product>>() {
-        }.getType();
-        if (json != null) {
-            cartProducts = gson.fromJson(json, type);
-        } else {
-            cartProducts = new ArrayList<>(); // Nếu không có dữ liệu, tạo một danh sách mới
+        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        cartProducts = gson.fromJson(json, type);
+
+        if (cartProducts == null) {
+            cartProducts = new ArrayList<>(); // Create a new list if no data is found
         }
-        // Hiển thị danh sách sản phẩm trong giỏ hàng
         showCart();
+        setupCartListView();
     }
 
-    // Phương thức để lưu giỏ hàng vào SharedPreferences
     private void saveCartToSharedPreferences() {
-        // Lưu danh sách sản phẩm vào SharedPreferences sử dụng CartUtility
         CartUtility.saveCartProducts(this, cartProducts);
     }
 
+    private void setupCartListView() {
+        cartListAdapter = new CartListAdapter(this, cartProducts);
+        lvCart.setAdapter(cartListAdapter);
+        cartListAdapter.setOnQuantityChangeListener(() -> {
+            updateTotalCart();
+            saveCartToSharedPreferences();
+        });
+    }
+
     private void showCart() {
-        // Kiểm tra nếu giỏ hàng trống
         if (cartProducts.isEmpty()) {
             Toast.makeText(this, getString(R.string.cart_empty_message), Toast.LENGTH_SHORT).show();
-            finish();
+
             return;
         }
 
-        // Set adapter cho ListView
-        cartListAdapter = new CartListAdapter(this, cartProducts);
-        lvCart.setAdapter(cartListAdapter);
-
-        // Cập nhật tổng giá trị giỏ hàng
-        updateTotalCart();
+        updateTotalCart();  // Ensure the total is updated when showing the cart
     }
 
-    // Phương thức cập nhật tổng giá trị giỏ hàng
     private void updateTotalCart() {
         int totalCart = 0;
         for (Product product : cartProducts) {
             totalCart += product.getPrice() * product.getCartQuantity();
         }
-        txtTotalCart.setText(String.valueOf(totalCart));
+        txtTotalCart.setText(String.valueOf(totalCart)+ "đ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadCartFromSharedPreferences();
     }
 }

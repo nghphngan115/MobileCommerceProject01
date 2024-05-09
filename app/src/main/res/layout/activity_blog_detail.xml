@@ -10,21 +10,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/imgButton2"
-            android:layout_width="50dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="30dp"
-            android:src="@mipmap/ic_backarrow" />
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="@string/strBlog"
+            android:textColor="@color/main_green"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -38,22 +42,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="60dp"
                 android:text="@string/strHello"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="16dp"
                 android:text="@string/strWhat"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <EditText
                 android:layout_width="350dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rounded_corner"
@@ -76,6 +82,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
                 android:text="Blog's Title"
+                android:textColor="@color/main_green"
                 android:textSize="16sp" />
 
             <ImageView
@@ -88,14 +95,16 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_image"
                 tools:srcCompat="@tools:sample/avatars" />
+
             <TextView
                 android:id="@+id/txtContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Blog's Content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:textSize="15sp"/>
+                android:text="Blog's Content"
+                android:textColor="@color/textColor"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

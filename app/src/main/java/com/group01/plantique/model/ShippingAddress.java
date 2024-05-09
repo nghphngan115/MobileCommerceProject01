@@ -1,24 +1,34 @@
 package com.group01.plantique.model;
 
-public class Address {
+public class ShippingAddress {
     private String addressId;
     private String fullName;
     private String address1;
+    private String ward;
     private String district;
     private String province;
     private String phoneNumber;
 
-    public Address() {
+    public ShippingAddress() {
         // Default constructor required for calls to DataSnapshot.getValue(Address.class)
     }
 
-    public Address(String addressId, String fullName, String address1, String district, String province, String phoneNumber) {
+    public ShippingAddress(String addressId, String ward, String fullName, String address1, String district, String province, String phoneNumber) {
         this.addressId = addressId;
         this.fullName = fullName;
         this.address1 = address1;
         this.district = district;
         this.province = province;
         this.phoneNumber = phoneNumber;
+        this.ward = ward;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
     }
 
     // Getters and setters

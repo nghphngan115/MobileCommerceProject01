@@ -108,7 +108,7 @@ public class AddProductActivity extends AppCompatActivity {
         discountedPriceEt.setVisibility(View.GONE);
         discountedNoteEt.setVisibility(View.GONE);
 
-        progressDialog.setTitle("Please wait");
+        progressDialog.setTitle(getString(R.string.progress_dialog_title));
         progressDialog.setCanceledOnTouchOutside(false);
 
         // Khởi tạo các mảng quyền
@@ -156,7 +156,7 @@ public class AddProductActivity extends AppCompatActivity {
             }
         });
     }
-    private  String productName, description, categoryId, cateName, stock, unit, price, discount_price, discountNote;
+    private  String productName, description, categoryId, cateName, stock, unit, price, discountNote, discount_price;
     private boolean discountAvailable = false;
     private void inputData() {
         productName = titleEt.getText().toString().trim();
@@ -168,34 +168,49 @@ public class AddProductActivity extends AppCompatActivity {
         unit=unitEt.getText().toString().trim();
 
         if (TextUtils.isEmpty(productName)) {
-            Toast.makeText(this, "Title is required...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.title_required, Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(cateName)) {
-            Toast.makeText(this, "Category is required...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.category_required, Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(price)) {
-            Toast.makeText(this, "Price is required...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.price_required, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (discountAvailable){
-            discount_price = discountedPriceEt.getText().toString().trim();
+        if (discountAvailable) {
             discountNote = discountedNoteEt.getText().toString().trim();
-            if (TextUtils.isEmpty(discount_price)) {
-                Toast.makeText(this, "Discount Price is required...", Toast.LENGTH_SHORT).show();
-                return;
+            String discount = discountedNoteEt.getText().toString().trim();
+            if (!discountNote.isEmpty()) {
+                // Xác định discountRate từ discountNote
+                double discountRate = Double.parseDouble(discount.replace("%", "").trim()) / 100.0;
+
+
+                // Chuyển đổi chuỗi price sang kiểu double
+                double productPrice = Double.parseDouble(price);
+
+                // Tính discount_price dựa trên discountRate
+                double discountedPrice = productPrice * (1 - discountRate);
+
+                // Cập nhật discount_price
+                discount_price = String.valueOf(discountedPrice);
+                Log.d("DiscountNoteValue", "Discount Note: " + discountNote);
+            } else {
+                // Nếu discountNote rỗng, giảm giá và discount_price = 0
+                discount_price = "0";
             }
-        }
-        else {
+        } else {
+            // Nếu không có giảm giá, discount_price = 0
             discount_price = "0";
-            discountNote ="";
+            discountNote = "";
+
         }
         addProduct();
     }
     private int productIdCounter = 0;
     private void addProduct() {
-        progressDialog.setMessage("Adding Product...");
+        progressDialog.setMessage(getString(R.string.adding_product));
         progressDialog.show();
 
         String timestamp = String.valueOf(System.currentTimeMillis());
@@ -226,7 +241,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                         if (categoryId == null) {
                             progressDialog.dismiss();
-                            Toast.makeText(AddProductActivity.this, "Category not found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddProductActivity.this, R.string.category_not_found, Toast.LENGTH_SHORT).show();
                             return;
                         }
                         double priceValue = Double.parseDouble(price);
@@ -239,11 +254,11 @@ public class AddProductActivity extends AppCompatActivity {
                         hashMap.put("productName", productName);
                         hashMap.put("description", description);
                         hashMap.put("categoryId", categoryId);
-                        hashMap.put("stock", stockValue); // Giá trị đã chuyển đổi
+                        hashMap.put("stock", stockValue);
                         hashMap.put("unit", unit);
-                        hashMap.put("imageurl", ""); // Chưa có URL hình ảnh, sẽ được cập nhật sau khi upload lên Storage
-                        hashMap.put("price", priceValue); // Giá trị đã chuyển đổi
-                        hashMap.put("discount_price", discountPriceValue); // Giá trị đã chuyển đổi
+                        hashMap.put("imageurl", "");
+                        hashMap.put("price", priceValue);
+                        hashMap.put("discount_price", discountPriceValue);
                         hashMap.put("discountNote", discountNote);
 
                         reference.child(newProductId).setValue(hashMap)
@@ -255,7 +270,7 @@ public class AddProductActivity extends AppCompatActivity {
                                             uploadImage(newProductId, timestamp);
                                         } else {
                                             progressDialog.dismiss();
-                                            Toast.makeText(AddProductActivity.this, "Product added...", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddProductActivity.this, R.string.product_added, Toast.LENGTH_SHORT).show();
                                             clearData();
                                         }
                                     }
@@ -264,7 +279,8 @@ public class AddProductActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressDialog.dismiss();
-                                        Toast.makeText(AddProductActivity.this, "Failed to add product: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        String errorMessage = getString(R.string.failed_to_add_product, e.getMessage());
+                                        Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
@@ -278,7 +294,7 @@ public class AddProductActivity extends AppCompatActivity {
 
                     if (categoryId == null) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddProductActivity.this, "Category not found!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddProductActivity.this, getString(R.string.category_not_found), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -303,7 +319,7 @@ public class AddProductActivity extends AppCompatActivity {
                                         uploadImage(newProductId, timestamp);
                                     } else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(AddProductActivity.this, "Product added...", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddProductActivity.this, getString(R.string.product_added), Toast.LENGTH_SHORT).show();
                                         clearData();
                                     }
                                 }
@@ -312,7 +328,8 @@ public class AddProductActivity extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(AddProductActivity.this, "Failed to add product: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    String errorMessage = getString(R.string.failed_to_add_product, e.getMessage());
+                                    Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
@@ -321,7 +338,9 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressDialog.dismiss();
-                Toast.makeText(AddProductActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                String errorMessage = getString(R.string.error_message, error.getMessage());
+                Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -347,42 +366,49 @@ public class AddProductActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Tải lên thành công, lấy URL tải xuống
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful()) ;
-                        Uri downloadImageUri = uriTask.getResult();
-                        if (uriTask.isSuccessful()) {
-                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("products")
-                                    .child(productId);
+                        uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Lấy URL thành công
+                                String downloadImageUri = uri.toString();
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("products")
+                                        .child(productId);
 
-                            // Cập nhật URL hình ảnh vào database
-                            reference.child("imageurl").setValue(downloadImageUri.toString())
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(AddProductActivity.this, "Product added...", Toast.LENGTH_SHORT).show();
-                                            clearData();
-                                            productIdCounter++;
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(AddProductActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
+                                // Cập nhật URL hình ảnh vào database
+                                reference.child("imageurl").setValue(downloadImageUri)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(AddProductActivity.this, getString(R.string.product_added), Toast.LENGTH_SHORT).show();
+                                                clearData();
+                                                productIdCounter++;
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                String errorMessage = getString(R.string.error_message) + e.getMessage();
+                                                Toast.makeText(AddProductActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                            }
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(AddProductActivity.this, "Product added failed...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddProductActivity.this, getString(R.string.product_added_failed), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
     private void clearData(){
         titleEt.setText("");
@@ -395,10 +421,12 @@ public class AddProductActivity extends AppCompatActivity {
         discountedNoteEt.setText("");
         productIconIv.setImageResource(R.drawable.ic_shopping_cart);
         image_uri=null;
+        discountNote = "";
     }
     private void categoryDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Product Category");
+        builder.setTitle(getString(R.string.dialog_title_product_category));
+
 
         // Kiểm tra xem danh sách productCategories có dữ liệu không
         if (Constants.productCategories != null && !Constants.productCategories.isEmpty()) {
@@ -423,10 +451,10 @@ public class AddProductActivity extends AppCompatActivity {
                     }
                 }).show();
             } else {
-                Toast.makeText(this, "No categories found!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.no_categories_found), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "Categories data is empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.categories_data_empty), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -434,9 +462,9 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void showImagePickDialog() {
-        String[] options = {"Camera", "Gallery"};
+        String[] options = getResources().getStringArray(R.array.image_picker_options);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick Image")
+        builder.setTitle(getString(R.string.dialog_title_pick_image))
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -501,13 +529,13 @@ public class AddProductActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 pickFromCamera();
             } else {
-                Toast.makeText(this, "Camera & Storage permissions are required...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.permission_required_message), Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 pickFromGallery();
             } else {
-                Toast.makeText(this, "Storage permission is required...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.storage_permission_required_message), Toast.LENGTH_SHORT).show();
             }
         }
     }

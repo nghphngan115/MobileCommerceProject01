@@ -116,13 +116,13 @@ public class ProductListActivity extends AppCompatActivity {
                 if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
                     // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
                     textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    textViewPrice.setText("$" + product.getPrice());
+                    textViewPrice.setText(product.getPrice() +"đ");
                     txtDiscountPrice.setVisibility(View.VISIBLE);
-                    txtDiscountPrice.setText("$" + discountPrice);
+                    txtDiscountPrice.setText(discountPrice +"đ");
                 } else {
                     // If discount_price is empty, zero, or null, show regular price and hide discount_price
                     textViewPrice.setPaintFlags(0); // Remove strike through if present
-                    textViewPrice.setText("$" + product.getPrice());
+                    textViewPrice.setText(product.getPrice() +"đ");
                     txtDiscountPrice.setVisibility(View.GONE);
                 }
 
@@ -177,37 +177,25 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
         private void addToCart(Product product) {
-            // Lấy danh sách sản phẩm từ SharedPreferences
             ArrayList<Product> cartProducts = CartUtility.getCartProducts(view.getContext());
-
             boolean found = false;
 
-            // Tìm sản phẩm trong giỏ hàng
             for (Product p : cartProducts) {
                 if (p.getProductId().equals(product.getProductId())) {
-                    // Nếu sản phẩm đã tồn tại trong giỏ hàng, tăng số lượng lên 1
                     p.setCartQuantity(p.getCartQuantity() + 1);
                     found = true;
                     break;
                 }
             }
 
-            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm vào giỏ hàng với số lượng là 1
             if (!found) {
                 product.setCartQuantity(1);
                 cartProducts.add(product);
             }
 
-            // Lưu danh sách sản phẩm giỏ hàng mới vào SharedPreferences
             CartUtility.saveCartProducts(view.getContext(), cartProducts);
-
-            // Hiển thị thông báo
-            Toast.makeText(view.getContext(), "Đã thêm sản phẩm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-
-            // Mở CartActivity khi click vào dòng toast cuối cùng
-            Context context = view.getContext();
-            Intent intent = new Intent(context, CartActivity.class);
-            context.startActivity(intent);
+            Toast.makeText(view.getContext(), "Product added to cart", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
