@@ -231,6 +231,8 @@
     <string name="login_required_message">You need to be logged in to write a review. Do you want to log in now?</string>
     <string name="login_button">Log In</string>
     <string name="order_items_null">Order or items are null or empty!</string>
+    <string name="quantity">Qty: %d</string>
+    <string name="product_stock_message">%s only has %d items left.</string>
 
 
     <string-array name="filter_options">

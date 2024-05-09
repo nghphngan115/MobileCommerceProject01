@@ -71,12 +71,36 @@ public class CartActivity extends AppCompatActivity {
         txtTotalCart = findViewById(R.id.txtTotalCart);
 
         btnOrder.setOnClickListener(v -> {
-            Gson gson = new Gson();
-            String cartJson = gson.toJson(cartProducts);
-            Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
-            intent.putExtra("cartJson", cartJson);
-            startActivity(intent);
+            if (cartProducts.isEmpty()) {
+                Toast.makeText(CartActivity.this, getString(R.string.cart_empty_message), Toast.LENGTH_LONG).show();
+                return; // Prevent proceeding to checkout if the cart is empty
+            }
+
+            boolean stockIssue = false;
+            for (Product product : cartProducts) {
+                if (product.getCartQuantity() > product.getStock()) {
+                    product.setCartQuantity(product.getStock());  // Adjust the quantity to the maximum stock available
+                    Toast.makeText(CartActivity.this, getString(R.string.product_stock_message, product.getProductName(), product.getStock()), Toast.LENGTH_LONG).show();
+
+                    stockIssue = true;
+                }
+            }
+
+            if (stockIssue) {
+                cartListAdapter.notifyDataSetChanged();  // Notify the adapter to refresh the views
+                saveCartToSharedPreferences();  // Save the adjusted cart to SharedPreferences
+                updateTotalCart();  // Update the total cart value shown
+            } else {
+                // If there are no stock issues, proceed to checkout
+                Gson gson = new Gson();
+                String cartJson = gson.toJson(cartProducts);
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                intent.putExtra("cartJson", cartJson);
+                startActivity(intent);
+            }
         });
+
+
 
         btnContinue.setOnClickListener(v -> {
             startActivity(new Intent(CartActivity.this, ProductCategoriesActivity.class));
@@ -109,9 +133,10 @@ public class CartActivity extends AppCompatActivity {
         lvCart.setAdapter(cartListAdapter);
         cartListAdapter.setOnQuantityChangeListener(() -> {
             updateTotalCart();
-            saveCartToSharedPreferences();
+            saveCartToSharedPreferences();// This method recalculates the total whenever a quantity changes
         });
     }
+
 
     private void showCart() {
         if (cartProducts.isEmpty()) {
@@ -126,10 +151,13 @@ public class CartActivity extends AppCompatActivity {
     private void updateTotalCart() {
         int totalCart = 0;
         for (Product product : cartProducts) {
-            totalCart += product.getPrice() * product.getCartQuantity();
+            int effectivePrice = product.getDiscount_price() > 0 ? product.getDiscount_price() : product.getPrice();
+            totalCart += effectivePrice * product.getCartQuantity();
         }
-        txtTotalCart.setText(String.valueOf(totalCart)+ "đ");
+        txtTotalCart.setText(String.format("%dđ", totalCart));
     }
+
+
 
     @Override
     protected void onResume() {

@@ -261,7 +261,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void updateTotal() {
         int subTotal = 0;
         for (Product product : productList) {
-            subTotal += product.getPrice() * product.getCartQuantity();
+            int effectivePrice = product.getDiscount_price() > 0 ? product.getDiscount_price() : product.getPrice();
+            subTotal += effectivePrice * product.getCartQuantity();
         }
         txtSubTotal.setText(String.format("%d đ", subTotal));
         int total = subTotal + SHIPPING_FEE;

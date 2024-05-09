@@ -245,6 +245,8 @@
     <string name="login_button">Đăng nhập</string>
     <string name="order_items_null">Đơn hàng hoặc các mục là null hoặc trống!</string>
     <string name="strNotification">Thông báo</string>
+    <string name="quantity">SL: %d</string>
+    <string name="product_stock_message">%s chỉ còn %d sản phẩm.</string>
 
 
     <string name="policy_details">
