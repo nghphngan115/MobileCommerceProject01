@@ -30,7 +30,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private Button btnAction;
     private Order order;
 
-
+    private Product[] product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +152,27 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     btnAction.setBackgroundTintList(getResources().getColorStateList(R.color.finished));
 
                     // Xử lý thêm sự kiện cho việc viết đánh giá ở đây
+                    btnAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (product != null) {
+                                ArrayList<String> productIds = new ArrayList<>();
+                                for (Product value : product) {
+                                    String productId = value.getProductId();
+                                    productIds.add(productId);
+                                }
+
+                                // Create a new Intent to navigate to WriteReviewActivity
+                                Intent intent = new Intent(OrderDetailsActivity.this, WriteReviewActivity.class);
+                                intent.putExtra("productIds", productIds);
+                                startActivity(intent);
+                            } else {
+                                // Handle the case where order or order.getItems() is null or empty
+                                Toast.makeText(OrderDetailsActivity.this, getString(R.string.order_items_null), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                    });
                     break;
                 case "Cancelled":
                     btnAction.setVisibility(View.GONE); // Ẩn nút
@@ -163,28 +184,32 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     private void populateOrderDetails() {
         order = (Order) getIntent().getSerializableExtra("order");
         if (order != null) {
             txtOrderId.setText(order.getOrderId());
-            txtStatus.setText(order.getOrderStatus());
-            switch (order.getOrderStatus()) {
+            String orderStatus = order.getOrderStatus();
+            switch (orderStatus) {
                 case "Processing":
                     txtStatus.setTextColor(getResources().getColor(R.color.processing));
+                    txtStatus.setText(getString(R.string.processing_status));
                     break;
                 case "Delivering":
                     txtStatus.setTextColor(getResources().getColor(R.color.delivering));
+                    txtStatus.setText(getString(R.string.delivering_status));
                     break;
                 case "Finished":
                     txtStatus.setTextColor(getResources().getColor(R.color.finished));
+                    txtStatus.setText(getString(R.string.finished_status));
                     break;
                 case "Cancelled":
                     txtStatus.setTextColor(getResources().getColor(R.color.cancelled));
+                    txtStatus.setText(getString(R.string.cancelled_status));
                     break;
                 default:
                     // Màu mặc định khi trạng thái không xác định
                     txtStatus.setTextColor(getResources().getColor(android.R.color.black));
+                    txtStatus.setText(getString(R.string.default_status));
                     break;
             }
             txtFullname.setText(order.getFullName());
@@ -214,7 +239,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         Log.d("ProductData", "Product Name: " + product.getProductName() + ", Cart Quantity: " + product.getCartQuantity());
                         products.add(product);
                     }
-
+                    product = products.toArray(new Product[0]);
                     ProductOrderAdapter adapter = new ProductOrderAdapter(OrderDetailsActivity.this, products);
                     lvProduct.setAdapter(adapter);
                     runOnUiThread(() -> updateButtonBasedOnStatus());

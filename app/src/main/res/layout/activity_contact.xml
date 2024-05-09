@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".java.ContactActivity">
 
@@ -15,7 +16,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="8dp"
-        android:text="GỬI THÔNG TIN CHO CHÚNG TÔI !"
+        android:text="@string/send_info_to_us"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -26,7 +27,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="16dp"
-        android:text="Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!"
+        android:text="@string/contact_us_for_queries"
         android:textSize="20sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -49,7 +50,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="39dp"
-            android:hint="Họ và tên"
+            android:hint="@string/full_name"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +75,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="39dp"
-            android:hint="Số điện thoại"
+            android:hint="@string/phone_number"
             android:inputType="phone"
             android:maxLength="10"
             android:textSize="16sp" />
@@ -101,7 +102,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="39dp"
-            android:hint="Nội dung"
+            android:hint="@string/content"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,7 +112,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
-
         android:background="@drawable/button_fullgreen">
 
         <TextView
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
-            android:text="Gửi thông tin"
+            android:text="@string/send_info"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"

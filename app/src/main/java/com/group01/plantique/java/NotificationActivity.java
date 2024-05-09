@@ -18,6 +18,7 @@ import com.group01.plantique.model.NotificationApp;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -77,6 +78,9 @@ public class NotificationActivity extends AppCompatActivity {
         }
         Type type = new TypeToken<ArrayList<NotificationApp>>(){}.getType();
         Gson gson = new Gson();
-        return gson.fromJson(json, type); // Deserialize JSON into Java objects
+        List<NotificationApp> notifications = gson.fromJson(json, type); // Deserialize JSON into Java objects
+        Collections.reverse(notifications); // Reverse the list to display the newest notification first
+        return notifications;
     }
+
 }

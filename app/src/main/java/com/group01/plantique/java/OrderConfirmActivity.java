@@ -310,7 +310,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             pushOrderToFirebase(orderId);
             isPromoCodeApplied = false;}
         clearCartSharedPreferences();
-        sendNotificationToAdmin(orderId);
+
     }
     private void clearCartSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
@@ -515,13 +515,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_notification) // replace ic_notification with your notification icon
                 .setContentTitle(getString(R.string.strOrderSuccess))
-                .setContentText(getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate)
+                .setContentText(getString(R.string.strNotiOrder)+ " " + orderId +" "+ getString(R.string.strOn)+ " " + orderDate)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         notificationManager.notify(1, builder.build());
-        saveNotificationToPreferences(getString(R.string.strOrderSuccess), getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate);
+        saveNotificationToPreferences(getString(R.string.strOrderSuccess), getString(R.string.strNotiOrder) + " " + orderId + " " + getString(R.string.strOn) + " " + orderDate);
+
 
     }
     private void saveNotificationToPreferences(String title, String content) {
@@ -578,25 +579,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<NotificationApp>>() {}.getType();
         List<NotificationApp> notifications = new Gson().fromJson(json, type);
         return notifications != null ? notifications : new ArrayList<>();
-    }
-    private void sendNotificationToAdmin(String orderId) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("admin_channel", "Order Notifications", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        Intent intent = new Intent(this, AdminOrderListActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "admin_channel")
-                .setContentTitle("New Order")
-                .setContentText("Order ID: " + orderId + " is ready for processing.")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        notificationManager.notify(0, builder.build());
     }
 
 

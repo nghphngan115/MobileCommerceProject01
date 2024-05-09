@@ -44,7 +44,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.txtTotalAmount.setText(String.format("%s đ", order.getTotalCost()));
         String orderStatus = order.getOrderStatus();
 
-        holder.txtStatus.setText(orderStatus);
+        // Set text based on status string resource
+        int statusResId = getStatusStringResource(orderStatus);
+        holder.txtStatus.setText(statusResId);
 
         // Setting text color based on order status
         if (orderStatus.equals("Processing")) {
@@ -71,6 +73,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             context.startActivity(intent);
         });
     }
+
+    private int getStatusStringResource(String orderStatus) {
+        switch (orderStatus) {
+            case "Processing":
+                return R.string.processing_status;
+            case "Delivering":
+                return R.string.delivering_status;
+            case "Finished":
+                return R.string.finished_status;
+            case "Cancelled":
+                return R.string.cancelled_status;
+            default:
+                return R.string.default_status; // Default string resource if status is not recognized
+        }
+    }
+
 
     @Override
     public int getItemCount() {
