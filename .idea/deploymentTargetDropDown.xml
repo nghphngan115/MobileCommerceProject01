@@ -2,10 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="OrderHistoryActivity">
-        <State />
-      </entry>
-      <entry key="UserInformationActivity">
+      <entry key="DashBoardActivity">
         <State />
       </entry>
       <entry key="app">

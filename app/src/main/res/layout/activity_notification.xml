@@ -10,32 +10,34 @@
         android:id="@+id/textView35"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="26dp"
         android:fontFamily="@font/inter_bold"
         android:text="Notification"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"/>
+        android:textColor="@color/main_green"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNotifications"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_above="@+id/bottomNavigationView"
         android:layout_below="@id/textView35"
-        android:layout_above="@+id/bottomNavigationView"/>
+        android:layout_marginHorizontal="26dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/BottomNavigationStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:elevation="2dp"
-        android:layout_alignParentBottom="true"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_menu"
-        style="@style/BottomNavigationStyle">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

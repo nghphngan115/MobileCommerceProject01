@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +38,9 @@ public class ProductListActivity extends AppCompatActivity {
     private RecyclerView recyclerViewProducts;
     private DatabaseReference productsRef;
     private String categoryId;
+    private EditText searchEt;
     private TextView textViewTitle;
+    private ImageButton imgbtnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,24 @@ public class ProductListActivity extends AppCompatActivity {
         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
 
         textViewTitle = findViewById(R.id.textViewTitle);
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        searchEt = findViewById(R.id.searchEt);
+        searchEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo một Intent để chuyển từ HomeScreenActivity sang SearchProductActivity
+                Intent intent = new Intent(ProductListActivity.this, SearchActivity.class);
+                // Bắt đầu SearchProductActivity
+                startActivity(intent);
+            }
+        });
 
         Intent intent = getIntent();
         categoryId = intent.getStringExtra("categoryId");

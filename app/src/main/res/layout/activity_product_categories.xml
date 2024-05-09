@@ -19,7 +19,7 @@
 
         <ImageButton
             android:id="@+id/imgbtnBack"
-            android:layout_width="wrap_content"
+            android:layout_width="27dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             app:srcCompat="@mipmap/ic_back" />

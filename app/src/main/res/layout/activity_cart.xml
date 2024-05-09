@@ -13,14 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="13dp"
-            android:backgroundTint="@color/white"
-            android:src="@mipmap/ic_back" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

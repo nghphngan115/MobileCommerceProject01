@@ -31,6 +31,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class SignUpActivity extends AppCompatActivity {
+    private ImageButton imgbtnBack;
     private DatabaseReference usersRef;
     private EditText edtEmail, edtPassword, edtConfirmPassword, edtUsername, edtPhoneNumber;
     private TextView txtUsernameError, txtPhoneError, txtPasswordError, txtConfirmPasswordError, txtEmailError, txtSignUp, txtSignIn;
@@ -42,6 +43,14 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Initialize Realtime Database reference
         usersRef = FirebaseDatabase.getInstance().getReference("users");
