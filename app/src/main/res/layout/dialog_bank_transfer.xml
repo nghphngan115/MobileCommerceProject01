@@ -49,79 +49,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:text="@string/strOrdID"
-                    android:textColor="@color/main_green"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtOrderId"
-                    android:layout_width="271dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity=""
-                    android:layout_marginLeft="20dp"
-                    android:gravity=""
-                    android:text="TextView"
-                    android:textColor="@color/main_green"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/highlight_layout"
-            android:elevation="20dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgQRCode"
-                android:layout_width="match_parent"
-                android:layout_height="306dp"
-                android:src="@drawable/qr_code" />
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/strBank"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/strAccOwner"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/strBankAccNum"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView43"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/strTransferContent"
-                android:textSize="16sp" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imgQRCode"
+            android:layout_marginTop="20dp"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/textView46"
@@ -134,29 +71,22 @@
             android:textSize="16sp"
             android:textStyle="italic" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <Button
             android:id="@+id/btnCompleted"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_fullgreen">
+            android:layout_width="346dp"
+            android:layout_height="62dp"
+            android:backgroundTint="@color/main_green"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/strConfirmPayment"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
-                android:text="@string/strConfirmPayment"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 

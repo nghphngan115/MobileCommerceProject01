@@ -12,19 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/imgButton2"
-            android:layout_width="50dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="30dp"
-            android:src="@mipmap/ic_backarrow" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:text="Blog"
+            android:layout_marginTop="26dp"
+            android:text="@string/strBlog"
+            android:textColor="@color/main_green"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -32,34 +26,35 @@
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="-1dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="60dp"
                 android:text="@string/strHello"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="16dp"
                 android:text="@string/strWhat"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <EditText
                 android:id="@+id/edtSearch"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/rounded_corner"
                 android:drawableStart="@mipmap/ic_search"
-                android:drawableEnd="@mipmap/ic_find"
                 android:drawablePadding="10dp"
                 android:hint="@string/strSearch"
                 android:padding="10dp"
@@ -71,26 +66,27 @@
                 android:id="@+id/lvCart"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1" />
 
         </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bottomNavigationView"
             android:layout_alignParentBottom="true"
-            android:elevation="2dp"
-            app:labelVisibilityMode="unlabeled"
             android:background="@color/white"
-            app:menu="@menu/bottom_menu"
+            android:elevation="2dp"
+            app:backgroundTint="@color/white"
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/item_selector"
             app:itemRippleColor="@android:color/transparent"
-            />
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu"
+            style="@style/BottomNavigationStyle"/>
 
     </RelativeLayout>
 

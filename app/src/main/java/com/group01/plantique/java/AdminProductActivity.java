@@ -160,8 +160,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private void filterProducts(String keyword) {
         List<Product> filteredList;
 
-        if (selectedCategory.equals(getString(R.string.all_category))) {
-            // Lọc theo từ khóa khi danh mục được chọn là "All"
+        if (selectedCategory.equals("All")) {
             filteredList = filterByKeyword(productList, keyword);
         } else {
             // Lọc theo danh mục và từ khóa
@@ -261,7 +260,7 @@ public class AdminProductActivity extends AppCompatActivity {
         // Hiển thị thông tin chi tiết của sản phẩm
         txtProductName.setText(product.getProductName());
         txtProductCategory.setText(product.getCategoryId()); // Hoặc set tên danh mục nếu có
-        txtPrice.setText("$" + product.getPrice());
+        txtPrice.setText(product.getPrice() +"đ");
         txtDescription.setText(product.getDescription());
         txtStock.setText(String.valueOf(product.getStock()));
         txtUnit.setText(product.getUnit());
@@ -270,7 +269,7 @@ public class AdminProductActivity extends AppCompatActivity {
         int discountPrice = product.getDiscount_price();
         if (discountPrice > 0) {
             txtDiscountPrice.setVisibility(View.VISIBLE);
-            txtDiscountPrice.setText("$" + discountPrice);
+            txtDiscountPrice.setText(discountPrice  +"đ");
             txtPrice.setPaintFlags(txtPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
             txtDiscountPrice.setVisibility(View.GONE);

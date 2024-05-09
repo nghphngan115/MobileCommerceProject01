@@ -5,11 +5,18 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,17 +29,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".java.OrderSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".java.MapsActivity"
+            android:exported="false" />
+        <activity
             android:name=".java.AllProductsActivity"
             android:exported="true" />
-        <activity android:name=".java.DashBoardActivity"
-            android:exported="true"/>
         <activity
             android:name=".java.UserInformationActivity"
-            android:exported="false" />
-        <activity android:name=".java.AdminOrderListActivity"
-            android:exported="true"/>
-        <activity android:name=".java.AdminOrderDetailsActivity"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".java.AdminOrderListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".java.AdminOrderDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".java.EditProductActivity"
             android:exported="false" />
@@ -51,7 +64,6 @@
         <activity
             android:name=".java.ProductDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".java.ProductListActivity"
             android:exported="true" />
@@ -84,7 +96,7 @@
             android:exported="false" />
         <activity
             android:name=".java.BlogDetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".java.CartActivity"
             android:exported="true" />
@@ -125,6 +137,9 @@
             android:name=".java.SignUpActivity"
             android:exported="true" />
         <activity
+            android:name=".java.DashBoardActivity"
+            android:exported="true" />
+        <activity
             android:name=".java.WelcomeActivity"
             android:exported="true">
             <intent-filter>
@@ -143,6 +158,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBvu2bXgwqdiTALTLhAJQfCSIrqj8HgvEg" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,13 +29,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private EditText edtNewPassword;
     private EditText edtConfirmPassword;
     private Button btnChangePassword;
+    private TextView txtPasswordError, txtConfirmPasswordError;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private TextInputLayout tilPassword, tilConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        setEditTextFocusChangeListeners();
+        setEditTextOnClickListener();
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
@@ -41,6 +47,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edtNewPassword = findViewById(R.id.edtNewPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         btnChangePassword = findViewById(R.id.btnChangePassword);
+        tilPassword =findViewById(R.id.tilPassword);
+        tilConfirmPassword =findViewById(R.id.tilConfirmPassword);
+        txtPasswordError =findViewById(R.id.txtPasswordError);
+        txtConfirmPasswordError =findViewById(R.id.txtConfirmPasswordError);
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +58,49 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 changePassword();
             }
         });
+    }
+
+    private void setEditTextFocusChangeListeners() {
+        edtConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String confirmPassword = edtConfirmPassword.getText().toString().trim();
+                String newPassword = edtNewPassword.getText().toString().trim();
+                if (!confirmPassword.equals(newPassword)) {
+                    txtConfirmPasswordError.setVisibility(View.VISIBLE);
+                    txtConfirmPasswordError.setText(getString(R.string.error_passwords_not_match));
+                } else {
+                    txtConfirmPasswordError.setVisibility(View.GONE);
+                }
+            }
+            tilConfirmPassword.setHint(hasFocus || !TextUtils.isEmpty(edtConfirmPassword.getText().toString()) ? "" : getString(R.string.hint_confirm_password));
+        });
+        edtNewPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String newPassword = edtNewPassword.getText().toString().trim();
+                if (!isPasswordValid(newPassword)) {
+                    txtPasswordError.setVisibility(View.VISIBLE);
+                    txtPasswordError.setText(getString(R.string.error_invalid_password));
+                } else {
+                    txtPasswordError.setVisibility(View.GONE);
+                }
+            }
+            tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtNewPassword.getText().toString()) ? "" : getString(R.string.hint_password));
+        });
+    }
+    private void setEditTextOnClickListener() {
+        edtNewPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tilPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
+            }
+        });
+        edtConfirmPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tilConfirmPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
+            }
+        });
+
     }
 
     private void changePassword() {
@@ -61,6 +114,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         if (!newPassword.equals(confirmPassword)) {
             Toast.makeText(this, getString(R.string.toast_passwords_not_match), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!isPasswordValid(newPassword)) {
+            edtNewPassword.setError(getString(R.string.invalid_password_format));
             return;
         }
 
@@ -103,6 +160,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_database_error), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private boolean isPasswordValid(String newPassword) {
+        return newPassword.length() >= 8 && newPassword.matches(".*\\d.*") && newPassword.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
     }
     private String hashPassword(String password) {
         // Hash the password using BCrypt

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Plantique</string>
     <string name="strOrdConf">"Placed order successfully "</string>
-    <string name="strOrdThank">Your order are processing. Thank you for your order</string>
+    <string name="strOrdThank">"Your order are processing. Thank you for your order "</string>
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
     <string name="strTotal">Total</string>
@@ -10,13 +10,13 @@
     <string name="strtextStatus">Order Status</string>
     <string name="strOrderDetailsInfo">Order Information</string>
     <string name="strShippingAddress">Shipping Address</string>
-    <string name="strPhone">PHONE</string>
+    <string name="strPhone">Phone</string>
     <string name="strSubTotal">Sub Total</string>
     <string name="strShipFee">Shipping Fee</string>
     <string name="strPaymentMethod">Payment Method</string>
     <string name="strDiscount">Discount</string>
     <string name="strCancel">Cancel Order</string>
-    <string name="strOrdID">Order ID</string>
+    <string name="strOrdID">Order ID </string>
     <string name="strUserId">User ID</string>
     <string name="strOrder">Order</string>
     <string name="strNote">Note</string>
@@ -75,7 +75,7 @@
     <string name="strCate">Categories</string>
     <string name="strViewAll">View all</string>
     <string name="strHiglightedProducts">Higlighted Products</string>
-    <string name="strHiglightedBlogs" >Higlighted Blogs</string>
+    <string name="strHiglightedBlogs">Higlighted Blogs</string>
     <string name="strAboutUs">About Us</string>
     <string name="strIntro">Plantique was founded in 2024</string>
     <string name="strTitle1">100% natural</string>
@@ -103,7 +103,6 @@
     <string name="cart_empty_message">Your cart is empty!</string>
     <string name="quantity_blank_error_message">Quantity cannot be left blank</string>
     <string name="added_to_cart_message">Product added to cart</string>
-
 
 
     <string name="progress_dialog_title">Please wait</string>
@@ -153,6 +152,7 @@
     <string name="username_exists">Username already exists</string>
     <string name="email_exists">Email already exists</string>
     <string name="registration_successful">Registration successful</string>
+    <string name="registration_failed">Register failed, please try again</string>
     <string name="database_error">Database error</string>
     <string name="hint_phone_number">Enter phone number</string>
     <string name="error_passwords_not_match">Passwords do not match</string>
@@ -206,6 +206,8 @@
     <string name="toast_password_change_failed">Failed to change password</string>
     <string name="toast_user_not_found">User not found</string>
     <string name="toast_database_error">Database Error</string>
+
+
     <string-array name="filter_options">
         <item>Price: Ascending</item>
         <item>Price: Descending</item>
@@ -232,7 +234,6 @@
     <string name="delete_button_label">Delete</string>
     <string name="cancel_button_label">Cancel</string>
     <string name="product_deleted_success">Product deleted successfully</string>
-
 
 
     <string-array name="promo_options">
@@ -321,7 +322,6 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
-
 
 
 </resources>

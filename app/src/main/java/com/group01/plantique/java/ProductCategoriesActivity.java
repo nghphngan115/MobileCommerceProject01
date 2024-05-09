@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -28,12 +29,19 @@ public class ProductCategoriesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewCategories;
     private DatabaseReference databaseReference;
+    private ImageButton imgbtnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_categories);
-
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         recyclerViewCategories = findViewById(R.id.recyclerViewCategories);
         recyclerViewCategories.setLayoutManager(new GridLayoutManager(this, 2));
 

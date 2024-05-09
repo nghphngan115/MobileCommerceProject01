@@ -5,9 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     android:orientation="vertical"
     tools:context=".java.HomeScreenActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,8 +18,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical"
+            android:padding="26dp">
 
             <!-- Header -->
             <LinearLayout
@@ -28,8 +32,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:fontFamily="@font/inter">
+                android:fontFamily="@font/inter"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView"
@@ -37,16 +41,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_bold"
-                    android:text="PLANTIQUE"
+                    android:text="Plantique"
                     android:textAlignment="center"
                     android:textColor="@color/main_green"
                     android:textSize="20sp" />
-
-                <ImageView
-                    android:id="@+id/imgBin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@mipmap/ic_avatar" />
 
             </LinearLayout>
 
@@ -55,7 +53,6 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/inter"
                 android:text="@string/strWelcome1"
                 android:textSize="13sp" />
@@ -65,7 +62,6 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/inter"
                 android:text="@string/strWelcome2"
                 android:textSize="12sp" />
@@ -78,34 +74,35 @@
                 android:id="@+id/svSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="6dp"
-                android:background="@drawable/rounded_searchview" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_searchview"
+                android:hint="Search" />
 
             <!-- Ad Layout -->
+
+            <!-- Category Section -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:scrollbars="none"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
                 android:fillViewport="true"
                 android:measureAllChildren="false"
-                >
+                android:scrollbars="none">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="8dp"
                     android:gravity="center"
-                    >
+                    android:orientation="horizontal">
 
                     <ViewFlipper
                         android:id="@+id/ViewFlipper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:flipInterval="2000"
                         android:autoStart="true"
+                        android:flipInterval="2000"
+                        android:gravity="center"
                         android:inAnimation="@anim/slide_in"
                         android:outAnimation="@anim/slide_out">
 
@@ -270,40 +267,39 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- Category Section -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/txtForgotPassword"
                     android:layout_width="218dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/strCate"
+                    android:textColor="@color/main_green"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
+                <TextView
                     android:id="@+id/btnViewAllCate"
-                    android:layout_width="197dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
-                    android:drawableEnd="@mipmap/ic_arrow"
                     android:fontFamily="@font/inter_medium"
+                    android:gravity="end"
                     android:pointerIcon="arrow"
                     android:text="@string/strViewAll"
-                    android:textColor="#00B207"
-                    android:textStyle="bold" />
+                    android:textColor="@color/main_green"
+                    android:textStyle="bold"
+                    app:iconTint="@color/main_green" />
 
             </LinearLayout>
 
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="21dp" />
 
             <!-- Category Images -->
 
@@ -320,7 +316,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp" />
             </LinearLayout>
 
             <Space
@@ -339,29 +336,33 @@
                     android:id="@+id/textView12"
                     android:layout_width="219dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/strHiglightedProducts"
+                    android:textColor="@color/main_green"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
+                <TextView
                     android:id="@+id/btnViewAll"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
-                    android:drawableEnd="@mipmap/ic_arrow"
                     android:fontFamily="@font/inter_medium"
+                    android:gravity="end"
                     android:pointerIcon="arrow"
                     android:text="@string/strViewAll"
-                    android:textColor="#00B207"
+                    android:textColor="@color/main_green"
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="none">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -377,6 +378,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -385,25 +388,29 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/strHiglightedBlogs"
+                    android:textColor="@color/main_green"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
+                <TextView
                     android:id="@+id/btnViewAll2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
-                    android:drawableEnd="@mipmap/ic_arrow"
                     android:fontFamily="@font/inter_medium"
+                    android:gravity="end"
                     android:pointerIcon="arrow"
                     android:text="@string/strViewAll"
-                    android:textColor="#00B207"
-                    android:textStyle="bold" />
+                    android:textColor="@color/main_green"
+                    android:textStyle="bold"
+                    app:iconTint="@color/main_green" />
             </LinearLayout>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
                     android:id="@+id/llBlog"
                     android:layout_width="match_parent"
@@ -413,32 +420,29 @@
                     <ListView
                         android:id="@+id/lvHighlightedBlog"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </HorizontalScrollView>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="100dp"/>
 
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        style="@style/BottomNavigationStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomNavigationView"
         android:layout_alignParentBottom="true"
-        android:elevation="2dp"
-        app:labelVisibilityMode="unlabeled"
-        android:background="@color/white"
-        app:menu="@menu/bottom_menu"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="0dp"
+        android:background="@color/white"
+        android:elevation="2dp"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
-        />
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_menu" />
 </RelativeLayout>
 
 

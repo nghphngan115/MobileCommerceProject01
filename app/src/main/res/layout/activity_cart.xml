@@ -13,18 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="30dp"
-            android:src="@mipmap/ic_backarrow" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="26dp"
             android:text="@string/strCart"
+            android:textColor="@color/main_green"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -32,32 +27,34 @@
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="-1dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginRight="26dp"
                 android:text="@string/strHello"
-                android:textColor="#000000"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
                 android:text="@string/strWhat"
-                android:textColor="#000000"
+                android:textColor="@color/textColor"
                 android:textSize="13dp" />
 
             <EditText
                 android:layout_width="350dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginRight="26dp"
                 android:background="@drawable/rounded_corner"
                 android:drawableStart="@mipmap/ic_search"
                 android:drawableEnd="@mipmap/ic_find"
@@ -71,16 +68,17 @@
             <ListView
                 android:id="@+id/lvCart"
                 android:layout_width="match_parent"
-                android:layout_height="258dp"
-                android:layout_marginStart="30dp"
+                android:layout_height="277dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp" />
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="26dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView3"
@@ -89,7 +87,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:text="Tổng tiền"
-                    android:textColor="#000000"
+                    android:textColor="@color/textColor"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -100,18 +98,19 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="30dp"
                     android:text="000000 đ"
-                    android:textStyle="bold"
-                    android:textColor="#00B207"
-                    android:textSize="20dp" />
+                    android:textColor="@color/main_green"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btnContinue"
                 android:layout_width="300dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_fullgreen">
 
@@ -129,14 +128,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btnOrder"
                 android:layout_width="300dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button_fullgreen">
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_white_greenborder">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,7 +143,7 @@
                     android:fontFamily="@font/inter_medium"
                     android:text="Tiến hành đặt hàng"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_green"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -168,6 +167,7 @@
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/item_selector"
             app:itemRippleColor="@android:color/transparent"
+            style="@style/BottomNavigationStyle"
             />
     </RelativeLayout>
 

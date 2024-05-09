@@ -5,10 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".java.AboutUsActivity"
-    android:layout_margin="10dp">
+    android:orientation="vertical"
+    tools:context=".java.AboutUsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,43 +17,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FAFAFA"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="44dp"
-                    android:layout_height="30dp"
-                    android:background="#FAFAFA"
-                    app:srcCompat="@mipmap/ic_back" />
-
                 <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="339dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="40dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:text="@string/strAboutUs"
+                    android:id="@+id/textView16"
+                    android:layout_width="296dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:text="@string/strIntro"
                     android:textAlignment="center"
                     android:textColor="#002603"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
+                <ImageButton
+                    android:id="@+id/btnMap"
+                    android:layout_width="55dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@android:string/untitled"
+                    android:src="@drawable/map" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:text="@string/strIntro"
-                android:textAlignment="center"
-                android:textColor="#002603" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -64,7 +52,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="@string/strTitle1"
-                android:textColor="#002603"
+                android:textColor="@color/main_green"
                 android:textSize="20sp" />
 
             <TextView
@@ -84,7 +72,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="@string/strTitle2"
-                android:textColor="#002603"
+                android:textColor="@color/main_green"
                 android:textSize="20sp" />
 
             <TextView
@@ -110,7 +98,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="Delivery"
-                android:textColor="#002603"
+                android:textColor="@color/main_green"
                 android:textSize="20sp" />
 
             <ImageView

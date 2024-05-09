@@ -33,7 +33,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
     private EditText edtSearch;
     private BlogAdapter adapter;
     private ArrayList<BlogItem> blogItems;
-    private ImageView imgButton2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class BlogCategoryActivity extends AppCompatActivity {
         // Initialize views
         lvCart = findViewById(R.id.lvCart);
         edtSearch = findViewById(R.id.edtSearch);
-        imgButton2 = findViewById(R.id.imgButton2);
+
 
         // Initialize array list to store blog items
         blogItems = new ArrayList<>();
@@ -122,12 +122,5 @@ public class BlogCategoryActivity extends AppCompatActivity {
         });
 
         // Handle click event for imgButton
-        imgButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish current activity and return to previous activity
-                finish();
-            }
-        });
     }
 }

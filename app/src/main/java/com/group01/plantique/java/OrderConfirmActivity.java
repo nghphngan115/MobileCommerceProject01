@@ -9,12 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import com.group01.plantique.R;
 import com.group01.plantique.adapter.CartListAdapter;
 import com.group01.plantique.model.Product;
 import com.group01.plantique.model.NotificationApp;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -54,7 +58,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<Product> productList;
     private TextView txtDiscount, txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
-    private ConstraintLayout btnConfirm, btnApply;
+    private ConstraintLayout btnConfirm;
     private ListView lvProduct;
     private CartListAdapter cartListAdapter;
     public EditText edtVoucher;
@@ -103,7 +107,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtShipFee.setText(String.format("%d đ", SHIPPING_FEE));
         edtVoucher = findViewById(R.id.edtVoucher);
         validateBtn = findViewById(R.id.validateBtn);
-        btnApply = findViewById(R.id.btnApply);
+
         txtDiscount = findViewById(R.id.txtDiscount);
     }
     private boolean isPromoCodeApplied =false;
@@ -142,7 +146,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                                     // Nếu không tìm thấy mã hợp lệ hoặc không thỏa mãn điều kiện
                                     isPromoCodeApplied = false;
                                     // Ẩn nút Apply và mô tả khuyến mãi
-                                    btnApply.setVisibility(View.GONE);
+
                                     txtPromoDescription.setVisibility(View.GONE);
                                     txtPromoDescription.setText("");
                                     priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
@@ -152,7 +156,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                             Toast.makeText(OrderConfirmActivity.this, "Promo code has not existed or has expired", Toast.LENGTH_SHORT).show();
                             isPromoCodeApplied = false;
                             // Ẩn nút Apply và mô tả khuyến mãi
-                            btnApply.setVisibility(View.GONE);
+
                             txtPromoDescription.setVisibility(View.GONE);
                             txtPromoDescription.setText("");
                             priceWithoutDiscount(); // Gọi khi không áp dụng giảm giá
@@ -170,7 +174,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void applyPromoCode() {
         if (!isPromoCodeApplied) {
             isPromoCodeApplied = true;
-            btnApply.setVisibility(View.GONE);
+
             txtPromoDescription.setVisibility(View.VISIBLE);
             txtPromoDescription.setText(promoDescription);
             priceWithDiscount();
@@ -296,7 +300,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         String transferMethod = getString(R.string.strTransfer); // Get the transfer method from resources
 
         if (transferMethod.equals(paymentMethod)) {
-            showPaymentConfirmationDialog(orderId);
+            generateAndDisplayQRCode(orderId);
         } else {
             // For COD or any other methods, finalize the order immediately
 
@@ -328,8 +332,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
         // Set the total amount on the dialog's TextView
         TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
         txtDialogTotal.setText(totalAmount);
-        TextView txtDialogOrderId = dialogView.findViewById(R.id.txtOrderId);
-        txtDialogOrderId.setText(orderId);
+
 
         // Setup the button to confirm payment
         ConstraintLayout btnCompleted = dialogView.findViewById(R.id.btnCompleted);
@@ -444,23 +447,11 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private AlertDialog confirmationDialog; // Biến để lưu trữ tham chiếu đến dialog
 
     private void showOrderConfirmationDialog(String orderId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_confirmation, null);
-        builder.setView(dialogView);
-
-        TextView txtOrderIdConfirm = dialogView.findViewById(R.id.txtOrderIdConfirm);
-
-        txtOrderIdConfirm.setText(getString(R.string.strOrdID) + orderId);
-
-
-        ConstraintLayout btnBack = dialogView.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> finishHomeScreen());
-
-        confirmationDialog = builder.create();
-        confirmationDialog.setCancelable(false); // This will make it so the dialog cannot be cancelled
-        confirmationDialog.setCanceledOnTouchOutside(false); // Lưu tham chiếu đến dialog vào biến confirmationDialog
-        confirmationDialog.show();
+        Intent intent = new Intent(this, OrderSuccessActivity.class);
+        intent.putExtra("ORDER_ID", orderId);
+        startActivity(intent);
     }
+
 
     private void finishHomeScreen() {
         if (confirmationDialog != null && confirmationDialog.isShowing()) {
@@ -544,6 +535,39 @@ public class OrderConfirmActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("notifications", gson.toJson(notifications));
         editor.apply();
+    }
+    private void generateAndDisplayQRCode(String orderId) {
+        String bankId = "970422";
+        String accountNo = "115952872022";
+        String template = "print";
+        String accountName = Uri.encode("NGUYEN HOANG PHUONG NGAN");
+        String amount = txtTotal.getText().toString().replaceAll("[^\\d.]+", ""); // Remove non-numeric characters
+        String description = Uri.encode(orderId);
+
+        String quickLinkUrl = "https://img.vietqr.io/image/" + bankId + "-" + accountNo + "-" + template + ".png?amount=" + amount + "&addInfo=" + description + "&accountName=" + accountName;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_bank_transfer, null);
+        builder.setView(dialogView);
+
+        ImageView qrImageView = dialogView.findViewById(R.id.imgQRCode);
+        if (qrImageView != null) {
+            Picasso.get().load(quickLinkUrl).into(qrImageView);
+        }
+
+        TextView txtDialogTotal = dialogView.findViewById(R.id.txtTotal);
+        txtDialogTotal.setText(amount +"đ");
+
+        Button btnCompleted = dialogView.findViewById(R.id.btnCompleted);
+        btnCompleted.setOnClickListener(v -> {
+            pushOrderToFirebase(orderId);
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 
     private List<NotificationApp> loadNotifications() {

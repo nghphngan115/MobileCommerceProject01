@@ -23,6 +23,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private ImageView imageViewProduct;
     private TextView textViewProductName;
+    private TextView textViewProductCategory;
+    private TextView textviewUnit;
     private TextView textViewDiscountNote;
     private TextView textViewProductDescription;
     private TextView textViewProductPrice;
@@ -43,6 +45,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         textViewProductPrice = findViewById(R.id.txtPrice);
         textViewProductDiscountPrice = findViewById(R.id.txtDiscountPrice);
         textViewDiscountNote = findViewById(R.id.txtDiscountNote);
+        textViewProductCategory = findViewById(R.id.txtProductCategory);
+        textviewUnit = findViewById(R.id.txtUnit);
         imgbtnBack = findViewById(R.id.imgbtnBack);
 
         imgbtnBack.setOnClickListener(new View.OnClickListener() {
@@ -81,12 +85,12 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
             textViewProductPrice.setPaintFlags(textViewProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            textViewProductPrice.setText("$" + product.getPrice());
+            textViewProductPrice.setText(product.getPrice() +"đ");
             textViewProductDiscountPrice.setVisibility(View.VISIBLE);
-            textViewProductDiscountPrice.setText("$" + discountPrice);
+            textViewProductDiscountPrice.setText(discountPrice +"đ");
         } else {
             textViewProductPrice.setPaintFlags(0);
-            textViewProductPrice.setText("$" + product.getPrice());
+            textViewProductPrice.setText(product.getPrice() +"đ");
             textViewProductDiscountPrice.setVisibility(View.GONE);
         }
 
@@ -96,12 +100,36 @@ public class ProductDetailActivity extends AppCompatActivity {
         } else {
             Picasso.get().load(R.drawable.logo).into(imageViewProduct);
         }
-        if (product.getDiscountNote() != null && !product.getDiscountNote().isEmpty()) {
+        String discountNote = product.getDiscountNote();
+        if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0")) {
+            // Hiển thị discountNote và thiết lập văn bản
             textViewDiscountNote.setVisibility(View.VISIBLE);
-            textViewDiscountNote.setText(product.getDiscountNote());
+            textViewDiscountNote.setText(discountNote);
         } else {
+            // Ẩn discountNote nếu không hợp lệ
             textViewDiscountNote.setVisibility(View.GONE);
         }
+
+        // Hiển thị cateName dựa trên categoryId và cateId
+        String categoryId = product.getCategoryId();
+        DatabaseReference categoryRef = FirebaseDatabase.getInstance().getReference().child("categories").child(categoryId);
+        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String cateName = snapshot.child("cateName").getValue(String.class);
+                    textViewProductCategory.setText(cateName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this, "Failed to fetch category data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Hiển thị unit
+        textviewUnit.setText("Unit: " + product.getUnit());
 
     }
 }

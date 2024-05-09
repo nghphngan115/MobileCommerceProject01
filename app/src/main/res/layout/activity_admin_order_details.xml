@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,6 +20,7 @@
             android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="@string/strOrderDetailsInfo"
+            android:textColor="@color/main_green"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -35,6 +37,7 @@
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
                 android:text="Order ID:"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -59,6 +62,7 @@
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
                 android:text="User ID:"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -68,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:text=""
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -76,11 +81,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/textView59"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
                 android:text="@string/strFullName"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -90,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:text=""
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -99,11 +107,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/textView34"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
-                android:text="EMAIL:"
+                android:text="Email:"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -113,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:text=""
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -122,20 +133,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/textView45"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
                 android:text="@string/strtextStatus"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
                 android:text=""
-                android:textColor="@color/main_green"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -145,11 +159,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/textView69"
                 android:layout_width="154dp"
                 android:layout_height="wrap_content"
                 android:text="Change Status"
+                android:textColor="@color/textColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -166,6 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/strShippingAddress"
+            android:textColor="@color/textColor"
             android:textSize="18sp"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
@@ -179,11 +196,13 @@
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidth="2dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strAddress" />
+                android:hint="@string/strAddress"
+                android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Phone -->
@@ -192,6 +211,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/strPhone"
+            android:textColor="@color/textColor"
+            android:textSize="18sp"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPhone"
@@ -204,11 +225,13 @@
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidth="2dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strPhone" />
+                android:hint="@string/strPhone"
+                android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Note -->
@@ -217,6 +240,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/strNote"
+            android:textColor="@color/textColor"
+            android:textSize="18sp"
             android:textStyle="bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNote1"
@@ -234,17 +259,19 @@
                 android:id="@+id/edtNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/strNote" />
+                android:hint="@string/strNote"
+                android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView120"
-            android:layout_width="306dp"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/strOrder"
+            android:textColor="@color/textColor"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -267,6 +294,7 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strSubTotal"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -278,6 +306,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -295,6 +324,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strShipFee"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -306,6 +336,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -323,6 +354,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strPaymentMethod"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -334,6 +366,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -350,6 +383,7 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strDiscount"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -361,6 +395,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -378,6 +413,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strTotal"
+                android:textColor="@color/textColor"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

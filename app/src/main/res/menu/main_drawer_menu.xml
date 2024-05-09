@@ -3,24 +3,24 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_account"
             android:icon="@drawable/ic_account"
-            android:title="Personal account" />
-
-        <item android:id="@+id/nav_noti"
-            android:icon="@drawable/ic_noti"
-            android:title="Notification" />
+            android:title="Personal Information" />
 
         <item android:id="@+id/nav_order"
             android:icon="@drawable/ic_order"
             android:title="Order" />
 
-        <item android:id="@+id/nav_order_address"
+        <item
+            android:id="@+id/nav_order_address"
             android:icon="@drawable/ic_location"
-            android:title="Order shippingAddress" />
+            android:title="@string/strShippingAddress" />
 
-        <item android:id="@+id/nav_about_us"
-            android:icon="@drawable/ic_info"
-            android:title="About us" />
+        <item android:id="@+id/nav_noti"
+            android:icon="@drawable/ic_noti"
+            android:title="Notification" />
+    </group>
 
+
+    <group android:checkableBehavior="single">
         <item android:id="@+id/nav_policy"
             android:icon="@drawable/ic_policy"
             android:title="Policy" />
@@ -28,9 +28,20 @@
         <item android:id="@+id/nav_term"
             android:icon="@drawable/ic_terms"
             android:title="Terms and Conditions" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_info"
+            android:title="About us" />
 
         <item android:id="@+id/nav_contact"
             android:icon="@drawable/ic_contact_support"
             android:title="Contact support" />
+
+
     </group>
+
+
+
 </menu>

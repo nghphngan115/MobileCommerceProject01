@@ -92,7 +92,7 @@ public class CheckoutActivity extends AppCompatActivity {
         for (Product product : cartProducts) {
             totalAmount += product.getPrice() * product.getCartQuantity();
         }
-        txtSubTotal.setText(FormatCurrency.formatCurrency(totalAmount));
+        txtSubTotal.setText(totalAmount  +"đ");
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
         sharedPreferences.edit().putInt("totalAmount", totalAmount).apply();
     }

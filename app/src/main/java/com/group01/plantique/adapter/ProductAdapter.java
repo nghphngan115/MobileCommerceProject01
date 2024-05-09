@@ -121,7 +121,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
 
             TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
-            txtDiscountNote.setText(product.getDiscountNote());
+            String discountNote = product.getDiscountNote();
+            if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0")) {
+                // Hiển thị discountNote và thiết lập văn bản
+                txtDiscountNote.setVisibility(View.VISIBLE);
+                txtDiscountNote.setText(discountNote);
+            } else {
+                // Ẩn discountNote nếu không hợp lệ
+                txtDiscountNote.setVisibility(View.GONE);
+            }
 
             TextView txtUnit = view.findViewById(R.id.txtUnit);
             txtUnit.setText(product.getUnit());

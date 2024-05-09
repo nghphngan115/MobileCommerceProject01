@@ -56,7 +56,7 @@ import com.squareup.picasso.Picasso;
 public class HomeScreenActivity extends AppCompatActivity {
 
     SearchView svSearch;
-    Button btnViewAll, btnViewAll2, btnViewAllCate;
+    TextView btnViewAll, btnViewAll2, btnViewAllCate;
     RecyclerView rvCategory, rvHighlightedProduct;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
@@ -67,7 +67,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     LinearLayout llProduct;
     ConstraintLayout  btnBuynow1, btnBuynow2, clCate;
     ViewFlipper ViewFlipper;
-    
+
     Context context = this;
 
 
@@ -122,7 +122,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this, AllProductsActivity.class);
                 startActivity(intent);
             }
         });
@@ -130,7 +130,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnBuynow2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this, AllProductsActivity.class);
                 startActivity(intent);
             }
         });
@@ -170,7 +170,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                             }
                         });
                     }
-        };
+                };
         rvCategory.setAdapter(adapter);
         adapter.startListening();
 
@@ -185,7 +185,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this,ProductListActivity.class);
+                Intent intent = new Intent(HomeScreenActivity.this,AllProductsActivity.class);
                 startActivity(intent);
             }
         });
@@ -266,7 +266,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getPrice()));
+            txtUnitPrice.setText(String.valueOf(products.getPrice() +"đ"));
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());
             ImageView imgProduct =view.findViewById(R.id.imgProduct);
