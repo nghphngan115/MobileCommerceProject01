@@ -13,14 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="13dp"
-            android:backgroundTint="@color/white"
-            android:src="@mipmap/ic_back" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,7 +135,7 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_full_light_green">
+                android:background="@drawable/button_white_greenborder">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -175,6 +167,7 @@
             app:itemIconSize="30dp"
             app:itemIconTint="@drawable/item_selector"
             app:itemRippleColor="@android:color/transparent"
+            style="@style/BottomNavigationStyle"
             />
     </RelativeLayout>
 

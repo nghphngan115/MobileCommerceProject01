@@ -159,7 +159,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String cateName = snapshot.child("cateName").getValue(String.class);
-                    textViewProductCategory.setText("Category: " + cateName);
+                    textViewProductCategory.setText(cateName);
                 }
             }
 

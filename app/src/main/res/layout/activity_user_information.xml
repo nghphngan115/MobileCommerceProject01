@@ -7,202 +7,232 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:text="@string/strUInfo"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/avatarImageView"
-        android:layout_width="150dp"
-        android:layout_height="159dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/circle_background"
-        android:src="@mipmap/ic_avatar" />
-
-    <!-- Icon Camera -->
-
-    <!-- Tên và Email -->
-    <ImageView
-        android:id="@+id/cameraIconImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignStart="@id/avatarImageView"
-        android:layout_alignTop="@id/avatarImageView"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="129dp"
-        android:elevation="4dp"
-        android:src="@mipmap/ic_camera" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/avatarImageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:hint="@string/strUserName"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:hint="@string/strEmail"
-            android:textSize="16sp" />
-
-    <!-- Details -->
-
-    <!-- List thông tin -->
-        <TextView
-            android:id="@+id/detailsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/emailTextView"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/strDetail"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/detailsLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detailsTextView"
-            android:layout_marginTop="-5dp"
-            android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <!-- Item 1: Tên -->
+            <ImageView
+                android:id="@+id/avatarImageView"
+                android:layout_width="150dp"
+                android:layout_height="159dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/circle_background"
+                android:src="@mipmap/ic_avatar" />
+
+            <!-- Icon Camera -->
+
+            <!-- Tên và Email -->
+            <ImageView
+                android:id="@+id/cameraIconImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@id/avatarImageView"
+                android:layout_alignTop="@id/avatarImageView"
+                android:layout_marginStart="98dp"
+                android:layout_marginTop="129dp"
+                android:elevation="4dp"
+                android:src="@mipmap/ic_camera" />
+
+            <!-- Details -->
+
+            <!-- List thông tin -->
+            <TextView
+                android:id="@+id/detailsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatarImageView"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/strDetail"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <LinearLayout
+                android:id="@+id/detailsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/nameEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/strFName"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/editNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/strEdit"
-                    android:textColor="#6CC51D"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <!-- Item 2: Địa chỉ -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/detailsTextView"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
-                <EditText
-                    android:id="@+id/addressEditText"
-                    android:layout_width="0dp"
+                <!-- Item 1: Tên -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/strAdd"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/editAddressTextView"
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/nameEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/strFName"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/editNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/strEdit"
+                        android:textColor="#6CC51D"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Item 2: Địa chỉ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textColor="#6CC51D"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-            <!-- Item 3: Số điện thoại -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/addressEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/strAdd"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/phoneEditText"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/editAddressTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="#6CC51D"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <!-- Item 3: Số điện thoại -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/strPhoneNumber"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/editPhoneTextView"
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/phoneEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/strPhoneNumber"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/editPhoneTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="#6CC51D"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+                <!-- Item 3: Email -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textColor="#6CC51D"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <!-- Item 3: Email -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                <EditText
-                    android:id="@+id/emailEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Email"
-                    android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/emailEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Email"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textColor="#6CC51D"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:textColor="#6CC51D"
+                        android:textSize="16sp"/>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_fullgreen">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="@string/strSave"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnChangePassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_white_greenborder"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="@string/strChangePwd"
+                            android:textAlignment="center"
+                            android:textColor="@color/main_green"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnLogOut"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_fullgreen">
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_full_grey">
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_medium"
-                        android:text="@string/strSave"
+                        android:text="@string/strLogOut"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -213,61 +243,9 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btnChangePassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_fullgreen"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/inter_medium"
-                        android:text="@string/strChangePwd"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnLogOut"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button_fullgreen">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="@string/strLogOut"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -282,6 +260,7 @@
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
+        style="@style/BottomNavigationStyle"
         />
 
 </RelativeLayout>

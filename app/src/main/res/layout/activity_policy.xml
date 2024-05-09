@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="16dp">
+    android:padding="26dp">
+
     <TextView
         android:id="@+id/txtPolicyContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="Placeholder for policy content." />
+        android:text="Placeholder for policy content."
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
 
 </ScrollView>

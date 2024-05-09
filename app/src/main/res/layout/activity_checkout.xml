@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="26dp"
                 android:backgroundTint="@color/white"
+                app:tint="@color/dark_green"
                 app:srcCompat="@drawable/ic_back" />
 
             <TextView
