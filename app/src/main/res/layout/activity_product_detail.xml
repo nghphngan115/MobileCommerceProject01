@@ -43,7 +43,6 @@
                     android:background="@drawable/ad_layout_rounded"
                     android:padding="5dp"
                     android:text="TextView"
-                    android:textAlignment="center"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="gone" />

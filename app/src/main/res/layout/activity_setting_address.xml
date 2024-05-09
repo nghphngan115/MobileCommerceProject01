@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_back"
-            android:tint="@color/dark_green" />
+            app:tint="@color/dark_green" />
 
         <TextView
             android:id="@+id/textView28"
