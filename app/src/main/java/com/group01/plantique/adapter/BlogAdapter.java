@@ -5,64 +5,75 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.group01.plantique.R;
 import com.group01.plantique.java.BlogDetailActivity;
 import com.group01.plantique.model.BlogItem;
-import com.group01.plantique.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class BlogAdapter extends ArrayAdapter<BlogItem> {
-
-    private ArrayList<BlogItem> blogItems;
+public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder> {
     private Context mContext;
-    public BlogItem getItem(int position) {
-        return blogItems.get(position);
+    private ArrayList<BlogItem> blogItems;
+    private OnItemClickListener mListener;
+
+    // Interface for click listener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
+    // Method to set the click listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public BlogAdapter(Context context, ArrayList<BlogItem> blogItems) {
-        super(context, 0, blogItems);
         mContext = context;
         this.blogItems = blogItems;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.blog_show, parent, false);
+    public BlogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.blog_show, parent, false);
+        return new BlogViewHolder(view, mListener);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull BlogViewHolder holder, int position) {
+        BlogItem currentItem = blogItems.get(position);
+        holder.titleTextView.setText(currentItem.getBlogTitle());
+        Picasso.get().load(currentItem.getBlogImage()).into(holder.imageView);
+    }
+
+    @Override
+    public int getItemCount() {
+        return blogItems.size();
+    }
+
+    static class BlogViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView titleTextView;
+
+        public BlogViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imgBlog);
+            titleTextView = itemView.findViewById(R.id.txtTitle1);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
-
-        final BlogItem currentItem = blogItems.get(position);
-
-        TextView titleTextView = convertView.findViewById(R.id.txtTitle1);
-        titleTextView.setText(currentItem.getTitle());
-
-        ImageView imageView = convertView.findViewById(R.id.imgBlog);
-        Picasso.get().load(currentItem.getImage()).into(imageView);
-
-        // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Tạo Intent để mở BlogDetailActivity
-                Intent intent = new Intent(mContext, BlogDetailActivity.class);
-
-                // Đặt dữ liệu của mục hiện tại vào Intent
-                intent.putExtra("blogId", currentItem.getBlogId());
-                intent.putExtra("blogTitle", currentItem.getTitle());
-                intent.putExtra("blogImage", currentItem.getImage());
-                intent.putExtra("blogContent", currentItem.getContent());
-
-                // Khởi chạy Intent
-                mContext.startActivity(intent);
-            }
-        });
-
-        return convertView;
     }
 }

@@ -3,15 +3,14 @@ package com.group01.plantique.java;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,24 +20,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.BlogAdapter;
 import com.group01.plantique.model.BlogItem;
-
 import java.util.ArrayList;
 
 public class BlogCategoryActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE = 1;
-
-    private DatabaseReference mDatabase;
-    private ListView lvCart;
-    private EditText edtSearch;
+    private RecyclerView rvBlog;
     private BlogAdapter adapter;
     private ArrayList<BlogItem> blogItems;
-
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_category);
+
         //Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.blog);
@@ -67,60 +62,41 @@ public class BlogCategoryActivity extends AppCompatActivity {
             return false;
         });
 
-
-        // Initialize Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
-
-        // Initialize views
-        lvCart = findViewById(R.id.lvCart);
-        edtSearch = findViewById(R.id.edtSearch);
-
-
-        // Initialize array list to store blog items
+        rvBlog = findViewById(R.id.rvBlog);
         blogItems = new ArrayList<>();
-
-        // Initialize adapter and set it to list view
         adapter = new BlogAdapter(this, blogItems);
-        lvCart.setAdapter(adapter);
+        rvBlog.setAdapter(adapter);
+        rvBlog.setLayoutManager(new LinearLayoutManager(this));
 
-        // Read data from Firebase
+        adapter.setOnItemClickListener(new BlogAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                BlogItem selectedBlog = blogItems.get(position);
+                Intent intent = new Intent(BlogCategoryActivity.this, BlogDetailActivity.class);
+                intent.putExtra("blogId", selectedBlog.getBlogId());
+                intent.putExtra("blogTitle", selectedBlog.getBlogTitle());
+                intent.putExtra("blogImage", selectedBlog.getBlogImage());
+                intent.putExtra("blogContent", selectedBlog.getBlogContent());
+                startActivity(intent);
+            }
+        });
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Clear previous data
                 blogItems.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    // Get blog data and add to list
-                    String blogId = snapshot.getKey();
-                    String title = snapshot.child("blogTitle").getValue(String.class);
-                    String imageUrl = snapshot.child("blogImage").getValue(String.class);
-                    String content = snapshot.child("blogContent").getValue(String.class);
-                    blogItems.add(new BlogItem(blogId, title, imageUrl, content));
+                    BlogItem blog = snapshot.getValue(BlogItem.class);
+                    blogItems.add(blog);
                 }
-                // Notify adapter that data set has changed
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
+                Toast.makeText(BlogCategoryActivity.this, "Failed to load blogs.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Handle click event for a blog
-        lvCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get selected blog item
-                BlogItem selectedBlog = blogItems.get(position);
-
-                // Open BlogDetailActivity with selected blog data
-                Intent intent = new Intent(BlogCategoryActivity.this, BlogDetailActivity.class);
-                intent.putExtra("blogId", selectedBlog.getBlogId());
-                startActivity(intent);
-            }
-        });
-
-        // Handle click event for imgButton
     }
 }
