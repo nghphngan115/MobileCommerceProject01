@@ -49,7 +49,7 @@
     <string name="strOrdThank">"Đơn hàng của bạn đang được xử lý. Cảm ơn bạn đã đặt hàng. "</string>
     <string name="menu_drawer_open">Mở Drawer</string>
     <string name="menu_drawer_close">Đóng Drawer</string>
-    <string name="strTotal">Thành tiền</string>
+    <string name="strTotal">Tổng tiền</string>
     <string name="strConfirmPayment">Xác nhận thanh toán</string>
     <string name="strBackButton">Quay về</string>
     <string name="strtextStatus">Trạng thái đơn hàng</string>
@@ -85,7 +85,7 @@
     <string name="progress_dialog_title">Vui lòng chờ</string>
     <string name="strAboutUs">Về chúng tôi</string>
     <string name="strTitle1">100% từ thiên nhiên</string>
-    <string name="strIntro">Plantique được thành lập vào năm 2024 với mong muốn mang lại những thực phẩm sạch và tự nhiên nhất từ các làng nghề truyền thống đến tay người tiêu dùng. Chúng tôi cam kết đem lại cho khách hàng những sản phẩm chất lượng nhất, giúp hỗ trợ sức khỏe, làm đẹp và kiểm soát cân nặng.</string>
+    <string name="strIntro">Plantique được thành lập vào năm 2024 </string>
     <string name="strTitle2">"Chất lượng hàng đầu"</string>
     <string name="strpolicy">Chính sách</string>
     <string name="delete_success_message">Đã xóa...</string>
@@ -209,7 +209,7 @@
     <string name="strSearch">Tìm kiếm</string>
     <string name="strCart">Giỏ hàng</string>
     <string name="strUInfo">Thông tin cá nhân</string>
-    <string name="strUserName">User Name</string>
+    <string name="strUserName">Tên người dùng</string>
     <string name="strEmail">Email</string>
     <string name="strFName">Họ và tên</string>
     <string name="strAdd">Địa chỉ</string>
@@ -314,5 +314,32 @@
     Nếu bạn có bất kỳ câu hỏi nào về các Điều khoản này, vui lòng liên hệ với chúng tôi tại [thông tin liên hệ].
     ]]>
 </string>
+    <string name="pls_contact">Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!</string>
+    <string name="strTitle3">Vận chuyển</string>
+    <string name="strAllProduct">Tất cả sản phẩm</string>
+    <string name="hint_search">Tìm kiếm</string>
+    <string name="continue_shopping">Tiếp tục mua sắm</string>
+    <string name="strPwd">Mật khẩu</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="strContact">GỬI THÔNG TIN CHO CHÚNG TÔI!</string>
+    <string name="forgot_pwd">Quên mật khẩu?</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="str_no_acc">Chưa có tài khoản?</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="product_desc">Mô tả</string>
+    <string name="feedback">Nhận xét</string>
+    <string name="send_otp">Gửi mã OTP</string>
+    <string name="pls_resent">Vui lòng nhập số điện thoại đã đăng ký của bạn. Chúng tôi sẽ gửi lại mã xác nhận cho bạn</string>
+    <string name="str_enter_OTP">Nhập mã OTP</string>
+    <string name="verify_OTP">Xác nhận mã OTP</string>
+    <string name="resend_OTP">Gửi lại mã OTP</string>
+    <string name="strRecommend">Bạn có thể tìm kiế...</string>
+    <string name="str_also_like">Bạn có thể sẽ thích</string>
+    <string name="set_default">Lưu mặc định</string>
+    <string name="allow_push_noti">Cho phép bật thông báo đẩy</string>
+    <string name="allow_mess">Nếu bạn cho phép, chúng tôi sẽ gửi thông báo mới nhất lên màn hình</string>
+    <string name="str_alr_acc">Đã có tài khoản?</string>
+    <string name="welcome">Chào mừng đến với Plantique</string>
 
 </resources>

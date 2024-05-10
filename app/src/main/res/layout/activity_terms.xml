@@ -9,6 +9,7 @@
         android:id="@+id/textViewTerms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
         android:text="Placeholder for terms and conditions content."
         android:textColor="@color/textColor"
         android:textSize="16sp" />

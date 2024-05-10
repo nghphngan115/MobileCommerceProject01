@@ -20,9 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/inter_bold"
         android:text="@string/strOrdConf"
-        android:textColor="@color/textColor"
 
+        android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -31,10 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/inter"
         android:text="@string/strOrdThank"
         android:textAlignment="center"
         android:textColor="@color/textColor"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/txtOrderIdConfirm"
@@ -42,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
         android:text="@string/strOrdID"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/main_green"

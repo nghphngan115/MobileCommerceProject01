@@ -26,6 +26,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:fontFamily="@font/inter_bold"
             android:gravity="center"
             android:text="Product"
             android:textAlignment="center"
@@ -65,7 +66,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_corner"
                 android:drawablePadding="10dp"
-                android:hint="Search"
+                android:fontFamily="@font/inter"
+                android:hint="@string/hint_search"
                 android:padding="10dp" />
 
         </LinearLayout>

@@ -18,5 +18,6 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_weight="1"
+        android:fontFamily="@font/inter"
         android:text="TextView" />
 </LinearLayout>

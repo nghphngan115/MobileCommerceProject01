@@ -10,8 +10,8 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
         android:background="@drawable/background_rec_green"
         android:orientation="horizontal">
 
@@ -23,20 +23,21 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
             android:background="@color/main_green"
             app:srcCompat="@drawable/ic_back_white" />
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/inter_medium"
             android:text="Product Detail"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20dp" />
@@ -89,12 +90,14 @@
                 android:id="@+id/txtProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Product Name" />
 
             <TextView
                 android:id="@+id/txtProductCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Product Category" />
 
             <LinearLayout
@@ -107,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/inter"
                     android:text="Price" />
 
                 <TextView
@@ -114,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/inter"
                     android:text="Discount Price" />
             </LinearLayout>
 
@@ -121,24 +126,28 @@
                 android:id="@+id/textView51"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Description" />
 
             <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/txtStock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Stock" />
 
             <TextView
                 android:id="@+id/txtUnit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
                 android:text="Unit" />
 
         </LinearLayout>

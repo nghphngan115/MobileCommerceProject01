@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="26dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Notification"
+        android:text="@string/strNotification"
         android:textAlignment="center"
         android:textColor="@color/main_green"
         android:textSize="20sp" />

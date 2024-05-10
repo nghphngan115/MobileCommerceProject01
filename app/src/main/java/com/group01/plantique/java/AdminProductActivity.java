@@ -58,6 +58,13 @@ public class AdminProductActivity extends AppCompatActivity {
         filterProductBtn = findViewById(R.id.filterBtn);
         searchBtn = findViewById(R.id.searchBtn);
         btnAddProduct = findViewById(R.id.btnAddProduct);
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         productsRef = FirebaseDatabase.getInstance().getReference().child("products");
         categoriesRef = FirebaseDatabase.getInstance().getReference().child("categories");

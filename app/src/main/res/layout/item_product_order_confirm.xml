@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
+            android:fontFamily="@font/inter_medium"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="BeforePrice"
                 android:textColor="#808080"
+                android:fontFamily="@font/inter"
                 android:textSize="18sp"
                 android:layout_marginBottom="5dp" />
 
@@ -48,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
+                android:fontFamily="@font/inter"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/main_green"
                 android:textSize="18sp" />
@@ -57,7 +60,8 @@
             android:id="@+id/txtProductQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/inter"
             android:text="Quantity"
             android:textSize="18sp" />
 

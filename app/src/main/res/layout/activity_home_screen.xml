@@ -66,17 +66,13 @@
                 android:text="@string/strWelcome2"
                 android:textSize="12sp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/svSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_searchview"
-                android:hint="Search" />
+                android:background="@drawable/button_white_greenborder"
+                android:hint="@string/hint_search" />
 
             <!-- Ad Layout -->
 
@@ -311,7 +307,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="23dp"
+                >
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCategory"
@@ -320,9 +318,6 @@
                     android:layout_marginTop="20dp" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="23dp" />
 
             <!-- Highlighted Products -->
 
@@ -409,7 +404,9 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="36dp"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/llBlog"
@@ -417,8 +414,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ListView
-                        android:id="@+id/lvHighlightedBlog"
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHighlightedBlog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
