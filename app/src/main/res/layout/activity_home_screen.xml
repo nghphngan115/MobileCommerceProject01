@@ -414,6 +414,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvHighlightedBlog"
                         android:layout_width="match_parent"

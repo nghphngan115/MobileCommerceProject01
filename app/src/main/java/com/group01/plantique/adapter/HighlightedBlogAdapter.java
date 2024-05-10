@@ -11,20 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.group01.plantique.R;
 import com.group01.plantique.java.BlogDetailActivity;
-import com.group01.plantique.java.HomeScreenActivity;
-import com.group01.plantique.model.BlogItem;
-import com.squareup.picasso.Picasso;
+import com.group01.plantique.model.HighlightBlogItem;
 
 import java.util.ArrayList;
 
 public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlogAdapter.BlogViewHolder> {
 
     Context context;
-    ArrayList<BlogItem> blogList;
+    ArrayList<HighlightBlogItem> blogList;
 
-    public HighlightedBlogAdapter(Context context, ArrayList<BlogItem> blogList) {
+    public HighlightedBlogAdapter(Context context, ArrayList<HighlightBlogItem> blogList) {
         this.context = context;
         this.blogList = blogList;
     }
@@ -37,7 +36,7 @@ public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlog
 
     @Override
     public void onBindViewHolder(@NonNull BlogViewHolder holder, int position) {
-        BlogItem blogItem = blogList.get(position);
+        HighlightBlogItem blogItem = blogList.get(position);
         holder.setBlogDetails(blogItem);
     }
 
@@ -50,38 +49,40 @@ public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlog
         }
     }
 
-    public static class BlogViewHolder extends RecyclerView.ViewHolder{
+    public static class BlogViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
         ImageView imgThumbs;
 
         public BlogViewHolder(@NonNull View itemView) {
             super(itemView);
 
-             txtTitle = itemView.findViewById(R.id.txtTitle);
-             imgThumbs = itemView.findViewById(R.id.imgThumbs);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            imgThumbs = itemView.findViewById(R.id.imgThumbs);
 
         }
 
-        public void setBlogDetails(BlogItem blogItem) {
-            TextView txtTitle = itemView.findViewById(R.id.txtTitle);
-            txtTitle.setText(blogItem.getTitle());
+        public void setBlogDetails(HighlightBlogItem blogItem) {
+            if (blogItem != null) {
+                TextView txtTitle = itemView.findViewById(R.id.txtTitle);
+                txtTitle.setText(blogItem.getBlogTitle());
 
-            ImageView imgThumbs = itemView.findViewById(R.id.imgThumbs);
-            String blogImage = blogItem.getImage();
-            if (imgThumbs != null && !blogImage.isEmpty()) {
-                Picasso.get().load(blogImage).into(imgThumbs);
-            }
-
-            itemView.findViewById(R.id.llBlog).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context1 = itemView.getContext();
-                    Intent intent = new Intent(context1, BlogDetailActivity.class);
-                    intent.putExtra("blogId", blogItem.getBlogId());
-                    context1.startActivity(intent);
+                ImageView imgThumbs = itemView.findViewById(R.id.imgThumbs);
+                String blogImage = blogItem.getBlogImage();
+                if (blogImage != null && !blogImage.isEmpty()) {
+                    Glide.with(itemView.getContext()).load(blogItem.getBlogImage()).into(imgThumbs);
                 }
-            });
+
+
+                itemView.findViewById(R.id.llBlog).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context1 = itemView.getContext();
+                        Intent intent = new Intent(context1, BlogDetailActivity.class);
+                        intent.putExtra("blogId", blogItem.getBlogId());
+                        context1.startActivity(intent);
+                    }
+                });
+            }
         }
-    }
-}
+    }}
 

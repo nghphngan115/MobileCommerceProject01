@@ -54,6 +54,7 @@ import com.group01.plantique.adapter.HighlightedBlogAdapter;
 import com.group01.plantique.adapter.ProductAdapter;
 import com.group01.plantique.model.BlogItem;
 import com.group01.plantique.model.Category;
+import com.group01.plantique.model.HighlightBlogItem;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -65,7 +66,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
     HighlightedBlogAdapter highlightedblogAdapter;
-    ArrayList<BlogItem> blogList;
+    ArrayList<HighlightBlogItem> blogList;
     private ArrayList<Product> products;
     LinearLayout llProduct, llBlog;
     ConstraintLayout  btnBuynow1, btnBuynow2, clCate;
@@ -288,38 +289,38 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
     private void getBlogFromFirebase() {
-        rvHiglightedBlog=findViewById(R.id.rvHighlightedBlog);
+        rvHiglightedBlog = findViewById(R.id.rvHighlightedBlog);
         rvHiglightedBlog.setHasFixedSize(true);
         rvHiglightedBlog.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Blog");
-        highlightedblogAdapter = new HighlightedBlogAdapter(this, blogList);
-        rvHiglightedBlog.setAdapter(highlightedblogAdapter);
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    if (blogList != null) {
-                        // Nếu đã được khởi tạo, thực hiện phương thức clear() để xóa tất cả các phần tử trong danh sách
-                        blogList.clear();
-                    } else {
-                        // Nếu chưa được khởi tạo, hãy khởi tạo nó trước khi gọi phương thức clear()
+                    // Khởi tạo danh sách blogList nếu chưa tồn tại
+                    if (blogList == null) {
                         blogList = new ArrayList<>();
+                    } else {
+                        blogList.clear(); // Xóa danh sách cũ để cập nhật dữ liệu mới
                     }
+
+                    // Duyệt qua từng child của dataSnapshot để lấy dữ liệu BlogItem
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    BlogItem blogItem = snapshot.getValue(BlogItem.class);
-
-
-                    if (blogItem != null) {
-                        blogList.add(blogItem);
+                        HighlightBlogItem blogItem = dataSnapshot.getValue(HighlightBlogItem.class);
+                        if (blogItem != null) {
+                            // Thêm blogItem vào danh sách
+                            blogList.add(blogItem);
+                        }
                     }
-                }
-                highlightedblogAdapter.notifyDataSetChanged();
 
-            }else {
-                Log.d("FirebaseData", "Snapshot does not exist or is empty");
-            }}
+                    // Khởi tạo và cài đặt adapter cho RecyclerView
+                    highlightedblogAdapter = new HighlightedBlogAdapter(HomeScreenActivity.this, blogList);
+                    rvHiglightedBlog.setAdapter(highlightedblogAdapter);
+                } else {
+                    Log.d("FirebaseData", "Snapshot does not exist or is empty");
+                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -327,6 +328,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onStart() {
