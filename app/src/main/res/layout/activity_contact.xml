@@ -16,7 +16,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/send_info_to_us"
+        android:text="@string/strContact"
         android:textAlignment="center"
         android:textColor="@color/main_green"
         android:textSize="22sp"
@@ -29,7 +29,7 @@
         android:layout_marginLeft="26dp"
         android:layout_marginRight="26dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/contact_us_for_queries"
+        android:text="@string/pls_contact"
         android:textAlignment="viewStart"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
@@ -53,7 +53,7 @@
             android:layout_marginLeft="26dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="26dp"
-            android:hint="@string/full_name"
+            android:hint="@string/strFName"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,7 +77,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="26dp"
             android:layout_marginRight="26dp"
-            android:hint="@string/phone_number"
+            android:hint="@string/strPhoneNumber"
             android:inputType="phone"
             android:maxLength="10"
             android:textColor="@color/textColor"

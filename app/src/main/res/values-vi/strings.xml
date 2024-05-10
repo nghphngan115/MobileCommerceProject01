@@ -209,7 +209,7 @@
     <string name="strSearch">Tìm kiếm</string>
     <string name="strCart">Giỏ hàng</string>
     <string name="strUInfo">Thông tin cá nhân</string>
-    <string name="strUserName">User Name</string>
+    <string name="strUserName">Tên người dùng</string>
     <string name="strEmail">Email</string>
     <string name="strFName">Họ và tên</string>
     <string name="strAdd">Địa chỉ</string>
@@ -324,7 +324,6 @@
     <string name="sign_in">Đăng nhập</string>
     <string name="str_no_acc">Chưa có tài khoản?</string>
     <string name="sign_up">Đăng ký</string>
-    <string name="noti">Thông báo</string>
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
     <string name="product_desc">Mô tả</string>
     <string name="feedback">Nhận xét</string>

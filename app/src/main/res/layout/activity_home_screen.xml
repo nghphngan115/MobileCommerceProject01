@@ -71,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_searchview"
-                android:hint="Search" />
+                android:background="@drawable/button_white_greenborder"
+                android:hint="@string/hint_search" />
 
             <!-- Ad Layout -->
 
@@ -405,7 +405,8 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="26dp">
+                android:layout_marginBottom="36dp"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/llBlog"
@@ -413,8 +414,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ListView
-                        android:id="@+id/lvHighlightedBlog"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHighlightedBlog"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
