@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -175,7 +176,6 @@ public class ProductListActivity extends AppCompatActivity {
             });
 
             // Set click listener for add to cart area
-            // Thay đổi phương thức gọi khi click vào nút "Thêm vào giỏ hàng"
             view.findViewById(R.id.constraintLayoutAddToCart).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -199,25 +199,12 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
         private void addToCart(Product product) {
-            ArrayList<Product> cartProducts = CartUtility.getCartProducts(view.getContext());
-            boolean found = false;
-
-            for (Product p : cartProducts) {
-                if (p.getProductId().equals(product.getProductId())) {
-                    p.setCartQuantity(p.getCartQuantity() + 1);
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                product.setCartQuantity(1);
-                cartProducts.add(product);
-            }
-
-            CartUtility.saveCartProducts(view.getContext(), cartProducts);
-            Toast.makeText(view.getContext(), "Product added to cart", Toast.LENGTH_SHORT).show();
+            // Tạo Intent để chuyển dữ liệu sản phẩm sang PopUpActivity
+            Context context = view.getContext();
+            Intent intent = new Intent(context, PopUpActivity.class);
+            intent.putExtra("productName", product.getProductName());
+            intent.putExtra("price", product.getPrice());
+            context.startActivity(intent);
         }
-
     }
 }

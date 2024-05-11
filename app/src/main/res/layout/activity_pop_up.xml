@@ -28,6 +28,7 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/inter_medium"
             android:text="Product Title"
+            android:textSize="20dp"
             android:textColor="@color/white" />
 
 
@@ -45,14 +46,31 @@
             android:layout_marginEnd="10dp">
 
             <TextView
+                android:id="@+id/beforeDiscountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="97dp"
+                android:fontFamily="@font/inter"
+                android:textColor="#808080"
+                android:padding="10dp"
+                android:text="000000đ"
+                android:textAlignment="textStart"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/finalPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="1dp"
                 android:fontFamily="@font/inter"
                 android:padding="10dp"
-                android:text="00000đ"
-                android:textAlignment="textStart" />
+                android:textColor="#00B207"
+                android:textStyle="bold"
+                android:text="000000đ"
+                android:textAlignment="textStart"
+                android:textSize="20dp" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -75,7 +93,7 @@
             android:gravity="center_vertical"
             android:src="@mipmap/ic_minus"/>
 
-        <TextView
+        <EditText
             android:id="@+id/productQuantityTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +117,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnAddToCart"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/button_fullgreen">
 
@@ -110,6 +128,8 @@
             android:fontFamily="@font/inter_medium"
             android:text="@string/add_to_cart"
             android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -36,6 +36,9 @@
             android:name=".java.AddBlogActivity"
             android:exported="true" />
         <activity
+            android:name=".java.PopUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".java.AdminBlogListActivity"
             android:exported="true" />
         <activity
