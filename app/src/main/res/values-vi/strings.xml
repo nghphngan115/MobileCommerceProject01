@@ -247,6 +247,7 @@
     <string name="strNotification">Thông báo</string>
     <string name="quantity">SL: %d</string>
     <string name="product_stock_message">%s chỉ còn %d sản phẩm.</string>
+    <string name="product_added_to_cart">Sản phẩm đã được thêm vào giỏ hàng</string>
 
 
     <string name="policy_details">

@@ -8,19 +8,34 @@
     android:background="@color/white"
     tools:context=".java.ContactActivity">
 
-    <TextView
-        android:id="@+id/definition_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/strContact"
-        android:textAlignment="center"
-        android:textColor="@color/main_green"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/imgbtnBack"
+            android:layout_marginTop="26dp"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26dp"
+            android:backgroundTint="@color/white"
+            app:tint="@color/main_green"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/definition_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/strContact"
+            android:textAlignment="center"
+            android:textColor="@color/main_green"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/definition_content"

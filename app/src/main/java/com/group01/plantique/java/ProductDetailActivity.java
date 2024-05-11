@@ -3,19 +3,26 @@ package com.group01.plantique.java;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.group01.plantique.CartUtility;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.ReviewAdapter;
 import com.group01.plantique.model.Product;
@@ -36,7 +43,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private TextView textViewProductPrice;
     private TextView textViewProductDiscountPrice;
     private ImageButton imgbtnBack;
-
+private ConstraintLayout btnAddToCart;
     private DatabaseReference productsRef;
     private ListView listViewReviews;
     private ReviewAdapter reviewAdapter;
@@ -57,7 +64,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         textViewDiscountNote = findViewById(R.id.txtDiscountNote);
         textViewProductCategory = findViewById(R.id.txtProductCategory);
         textviewUnit = findViewById(R.id.txtUnit);
+        btnAddToCart=findViewById(R.id.btnAddToCart);
         imgbtnBack = findViewById(R.id.imgbtnBack);
+
 
         imgbtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +181,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         // Hiển thị unit
         textviewUnit.setText("Unit: " + product.getUnit());
+        setupAddToCartButton(product);
 
     }
     private void loadReviews(String productId) {
@@ -195,4 +205,90 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
+    private void setupAddToCartButton(Product product) {
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddToCartDialog(product);
+            }
+        });
+    }
+
+    private void showAddToCartDialog(Product product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProductDetailActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_pop_up, null);
+        builder.setView(dialogView);
+
+        ImageView productImageView = dialogView.findViewById(R.id.productIv);
+        TextView productTitleTextView = dialogView.findViewById(R.id.productTitleTv);
+        TextView currentPriceTextView = dialogView.findViewById(R.id.currentPriceTv);
+        TextView beforeDiscountTextView = dialogView.findViewById(R.id.beforeDiscountTv);
+        EditText productQuantityTextView = dialogView.findViewById(R.id.productQuantityTv);
+        ImageButton btnMinus = dialogView.findViewById(R.id.btnMinus);
+        ImageButton btnPlus = dialogView.findViewById(R.id.btnPlus);
+        Button btnAddToCartDialog = dialogView.findViewById(R.id.btnAddToCart);
+
+        // Set the product details in the dialog
+        productTitleTextView.setText(product.getProductName());
+        if (!product.getImageurl().isEmpty()) {
+            Picasso.get().load(product.getImageurl()).into(productImageView);
+        }
+        // Price setting logic as per discount
+        if (product.getDiscount_price() > 0 && product.getDiscount_price() != product.getPrice()) {
+            beforeDiscountTextView.setText(product.getPrice() + "đ");
+            currentPriceTextView.setText(product.getDiscount_price() + "đ");
+            beforeDiscountTextView.setPaintFlags(beforeDiscountTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            beforeDiscountTextView.setVisibility(View.VISIBLE);
+        } else {
+            currentPriceTextView.setText(product.getPrice() + "đ");
+            beforeDiscountTextView.setVisibility(View.GONE);
+        }
+
+        // Quantity increment and decrement handlers
+        btnMinus.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+            if (quantity > 1) {
+                quantity--;
+                productQuantityTextView.setText(String.valueOf(quantity));
+            }
+        });
+        btnPlus.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+            quantity++;
+            productQuantityTextView.setText(String.valueOf(quantity));
+        });
+        AlertDialog dialog = builder.create();
+        // Adding to cart
+        btnAddToCartDialog.setOnClickListener(v -> {
+            int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+            addProductToCart(product, quantity);
+            dialog.dismiss();
+        });
+
+
+        dialog.show();
+    }
+
+    private void addProductToCart(Product product, int quantity) {
+        ArrayList<Product> cartProducts = CartUtility.getCartProducts(ProductDetailActivity.this);
+        boolean found = false;
+
+        for (Product p : cartProducts) {
+            if (p.getProductId().equals(product.getProductId())) {
+                p.setCartQuantity(p.getCartQuantity() + quantity);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            product.setCartQuantity(quantity);
+            cartProducts.add(product);
+        }
+
+        CartUtility.saveCartProducts(ProductDetailActivity.this, cartProducts);
+        Toast.makeText(ProductDetailActivity.this, "Product added to cart", Toast.LENGTH_SHORT).show();
+    }
+
 }

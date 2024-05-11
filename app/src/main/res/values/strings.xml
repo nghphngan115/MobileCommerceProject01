@@ -378,6 +378,7 @@
     <string name="allow_mess">If you allow, we will send the latest notification to the screen bar</string>
     <string name="strNotification">Notification</string>
     <string name="quantity">Qty: %d</string>
+    <string name="product_added_to_cart">Product added to cart</string>
 
 
 </resources>

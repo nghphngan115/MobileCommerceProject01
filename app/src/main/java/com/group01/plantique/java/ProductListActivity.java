@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class ProductListActivity extends AppCompatActivity {
     private EditText searchEt;
     private TextView textViewTitle;
     private ImageButton imgbtnBack;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,25 +202,82 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
         private void addToCart(Product product) {
-            ArrayList<Product> cartProducts = CartUtility.getCartProducts(view.getContext());
+            Context context = view.getContext();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View dialogView = inflater.inflate(R.layout.activity_pop_up, null);
+            builder.setView(dialogView);
+
+            ImageView productImageView = dialogView.findViewById(R.id.productIv);
+            TextView productTitleTextView = dialogView.findViewById(R.id.productTitleTv);
+            TextView beforeDiscountTextView = dialogView.findViewById(R.id.beforeDiscountTv);
+            TextView currentPriceTextView = dialogView.findViewById(R.id.currentPriceTv);
+            EditText productQuantityTextView = dialogView.findViewById(R.id.productQuantityTv);
+            ImageButton btnMinus = dialogView.findViewById(R.id.btnMinus);
+            ImageButton btnPlus = dialogView.findViewById(R.id.btnPlus);
+            Button btnAddToCart = dialogView.findViewById(R.id.btnAddToCart);
+
+            productTitleTextView.setText(product.getProductName());
+            Picasso.get().load(product.getImageurl()).into(productImageView);
+
+            if (product.getDiscount_price() > 0 && product.getDiscount_price() != product.getPrice()) {
+                beforeDiscountTextView.setText(product.getPrice() + "đ");
+                currentPriceTextView.setText(product.getDiscount_price() + "đ");
+                beforeDiscountTextView.setPaintFlags(beforeDiscountTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                beforeDiscountTextView.setVisibility(View.VISIBLE);
+            } else {
+                currentPriceTextView.setText(product.getPrice() + "đ");
+                beforeDiscountTextView.setVisibility(View.GONE);
+            }
+
+            btnMinus.setOnClickListener(v -> {
+                int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+                if (quantity > 1) {
+                    quantity--;
+                    productQuantityTextView.setText(String.valueOf(quantity));
+                }
+            });
+
+            btnPlus.setOnClickListener(v -> {
+                int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+                quantity++;
+                productQuantityTextView.setText(String.valueOf(quantity));
+            });
+
+            AlertDialog dialog = builder.create();  // Create the dialog
+
+            btnAddToCart.setOnClickListener(v -> {
+                int quantity = Integer.parseInt(productQuantityTextView.getText().toString());
+                addProductToCart(product, quantity, context);
+                dialog.dismiss();  // Dismiss the dialog after adding the product to the cart
+            });
+
+            dialog.show();
+        }
+
+
+        private void addProductToCart(Product product, int quantity, Context context) {
+            ArrayList<Product> cartProducts = CartUtility.getCartProducts(context);
             boolean found = false;
 
             for (Product p : cartProducts) {
                 if (p.getProductId().equals(product.getProductId())) {
-                    p.setCartQuantity(p.getCartQuantity() + 1);
+                    p.setCartQuantity(p.getCartQuantity() + quantity);
                     found = true;
                     break;
                 }
             }
 
             if (!found) {
-                product.setCartQuantity(1);
+                product.setCartQuantity(quantity);
                 cartProducts.add(product);
             }
 
-            CartUtility.saveCartProducts(view.getContext(), cartProducts);
-            Toast.makeText(view.getContext(), "Product added to cart", Toast.LENGTH_SHORT).show();
+            CartUtility.saveCartProducts(context, cartProducts);
+            Toast.makeText(context, context.getString(R.string.product_added_to_cart), Toast.LENGTH_SHORT).show();
+
         }
+
 
     }
 }
