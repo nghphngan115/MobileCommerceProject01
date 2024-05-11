@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Product Name"
+            android:fontFamily="@font/inter_bold"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -52,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="000000 đ"
+                android:fontFamily="@font/inter"
                 android:textColor="#00B207"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
@@ -72,19 +74,21 @@
                 android:layout_height="32dp"
                 android:background="@drawable/button_circle_fullgreen"
                 android:contentDescription="Minus"
-                android:src="@mipmap/ic_minus" />
+                android:src="@mipmap/ic_minus"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <EditText
                 android:id="@+id/edtProductQuantity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:inputType="number"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:inputType="number"
-                android:gravity="center" />
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/btnPlus"
@@ -92,16 +96,17 @@
                 android:layout_height="32dp"
                 android:background="@drawable/button_circle_fullgreen"
                 android:contentDescription="Plus"
-                android:src="@mipmap/ic_plus" />
+                android:src="@mipmap/ic_plus"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageView
                 android:id="@+id/imgBin"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
-                android:src="@mipmap/ic_delete"
                 android:layout_weight="1"
-                android:contentDescription="Delete" />
+                android:contentDescription="Delete"
+                android:src="@mipmap/ic_delete" />
 
         </LinearLayout>
     </LinearLayout>

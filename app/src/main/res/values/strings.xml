@@ -207,6 +207,8 @@
     <string name="toast_user_not_found">User not found</string>
     <string name="toast_database_error">Database Error</string>
 
+    <string name="product_stock_message">%s only has %d items left.</string>
+
 
     <string-array name="filter_options">
         <item>Price: Ascending</item>
@@ -234,6 +236,31 @@
     <string name="delete_button_label">Delete</string>
     <string name="cancel_button_label">Cancel</string>
     <string name="product_deleted_success">Product deleted successfully</string>
+    <string name="processing_status">Processing</string>
+    <string name="delivering_status">Delivering</string>
+    <string name="finished_status">Finished</string>
+    <string name="cancelled_status">Cancelled</string>
+    <string name="default_status">Unknown</string>
+    <string name="send_info_to_us">SEND INFORMATION TO US !</string>
+    <string name="contact_us_for_queries">Contact us now to get answers to your questions and receive exciting offers!</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="content">Content</string>
+    <string name="send_info">Send Information</string>
+    <string name="product_image_url_empty">Product image URL is empty</string>
+    <string name="product_is_null">Product is null</string>
+    <string name="product_not_exist">Product does not exist</string>
+    <string name="failed_to_fetch_product_data">Failed to fetch product data</string>
+    <string name="review_submitted_successfully">Review submitted successfully</string>
+    <string name="failed_to_submit_review">Failed to submit review</string>
+    <string name="invalid_product_id">Invalid product ID</string>
+    <string name="login_required_title">Login Required</string>
+    <string name="login_required_message">You need to be logged in to write a review. Do you want to log in now?</string>
+    <string name="login_button">Log In</string>
+    <string name="order_items_null">Order or items are null or empty!</string>
+    <string name="write_review">Write Review</string>
+    <string name="how_do_you_feel">How is the order?</string>
+    <string name="submit">Submit</string>
 
 
     <string-array name="promo_options">
@@ -322,6 +349,35 @@
         If you have any questions about these Terms, please contact us at [contact information].
         ]]>
     </string>
+    <string name="strTitle3">Delivery</string>
+    <string name="strAllProduct">All Products</string>
+    <string name="hint_search">Search</string>
+    <string name="continue_shopping">Continue shopping</string>
+    <string name="strPwd">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="strContact">SEND US INFORMATION!</string>
+    <string name="pls_contact">Please contact us immediately to have your questions answered and receive many attractive offers for you!</string>
+    <string name="forgot_pwd">Forget password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="str_no_acc">Don\'t have any account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="product_desc">Description</string>
+    <string name="feedback">Feedbacks</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="pls_resent">Please enter your registered phone number. We will resend the confirmation code to you</string>
+    <string name="str_enter_OTP">Enter OTP</string>
+    <string name="verify_OTP">Verify OTP</string>
+    <string name="resend_OTP">Resend OTP</string>
+    <string name="strRecommend">Things you can search fro...</string>
+    <string name="str_also_like">You may also like</string>
+    <string name="set_default">Set default</string>
+    <string name="allow_push_noti">Enable push notifications</string>
+    <string name="str_alr_acc">Already have account?</string>
+    <string name="welcome">Welcome to Platique App</string>
+    <string name="allow_mess">If you allow, we will send the latest notification to the screen bar</string>
+    <string name="strNotification">Notification</string>
+    <string name="quantity">Qty: %d</string>
 
 
 </resources>

@@ -2,9 +2,11 @@ package com.group01.plantique.java;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
     private ListView lvProduct;
     private Spinner spinnerStatus;
     private Button btnUpdateOrder;
+    private ImageButton btnBack;
     private Order order;
 
 
@@ -47,6 +50,7 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
         populateOrderDetails();
         setupSpinner();
         setupUpdateButton();
+
     }
 
     private void initializeViews() {
@@ -66,6 +70,14 @@ public class AdminOrderDetailsActivity extends AppCompatActivity {
         lvProduct = findViewById(R.id.lvProduct);
         spinnerStatus = findViewById(R.id.spinnerStatus);
         btnUpdateOrder = findViewById(R.id.btnUpdateOrder);
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         // Add error checks and logs for all fields, not just txtStatus
         checkViewInitialization();
     }

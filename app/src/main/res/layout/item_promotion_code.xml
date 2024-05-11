@@ -8,7 +8,7 @@
         android:id="@+id/iconPromo"
         android:layout_width="93dp"
         android:layout_height="101dp"
-        app:srcCompat="@mipmap/ic_pack" />
+        app:srcCompat="@drawable/ic_discount_green" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,30 +19,35 @@
             android:id="@+id/promoCodeTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
             android:text="Promotion Code" />
 
         <TextView
             android:id="@+id/promoPriceTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
             android:text="Promotion Price: $1.4" />
 
         <TextView
             android:id="@+id/minimumOrderPriceTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
             android:text="Minimum Order Price" />
 
         <TextView
             android:id="@+id/expireDateTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
             android:text="25/04/2024" />
 
         <TextView
             android:id="@+id/promoDescriptionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
             android:text="Description" />
     </LinearLayout>
 </LinearLayout>

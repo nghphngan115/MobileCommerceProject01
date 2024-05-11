@@ -17,7 +17,7 @@
 
         <ImageButton
             android:id="@+id/imgbtnBack"
-            android:layout_width="wrap_content"
+            android:layout_width="33dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             app:srcCompat="@mipmap/ic_back" />
@@ -27,8 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="30dp"
+            android:fontFamily="@font/inter_bold"
             android:gravity="center"
-            android:text="All Products"
+            android:text="@string/all_products"
             android:textAlignment="center"
             android:textColor="@color/main_green"
             android:textSize="20sp"
@@ -60,7 +61,8 @@
             android:layout_weight="1"
             android:background="@drawable/rounded_corner"
             android:drawablePadding="10dp"
-            android:hint="Search"
+            android:fontFamily="@font/inter"
+            android:hint="@string/strSearch"
             android:padding="10dp" />
 
         <ImageButton
@@ -79,7 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/productSearchLL"
         android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:fontFamily="@font/inter"
+        android:text="@string/all_products"
         android:textColor="@color/textColor" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -91,7 +94,7 @@
         android:background="@android:color/white"
         android:clipToPadding="false"
         android:numColumns="2"
-        android:paddingTop="58dp"
+        android:paddingTop="20dp"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_product" />
 

@@ -1,5 +1,7 @@
 package com.group01.plantique.java;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -60,11 +62,32 @@ public class AddProductActivity extends AppCompatActivity {
     private static final int IMAGE_PICK_CAMERA_CODE=500;
     private String[] cameraPermissions;
     private String[] storagePermissions;
-    private Uri image_uri;
+    private Uri imageUri;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private DatabaseReference categoriesRef;
 
+    private final ActivityResultLauncher<String> getContent = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            uri -> {
+                if (uri != null) {
+                    productIconIv.setImageURI(uri);
+                    imageUri = uri;
+                }
+            });
+
+    private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(),
+            isSuccess -> {
+                if (isSuccess && imageUri != null) {
+                    productIconIv.setImageURI(imageUri);
+                }
+            });
+    private Uri createImageUri() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "New Product Image");
+        return getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,7 +288,7 @@ public class AddProductActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        if (image_uri != null) {
+                                        if (imageUri != null) {
                                             // Upload hình ảnh lên Storage
                                             uploadImage(newProductId, timestamp);
                                         } else {
@@ -314,7 +337,7 @@ public class AddProductActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    if (image_uri != null) {
+                                    if (imageUri != null) {
                                         // Upload hình ảnh lên Storage
                                         uploadImage(newProductId, timestamp);
                                     } else {
@@ -357,12 +380,13 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
 
+
     // Phương thức upload hình ảnh lên Storage
     private void uploadImage(String productId, String timestamp) {
         String filePathAndName = "product_images/" + productId;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
 
-        storageReference.putFile(image_uri)
+        storageReference.putFile(imageUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -420,7 +444,7 @@ public class AddProductActivity extends AppCompatActivity {
         discountedPriceEt.setText("");
         discountedNoteEt.setText("");
         productIconIv.setImageResource(R.drawable.ic_shopping_cart);
-        image_uri=null;
+        imageUri=null;
         discountNote = "";
     }
     private void categoryDialog() {
@@ -462,30 +486,21 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     private void showImagePickDialog() {
-        String[] options = getResources().getStringArray(R.array.image_picker_options);
+        String[] options = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.dialog_title_pick_image))
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            if (checkCameraPermission()) {
-                                pickFromCamera();
-                            } else {
-                                requestCameraPermission();
-                            }
-                        } else {
-                            if (checkStoragePermission()) {
-                                pickFromGallery();
-                            } else {
-                                requestStoragePermission();
-                            }
-                        }
+        builder.setTitle("Choose Image Source")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        // Camera
+                        imageUri = createImageUri(); // Ensure this is created each time for new images
+                        takePicture.launch(imageUri);
+                    } else {
+                        // Gallery
+                        getContent.launch("image/*");
                     }
                 })
                 .show();
     }
-
     private void pickFromGallery() {
         // Intent để chọn hình từ thư viện
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -498,10 +513,10 @@ public class AddProductActivity extends AppCompatActivity {
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image_Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image_Description");
 
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, IMAGE_PICK_CAMERA_CODE);
     }
 
@@ -545,10 +560,10 @@ public class AddProductActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
-                image_uri = data.getData();
-                productIconIv.setImageURI(image_uri);
+                imageUri = data.getData();
+                productIconIv.setImageURI(imageUri);
             } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
-                productIconIv.setImageURI(image_uri);
+                productIconIv.setImageURI(imageUri);
             }
         }
     }

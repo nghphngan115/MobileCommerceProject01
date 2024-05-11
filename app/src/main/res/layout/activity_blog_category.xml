@@ -12,20 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/imgButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="26dp"
-            android:background="@color/white"
-            android:src="@mipmap/ic_back" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="26dp"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/strBlog"
             android:textColor="@color/main_green"
             android:textSize="20dp"
@@ -43,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="60dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strHello"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -51,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strWhat"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -64,22 +58,21 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/rounded_corner"
                 android:drawableStart="@mipmap/ic_search"
-                android:drawableEnd="@mipmap/ic_find"
                 android:drawablePadding="10dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strSearch"
                 android:padding="10dp"
                 android:textColor="#9E000000"
                 android:textColorHint="#868889"
                 android:textSize="13dp" />
 
-            <ListView
-                android:id="@+id/lvCart"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBlog"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/edtSearch"
+                android:layout_marginTop="10dp"/>
+
 
         </LinearLayout>
 
@@ -95,7 +88,8 @@
             app:itemIconTint="@drawable/item_selector"
             app:itemRippleColor="@android:color/transparent"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu"
+            style="@style/BottomNavigationStyle"/>
 
     </RelativeLayout>
 

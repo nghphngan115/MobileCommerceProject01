@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -260,7 +261,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void updateTotal() {
         int subTotal = 0;
         for (Product product : productList) {
-            subTotal += product.getPrice() * product.getCartQuantity();
+            int effectivePrice = product.getDiscount_price() > 0 ? product.getDiscount_price() : product.getPrice();
+            subTotal += effectivePrice * product.getCartQuantity();
         }
         txtSubTotal.setText(String.format("%d đ", subTotal));
         int total = subTotal + SHIPPING_FEE;
@@ -309,6 +311,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             pushOrderToFirebase(orderId);
             isPromoCodeApplied = false;}
         clearCartSharedPreferences();
+
     }
     private void clearCartSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);
@@ -513,13 +516,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_notification) // replace ic_notification with your notification icon
                 .setContentTitle(getString(R.string.strOrderSuccess))
-                .setContentText(getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate)
+                .setContentText(getString(R.string.strNotiOrder)+ " " + orderId +" "+ getString(R.string.strOn)+ " " + orderDate)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         notificationManager.notify(1, builder.build());
-        saveNotificationToPreferences(getString(R.string.strOrderSuccess), getString(R.string.strNotiOrder) + orderId + getString(R.string.strOn) + orderDate);
+        saveNotificationToPreferences(getString(R.string.strOrderSuccess), getString(R.string.strNotiOrder) + " " + orderId + " " + getString(R.string.strOn) + " " + orderDate);
+
 
     }
     private void saveNotificationToPreferences(String title, String content) {
@@ -577,10 +581,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
         List<NotificationApp> notifications = new Gson().fromJson(json, type);
         return notifications != null ? notifications : new ArrayList<>();
     }
-
-
-
-
 
 
 

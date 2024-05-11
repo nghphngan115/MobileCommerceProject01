@@ -35,7 +35,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/sign_in"
         android:textAlignment="center"
         android:textColor="@color/main_green"
         android:textSize="24sp"
@@ -48,7 +49,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="31dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Username:"
+        android:text="@string/strUserName"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -71,7 +72,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter username"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_username"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +85,7 @@
         android:layout_marginLeft="39dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/inter_medium"
-        android:text="Password:"
+        android:text="@string/strPwd"
         android:textColor="@color/textColor"
         android:textSize="16sp" />
 
@@ -107,7 +109,8 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
-            android:hint="Enter password"
+            android:fontFamily="@font/inter"
+            android:hint="@string/hint_enter_password"
             android:inputType="textPassword"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
@@ -120,7 +123,8 @@
         android:layout_gravity="end"
         android:layout_marginTop="5dp"
         android:layout_marginRight="39dp"
-        android:text="Forgot password?"
+        android:fontFamily="@font/inter"
+        android:text="@string/forgot_pwd"
         android:textColor="@color/main_green"
         android:textSize="14sp" />
 
@@ -138,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
-            android:text="Sign in"
+            android:text="@string/sign_in"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -161,7 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter"
-            android:text="Don't have any account?" />
+            android:text="@string/str_no_acc" />
 
         <TextView
             android:id="@+id/txtSignUp"
@@ -169,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/inter_bold"
-            android:text=" Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@color/main_green"
             android:textStyle="bold" />
     </LinearLayout>

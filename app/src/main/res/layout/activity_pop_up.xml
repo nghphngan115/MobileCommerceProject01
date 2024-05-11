@@ -26,6 +26,7 @@
             android:layout_below="@id/productIv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter_medium"
             android:text="Product Title"
             android:textColor="@color/white" />
 
@@ -47,10 +48,11 @@
                 android:id="@+id/finalPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textAlignment="textStart"
                 android:layout_alignParentEnd="true"
-                android:text="00000đ" />
+                android:fontFamily="@font/inter"
+                android:padding="10dp"
+                android:text="00000đ"
+                android:textAlignment="textStart" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -77,6 +79,7 @@
             android:id="@+id/productQuantityTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
             android:padding="8dp"
             android:text="1"
             android:textSize="15sp"
@@ -104,7 +107,8 @@
             android:id="@+id/addToCartTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add To Cart"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/add_to_cart"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

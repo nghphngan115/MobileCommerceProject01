@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/strBlog"
             android:textColor="@color/main_green"
             android:textSize="20dp"
@@ -44,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="60dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strHello"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -52,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:fontFamily="@font/inter"
                 android:text="@string/strWhat"
                 android:textColor="@color/textColor"
                 android:textSize="13dp" />
@@ -64,8 +67,8 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rounded_corner"
                 android:drawableStart="@mipmap/ic_search"
-                android:drawableEnd="@mipmap/ic_find"
                 android:drawablePadding="10dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strSearch"
                 android:padding="10dp"
                 android:textColor="#9E000000"
@@ -81,27 +84,30 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
+                android:fontFamily="@font/inter_medium"
                 android:text="Blog's Title"
                 android:textColor="@color/main_green"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imgBlog"
                 android:layout_width="349dp"
                 android:layout_height="230dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_horizontal|fill_horizontal"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_image"
+                android:foregroundGravity="fill_horizontal|fill_vertical"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/txtContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:fontFamily="@font/inter"
                 android:text="Blog's Content"
                 android:textColor="@color/textColor"
                 android:textSize="15sp" />

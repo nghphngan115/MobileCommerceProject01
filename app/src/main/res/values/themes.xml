@@ -9,4 +9,9 @@
         <item name="android:statusBarColor">@color/black</item>
     </style>
 
+    <style name="BottomNavigationStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:itemBackground">@drawable/item_selected_color</item>
+        <item name="colorPrimary">@color/grey</item>
+    </style>
+
 </resources>

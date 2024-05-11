@@ -2,10 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CartActivity">
+      <entry key="AddBlogActivity">
         <State />
       </entry>
-      <entry key="UserInformationActivity">
+      <entry key="AddProductActivity">
+        <State />
+      </entry>
+      <entry key="AdminBlogListActivity">
+        <State />
+      </entry>
+      <entry key="AdminProductActivity">
+        <State />
+      </entry>
+      <entry key="BlogCategoryActivity">
         <State />
       </entry>
       <entry key="app">

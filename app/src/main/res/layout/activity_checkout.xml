@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="26dp"
                 android:backgroundTint="@color/white"
+                app:tint="@color/main_green"
                 app:srcCompat="@drawable/ic_back" />
 
             <TextView
@@ -98,6 +99,7 @@
             android:layout_marginLeft="39dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="39dp"
+            android:fontFamily="@font/inter"
             android:hint="@string/strFullName"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -130,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strCIty"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -185,6 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="39dp"
                     android:layout_marginRight="2dp"
+                    android:fontFamily="@font/inter"
                     android:hint="@string/strDistrict"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -207,6 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="39dp"
+                    android:fontFamily="@font/inter"
                     android:hint="@string/strWard"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -243,6 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strAddress"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -281,6 +287,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="39dp"
+                    android:fontFamily="@font/inter"
                     android:hint="@string/strPhone"
                     android:inputType="phone"
                     android:maxLength="10"
@@ -325,6 +332,7 @@
                 android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="39dp"
+                android:fontFamily="@font/inter"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:textSize="14sp" />
@@ -357,7 +365,8 @@
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strCOD"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/textColor"
+                app:buttonTint="@color/main_green"/>
 
             <RadioButton
                 android:id="@+id/radTransfer"
@@ -367,7 +376,8 @@
                 android:layout_marginRight="39dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/strTransfer"
-                android:textColor="@color/textColor" />
+                android:textColor="@color/textColor"
+                app:buttonTint="@color/main_green"/>
 
 
         </RadioGroup>
@@ -405,6 +415,7 @@
 
                 android:layout_marginLeft="39dp"
                 android:layout_marginRight="39dp"
+                android:fontFamily="@font/inter"
                 android:hint="@string/strNote"
                 android:inputType="textEmailAddress"
                 android:textSize="14sp" />

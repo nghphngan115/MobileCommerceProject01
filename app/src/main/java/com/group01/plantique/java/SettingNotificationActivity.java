@@ -1,43 +1,28 @@
 package com.group01.plantique.java;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Switch;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.group01.plantique.R;
 import com.group01.plantique.databinding.ActivitySettingNotificationBinding;
-import com.group01.plantique.model.NotificationApp;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SettingNotificationActivity extends DrawerBaseActivity {
     Switch switchAllow;
-    ImageButton imgbtnBack;
-
     private static final String CHANNEL_ID = "plantique";
-    private static final String CHANNEL_NAME = "Plantique";
-    private static final String CHANNEL_DESC = "Plantique NotificationApp";
-
-    private FirebaseAuth firebaseAuth;
-
+    private static final int PERMISSION_REQUEST_NOTIFICATION_POLICY = 1001;
+    private SharedPreferences sharedPreferences;
 
     ActivitySettingNotificationBinding activitySettingNotificationBinding;
 
@@ -46,81 +31,76 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         activitySettingNotificationBinding = ActivitySettingNotificationBinding.inflate(getLayoutInflater());
         setContentView(activitySettingNotificationBinding.getRoot());
+        setupNotificationChannel();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription(CHANNEL_DESC);
+        allocateActivityTitle("Notification Settings");
+        switchAllow = findViewById(R.id.switchAllow);
+        sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
+        updateSwitchState();
+
+        switchAllow.setOnClickListener(v -> allowNotification());
+    }
+
+    private void setupNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Plantique Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Notifications from Plantique app");
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
-
-        allocateActivityTitle("NotificationApp");
-        switchAllow = findViewById(R.id.switchAllow);
-        imgbtnBack = findViewById(R.id.imgbtnBack);
-
-        firebaseAuth = firebaseAuth.getInstance();
-        imgbtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        switchAllow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                allowNotification();
-            }
-        });
-
-
     }
-
-
 
     private void allowNotification() {
-        Intent intent = new Intent(this, com.group01.plantique.java.HomeScreenActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        NotificationCompat.Builder mbuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_notification)
-                .setContentTitle(getString(R.string.notification_title))
-                .setContentText(getString(R.string.notification_content))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-        NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+            // Show an explanation dialog before redirecting
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission Needed")
+                    .setMessage("This app needs notification access to function properly. Please enable it in the next screen.")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        // Intent to open the specific app's notification settings
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                        // for Android 8 and above
+                        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, getApplicationInfo().uid);
+
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                    .create().show();
+        } else {
+            // If permission is already granted, update the UI accordingly
+            updateSwitchState();
         }
-        mNotificationMgr.notify(1, mbuilder.build());
-        saveNotificationToPreferences(getString(R.string.notification_title), getString(R.string.notification_title));
     }
 
-    private void saveNotificationToPreferences(String title, String content) {
-        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
-        List<NotificationApp> notifications = loadNotifications();
-        notifications.add(new NotificationApp(title, content, R.mipmap.ic_notification)); // Assuming an icon is associated
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_NOTIFICATION_POLICY) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                updatePreferences(true);
+            } else {
+                updatePreferences(false);
+            }
+        }
+    }
+
+    private void updatePreferences(boolean hasPermission) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(notifications);
-        editor.putString("notifications", json);
+        editor.putBoolean("NotificationPermission", hasPermission);
         editor.apply();
+        updateSwitchState();
     }
 
-    private List<NotificationApp> loadNotifications() {
-        SharedPreferences sharedPreferences = getSharedPreferences("NotificationPrefs", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("notifications", null);
-        Type type = new TypeToken<ArrayList<NotificationApp>>() {}.getType();
-        List<NotificationApp> notifications = gson.fromJson(json, type);
-        return notifications != null ? notifications : new ArrayList<>();
+    private void updateSwitchState() {
+        boolean isAllowed = sharedPreferences.getBoolean("NotificationPermission", false);
+        switchAllow.setChecked(isAllowed);
+        if (isAllowed) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            startActivity(intent);
+        }
     }
-
 }

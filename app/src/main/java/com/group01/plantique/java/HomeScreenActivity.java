@@ -5,7 +5,9 @@ import static java.security.AccessController.getContext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ import androidx.appcompat.widget.SearchView;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,21 +54,21 @@ import com.group01.plantique.adapter.HighlightedBlogAdapter;
 import com.group01.plantique.adapter.ProductAdapter;
 import com.group01.plantique.model.BlogItem;
 import com.group01.plantique.model.Category;
+import com.group01.plantique.model.HighlightBlogItem;
 import com.group01.plantique.model.Product;
 import com.squareup.picasso.Picasso;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
     SearchView svSearch;
-    Button btnViewAll, btnViewAll2, btnViewAllCate;
-    RecyclerView rvCategory, rvHighlightedProduct;
+    TextView btnViewAll, btnViewAll2, btnViewAllCate;
+    RecyclerView rvCategory, rvHighlightedProduct, rvHiglightedBlog;
     List<Category> categoryList;
     CategoryAdapter categoryAdapter;
-    ListView lvHiglightedBlog;
     HighlightedBlogAdapter highlightedblogAdapter;
-    private ArrayList<BlogItem> blogItems;
+    ArrayList<HighlightBlogItem> blogList;
     private ArrayList<Product> products;
-    LinearLayout llProduct;
+    LinearLayout llProduct, llBlog;
     ConstraintLayout  btnBuynow1, btnBuynow2, clCate;
     ViewFlipper ViewFlipper;
 
@@ -75,7 +79,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     private String categoryId;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId"})
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,13 +178,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         rvCategory.setAdapter(adapter);
         adapter.startListening();
 
-        lvHiglightedBlog = findViewById(R.id.lvHighlightedBlog);
-        blogItems = new ArrayList<>();
-        highlightedblogAdapter = new HighlightedBlogAdapter(this, blogItems);
-        lvHiglightedBlog.setAdapter(highlightedblogAdapter);
 
         rvHighlightedProduct = findViewById(R.id.rvHighlightedProduct);
         rvHighlightedProduct.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,17 +207,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         getProductFromFirebase();
         getBlogFromFirebase();
 
-        lvHiglightedBlog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BlogItem selectedBlog = blogItems.get(position);
-
-                // Open BlogDetailActivity with selected blog data
-                Intent intent = new Intent(HomeScreenActivity.this, BlogDetailActivity.class);
-                intent.putExtra("blogId", selectedBlog.getBlogId());
-                startActivity(intent);
-            }
-        });
 
         //Search
         svSearch.setOnSearchClickListener(new View.OnClickListener() {
@@ -266,7 +256,12 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getPrice() +"đ"));
+            txtUnitPrice.setText(String.valueOf(products.getDiscount_price() +"đ"));
+
+            TextView txtPriceNoSale = view.findViewById(R.id.txtPriceNoSale);
+            txtPriceNoSale.setText(String.valueOf(products.getPrice() +"đ"));
+            txtPriceNoSale.setPaintFlags(txtPriceNoSale.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());
             ImageView imgProduct =view.findViewById(R.id.imgProduct);
@@ -294,39 +289,52 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
     private void getBlogFromFirebase() {
-        // Kết nối đến Firebase Database
-        databaseReference = FirebaseDatabase.getInstance().getReference("Blog");
+        rvHiglightedBlog = findViewById(R.id.rvHighlightedBlog);
+        rvHiglightedBlog.setHasFixedSize(true);
+        rvHiglightedBlog.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        // Đọc dữ liệu từ Firebase và nạp vào Adapter
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Blog");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                blogItems.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    // Get blog data and add to list
-                    String blogId = snapshot.getKey();
-                    String title = snapshot.child("blogTitle").getValue(String.class);
-                    String imageUrl = snapshot.child("blogImage").getValue(String.class);
-                    String content = snapshot.child("blogContent").getValue(String.class);
-                    blogItems.add(new BlogItem(blogId, title, imageUrl, content));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Khởi tạo danh sách blogList nếu chưa tồn tại
+                    if (blogList == null) {
+                        blogList = new ArrayList<>();
+                    } else {
+                        blogList.clear(); // Xóa danh sách cũ để cập nhật dữ liệu mới
+                    }
+
+                    // Duyệt qua từng child của dataSnapshot để lấy dữ liệu BlogItem
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        HighlightBlogItem blogItem = dataSnapshot.getValue(HighlightBlogItem.class);
+                        if (blogItem != null) {
+                            // Thêm blogItem vào danh sách
+                            blogList.add(blogItem);
+                        }
+                    }
+
+                    // Khởi tạo và cài đặt adapter cho RecyclerView
+                    highlightedblogAdapter = new HighlightedBlogAdapter(HomeScreenActivity.this, blogList);
+                    rvHiglightedBlog.setAdapter(highlightedblogAdapter);
+                } else {
+                    Log.d("FirebaseData", "Snapshot does not exist or is empty");
                 }
-                // Notify adapter that data set has changed
-                highlightedblogAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("FirebaseError", "Database read error: " + error.getMessage());
             }
-
-
         });
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
         categoryAdapter.startListening();
+
 
     }
 
@@ -353,5 +361,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             Picasso.get().load(imageurl).into(imageView);
         }
     }
+
+
 }
 
