@@ -379,6 +379,15 @@
     <string name="strNotification">Notification</string>
     <string name="quantity">Qty: %d</string>
     <string name="product_added_to_cart">Product added to cart</string>
+    <string name="nav_uinfo">User Information</string>
+    <string name="nav_order">Order</string>
+    <string name="nav_shipping_address">Shipping Address</string>
+    <string name="nav_notification">Notification</string>
+    <string name="nav_policy">Policy</string>
+    <string name="nav_terms_conditions">Terms and Conditions</string>
+    <string name="nav_about_us">About us</string>
+    <string name="nav_contact_support">Contact support</string>
+
 
 
 </resources>
