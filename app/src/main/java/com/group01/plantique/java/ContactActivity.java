@@ -29,7 +29,7 @@ public class  ContactActivity extends DrawerBaseActivity {
         activityContactBinding=ActivityContactBinding.inflate(getLayoutInflater());
 
         setContentView(activityContactBinding.getRoot());
-        allocateActivityTitle("Contact");
+        allocateActivityTitle(getString(R.string.nav_contact_support));
         addViews();
 
 

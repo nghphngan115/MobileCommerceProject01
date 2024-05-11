@@ -27,7 +27,7 @@ public class AboutUsActivity extends DrawerBaseActivity {
         EdgeToEdge.enable(this);
         activityAboutUsBinding = ActivityAboutUsBinding.inflate(getLayoutInflater());
         setContentView(activityAboutUsBinding.getRoot());
-        allocateActivityTitle("About us");
+        allocateActivityTitle(getString(R.string.nav_about_us));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

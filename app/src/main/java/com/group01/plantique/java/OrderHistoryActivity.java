@@ -37,8 +37,7 @@ public class OrderHistoryActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        allocateActivityTitle("Order History");
-
+        allocateActivityTitle(getString(R.string.nav_order));
         ordersRv = binding.ordersRv;
         ordersRv.setLayoutManager(new LinearLayoutManager(this));
 

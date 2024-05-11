@@ -343,13 +343,11 @@
     <string name="str_alr_acc">Đã có tài khoản?</string>
     <string name="welcome">Chào mừng đến với Plantique</string>
     <string name="nav_uinfo">Thông tin người dùng</string>
-    <string name="nav_order">Đơn hàng</string>
+    <string name="nav_order">Lịch sử đơn hàng</string>
     <string name="nav_shipping_address">Địa chỉ giao hàng</string>
     <string name="nav_notification">Thông báo</string>
     <string name="nav_policy">Chính sách</string>
     <string name="nav_terms_conditions">Điều khoản và điều kiện</string>
     <string name="nav_about_us">Về chúng tôi</string>
     <string name="nav_contact_support">Liên hệ hỗ trợ</string>
-
-
 </resources>

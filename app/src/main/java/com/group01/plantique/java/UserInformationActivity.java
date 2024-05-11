@@ -53,7 +53,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         activityUserInformationBinding= ActivityUserInformationBinding.inflate(getLayoutInflater());
         setContentView(activityUserInformationBinding.getRoot());
-        allocateActivityTitle("Personal account");
+        allocateActivityTitle(getString(R.string.nav_uinfo));
 
         //Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);

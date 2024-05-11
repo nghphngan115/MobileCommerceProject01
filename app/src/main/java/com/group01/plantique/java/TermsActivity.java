@@ -18,7 +18,7 @@ public class TermsActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         activityTermsBinding=ActivityTermsBinding.inflate(getLayoutInflater());
         setContentView(activityTermsBinding.getRoot());
-        allocateActivityTitle("Terms");
+        allocateActivityTitle(getString(R.string.nav_terms_conditions));
         TextView termsTextView = findViewById(R.id.textViewTerms);
         termsTextView.setText(Html.fromHtml(getString(R.string.terms_and_conditions), Html.FROM_HTML_MODE_COMPACT));
 
