@@ -61,6 +61,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private TextView txtDiscount, txtPromoDescription, txtFullName, txtAddress, txtPhone, txtEmail, txtPaymentMethod, txtTotal, txtSubTotal, txtShipFee, txtNote;
     private ConstraintLayout btnConfirm;
     private ListView lvProduct;
+    private ImageView imgbtnBack;
     private CartListAdapter cartListAdapter;
     public EditText edtVoucher;
     private FloatingActionButton validateBtn;
@@ -110,6 +111,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         validateBtn = findViewById(R.id.validateBtn);
 
         txtDiscount = findViewById(R.id.txtDiscount);
+
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     private boolean isPromoCodeApplied =false;
     public String promoId, promoCode, promoDescription, promoMinimumOrderPrice, promoPrice, promoExpDate;
@@ -154,7 +163,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
                                 }
                             }
                         } if (!isPromoCodeFound) {
-                            Toast.makeText(OrderConfirmActivity.this, "Promo code has not existed or has expired", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrderConfirmActivity.this, R.string.promo_code_expired, Toast.LENGTH_SHORT).show();
                             isPromoCodeApplied = false;
                             // Ẩn nút Apply và mô tả khuyến mãi
 
@@ -180,7 +189,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             txtPromoDescription.setText(promoDescription);
             priceWithDiscount();
         } else {
-            Toast.makeText(this, "Promo code has already been applied", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.promo_code_applied, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -232,7 +241,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             return expireDate.after(currentDate) || expireDate.equals(currentDate);
         } catch (ParseException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error checking promo code expiration", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.promo_code_error, Toast.LENGTH_SHORT).show();
             return false; // Mặc định trả về false nếu có lỗi xảy ra
         }
     }
@@ -288,7 +297,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     private void finalizeOrder() {
         String userId = getUserIdFromSharedPreferences();
         if (userId == null) {
-            Toast.makeText(this, "User ID is not available, please sign in again.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.user_id_not_available, Toast.LENGTH_LONG).show();
             return;
         }
 

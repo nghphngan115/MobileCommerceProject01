@@ -387,5 +387,11 @@
     <string name="nav_terms_conditions">Terms and Conditions</string>
     <string name="nav_about_us">About us</string>
     <string name="nav_contact_support">Contact support</string>
+    <string name="promo_code_expired">Promo code has not existed or has expired</string>
+    <string name="promo_code_applied">Promo code has already been applied</string>
+    <string name="promo_code_error">Error checking promo code expiration</string>
+    <string name="user_id_not_available">User ID is not available, please sign in again.</string>
+    <string name="failed_to_fetch_category_data">Failed to fetch category data</string>
+
 
 </resources>

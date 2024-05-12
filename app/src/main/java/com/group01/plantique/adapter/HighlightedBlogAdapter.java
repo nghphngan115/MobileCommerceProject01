@@ -38,6 +38,19 @@ public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlog
     public void onBindViewHolder(@NonNull BlogViewHolder holder, int position) {
         HighlightBlogItem blogItem = blogList.get(position);
         holder.setBlogDetails(blogItem);
+
+
+        holder.itemView.findViewById(R.id.llBlog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BlogDetailActivity.class);
+                intent.putExtra("blogId", blogItem.getBlogId());
+                intent.putExtra("blogTitle", blogItem.getBlogTitle());
+                intent.putExtra("blogImage", blogItem.getBlogImage());
+                intent.putExtra("blogContent", blogItem.getBlogContent());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -73,15 +86,7 @@ public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlog
                 }
 
 
-                itemView.findViewById(R.id.llBlog).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Context context1 = itemView.getContext();
-                        Intent intent = new Intent(context1, BlogDetailActivity.class);
-                        intent.putExtra("blogId", blogItem.getBlogId());
-                        context1.startActivity(intent);
-                    }
-                });
+
             }
         }
     }}

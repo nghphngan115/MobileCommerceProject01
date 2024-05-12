@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth;
     private CountDownTimer countDownTimer;
+    private ImageView imgbtnBack;
     private long timeLeftInMillis = 60000; // 60 seconds
 
     @Override
@@ -48,6 +50,14 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
         Intent intent = getIntent();
         phoneNumber = intent.getStringExtra("phoneNumber");
         verificationId = intent.getStringExtra("verificationId");
+
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         startCountdownTimer();
 

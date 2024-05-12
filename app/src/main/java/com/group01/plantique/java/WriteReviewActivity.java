@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private EditText reviewEt;
     private Button submitBtn;
+    private ImageButton imgbtnBack;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -57,6 +59,13 @@ public class WriteReviewActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         reviewEt = findViewById(R.id.reviewEt);
         submitBtn = findViewById(R.id.submitBtn);
+        imgbtnBack = findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("reviews");
