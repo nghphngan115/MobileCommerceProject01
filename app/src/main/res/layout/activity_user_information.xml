@@ -19,9 +19,11 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/circle_background"
-            android:src="@mipmap/ic_avatar" />
+            android:src="@mipmap/ic_avatar"
+            android:scaleType="centerCrop" />
 
-    <!-- Icon Camera -->
+
+        <!-- Icon Camera -->
 
     <!-- Tên và Email -->
     <ImageView

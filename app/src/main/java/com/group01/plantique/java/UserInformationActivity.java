@@ -1,5 +1,7 @@
 package com.group01.plantique.java;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,11 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.group01.plantique.R;
 import com.group01.plantique.databinding.ActivityUserInformationBinding;
 import com.squareup.picasso.Picasso;
@@ -48,7 +53,9 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private Button btnLogOut;
 
     private DatabaseReference mDatabase;
-    private Uri image_uri;
+    private ActivityResultLauncher<String> getContent;
+    private ActivityResultLauncher<Uri> takePicture;
+    private Uri imageUri;
     private static final String PREF_LOGIN_STATUS = "loginStatus";
     ActivityUserInformationBinding activityUserInformationBinding;
 
@@ -57,6 +64,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         activityUserInformationBinding= ActivityUserInformationBinding.inflate(getLayoutInflater());
         setContentView(activityUserInformationBinding.getRoot());
+        setupImagePickers();
         allocateActivityTitle(getString(R.string.nav_uinfo));
 
         //Navigation
@@ -163,6 +171,40 @@ public class UserInformationActivity extends DrawerBaseActivity {
             }
         });
     }
+    private void openGallery() {
+        getContent.launch("image/*");
+    }
+
+    private Uri createImageUri() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.TITLE, "Avatar Image");
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "User Avatar Image");
+        return getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+    }
+    private void setupImagePickers() {
+        getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) {
+                avatarImageView.setImageURI(uri);
+                imageUri = uri;
+                uploadImageToFirebaseStorage();  // Assuming you want to upload right after picking
+            }
+        });
+
+        takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), isSuccess -> {
+            if (isSuccess && imageUri != null) {
+                avatarImageView.setImageURI(imageUri);
+                uploadImageToFirebaseStorage();  // Assuming you want to upload right after capturing
+            }
+        });
+    }
+
+    private void openCamera() {
+        imageUri = createImageUri();
+        if (imageUri != null) {
+            takePicture.launch(imageUri);
+        }
+    }
+
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Inflate and set the layout for the dialog
@@ -220,16 +262,6 @@ public class UserInformationActivity extends DrawerBaseActivity {
     }
 
 
-    private void openGallery() {
-        // Check storage permission
-        if (checkStoragePermission()) {
-            // If permission is granted, open gallery
-            pickFromGallery();
-        } else {
-            // If permission is not granted, request it
-            requestStoragePermission();
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -240,8 +272,8 @@ public class UserInformationActivity extends DrawerBaseActivity {
             avatarImageView.setImageURI(imageUri);
             saveAvatarUrl(imageUri.toString()); // Lưu URL của ảnh vào cơ sở dữ liệu Firebase
         } else if (requestCode == PICK_IMAGE_CAMERA_CODE && resultCode == RESULT_OK) {
-            avatarImageView.setImageURI(image_uri);
-            saveAvatarUrl(image_uri.toString()); // Lưu URL của ảnh vào cơ sở dữ liệu Firebase
+            avatarImageView.setImageURI(imageUri);
+            saveAvatarUrl(imageUri.toString()); // Lưu URL của ảnh vào cơ sở dữ liệu Firebase
         }
     }
     private void pickFromGallery() {
@@ -256,27 +288,46 @@ public class UserInformationActivity extends DrawerBaseActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
     }
 
-    private void openCamera() {
-        // Check camera and storage permissions
-        if (checkCameraPermission()) {
-            // If permissions granted, open camera
-            pickFromCamera();
-        } else {
-            // If permissions not granted, request them
-            requestCameraPermission();
-        }
-    }
 
     private void pickFromCamera() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_Image_Title");
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, "Temp_Image_Description");
 
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, PICK_IMAGE_CAMERA_CODE);
+    }
+    private void uploadImageToFirebaseStorage() {
+        if (imageUri == null) {
+            Toast.makeText(this, "Image is not selected!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        String loggedInUserID = sharedPreferences.getString("userID", "");
+        if (!loggedInUserID.isEmpty()) {
+            String filePathAndName = "user_avatars/" + loggedInUserID; // Use user ID to construct file path
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+
+            storageReference.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                        String downloadImageUri = uri.toString();
+                        updateUserAvatarUrl(downloadImageUri, loggedInUserID);
+                    }))
+                    .addOnFailureListener(e -> Toast.makeText(UserInformationActivity.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_LONG).show());
+        } else {
+            Toast.makeText(this, "User ID is missing, cannot upload image.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateUserAvatarUrl(String avatarUrl, String userId) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        databaseReference.child("avatarUrl").setValue(avatarUrl)
+                .addOnSuccessListener(aVoid -> Toast.makeText(UserInformationActivity.this, "Avatar updated successfully!", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(UserInformationActivity.this, "Failed to update avatar: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void requestCameraPermission() {
