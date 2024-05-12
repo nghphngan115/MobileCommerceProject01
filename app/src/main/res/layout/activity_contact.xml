@@ -12,15 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/imgbtnBack"
-            android:layout_marginTop="26dp"
-            android:layout_width="27dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="26dp"
-            android:backgroundTint="@color/white"
-            app:tint="@color/main_green"
-            app:srcCompat="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/definition_title"
