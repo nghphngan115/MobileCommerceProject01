@@ -39,12 +39,11 @@
                 android:id="@+id/txtPriceBFDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="0000000 đ"
                 android:textColor="#808080"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
+                android:textSize="16sp" />
 
 
             <TextView
@@ -52,11 +51,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="000000 đ"
                 android:fontFamily="@font/inter"
+                android:text="000000 đ"
                 android:textColor="#00B207"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
