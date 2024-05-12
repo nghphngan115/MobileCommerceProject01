@@ -1,121 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".java.BlogCategoryActivity">
+    android:background="@color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:orientation="vertical"
+        tools:context=".java.BlogCategoryActivity">
 
-        <ImageButton
-            android:id="@+id/imgButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:src="@mipmap/ic_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/inter_bold"
-            android:text="@string/strBlog"
-            android:textColor="@color/main_green"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/searchLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="-1dp"
-            android:orientation="vertical">
+            android:padding="10dp">
 
-            <TextView
+            <ImageButton
+                android:id="@+id/imgButton2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="60dp"
-                android:fontFamily="@font/inter"
-                android:text="@string/strHello"
-                android:textColor="@color/textColor"
-                android:textSize="13dp" />
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:src="@drawable/ic_back" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/inter"
-                android:text="@string/strWhat"
-                android:textColor="@color/textColor"
-                android:textSize="13dp" />
 
-            <EditText
-                android:layout_width="350dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/rounded_corner"
-                android:drawableStart="@mipmap/ic_search"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/inter"
-                android:hint="@string/strSearch"
-                android:padding="10dp"
-                android:textColor="#9E000000"
-                android:textColorHint="#868889"
-                android:textSize="13dp" />
-
-            <TextView
-                android:id="@+id/txtTitle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
-                android:fontFamily="@font/inter_medium"
-                android:text="Blog's Title"
-                android:textColor="@color/main_green"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/imgBlog"
-                android:layout_width="349dp"
-                android:layout_height="230dp"
-                android:layout_gravity="center_horizontal|fill_horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="20dp"
-                android:foregroundGravity="fill_horizontal|fill_vertical"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/txtContent"
+            <LinearLayout
+                android:id="@+id/searchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                android:fontFamily="@font/inter"
-                android:text="Blog's Content"
-                android:textColor="@color/textColor"
-                android:textSize="15sp" />
+                android:layout_marginEnd="-1dp"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txtTitle1"
+                    android:layout_width="304dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Blog's Title"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imgBlog"
+                    android:layout_width="349dp"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center_horizontal|fill_horizontal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:foregroundGravity="fill_horizontal|fill_vertical"
+                    tools:srcCompat="@tools:sample/avatars" />
 
+                <TextView
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginEnd="26dp"
+                    android:fontFamily="@font/inter"
+                    android:text="Blog's Content"
+                    android:textColor="@color/textColor"
+                    android:textSize="15sp" />
 
+            </LinearLayout>
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

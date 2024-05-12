@@ -308,14 +308,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginBottom="23dp"
                 >
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCategory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp" />
+                    />
             </LinearLayout>
 
 
@@ -442,5 +441,3 @@
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>
-
-
