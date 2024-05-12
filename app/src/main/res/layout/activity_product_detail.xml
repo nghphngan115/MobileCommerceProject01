@@ -30,9 +30,9 @@
 
                 <ImageButton
                     android:id="@+id/imgbtnBack"
-                    android:layout_width="20dp"
-                    android:layout_height="15dp"
-                    android:background="@mipmap/ic_back"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="@id/imgProduct"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.076"
@@ -116,13 +116,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        android:layout_width="100dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:numStars="5" />
 
                     <TextView
                         android:id="@+id/txtNumberOfReviews"

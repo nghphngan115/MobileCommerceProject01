@@ -5,6 +5,9 @@
       <entry key="AddProductActivity">
         <State />
       </entry>
+      <entry key="AdminBlogListActivity">
+        <State />
+      </entry>
       <entry key="DashBoardActivity">
         <State />
       </entry>
@@ -12,9 +15,6 @@
         <State />
       </entry>
       <entry key="ProductListActivity">
-        <State />
-      </entry>
-      <entry key="NotificationActivity">
         <State />
       </entry>
       <entry key="app">

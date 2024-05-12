@@ -288,7 +288,7 @@ private ConstraintLayout btnAddToCart;
         }
 
         CartUtility.saveCartProducts(ProductDetailActivity.this, cartProducts);
-        Toast.makeText(ProductDetailActivity.this, "Product added to cart", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductDetailActivity.this, getString(R.string.product_added_to_cart), Toast.LENGTH_SHORT).show();
     }
 
 }
