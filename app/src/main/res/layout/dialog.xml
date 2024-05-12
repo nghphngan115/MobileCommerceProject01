@@ -1,123 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
-        android:layout_height="286dp"
-        android:layout_marginTop="164dp"
-        android:background="@drawable/dialog"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""
+        android:textSize="18sp"
+        android:textColor="@color/main_green"
+        android:fontFamily="@font/inter_medium"
+        android:paddingBottom="16dp"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/dialog_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnYes"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="34dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_tick"
-                    app:tint="@color/main_green" />
-
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Yes"
-                    android:textColor="@color/main_green"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnNo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="?attr/selectableItemBackground">
-
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="52dp"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="No"
-                    android:textColor="@color/main_green"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="30dp"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView26"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_cross"
-                    app:tint="@color/main_green" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="146dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="146dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="TextView"
-            android:textColor="@color/main_green"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/strNo"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/grey"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_bold"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/strYes"
+            android:backgroundTint="@color/main_green"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/inter_bold"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -122,23 +123,59 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private void showCancelConfirmationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.cancel_confirmation_title))
-                .setMessage(getString(R.string.cancel_confirmation_message))
-                .setPositiveButton(getString(R.string.strYes), (dialog, which) -> cancelOrder())
-                .setNegativeButton(getString(R.string.strNo), (dialog, which) -> dialog.dismiss())
-                .create()
-                .show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog, null);
+        builder.setView(dialogView);
+
+        TextView txtTitle = dialogView.findViewById(R.id.txtTitle);
+        txtTitle.setText(getString(R.string.cancel_confirmation_message));
+
+        // Accessing the buttons from the dialog layout
+        Button btnYes = dialogView.findViewById(R.id.btnYes);
+        Button btnNo = dialogView.findViewById(R.id.btnNo);
+
+        // Creating the AlertDialog object
+        AlertDialog dialog = builder.create();
+
+        // Setting button click listeners
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            cancelOrder(); // Only log out if Yes is clicked
+        });
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        // Display the dialog
+        dialog.show();
     }
 
     private void showFinishConfirmationDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.strReceviedConf))
-                .setMessage(getString(R.string.strReceivedMes))
-                .setPositiveButton(getString(R.string.strYes), (dialog, which) -> markOrderAsFinished())
-                .setNegativeButton(getString(R.string.strNo), (dialog, which) -> dialog.dismiss())
-                .create()
-                .show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog, null);
+        builder.setView(dialogView);
+
+        TextView txtTitle = dialogView.findViewById(R.id.txtTitle);
+        txtTitle.setText(getString(R.string.strReceivedMes));
+
+        // Accessing the buttons from the dialog layout
+        Button btnYes = dialogView.findViewById(R.id.btnYes);
+        Button btnNo = dialogView.findViewById(R.id.btnNo);
+
+        // Creating the AlertDialog object
+        AlertDialog dialog = builder.create();
+
+        // Setting button click listeners
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            markOrderAsFinished(); // Only log out if Yes is clicked
+        });
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        // Display the dialog
+        dialog.show();
     }
 
     private void updateButtonBasedOnStatus() {

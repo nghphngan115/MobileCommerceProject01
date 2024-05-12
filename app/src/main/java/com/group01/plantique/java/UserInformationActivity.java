@@ -1,6 +1,7 @@
 package com.group01.plantique.java;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -14,7 +15,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,7 +44,8 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;
     private ImageView avatarImageView, cameraIconImageView;
 
-    private ConstraintLayout btnChangePassword, btnLogOut, btnSave;
+    private ConstraintLayout btnChangePassword, btnSave;
+    private Button btnLogOut;
 
     private DatabaseReference mDatabase;
     private Uri image_uri;
@@ -90,7 +94,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         editNameTextView = findViewById(R.id.editNameTextView);
         editAddressTextView = findViewById(R.id.editAddressTextView);
         editPhoneTextView = findViewById(R.id.editPhoneTextView);
-        saveTextView = findViewById(R.id.textView3);
+
         avatarImageView = findViewById(R.id.avatarImageView);
         cameraIconImageView = findViewById(R.id.cameraIconImageView);
         btnChangePassword = findViewById(R.id.btnChangePassword);
@@ -108,13 +112,6 @@ public class UserInformationActivity extends DrawerBaseActivity {
             // Nếu có thông tin đăng nhập, tiếp tục tải thông tin người dùng
             loadUserInfo(loggedInUserID);
         }
-
-        saveTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveUserInfo();
-            }
-        });
 
         editNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +151,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logoutUser();
+                showLogoutConfirmationDialog();
 
             }
         });
@@ -166,6 +163,34 @@ public class UserInformationActivity extends DrawerBaseActivity {
             }
         });
     }
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog, null);
+        builder.setView(dialogView);
+
+        TextView txtTitle = dialogView.findViewById(R.id.txtTitle);
+        txtTitle.setText(getString(R.string.strConfLogOut));
+
+        // Accessing the buttons from the dialog layout
+        Button btnYes = dialogView.findViewById(R.id.btnYes);
+        Button btnNo = dialogView.findViewById(R.id.btnNo);
+
+        // Creating the AlertDialog object
+        AlertDialog dialog = builder.create();
+
+        // Setting button click listeners
+        btnYes.setOnClickListener(v -> {
+            dialog.dismiss();
+            logoutUser(); // Only log out if Yes is clicked
+        });
+        btnNo.setOnClickListener(v -> dialog.dismiss());
+
+        // Display the dialog
+        dialog.show();
+    }
+
     private void logoutUser() {
         // Xóa userID khỏi SharedPreferences
         saveUserIDToSharedPreferences(""); // Truyền giá trị rỗng để đánh dấu đăng xuất

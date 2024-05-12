@@ -227,33 +227,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <Button
             android:id="@+id/btnLogOut"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/button_full_grey">
+            android:backgroundTint="@color/grey"
+            android:text="@string/strLogOut"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
-                android:text="@string/strLogOut"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+    </LinearLayout>
 
     </RelativeLayout>
     </ScrollView>

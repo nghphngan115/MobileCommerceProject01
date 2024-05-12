@@ -261,6 +261,7 @@
     <string name="write_review">Write Review</string>
     <string name="how_do_you_feel">How is the order?</string>
     <string name="submit">Submit</string>
+    <string name="strConfLogOut">Are you sure you want to log out?</string>
 
 
     <string-array name="promo_options">
