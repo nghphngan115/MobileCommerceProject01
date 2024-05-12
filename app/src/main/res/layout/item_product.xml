@@ -11,91 +11,94 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
-    <LinearLayout
-        android:id="@+id/layoutProductDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusable="true">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageViewProduct"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="138dp"
-                android:layout_marginEnd="140dp"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:id="@+id/txtDiscountNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="0dp"
-                android:background="@drawable/ad_layout_rounded"
-                android:padding="5dp"
-                android:text="TextView"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textViewProductName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="TextView"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtUnit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter"
-            android:gravity="center"
-            android:text="TextView" />
 
         <LinearLayout
+            android:id="@+id/layoutProductDetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageViewProduct"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="138dp"
+                    android:layout_marginEnd="140dp"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/txtDiscountNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="0dp"
+                    android:background="@drawable/ad_layout_rounded"
+                    android:padding="5dp"
+                    android:text="TextView"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/textViewProductPrice"
+                android:id="@+id/textViewProductName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="49dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="4dp"
-                android:fontFamily="@font/inter"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="TextView"
-                android:textSize="13sp" />
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewProductDiscount"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtUnit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/inter"
-                android:text="TextView"
-                android:textColor="@color/main_green"
-                android:textSize="13sp" />
+                android:gravity="center"
+                android:text="TextView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewProductPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="4dp"
+                    android:fontFamily="@font/inter"
+                    android:text="TextView"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/textViewProductDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/inter"
+                    android:text="TextView"
+                    android:textColor="@color/main_green"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
 
         <View
             android:layout_width="match_parent"

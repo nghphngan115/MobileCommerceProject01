@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -148,6 +149,7 @@ public class ProductListActivity extends AppCompatActivity {
                     // If discount_price is empty, zero, or null, show regular price and hide discount_price
                     textViewPrice.setPaintFlags(0); // Remove strike through if present
                     textViewPrice.setText(product.getPrice() +"đ");
+                    textViewPrice.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.main_green));
                     txtDiscountPrice.setVisibility(View.GONE);
                 }
 
@@ -160,11 +162,21 @@ public class ProductListActivity extends AppCompatActivity {
                     Picasso.get().load(R.drawable.logo).into(imageView);
                 }
 
-                TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
-                txtDiscountNote.setText(product.getDiscountNote());
+
 
                 TextView txtUnit = view.findViewById(R.id.txtUnit);
                 txtUnit.setText(product.getUnit());
+
+                TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
+                String discountNote = product.getDiscountNote();
+                if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0") && !discountNote.trim().equals("0%")) {
+                    // Hiển thị discountNote và thiết lập văn bản
+                    txtDiscountNote.setVisibility(View.VISIBLE);
+                    txtDiscountNote.setText(discountNote);
+                } else {
+                    // Ẩn discountNote nếu không hợp lệ
+                    txtDiscountNote.setVisibility(View.GONE);
+                }
             } else {
                 Log.e("ProductListActivity", "Product object is null");
             }

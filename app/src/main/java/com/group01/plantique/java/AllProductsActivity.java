@@ -3,6 +3,7 @@ package com.group01.plantique.java;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -287,6 +288,7 @@ public class AllProductsActivity extends AppCompatActivity {
                         // If discount_price is empty, zero, or null, show regular price and hide discount_price
                         textViewPrice.setPaintFlags(0); // Remove strike through if present
                         textViewPrice.setText(product.getPrice() +"đ");
+                        textViewPrice.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.main_green));
                         txtDiscountPrice.setVisibility(View.GONE);
                     }
 
