@@ -103,17 +103,20 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageButton
-            android:id="@+id/imageButton3"
+        <TextView
+            android:id="@+id/txtDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/white"
-            app:tint="@color/main_green"
+            android:layout_marginStart="146dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="146dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="TextView"
+            android:textColor="@color/main_green"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_logout" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
