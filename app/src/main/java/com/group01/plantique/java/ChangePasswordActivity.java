@@ -61,46 +61,53 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void setEditTextFocusChangeListeners() {
-        edtConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                String confirmPassword = edtConfirmPassword.getText().toString().trim();
-                String newPassword = edtNewPassword.getText().toString().trim();
-                if (!confirmPassword.equals(newPassword)) {
-                    txtConfirmPasswordError.setVisibility(View.VISIBLE);
-                    txtConfirmPasswordError.setText(getString(R.string.error_passwords_not_match));
-                } else {
-                    txtConfirmPasswordError.setVisibility(View.GONE);
+        if (edtConfirmPassword != null) {
+            edtConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    String confirmPassword = edtConfirmPassword.getText().toString().trim();
+                    String newPassword = edtNewPassword.getText().toString().trim();
+                    if (!confirmPassword.equals(newPassword)) {
+                        txtConfirmPasswordError.setVisibility(View.VISIBLE);
+                        txtConfirmPasswordError.setText(getString(R.string.error_passwords_not_match));
+                    } else {
+                        txtConfirmPasswordError.setVisibility(View.GONE);
+                    }
                 }
-            }
-            tilConfirmPassword.setHint(hasFocus || !TextUtils.isEmpty(edtConfirmPassword.getText().toString()) ? "" : getString(R.string.hint_confirm_password));
-        });
-        edtNewPassword.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                String newPassword = edtNewPassword.getText().toString().trim();
-                if (!isPasswordValid(newPassword)) {
-                    txtPasswordError.setVisibility(View.VISIBLE);
-                    txtPasswordError.setText(getString(R.string.error_invalid_password));
-                } else {
-                    txtPasswordError.setVisibility(View.GONE);
-                }
-            }
-            tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtNewPassword.getText().toString()) ? "" : getString(R.string.hint_password));
-        });
-    }
-    private void setEditTextOnClickListener() {
-        edtNewPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tilPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
-            }
-        });
-        edtConfirmPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tilConfirmPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
-            }
-        });
+                tilConfirmPassword.setHint(hasFocus || !TextUtils.isEmpty(edtConfirmPassword.getText().toString()) ? "" : getString(R.string.hint_confirm_password));
+            });
+        }
 
+        if (edtNewPassword != null) {
+            edtNewPassword.setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    String newPassword = edtNewPassword.getText().toString().trim();
+                    if (!isPasswordValid(newPassword)) {
+                        txtPasswordError.setVisibility(View.VISIBLE);
+                        txtPasswordError.setText(getString(R.string.error_invalid_password));
+                    } else {
+                        txtPasswordError.setVisibility(View.GONE);
+                    }
+                }
+                tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtNewPassword.getText().toString()) ? "" : getString(R.string.hint_password));
+            });
+        }
+    }
+
+    private void setEditTextOnClickListener() {
+        if (edtNewPassword != null && edtConfirmPassword != null) {
+            edtNewPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tilPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
+                }
+            });
+            edtConfirmPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tilConfirmPassword.setBoxStrokeColor(getResources().getColor(R.color.main_green));
+                }
+            });
+        }
     }
 
     private void changePassword() {

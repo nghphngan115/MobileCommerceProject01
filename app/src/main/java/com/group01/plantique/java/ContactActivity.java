@@ -1,6 +1,7 @@
 package com.group01.plantique.java;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -21,6 +22,7 @@ public class  ContactActivity extends DrawerBaseActivity {
     EditText edtFullname, edtPhone, edtContent;
     ConstraintLayout btnConfirm;
     ActivityContactBinding activityContactBinding;
+    private static final int REQUEST_CODE_EMAIL = 101;
 
 
     @Override
@@ -110,7 +112,17 @@ public class  ContactActivity extends DrawerBaseActivity {
             startActivity(intent);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(this, "Gmail app is not installed.", Toast.LENGTH_SHORT).show();
-            startActivity(Intent.createChooser(intent, "Send email using..."));
+            startActivityForResult(intent, REQUEST_CODE_EMAIL);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_EMAIL) { // Kiểm tra requestCode
+            // Xóa nội dung trong EditText sau khi quay lại từ ứng dụng Gmail
+            edtFullname.setText("");
+            edtPhone.setText("");
+            edtContent.setText("");
         }
     }
 }

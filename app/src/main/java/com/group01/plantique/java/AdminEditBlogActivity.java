@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +25,9 @@ public class AdminEditBlogActivity extends AppCompatActivity {
     private EditText blogTitleEdt, blogContentEdt;
     private ImageView blogIconIv;
     private Button updateBlogBtn, deleteBlogBtn;
+    private ImageButton backBtn;
     private String blogId;
+    private TextView blogAuthorTv, blogDateTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,15 @@ public class AdminEditBlogActivity extends AppCompatActivity {
         blogIconIv = findViewById(R.id.imgBlog);
         updateBlogBtn = findViewById(R.id.btnUpdateBlog);
         deleteBlogBtn = findViewById(R.id.btnDeleteBlog);
-
+        blogAuthorTv = findViewById(R.id.blogAuthor);
+        blogDateTv = findViewById(R.id.blogDate);
+        backBtn=findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         updateBlogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +76,12 @@ public class AdminEditBlogActivity extends AppCompatActivity {
                     String title = dataSnapshot.child("blogTitle").getValue(String.class);
                     String content = dataSnapshot.child("blogContent").getValue(String.class);
                     String imageUrl = dataSnapshot.child("blogImage").getValue(String.class);
-
+                    String author = dataSnapshot.child("blogAuthor").getValue(String.class);
+                    String date = dataSnapshot.child("blogDate").getValue(String.class);
                     blogTitleEdt.setText(title);
                     blogContentEdt.setText(content);
+                    blogAuthorTv.setText(author);
+                    blogDateTv.setText(date);
                     if (imageUrl != null && !imageUrl.isEmpty()) {
                         Picasso.get().load(imageUrl).into(blogIconIv);
                     }

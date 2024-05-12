@@ -55,12 +55,37 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_home"
             tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/blogAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgBlog"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/button_white_greenborder"
+            android:padding="10dp"
+            android:text="Author Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/blogDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/blogAuthor"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/button_white_greenborder"
+            android:padding="10dp"
+            android:text="Date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
             android:id="@+id/blogTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgBlog"
+            android:layout_below="@id/blogDate"
             android:layout_marginStart="5dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="5dp"

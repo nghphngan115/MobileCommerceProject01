@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -26,15 +25,18 @@ import com.google.firebase.storage.StorageReference;
 import com.group01.plantique.R;
 import com.group01.plantique.model.BlogItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddBlogActivity extends AppCompatActivity {
 
     private ImageView blogIconIv;
     private Button submitBlogBtn;
     private Uri imageUri;
 
-
     private static final String TAG = "AddBlogActivity";
-    private EditText blogTitleEdt, blogContentEdt;
+    private EditText blogTitleEdt, blogContentEdt, blogAuthorEdt;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
 
@@ -56,17 +58,16 @@ public class AddBlogActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Blog");
         storageReference = FirebaseStorage.getInstance().getReference();
-
+        blogAuthorEdt = findViewById(R.id.blogAuthor);
         blogTitleEdt = findViewById(R.id.blogTitle);
         blogContentEdt = findViewById(R.id.blogContentedt);
         submitBlogBtn = findViewById(R.id.edtBlogBtn);
         blogIconIv = findViewById(R.id.blogIconIv);
 
         blogIconIv.setOnClickListener(v -> openImagePicker());
-
-
         submitBlogBtn.setOnClickListener(v -> submitBlog());
     }
+
     private void openImagePicker() {
         contentPickerLauncher.launch("image/*"); // This opens the document picker for images
     }
@@ -86,7 +87,6 @@ public class AddBlogActivity extends AppCompatActivity {
         }
     }
 
-
     private void requestPermission() {
         requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 101);
     }
@@ -101,15 +101,21 @@ public class AddBlogActivity extends AppCompatActivity {
         }
     }
 
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-", Locale.getDefault());
+        return dateFormat.format(new Date());
+    }
 
     private void submitBlog() {
         String blogTitle = blogTitleEdt.getText().toString();
         String blogContent = blogContentEdt.getText().toString();
-        String blogImage = (imageUri != null) ? imageUri.toString() : "default_image_url_here"; // Replace with actual image URL or default
+        String blogAuthor = blogAuthorEdt.getText().toString();
+        String blogImage = (imageUri != null) ? imageUri.toString() : "default_image_url_here";
+        String blogDate = getCurrentDate(); // Get the current date
 
-        if (!blogTitle.isEmpty() && !blogContent.isEmpty()) {
-            String blogId = databaseReference.push().getKey(); // Generates a new unique key for each blog post
-            BlogItem blogItem = new BlogItem(blogId, blogTitle, blogContent, blogImage);
+        if (!blogTitle.isEmpty() && !blogContent.isEmpty() && !blogAuthor.isEmpty()) {
+            String blogId = databaseReference.push().getKey();
+            BlogItem blogItem = new BlogItem(blogId, blogTitle, blogContent, blogImage, blogAuthor, blogDate);
             databaseReference.child(blogId).setValue(blogItem)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -125,5 +131,4 @@ public class AddBlogActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

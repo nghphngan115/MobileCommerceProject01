@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.group01.plantique.R;
 import com.group01.plantique.java.BlogDetailActivity;
 import com.group01.plantique.model.BlogItem;
@@ -50,6 +49,24 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
         BlogItem currentItem = blogItems.get(position);
         holder.titleTextView.setText(currentItem.getBlogTitle());
         Picasso.get().load(currentItem.getBlogImage()).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    BlogItem clickedItem = blogItems.get(adapterPosition);
+                    Intent intent = new Intent(mContext, BlogDetailActivity.class);
+                    intent.putExtra("blogId", clickedItem.getBlogId());
+                    intent.putExtra("blogTitle", clickedItem.getBlogTitle());
+                    intent.putExtra("blogContent", clickedItem.getBlogContent());
+                    intent.putExtra("blogImage", clickedItem.getBlogImage());
+                    intent.putExtra("blogDate", clickedItem.getBlogDate());
+                    intent.putExtra("blogAuthor", clickedItem.getBlogAuthor());
+                    mContext.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -69,8 +86,9 @@ public class BlogAdapter extends RecyclerView.Adapter<BlogAdapter.BlogViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getAdapterPosition());
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
                     }
                 }
             });
