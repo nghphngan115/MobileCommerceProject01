@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="10dp"
+            android:background="@color/palegreen"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="8dp"
-            android:textColor="@color/textColor"
+            android:textColor="@color/main_green"
             android:textSize="16sp"
             android:textStyle="bold" />
 

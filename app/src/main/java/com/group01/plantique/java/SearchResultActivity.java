@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
@@ -317,6 +318,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 } else {
                     textViewPrice.setPaintFlags(0);
                     textViewPrice.setText(product.getPrice()+"đ");
+                    textViewPrice.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.main_green));
                     txtDiscountPrice.setVisibility(View.GONE);
                 }
 
@@ -327,12 +329,13 @@ public class SearchResultActivity extends AppCompatActivity {
                     Picasso.get().load(R.drawable.logo).into(imageViewProduct);
                 }
 
-                if (product.getDiscountNote() != null && !product.getDiscountNote().isEmpty()) {
+                if (product.getDiscountNote() != null && !product.getDiscountNote().isEmpty() && !product.getDiscountNote().equals("0") && !product.getDiscountNote().equals("0%")) {
                     txtDiscountNote.setVisibility(View.VISIBLE);
                     txtDiscountNote.setText(product.getDiscountNote());
                 } else {
                     txtDiscountNote.setVisibility(View.GONE);
                 }
+
                 txtUnit.setText(product.getUnit());
 
             }
