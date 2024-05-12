@@ -59,6 +59,9 @@ public class SearchResultActivity extends AppCompatActivity {
         searchEt.setText(searchKey);
         searchProducts(searchKey, searchKey.toLowerCase());
 
+        findCategoryId(searchKey);
+
+
 
         searchEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,6 +85,53 @@ public class SearchResultActivity extends AppCompatActivity {
 
         searchSuggestionAdapter = new SearchItemAdapter(searchSuggestionList);
         rvSearchSuggestion.setAdapter(searchSuggestionAdapter);
+    }
+
+    private void searchProductsByCategory(String categoryId) {
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference().child("products");
+        Query query = productsRef.orderByChild("categoryId").equalTo(categoryId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                searchResultList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Product product = snapshot.getValue(Product.class);
+                    if (product != null) {
+                        searchResultList.add(product);
+                    }
+                }
+                updateSearchAdapters(); // Cập nhật RecyclerView
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase Error", databaseError.getMessage());
+            }
+        });
+    }
+
+    private void findCategoryId(String searchKey) {
+        DatabaseReference categoriesRef = FirebaseDatabase.getInstance().getReference().child("categories");
+        Query query = categoriesRef.orderByChild("cateName").equalTo(searchKey);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Category category = snapshot.getValue(Category.class);
+                    if (category != null) {
+                        String categoryId = category.getCateId();
+                        // Sau khi tìm được categoryId, gọi hàm searchProductsByCategory
+                        searchProductsByCategory(categoryId);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase Error", databaseError.getMessage());
+            }
+        });
     }
 
     private void searchProducts(String keyword, String lowerCaseKeyword) {

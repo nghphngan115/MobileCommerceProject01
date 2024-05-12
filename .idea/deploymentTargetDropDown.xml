@@ -5,16 +5,10 @@
       <entry key="AddProductActivity">
         <State />
       </entry>
-      <entry key="AdminBlogListActivity">
-        <State />
-      </entry>
       <entry key="DashBoardActivity">
         <State />
       </entry>
-      <entry key="ProductCategoriesActivity">
-        <State />
-      </entry>
-      <entry key="ProductListActivity">
+      <entry key="SearchActivity">
         <State />
       </entry>
       <entry key="app">
