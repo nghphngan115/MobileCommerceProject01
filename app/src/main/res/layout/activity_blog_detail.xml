@@ -1,80 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".java.BlogCategoryActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".java.BlogCategoryActivity">
+        android:padding="10dp">
 
-        <RelativeLayout
+        <ImageButton
+            android:id="@+id/imgButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/strBlog"
+            android:textColor="@color/main_green"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_marginEnd="-1dp"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imgButton2"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/white"
-                android:src="@drawable/ic_back" />
-
-
-            <LinearLayout
-                android:id="@+id/searchLayout"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-1dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtTitle1"
-                    android:layout_width="304dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Blog's Title"
-                    android:textColor="@color/main_green"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="70dp">
 
                 <ImageView
-                    android:id="@+id/imgBlog"
-                    android:layout_width="349dp"
-                    android:layout_height="230dp"
-                    android:layout_gravity="center_horizontal|fill_horizontal"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:foregroundGravity="fill_horizontal|fill_vertical"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:id="@+id/imgAuthor"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_author"
+                    app:tint="#424242" />
 
                 <TextView
-                    android:id="@+id/txtContent"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtAuthor"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginEnd="26dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/imgAuthor"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/inter"
-                    android:text="Blog's Content"
-                    android:textColor="@color/textColor"
-                    android:textSize="15sp" />
+                    android:text="An Nhiên"
+                    android:textStyle="bold"
+                    android:textColor="#424242"
+                    android:textSize="18dp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-        </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgBlog"
+                android:layout_width="350dp"
+                android:layout_height="260dp"
+                android:layout_gravity="center_horizontal|fill_horizontal"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:foregroundGravity="fill_horizontal|fill_vertical"
+                tools:srcCompat="@tools:sample/avatars" />
 
-    </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp">
 
-</ScrollView>
+                <ImageView
+                    android:id="@+id/imgCreateDate"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="#808080" />
+
+                <TextView
+                    android:id="@+id/txtCreateDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/imgCreateDate"
+                    android:fontFamily="@font/inter"
+                    android:text="13/05/2025"
+                    android:textColor="#808080"
+                    android:textSize="14dp" />
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:id="@+id/txtTitle1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Blog's Title"
+                android:textColor="@color/main_green"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="28dp"
+                android:background="#D3D3D3" />
+
+            <TextView
+                android:id="@+id/txtContent"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/inter"
+                android:text="Blog's Content"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
