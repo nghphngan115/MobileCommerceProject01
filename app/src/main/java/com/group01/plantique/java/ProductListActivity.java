@@ -118,6 +118,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         View view;
+        private Context context;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -216,7 +217,7 @@ public class ProductListActivity extends AppCompatActivity {
             }
 
             CartUtility.saveCartProducts(view.getContext(), cartProducts);
-            Toast.makeText(view.getContext(), "Product added to cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.product_added_to_cart, Toast.LENGTH_SHORT).show();
         }
 
     }

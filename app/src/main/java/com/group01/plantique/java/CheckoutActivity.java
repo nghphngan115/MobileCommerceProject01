@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
     ConstraintLayout btnConfirm;
-    ImageButton imgbtnAddAddress;
+    ImageButton imgbtnAddAddress, imgbtnBack;
     RadioButton radTransfer, radCOD;
     TextView txtSubTotal;
     ListView lvProduct;
@@ -114,6 +114,13 @@ public class CheckoutActivity extends AppCompatActivity {
 
 
     private void addEvents() {
+        imgbtnBack=findViewById(R.id.imgbtnBack);
+        imgbtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
          btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

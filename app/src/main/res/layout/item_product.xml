@@ -80,7 +80,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/inter"
                 android:text="TextView"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/textViewProductDiscount"
@@ -92,7 +92,7 @@
                 android:fontFamily="@font/inter"
                 android:text="TextView"
                 android:textColor="@color/main_green"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -115,22 +115,21 @@
                 android:id="@+id/textViewAddToCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/inter_medium"
                 android:text="@string/add_to_cart"
                 android:textColor="@color/main_green"
-                android:textSize="16sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/imageButtonCart"
+                app:layout_constraintHorizontal_bias="0.101"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/imageButtonCart"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/button_circle_fullgreen"
                 android:contentDescription="Add to cart button"
                 android:src="@drawable/ic_shopping_cart_white"

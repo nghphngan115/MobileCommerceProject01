@@ -29,13 +29,15 @@
                 android:layout_gravity="center_horizontal">
 
             </ImageView>
+
             <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
                 android:text="Name"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -64,8 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/dateTv"
             android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:text="The review of the user"/>
+            android:fontFamily="@font/inter"
+            android:text="The review of the user"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

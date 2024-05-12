@@ -165,7 +165,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Failed to fetch category data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, R.string.failed_to_fetch_category_data, Toast.LENGTH_SHORT).show();
             }
         });
 
