@@ -41,7 +41,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
     private TextView editNameTextView, editAddressTextView, editPhoneTextView, saveTextView;
     private ImageView avatarImageView, cameraIconImageView;
 
-    private ConstraintLayout btnChangePassword, btnLogOut;
+    private ConstraintLayout btnChangePassword, btnLogOut, btnSave;
 
     private DatabaseReference mDatabase;
     private Uri image_uri;
@@ -95,7 +95,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         cameraIconImageView = findViewById(R.id.cameraIconImageView);
         btnChangePassword = findViewById(R.id.btnChangePassword);
         btnLogOut = findViewById(R.id.btnLogOut);
-
+        btnSave=findViewById(R.id.btnSave);
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         String loggedInUserID = sharedPreferences.getString("userID", "");
 
@@ -155,6 +155,13 @@ public class UserInformationActivity extends DrawerBaseActivity {
             @Override
             public void onClick(View v) {
                 logoutUser();
+
+            }
+        });
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUserInfo();
 
             }
         });
@@ -326,7 +333,7 @@ public class UserInformationActivity extends DrawerBaseActivity {
         mDatabase.child("addresses").setValue(newAddress);
         mDatabase.child("phone").setValue(newPhone);
 
-        Toast.makeText(this, "Thông tin đã được lưu", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.finished_status), Toast.LENGTH_SHORT).show();
     }
     private void saveAvatarUrl(String avatarUrl) {
         mDatabase.child("avatarUrl").setValue(avatarUrl);

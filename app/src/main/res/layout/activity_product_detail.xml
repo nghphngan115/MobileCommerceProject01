@@ -44,8 +44,9 @@
                     android:id="@+id/imgProduct"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:gravity="center"
                     tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteX="10dp"
                     tools:layout_editor_absoluteY="0dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -225,7 +226,7 @@
             <TextView
                 android:id="@+id/textView55"
                 android:layout_width="90dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:fontFamily="@font/inter"
                 android:text="@string/add_to_cart"
                 android:textAlignment="center"
