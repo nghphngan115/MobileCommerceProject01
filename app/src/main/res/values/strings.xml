@@ -92,7 +92,7 @@
     <string name="strUInfo">User Information</string>
     <string name="strUserName">User Name</string>
     <string name="strEmail">Email</string>
-    <string name="strFName">Full Name</string>
+    <string name="strFName">Username</string>
     <string name="strAdd">Address</string>
     <string name="strPhoneNumber">Phone Number</string>
     <string name="strSave">Save</string>
@@ -205,7 +205,7 @@
     <string name="toast_password_changed">Password changed successfully</string>
     <string name="toast_password_change_failed">Failed to change password</string>
     <string name="toast_user_not_found">User not found</string>
-    <string name="toast_database_error">Database Error</string>
+    <string name="toast_database_error">Database Error</string>User
 
     <string name="product_stock_message">%s only has %d items left.</string>
 

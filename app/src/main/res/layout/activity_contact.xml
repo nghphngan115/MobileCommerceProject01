@@ -61,7 +61,8 @@
             android:layout_marginRight="26dp"
             android:hint="@string/strFName"
             android:textColor="@color/textColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -85,9 +86,9 @@
             android:layout_marginRight="26dp"
             android:hint="@string/strPhoneNumber"
             android:inputType="phone"
-            android:maxLength="10"
             android:textColor="@color/textColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

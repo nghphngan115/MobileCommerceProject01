@@ -229,7 +229,7 @@
     <string name="default_status">Không xác định</string>
     <string name="send_info_to_us">GỬI THÔNG TIN CHO CHÚNG TÔI !</string>
     <string name="contact_us_for_queries">Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!</string>
-    <string name="full_name">Họ và tên</string>
+    <string name="full_name">Tên người dùng</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="content">Nội dung</string>
     <string name="send_info">Gửi thông tin</string>
@@ -249,7 +249,6 @@
     <string name="product_stock_message">%s chỉ còn %d sản phẩm.</string>
     <string name="product_added_to_cart">Sản phẩm đã được thêm vào giỏ hàng</string>
     <string name="strConfLogOut">Bạn có chắc muốn đăng xuất không</string>
-
 
     <string name="policy_details">
     <![CDATA[

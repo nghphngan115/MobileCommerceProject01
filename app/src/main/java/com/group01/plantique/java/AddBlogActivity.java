@@ -102,7 +102,7 @@ public class AddBlogActivity extends AppCompatActivity {
     }
 
     private String getCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         return dateFormat.format(new Date());
     }
 
