@@ -355,5 +355,6 @@
     <string name="promo_code_error">Lỗi kiểm tra hạn sử dụng mã</string>
     <string name="user_id_not_available">Mã người dùng không khả dụng, hãy đăng nhập lại</string>
     <string name="failed_to_fetch_category_data">Không lấy được dữ liệu danh mục</string>
-
+    <string name="strReview">Tổng đánh giá</string>
+    <string name="strUnit">Đơn vị: </string>
 </resources>

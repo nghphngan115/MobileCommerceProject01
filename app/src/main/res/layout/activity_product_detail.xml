@@ -95,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/txtProductCategory"
-                        android:layout_width="270dp"
+                        android:layout_width="241dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_medium"
                         android:text="TextView"
@@ -103,7 +103,7 @@
 
                     <TextView
                         android:id="@+id/txtUnit"
-                        android:layout_width="70dp"
+                        android:layout_width="112dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:layout_weight="1"
@@ -224,8 +224,8 @@
 
             <TextView
                 android:id="@+id/textView55"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="35dp"
                 android:fontFamily="@font/inter"
                 android:text="@string/add_to_cart"
                 android:textAlignment="center"

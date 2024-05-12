@@ -108,7 +108,7 @@ private ConstraintLayout btnAddToCart;
                             @Override
                             public void onDataChange(@NonNull DataSnapshot reviewsSnapshot) {
                                 totalReviews = reviewsSnapshot.getChildrenCount();
-                                txtNumberOfReviews.setText(String.valueOf("Tổng Review" + totalReviews));
+                                txtNumberOfReviews.setText(String.valueOf(getString(R.string.strReview)+" "+ totalReviews));
                             }
 
                             @Override
@@ -180,7 +180,7 @@ private ConstraintLayout btnAddToCart;
 
 
         // Hiển thị unit
-        textviewUnit.setText("Unit: " + product.getUnit());
+        textviewUnit.setText(getString(R.string.strUnit) + product.getUnit());
         setupAddToCartButton(product);
 
     }
