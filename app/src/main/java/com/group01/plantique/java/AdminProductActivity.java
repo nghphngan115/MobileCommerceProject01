@@ -45,6 +45,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private List<Category> categoryList = new ArrayList<>();
     private String selectedCategory;
     private List<Product> productList = new ArrayList<>();
+    private static final int EDIT_PRODUCT_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class AdminProductActivity extends AppCompatActivity {
 
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerViewProducts.setAdapter(productAdapter);
         searchProductEt = findViewById(R.id.searchEt);
         filterProductBtn = findViewById(R.id.filterBtn);
         searchBtn = findViewById(R.id.searchBtn);
@@ -167,7 +168,7 @@ public class AdminProductActivity extends AppCompatActivity {
     private void filterProducts(String keyword) {
         List<Product> filteredList;
 
-        if (selectedCategory.equals("All")) {
+        if (selectedCategory == null || selectedCategory.isEmpty() || selectedCategory.equals("All")) {
             filteredList = filterByKeyword(productList, keyword);
         } else {
             // Lọc theo danh mục và từ khóa
@@ -205,6 +206,7 @@ public class AdminProductActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        loadProducts();
 
         // Xử lý tìm kiếm realtime khi thay đổi nội dung của ô tìm kiếm
         searchProductEt.addTextChangedListener(new TextWatcher() {
@@ -298,10 +300,11 @@ public class AdminProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminProductActivity.this, EditProductActivity.class);
-                intent.putExtra("EDIT_PRODUCT", product); // Truyền thông tin sản phẩm cần chỉnh sửa
-                startActivity(intent);
+                intent.putExtra("EDIT_PRODUCT", product); // Truyền thông tin sản phẩm cần chỉnh sử
+                startActivityForResult(intent, EDIT_PRODUCT_REQUEST_CODE);
                 bottomSheetDialog.dismiss(); // Đóng bottom sheet sau khi chuyển màn hình
             }
+
         });
 
         btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
@@ -310,6 +313,7 @@ public class AdminProductActivity extends AppCompatActivity {
                 // Xử lý khi nhấn nút xóa sản phẩm
                 showDeleteConfirmationDialog(product);
                 bottomSheetDialog.dismiss(); // Đóng bottom sheet sau khi xử lý
+                loadProducts();
             }
         });
 
@@ -317,7 +321,14 @@ public class AdminProductActivity extends AppCompatActivity {
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_PRODUCT_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Nếu sản phẩm đã được cập nhật thành công, thực hiện load lại danh sách sản phẩm
+            loadProducts();
+        }
+    }
     private void showDeleteConfirmationDialog(Product product) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.confirm_delete_title));
@@ -340,6 +351,11 @@ public class AdminProductActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadProducts(); // Gọi hàm load lại sản phẩm mỗi khi màn hình được quay lại
     }
 
 }

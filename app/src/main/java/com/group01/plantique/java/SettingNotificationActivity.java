@@ -33,7 +33,7 @@ public class SettingNotificationActivity extends DrawerBaseActivity {
         setContentView(activitySettingNotificationBinding.getRoot());
         setupNotificationChannel();
 
-        allocateActivityTitle("Notification Settings");
+        allocateActivityTitle(getString(R.string.nav_notification));
         switchAllow = findViewById(R.id.switchAllow);
         sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         updateSwitchState();

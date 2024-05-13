@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group01.plantique.R;
@@ -77,13 +78,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 if (!discountPrice.isEmpty() && !discountPrice.equals("0")) {
                     // If discount_price is not empty and not zero, strike through textViewProductPrice and show discountPrice
                     textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    textViewPrice.setText("$" + product.getPrice());
+                    textViewPrice.setText(product.getPrice()+"đ");
                     txtDiscountPrice.setVisibility(View.VISIBLE);
-                    txtDiscountPrice.setText("$" + discountPrice);
+                    txtDiscountPrice.setText(discountPrice+"đ");
                 } else {
                     // If discount_price is empty, zero, or null, show regular price and hide discount_price
                     textViewPrice.setPaintFlags(0); // Remove strike through if present
-                    textViewPrice.setText("$" + product.getPrice());
+                    textViewPrice.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.main_green));
+                    textViewPrice.setText(product.getPrice()+"đ");
                     txtDiscountPrice.setVisibility(View.GONE);
                 }
 
@@ -97,10 +99,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 }
 
                 TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
-                if (product.getDiscountNote() != null && !product.getDiscountNote().isEmpty()) {
+                String discountNote = product.getDiscountNote();
+                if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0") && !discountNote.trim().equals("0%")) {
+                    // Hiển thị discountNote và thiết lập văn bản
                     txtDiscountNote.setVisibility(View.VISIBLE);
-                    txtDiscountNote.setText(product.getDiscountNote());
+                    txtDiscountNote.setText(discountNote);
                 } else {
+                    // Ẩn discountNote nếu không hợp lệ
                     txtDiscountNote.setVisibility(View.GONE);
                 }
 

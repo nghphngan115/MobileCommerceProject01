@@ -28,11 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.group01.plantique.R;
 import com.group01.plantique.adapter.ShippingAddressAdapter;
+import com.group01.plantique.databinding.ActivityAboutUsBinding;
+import com.group01.plantique.databinding.ActivityPolicyBinding;
+import com.group01.plantique.databinding.ActivitySettingAddressBinding;
 import com.group01.plantique.model.ShippingAddress;
 
 import java.util.ArrayList;
 
-public class SettingAddressActivity extends AppCompatActivity {
+public class SettingAddressActivity  extends DrawerBaseActivity {
+    ActivitySettingAddressBinding activitySettingAddressBinding;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -51,8 +55,9 @@ public class SettingAddressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting_address);
-
+        activitySettingAddressBinding= ActivitySettingAddressBinding.inflate(getLayoutInflater());
+        setContentView(activitySettingAddressBinding.getRoot());
+        allocateActivityTitle(getString(R.string.nav_shipping_address));
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         userID = sharedPreferences.getString("userID", "");
         // Khởi tạo defaultAddressId từ SharedPreferences (nếu có)

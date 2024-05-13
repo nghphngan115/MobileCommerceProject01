@@ -7,58 +7,105 @@
 
     <ImageView
         android:id="@+id/imgProductShow"
-        android:layout_width="109dp"
+        android:layout_width="30dp"
         android:layout_height="109dp"
         android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
-        android:layout_width="268dp"
-        android:layout_height="109dp"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
         <TextView
             android:id="@+id/txtProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
             android:text="Product Name"
+            android:fontFamily="@font/inter_bold"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txtPriceBFDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="0000000 đ"
+                android:textColor="#808080"
+                android:textSize="16sp" />
+
 
             <TextView
                 android:id="@+id/txtProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginStart="16dp"
                 android:fontFamily="@font/inter"
                 android:text="000000 đ"
                 android:textColor="#00B207"
-                android:textSize="14sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <!-- EditText để nhập số -->
+        </LinearLayout>
+
+        <!-- New LinearLayout for buttons and image -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/button_circle_fullgreen"
+                android:contentDescription="Minus"
+                android:src="@mipmap/ic_minus"
+                tools:ignore="TouchTargetSizeCheck" />
+
             <EditText
                 android:id="@+id/edtProductQuantity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:background="@null"
+                android:layout_height="45dp"
+                android:gravity="center"
                 android:inputType="number"
-                android:text="0" />
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/button_circle_fullgreen"
+                android:contentDescription="Plus"
+                android:src="@mipmap/ic_plus"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageView
                 android:id="@+id/imgBin"
                 android:layout_width="112dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                app:srcCompat="@mipmap/ic_delete" />
+                android:contentDescription="Delete"
+                android:src="@mipmap/ic_delete" />
 
         </LinearLayout>
     </LinearLayout>

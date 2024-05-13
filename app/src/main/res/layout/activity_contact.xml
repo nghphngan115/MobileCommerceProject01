@@ -8,19 +8,25 @@
     android:background="@color/white"
     tools:context=".java.ContactActivity">
 
-    <TextView
-        android:id="@+id/definition_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/strContact"
-        android:textAlignment="center"
-        android:textColor="@color/main_green"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/definition_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/strContact"
+            android:textAlignment="center"
+            android:textColor="@color/main_green"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/definition_content"
@@ -55,7 +61,8 @@
             android:layout_marginRight="26dp"
             android:hint="@string/strFName"
             android:textColor="@color/textColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -79,9 +86,9 @@
             android:layout_marginRight="26dp"
             android:hint="@string/strPhoneNumber"
             android:inputType="phone"
-            android:maxLength="10"
             android:textColor="@color/textColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

@@ -29,6 +29,8 @@ public class BlogDetailActivity extends AppCompatActivity {
         // Initialize views
         TextView txtTitle = findViewById(R.id.txtTitle1);
         TextView txtContent = findViewById(R.id.txtContent);
+        TextView txtAuthor = findViewById(R.id.txtAuthor);
+        TextView txtCreateDate = findViewById(R.id.txtCreateDate);
         imgBlog = findViewById(R.id.imgBlog);
         imgButton2 = findViewById(R.id.imgButton2);
 
@@ -36,9 +38,13 @@ public class BlogDetailActivity extends AppCompatActivity {
         String blogTitle = getIntent().getStringExtra("blogTitle");
         String blogImage = getIntent().getStringExtra("blogImage");
         String blogContent = getIntent().getStringExtra("blogContent");
+        String blogAuthor = getIntent().getStringExtra("blogAuthor");
+        String blogDate = getIntent().getStringExtra("blogDate");
 
         // Display data
         txtTitle.setText(blogTitle);
+        txtAuthor.setText(blogAuthor);
+        txtCreateDate.setText(blogDate);
         txtContent.setText(blogContent);
         Glide.with(this).load(blogImage).into(imgBlog);
         // Get blog ID from intent
@@ -57,10 +63,13 @@ public class BlogDetailActivity extends AppCompatActivity {
                     String title = dataSnapshot.child("blogTitle").getValue(String.class);
                     String content = dataSnapshot.child("blogContent").getValue(String.class);
                     String imageUrl = dataSnapshot.child("blogImage").getValue(String.class);
-
+                    String author=dataSnapshot.child("blogAuthor").getValue(String.class);
+                    String date=dataSnapshot.child("blogDate").getValue(String.class);
                     // Display blog data in layout
                     txtTitle.setText(title);
                     txtContent.setText(content);
+                    txtAuthor.setText(author);
+                    txtCreateDate.setText(date);
                     // Use Picasso to load image from URL and display in ImageView
                     Picasso.get().load(imageUrl).into(imgBlog);
                 }

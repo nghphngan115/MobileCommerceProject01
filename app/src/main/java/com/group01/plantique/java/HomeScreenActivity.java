@@ -5,6 +5,7 @@ import static java.security.AccessController.getContext;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -256,11 +258,24 @@ public class HomeScreenActivity extends AppCompatActivity {
             TextView txtProductName = view.findViewById(R.id.txtProductName);
             txtProductName.setText(products.getProductName());
             TextView txtUnitPrice = view.findViewById(R.id.txtUnitPrice);
-            txtUnitPrice.setText(String.valueOf(products.getDiscount_price() +"đ"));
-
             TextView txtPriceNoSale = view.findViewById(R.id.txtPriceNoSale);
-            txtPriceNoSale.setText(String.valueOf(products.getPrice() +"đ"));
-            txtPriceNoSale.setPaintFlags(txtPriceNoSale.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            if (products.getDiscount_price() > 0) {
+                // There is a discount price available.
+                txtUnitPrice.setText(products.getDiscount_price() + "đ");
+
+                // Show original price crossed out.
+                txtPriceNoSale.setText(products.getPrice() + "đ");
+                txtPriceNoSale.setPaintFlags(txtPriceNoSale.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                ; // Set text color to black (or any other default color).
+            } else {
+                // No discount price available, show the original price in txtUnitPrice.
+                txtUnitPrice.setText(products.getPrice() + "đ");
+
+                // Set the txtPriceNoSale text color to white.
+                txtPriceNoSale.setTextColor(Color.WHITE);
+            }
+
 
             TextView txtItemUnit = view.findViewById(R.id.txtItemUnit);
             txtItemUnit.setText(products.getUnit());

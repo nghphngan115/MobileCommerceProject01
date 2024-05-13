@@ -1,47 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_account"
+        <item
+            android:id="@+id/nav_account"
             android:icon="@drawable/ic_account"
-            android:title="Personal Information" />
+            android:title="@string/nav_uinfo" />
 
         <item android:id="@+id/nav_order"
             android:icon="@drawable/ic_order"
-            android:title="Order" />
+            android:title="@string/nav_order" />
 
         <item
             android:id="@+id/nav_order_address"
             android:icon="@drawable/ic_location"
-            android:title="@string/strShippingAddress" />
+            android:title="@string/nav_shipping_address" />
 
         <item android:id="@+id/nav_noti"
             android:icon="@drawable/ic_noti"
-            android:title="Notification" />
+            android:title="@string/nav_notification" />
     </group>
 
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_policy"
             android:icon="@drawable/ic_policy"
-            android:title="Policy" />
+            android:title="@string/nav_policy" />
 
         <item android:id="@+id/nav_term"
             android:icon="@drawable/ic_terms"
-            android:title="Terms and Conditions" />
+            android:title="@string/nav_terms_conditions" />
     </group>
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_about_us"
             android:icon="@drawable/ic_info"
-            android:title="About us" />
+            android:title="@string/nav_about_us" />
 
         <item android:id="@+id/nav_contact"
             android:icon="@drawable/ic_contact_support"
-            android:title="Contact support" />
+            android:title="@string/nav_contact_support" />
 
 
     </group>
-
-
 
 </menu>

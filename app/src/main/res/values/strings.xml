@@ -92,7 +92,7 @@
     <string name="strUInfo">User Information</string>
     <string name="strUserName">User Name</string>
     <string name="strEmail">Email</string>
-    <string name="strFName">Full Name</string>
+    <string name="strFName">Username</string>
     <string name="strAdd">Address</string>
     <string name="strPhoneNumber">Phone Number</string>
     <string name="strSave">Save</string>
@@ -205,7 +205,9 @@
     <string name="toast_password_changed">Password changed successfully</string>
     <string name="toast_password_change_failed">Failed to change password</string>
     <string name="toast_user_not_found">User not found</string>
-    <string name="toast_database_error">Database Error</string>
+    <string name="toast_database_error">Database Error</string>User
+
+    <string name="product_stock_message">%s only has %d items left.</string>
 
 
     <string-array name="filter_options">
@@ -259,6 +261,7 @@
     <string name="write_review">Write Review</string>
     <string name="how_do_you_feel">How is the order?</string>
     <string name="submit">Submit</string>
+    <string name="strConfLogOut">Are you sure you want to log out?</string>
 
 
     <string-array name="promo_options">
@@ -323,7 +326,7 @@
         Our Privacy Policy details how we collect, use, and protect your data. For more information, please visit our Privacy Policy section on our app or website.<br><br>
 
         <b>3. User Responsibilities</b><br>
-        You must use the app legally and refrain from prohibited activities. You must be 18 years old or have parental permission to use this app.<br><br>
+        You must use the app legally and refrain from prohibited activities. You must be 13 years old or have parental permission to use this app.<br><br>
 
         <b>4. Intellectual Property Rights</b><br>
         All content provided on the app is either owned by us or used with permission. No content may be copied, distributed, or used without prior permission.<br><br>
@@ -356,7 +359,7 @@
     <string name="strContact">SEND US INFORMATION!</string>
     <string name="pls_contact">Please contact us immediately to have your questions answered and receive many attractive offers for you!</string>
     <string name="forgot_pwd">Forget password?</string>
-    <string name="sign_in" >Sign in</string>
+    <string name="sign_in">Sign in</string>
     <string name="str_no_acc">Don\'t have any account?</string>
     <string name="sign_up">Sign up</string>
     <string name="add_to_cart">Add To Cart</string>
@@ -375,13 +378,24 @@
     <string name="welcome">Welcome to Platique App</string>
     <string name="allow_mess">If you allow, we will send the latest notification to the screen bar</string>
     <string name="strNotification">Notification</string>
+    <string name="quantity">Qty: %d</string>
     <string name="product_added_to_cart">Product added to cart</string>
+    <string name="nav_uinfo">Personal Information</string>
+    <string name="nav_order">Order History</string>
+    <string name="nav_shipping_address">Shipping Address</string>
+    <string name="nav_notification">Notification</string>
+    <string name="nav_policy">Policy</string>
+    <string name="nav_terms_conditions">Terms and Conditions</string>
+    <string name="nav_about_us">About us</string>
+    <string name="nav_contact_support">Contact support</string>
     <string name="promo_code_expired">Promo code has not existed or has expired</string>
     <string name="promo_code_applied">Promo code has already been applied</string>
     <string name="promo_code_error">Error checking promo code expiration</string>
     <string name="user_id_not_available">User ID is not available, please sign in again.</string>
     <string name="failed_to_fetch_category_data">Failed to fetch category data</string>
-
-
+    <string name="strReview">Total Reviews</string>
+    <string name="strUnit">Unit: </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

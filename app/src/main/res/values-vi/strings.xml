@@ -229,7 +229,7 @@
     <string name="default_status">Không xác định</string>
     <string name="send_info_to_us">GỬI THÔNG TIN CHO CHÚNG TÔI !</string>
     <string name="contact_us_for_queries">Hãy liên hệ ngay với chúng tôi để được giải đáp thắc mắc và nhận được nhiều ưu đãi hấp dẫn dành cho bạn!</string>
-    <string name="full_name">Họ và tên</string>
+    <string name="full_name">Tên người dùng</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="content">Nội dung</string>
     <string name="send_info">Gửi thông tin</string>
@@ -245,7 +245,10 @@
     <string name="login_button">Đăng nhập</string>
     <string name="order_items_null">Đơn hàng hoặc các mục là null hoặc trống!</string>
     <string name="strNotification">Thông báo</string>
-
+    <string name="quantity">SL: %d</string>
+    <string name="product_stock_message">%s chỉ còn %d sản phẩm.</string>
+    <string name="product_added_to_cart">Sản phẩm đã được thêm vào giỏ hàng</string>
+    <string name="strConfLogOut">Bạn có chắc muốn đăng xuất không</string>
 
     <string name="policy_details">
     <![CDATA[
@@ -288,7 +291,7 @@
     Chính sách Bảo mật của chúng tôi mô tả cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu của bạn. Để biết thêm thông tin, vui lòng truy cập phần Chính sách Bảo mật trên ứng dụng hoặc trang web của chúng tôi.<br><br>
 
     <b>3. Trách nhiệm của Người dùng</b><br>
-    Bạn phải sử dụng ứng dụng một cách hợp pháp và tránh các hoạt động bị cấm. Bạn phải đủ 18 tuổi hoặc có sự cho phép của phụ huynh để sử dụng ứng dụng này.<br><br>
+    Bạn phải sử dụng ứng dụng một cách hợp pháp và tránh các hoạt động bị cấm. Bạn phải đủ 13 tuổi hoặc có sự cho phép của phụ huynh để sử dụng ứng dụng này.<br><br>
 
     <b>4. Quyền Sở hữu Trí tuệ</b><br>
     Tất cả nội dung được cung cấp trên ứng dụng hoặc được sử dụng với sự cho phép của chúng tôi. Không có nội dung nào được sao chép, phân phối hoặc sử dụng mà không có sự cho phép trước.<br><br>
@@ -339,11 +342,22 @@
     <string name="allow_mess">Nếu bạn cho phép, chúng tôi sẽ gửi thông báo mới nhất lên màn hình</string>
     <string name="str_alr_acc">Đã có tài khoản?</string>
     <string name="welcome">Chào mừng đến với Plantique</string>
-    <string name="product_added_to_cart">Sản phẩm đã được thêm vào giỏ hàng</string>
+    <string name="nav_uinfo">Thông tin người dùng</string>
+    <string name="nav_order">Lịch sử đơn hàng</string>
+    <string name="nav_shipping_address">Địa chỉ giao hàng</string>
+    <string name="nav_notification">Thông báo</string>
+    <string name="nav_policy">Chính sách</string>
+    <string name="nav_terms_conditions">Điều khoản và điều kiện</string>
+    <string name="nav_about_us">Về chúng tôi</string>
+    <string name="nav_contact_support">Liên hệ hỗ trợ</string>
     <string name="promo_code_expired">Mã khuyến mãi không tồn tại hoặc đã hết hạn</string>
     <string name="promo_code_applied">Mã khuyến mãi đã được sử dụng</string>
     <string name="promo_code_error">Lỗi kiểm tra hạn sử dụng mã</string>
     <string name="user_id_not_available">Mã người dùng không khả dụng, hãy đăng nhập lại</string>
     <string name="failed_to_fetch_category_data">Không lấy được dữ liệu danh mục</string>
+    <string name="strReview">Tổng đánh giá</string>
+    <string name="strUnit">Đơn vị: </string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
 
 </resources>

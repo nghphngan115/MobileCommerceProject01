@@ -3,6 +3,7 @@ package com.group01.plantique.java;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 public class EditProductActivity extends AppCompatActivity {
     private EditText titleEt, descriptionEt, unitEt, stockEt, priceEt, discountedPriceEt, discountedNoteEt;
     private Product productToUpdate;
+    private ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class EditProductActivity extends AppCompatActivity {
         priceEt = findViewById(R.id.priceEt);
         discountedPriceEt = findViewById(R.id.discountedPriceEt);
         discountedNoteEt = findViewById(R.id.discountedNoteEt);
+        backBtn = findViewById(R.id.backBtn);
 
         // Nhận thông tin sản phẩm từ Intent
         productToUpdate = (Product) getIntent().getSerializableExtra("EDIT_PRODUCT");
@@ -57,6 +61,12 @@ public class EditProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateProduct();
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -94,6 +104,8 @@ public class EditProductActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Product updated successfully
                             Toast.makeText(EditProductActivity.this, getString(R.string.toast_product_updated), Toast.LENGTH_SHORT).show();
+                            Intent resultIntent = new Intent();
+                            setResult(RESULT_OK, resultIntent);
                             finish(); // Close the EditProductActivity screen
                         } else {
                             // Failed to update product

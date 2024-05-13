@@ -43,7 +43,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         NotificationApp notification = notificationList.get(position);
         holder.textViewTitle.setText(notification.getTitle());
         holder.textViewDetails.setText(notification.getContent());
-        holder.imageView.setImageResource(notification.getImageResId());
 
         // Set the click listener to handle the click event
         holder.itemView.setOnClickListener(new View.OnClickListener() {

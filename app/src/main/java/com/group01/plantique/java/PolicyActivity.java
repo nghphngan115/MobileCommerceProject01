@@ -33,7 +33,7 @@ public class PolicyActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         activityPolicyBinding=ActivityPolicyBinding.inflate(getLayoutInflater());
         setContentView(activityPolicyBinding.getRoot());
-        allocateActivityTitle("Policy");
+        allocateActivityTitle(getString(R.string.nav_policy));
         TextView txtPolicyContent = findViewById(R.id.txtPolicyContent);
         txtPolicyContent.setText(Html.fromHtml(getString(R.string.policy_details), Html.FROM_HTML_MODE_COMPACT));
 

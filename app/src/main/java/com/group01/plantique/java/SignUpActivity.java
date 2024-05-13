@@ -203,8 +203,8 @@ public class SignUpActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(SignUpActivity.this, getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
-                                                // Redirect to login activity after successful registration
-                                                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                                startActivity(intent);
                                                 finish();
                                             }
                                         })

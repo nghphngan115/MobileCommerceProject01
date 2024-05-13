@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group01.plantique.R;
@@ -109,6 +110,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             } else {
                 textViewPrice.setPaintFlags(0);
                 textViewPrice.setText("$" + product.getPrice());
+                textViewPrice.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.main_green));
                 txtDiscountPrice.setVisibility(View.GONE);
             }
 
@@ -122,7 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             TextView txtDiscountNote = view.findViewById(R.id.txtDiscountNote);
             String discountNote = product.getDiscountNote();
-            if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0")) {
+            if (discountNote != null && !discountNote.trim().isEmpty() && !discountNote.trim().equals("0") && !discountNote.trim().equals("0%")) {
                 // Hiển thị discountNote và thiết lập văn bản
                 txtDiscountNote.setVisibility(View.VISIBLE);
                 txtDiscountNote.setText(discountNote);

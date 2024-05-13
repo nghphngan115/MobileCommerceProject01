@@ -90,7 +90,8 @@ public class CheckoutActivity extends AppCompatActivity {
     private void updateSubTotal() {
         int totalAmount = 0;
         for (Product product : cartProducts) {
-            totalAmount += product.getPrice() * product.getCartQuantity();
+            int effectivePrice = product.getDiscount_price() > 0 ? product.getDiscount_price() : product.getPrice();
+            totalAmount += effectivePrice * product.getCartQuantity();
         }
         txtSubTotal.setText(totalAmount  +"đ");
         SharedPreferences sharedPreferences = getSharedPreferences("CartPrefs", MODE_PRIVATE);

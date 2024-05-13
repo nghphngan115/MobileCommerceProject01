@@ -197,31 +197,8 @@ public class WriteReviewActivity extends AppCompatActivity {
             }
         } else {
             // User is not logged in
-            showLoginPrompt();
+
         }
     }
-
-    private void showLoginPrompt() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.login_required_title));
-        builder.setMessage(getString(R.string.login_required_message));
-        builder.setPositiveButton(getString(R.string.login_button), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Remove login status from SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("userID");
-                editor.remove("loginStatus"); // If saving login status
-                editor.apply();
-
-                // Navigate to LoginActivity
-                Intent intent = new Intent(WriteReviewActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish(); // Finish WriteReviewActivity
-            }
-        });
-        builder.setNegativeButton(getString(R.string.cancel_button_label), null);
-        builder.show();
-    }
+    
 }

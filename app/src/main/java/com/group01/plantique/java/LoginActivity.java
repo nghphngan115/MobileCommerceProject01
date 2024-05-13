@@ -240,6 +240,7 @@ public class LoginActivity extends AppCompatActivity {
         builder.setPositiveButton(getString(R.string.dialog_reset_password_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                clearEditTexts();
                 // Navigate to ResetPasswordActivity
                 Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
                 startActivity(intent);
@@ -253,6 +254,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void clearEditTexts() {
+        edtUsername.setText("");
+        edtPassword.setText("");
     }
 
 }
