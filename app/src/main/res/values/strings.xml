@@ -395,5 +395,7 @@
     <string name="failed_to_fetch_category_data">Failed to fetch category data</string>
     <string name="strReview">Total Reviews</string>
     <string name="strUnit">Unit: </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

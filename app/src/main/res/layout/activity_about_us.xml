@@ -40,81 +40,81 @@
                 android:src="@drawable/map" />
         </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/inter_bold"
-                android:text="@string/strTitle1"
-                android:textColor="@color/main_green"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/strTitle1"
+            android:textColor="@color/main_green"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/inter"
-                android:text="@string/strDesc1"
-                android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/strDesc1"
+            android:textColor="@color/textColor" />
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="301dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/inter_bold"
-                android:text="@string/strTitle2"
-                android:textColor="@color/main_green"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/strTitle2"
+            android:textColor="@color/main_green"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/inter"
-                android:text="@string/strDessc2"
-                android:textColor="@color/textColor" />
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter"
+            android:text="@string/strDessc2"
+            android:textColor="@color/textColor" />
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="match_parent"
-                android:layout_height="172dp"
-                app:srcCompat="@mipmap/ic_ab1" />
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="172dp"
+            app:srcCompat="@mipmap/ic_ab1" />
 
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:fontFamily="@font/inter_bold"
-                android:text="@string/strTitle3"
-                android:textColor="@color/main_green"
-                android:textSize="20sp" />
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/strTitle3"
+            android:textColor="@color/main_green"
+            android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="match_parent"
-                android:layout_height="172dp"
-                app:srcCompat="@mipmap/ic_ab2" />
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="172dp"
+            app:srcCompat="@mipmap/ic_ab2" />
 
-            <Button
-                android:id="@+id/btnMuaNgay"
-                android:layout_width="136dp"
-                android:layout_height="44dp"
-                android:layout_marginLeft="120dp"
-                android:backgroundTint="@color/main_green"
-                android:fontFamily="@font/inter_medium"
-                android:gravity="center"
-                android:text="@string/strBuyNow"
-                android:textColor="#FDFCFC" />
+        <Button
+            android:id="@+id/btnMuaNgay"
+            android:layout_width="136dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="120dp"
+            android:backgroundTint="@color/main_green"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="@string/strBuyNow"
+            android:textColor="#FDFCFC" />
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>

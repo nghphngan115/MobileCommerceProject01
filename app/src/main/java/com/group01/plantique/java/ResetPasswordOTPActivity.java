@@ -118,7 +118,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(ResetPasswordOTPActivity.this, ChangePasswordActivity.class);
-                            intent.putExtra("phoneNumber", phoneNumber);
+                            intent.putExtra("phoneNumber", "+84"+phoneNumber);
                             startActivity(intent);
                             finish();
                         } else {

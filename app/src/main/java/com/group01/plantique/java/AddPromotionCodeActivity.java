@@ -31,6 +31,8 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 public class AddPromotionCodeActivity extends AppCompatActivity {
 
     private EditText promoCodeEt, promoDescriptionEt, promoPriceEt, minimumOrderPriceEt;
@@ -138,7 +140,7 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 DecimalFormat mFormat = new DecimalFormat("00");
                 String pDay= mFormat.format(dayOfMonth);
-                String pMonth =mFormat.format(monthOfYear);
+                String pMonth =mFormat.format(monthOfYear+1);
                 String pYear =""+year;
                 String pDate = pDay + "/"+pMonth+"/"+pYear;
 
@@ -219,6 +221,8 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(AddPromotionCodeActivity.this, getString(R.string.promotion_updated), Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK); // Đặt kết quả thành công
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -242,8 +246,11 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
             public void onNextCodeId(int nextCodeId) {
                 // Tiếp tục với logic thêm dữ liệu và xử lý kết quả
                 addDataWithNextCodeId(nextCodeId);
+                setResult(RESULT_OK);
+                finish();
             }
         });
+
     }
 
     // Phương thức để thêm dữ liệu với số tiếp theo trong chuỗi ID
@@ -282,6 +289,7 @@ public class AddPromotionCodeActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(AddPromotionCodeActivity.this, getString(R.string.promotion_added_success), Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK); // Đặt kết quả thành công
                         finish();
                     }
                 })

@@ -142,7 +142,7 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    discountedPriceEt.setVisibility(View.VISIBLE);
+                    discountedPriceEt.setVisibility(View.GONE);
                     discountedNoteEt.setVisibility(View.VISIBLE);
                 }
                 else {
