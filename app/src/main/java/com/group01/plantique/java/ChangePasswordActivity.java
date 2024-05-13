@@ -1,7 +1,10 @@
 package com.group01.plantique.java;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +37,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private TextInputLayout tilPassword, tilConfirmPassword;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        setEditTextFocusChangeListeners();
-        setEditTextOnClickListener();
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
@@ -47,10 +50,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edtNewPassword = findViewById(R.id.edtNewPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         btnChangePassword = findViewById(R.id.btnChangePassword);
-        tilPassword =findViewById(R.id.tilPassword);
-        tilConfirmPassword =findViewById(R.id.tilConfirmPassword);
-        txtPasswordError =findViewById(R.id.txtPasswordError);
-        txtConfirmPasswordError =findViewById(R.id.txtConfirmPasswordError);
+        tilPassword = findViewById(R.id.tilPassword);
+        tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
+        txtPasswordError = findViewById(R.id.txtPasswordError);
+        txtConfirmPasswordError = findViewById(R.id.txtConfirmPasswordError);
+
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
+        Log.d("ChangePasswordActivity", "Phone Number: " + phoneNumber);
+
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +65,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 changePassword();
             }
         });
+        setEditTextFocusChangeListeners();
+        setEditTextOnClickListener();
     }
 
     private void setEditTextFocusChangeListeners() {
+        if (edtNewPassword != null && edtConfirmPassword != null) {
         edtConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 String confirmPassword = edtConfirmPassword.getText().toString().trim();
@@ -86,6 +96,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
             tilPassword.setHint(hasFocus || !TextUtils.isEmpty(edtNewPassword.getText().toString()) ? "" : getString(R.string.hint_password));
         });
+        } else {
+            Log.e("ChangePasswordActivity", "EditText is null");
+        }
     }
     private void setEditTextOnClickListener() {
         edtNewPassword.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +115,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
 
     }
-
+    private boolean isPasswordValid(String newPassword) {
+        return newPassword.length() >= 8 && newPassword.matches(".*\\d.*") && newPassword.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
+    }
     private void changePassword() {
         String newPassword = edtNewPassword.getText().toString().trim();
         String confirmPassword = edtConfirmPassword.getText().toString().trim();
@@ -121,7 +136,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             return;
         }
 
-        final String phoneNumber = getIntent().getStringExtra("phoneNumber");
+
         if (phoneNumber == null || phoneNumber.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_phone_number_not_found), Toast.LENGTH_SHORT).show();
             return;
@@ -142,8 +157,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_password_changed), Toast.LENGTH_SHORT).show();
-                                            finish();
+                                            handleSuccessfulPasswordChange();
                                         } else {
                                             Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_password_change_failed), Toast.LENGTH_SHORT).show();
                                         }
@@ -161,9 +175,25 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
     }
-    private boolean isPasswordValid(String newPassword) {
-        return newPassword.length() >= 8 && newPassword.matches(".*\\d.*") && newPassword.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
+
+    private void handleSuccessfulPasswordChange() {
+        Toast.makeText(ChangePasswordActivity.this, getString(R.string.toast_password_changed), Toast.LENGTH_SHORT).show();
+        clearLoginStatus(); // Xóa trạng thái đăng nhập và thông tin đăng nhập khác
+        goToLoginScreen();
     }
+    private void goToLoginScreen() {
+        Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish(); // Kết thúc activity hiện tại để người dùng không thể quay lại màn hình đã đổi mật khẩu
+    }
+    private void clearLoginStatus() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("userID"); // Xóa userID hoặc các thông tin đăng nhập khác
+        editor.remove("loginStatus"); // Xóa trạng thái đăng nhập
+        editor.apply();
+    }
+
     private String hashPassword(String password) {
         // Hash the password using BCrypt
         return BCrypt.hashpw(password, BCrypt.gensalt());
