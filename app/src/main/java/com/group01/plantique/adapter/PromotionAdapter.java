@@ -1,5 +1,6 @@
 package com.group01.plantique.adapter;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.HolderPromotion>{
+    private static final int REQUEST_CODE_EDIT_PROMO = 200;
     private Context context;
     private ArrayList <Promotion> promotionArrayList;
     private ProgressDialog progressDialog;
@@ -53,8 +55,8 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
         return new HolderPromotion(view);
     }
     @Override
-    public  void onBindViewHolder (@NonNull HolderPromotion holder, int position) {
-        Promotion promotion = promotionArrayList.get(position);
+    public void onBindViewHolder(@NonNull HolderPromotion holder, int position) {
+        Promotion promotion = promotionArrayList.get(holder.getAdapterPosition());
         String[] promoOptionsArray = context.getResources().getStringArray(R.array.promo_options);
         // Lấy các chuỗi từ mảng chuỗi promoOptionsArray
         String editString = promoOptionsArray[0];
@@ -75,12 +77,17 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editDeleteDialog(promotion, holder, editString, deleteString);
+                editDeleteDialog(promotion, position);
             }
         });
     }
 
-    private void editDeleteDialog(Promotion promotion, HolderPromotion holder, String editString, String deleteString) {
+
+    private void editDeleteDialog(Promotion promotion, int position) {
+        String[] promoOptionsArray = context.getResources().getStringArray(R.array.promo_options);
+        String editString = promoOptionsArray[0];
+        String deleteString = promoOptionsArray[1];
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(context.getString(R.string.choose_option_title))
                 .setItems(new CharSequence[]{editString, deleteString}, new DialogInterface.OnClickListener() {
@@ -89,14 +96,32 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
                         if (i == 0) {
                             editPromoCode(promotion);
                         } else if (i == 1) {
-                            deletePromoCode(promotion);
+                            showDeleteConfirmationDialog(promotion, position);
                         }
                     }
                 })
                 .show();
     }
 
-    private void deletePromoCode(Promotion promotion) {
+    private void showDeleteConfirmationDialog(Promotion promotion, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(context.getString(R.string.delete_confirmation_message))
+                .setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePromoCode(promotion, position);
+                    }
+                })
+                .setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void deletePromoCode(Promotion promotion, int position) {
         progressDialog.setMessage(context.getString(R.string.deleting_promotion));
         progressDialog.show();
 
@@ -108,6 +133,11 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(context, context.getString(R.string.delete_success_message), Toast.LENGTH_SHORT).show();
+
+                        // Update the RecyclerView after successful deletion
+                        promotionArrayList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, promotionArrayList.size());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -119,10 +149,14 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
                 });
     }
 
+
+
     private void editPromoCode(Promotion promotion) {
         Intent intent = new Intent(context, AddPromotionCodeActivity.class);
         intent.putExtra("promoId", promotion.getId());
-        context.startActivity(intent);
+        ((Activity) context).startActivityForResult(intent, REQUEST_CODE_EDIT_PROMO);
+
+
     }
 
     @Override
