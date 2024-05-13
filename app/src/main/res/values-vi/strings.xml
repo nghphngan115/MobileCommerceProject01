@@ -357,5 +357,7 @@
     <string name="failed_to_fetch_category_data">Không lấy được dữ liệu danh mục</string>
     <string name="strReview">Tổng đánh giá</string>
     <string name="strUnit">Đơn vị: </string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
 
 </resources>

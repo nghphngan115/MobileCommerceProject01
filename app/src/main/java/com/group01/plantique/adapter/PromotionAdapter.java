@@ -56,7 +56,14 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
     }
     @Override
     public void onBindViewHolder(@NonNull HolderPromotion holder, int position) {
-        Promotion promotion = promotionArrayList.get(holder.getAdapterPosition());
+        // Get the current position using getAdapterPosition()
+        int currentPosition = holder.getAdapterPosition();
+        // Ensure currentPosition is valid
+        if (currentPosition == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        Promotion promotion = promotionArrayList.get(currentPosition);
         String[] promoOptionsArray = context.getResources().getStringArray(R.array.promo_options);
         // Lấy các chuỗi từ mảng chuỗi promoOptionsArray
         String editString = promoOptionsArray[0];
@@ -77,7 +84,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Hold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editDeleteDialog(promotion, position);
+                editDeleteDialog(promotion, currentPosition);
             }
         });
     }
