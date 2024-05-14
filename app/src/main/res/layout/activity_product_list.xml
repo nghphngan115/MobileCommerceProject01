@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/palegreen"
+    android:background="@drawable/bg4"
     android:orientation="vertical"
     tools:context=".java.ProductListActivity">
 
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="26dp"
             android:layout_marginTop="26dp"
-            android:backgroundTint="@color/palegreen"
+            android:backgroundTint="#F6F6AC"
             app:srcCompat="@mipmap/ic_back" />
 
         <TextView
@@ -30,8 +30,8 @@
             android:gravity="center"
             android:text="Product"
             android:textAlignment="center"
-            android:textColor="@color/main_green"
-            android:textSize="20sp"
+            android:textColor="@color/dark_green"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>

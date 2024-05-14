@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/palegreen"
+            android:background="@drawable/bg3"
             android:orientation="vertical">
 
             <!-- Your existing layout elements here -->
@@ -25,8 +25,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/palegreen">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/imgProduct"
