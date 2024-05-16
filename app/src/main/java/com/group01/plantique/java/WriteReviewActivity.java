@@ -1,7 +1,5 @@
 package com.group01.plantique.java;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -44,8 +42,8 @@ public class WriteReviewActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
-    ArrayList<String> productIds;
-    int currentIndex;
+    private ArrayList<String> productIds;
+    private int currentIndex;
 
     private static final String TAG = "WriteReviewActivity";
 
@@ -71,48 +69,22 @@ public class WriteReviewActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("reviews");
         mAuth = FirebaseAuth.getInstance();
 
-        // Get productId from Intent
-        Intent intent = getIntent();
-        String productId = null;
-
-        // Inside onCreate or wherever you initialize your activity
         productIds = getIntent().getStringArrayListExtra("productIds");
         currentIndex = 0;
-        if (intent != null) {
-            if (productIds != null && !productIds.isEmpty()) {
-                submitBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (currentIndex >= 0 && currentIndex < productIds.size()) {
-                            String currentProductId = productIds.get(currentIndex);
-                            // Write review for the current product
-                            writeReview(currentProductId);
-                            submitBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    submitReview(currentProductId);
-                                    writeReview(currentProductId);
-                                }
-                            });
-                        }
-                    }
-                });
 
-            }
-        }
-    }
-
-    private void writeReview(String productId) {
-        // Assuming you have logic to write a review for the product
-        // After writing the review, move to the next item
-        if (currentIndex < productIds.size()) {
-            // If there are more items, load details of the next item
+        if (productIds != null && !productIds.isEmpty()) {
             loadProductDetails(productIds.get(currentIndex));
-            currentIndex++;
+            submitBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (currentIndex >= 0 && currentIndex < productIds.size()) {
+                        String currentProductId = productIds.get(currentIndex);
+                        submitReview(currentProductId);
+                    }
+                }
+            });
         } else {
-            Intent intent = new Intent(WriteReviewActivity.this, HomeScreenActivity.class);
-            startActivity(intent);
-            finish();
+            Log.e(TAG, "No product IDs found in the intent");
         }
     }
 
@@ -124,15 +96,8 @@ public class WriteReviewActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     Product product = snapshot.getValue(Product.class);
                     if (product != null) {
-                        // Check if image URL is not empty or null
-                        if (product.getImageurl() != null && !product.getImageurl().isEmpty()) {
-                            // Initialize views before using them
-                            txtProductName.setText(product.getProductName());
-                            Picasso.get().load(product.getImageurl()).into(imgProduct);
-                        } else {
-                            Toast.makeText(WriteReviewActivity.this, getString(R.string.product_image_url_empty), Toast.LENGTH_SHORT).show();
-                        }
-
+                        txtProductName.setText(product.getProductName());
+                        Picasso.get().load(product.getImageurl()).into(imgProduct);
                     } else {
                         Toast.makeText(WriteReviewActivity.this, getString(R.string.product_is_null), Toast.LENGTH_SHORT).show();
                     }
@@ -148,57 +113,88 @@ public class WriteReviewActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isUserLoggedIn() {
+    private String getUserId() {
         SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userID", null);
-        String userName = sharedPreferences.getString("userName", null);
-        return userId != null && !userId.isEmpty() && userName != null && !userName.isEmpty();
+        Log.d(TAG, "Retrieved userID: " + userId); // Add logging to check the user ID
+        return userId;
     }
 
-    private String getUserName() {
-        SharedPreferences sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
-        return sharedPreferences.getString("userName", null);
-    }
+    private void fetchUserNameAndSubmitReview(String productId) {
+        String userId = getUserId();
+        if (userId != null && !userId.isEmpty()) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String userName = snapshot.child("username").getValue(String.class);
+                        if (userName != null && !userName.isEmpty()) {
+                            submitReviewWithUserName(productId, userName);
+                        } else {
+                            Log.e(TAG, "User name is null or empty");
 
-    private void submitReview(String productId) {
-        if (isUserLoggedIn()) {
-            if (productId != null && !productId.isEmpty()) {
-                // User is logged in and productId is not null or empty
-                String userId = mAuth.getUid(); // Get userId from FirebaseAuth
-                double rating = ratingBar.getRating();
-                String userName = getUserName(); // Get userName from SharedPreferences
-                String reviewText = reviewEt.getText().toString().trim();
-                long timestamp = System.currentTimeMillis();
+                        }
+                    } else {
+                        Log.e(TAG, "User does not exist");
 
-                Review review = new Review(userId, rating, reviewText, timestamp);
-                review.setUserName(userName); // Set userName to the Review object
+                    }
+                }
 
-                DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("reviews").child(productId);
-                reviewsRef.push().setValue(review)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Review submitted successfully");
-                                Toast.makeText(WriteReviewActivity.this, getString(R.string.review_submitted_successfully), Toast.LENGTH_SHORT).show();
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e(TAG, "Failed to fetch user data", error.toException());
 
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG, "Failed to submit review", e);
-                                Toast.makeText(WriteReviewActivity.this, getString(R.string.failed_to_submit_review), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            } else {
-                // productId is null or empty
-                Log.e(TAG, "Invalid product ID");
-                Toast.makeText(WriteReviewActivity.this, getString(R.string.invalid_product_id), Toast.LENGTH_SHORT).show();
-            }
+                }
+            });
         } else {
-            // User is not logged in
+            Log.e(TAG, "User is not logged in");
 
         }
     }
-    
+
+    private void submitReviewWithUserName(String productId, String userName) {
+        double rating = ratingBar.getRating();
+        String reviewText = reviewEt.getText().toString().trim();
+        long timestamp = System.currentTimeMillis();
+
+        String userId = getUserId(); // Ensure we have the userId
+        Review review = new Review(userId, rating, reviewText, timestamp);
+        review.setUserName(userName);
+
+        DatabaseReference reviewsRef = FirebaseDatabase.getInstance().getReference("reviews").child(productId);
+        reviewsRef.push().setValue(review)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Review submitted successfully");
+                        Toast.makeText(WriteReviewActivity.this, getString(R.string.review_submitted_successfully), Toast.LENGTH_SHORT).show();
+                        loadNextProductOrFinish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Failed to submit review", e);
+                        Toast.makeText(WriteReviewActivity.this, getString(R.string.failed_to_submit_review), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void submitReview(String productId) {
+        fetchUserNameAndSubmitReview(productId);
+    }
+
+    private void loadNextProductOrFinish() {
+        currentIndex++;
+        if (currentIndex < productIds.size()) {
+            loadProductDetails(productIds.get(currentIndex));
+            ratingBar.setRating(0);
+            reviewEt.setText("");
+        } else {
+            Intent intent = new Intent(WriteReviewActivity.this, HomeScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

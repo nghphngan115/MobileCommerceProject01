@@ -232,6 +232,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
     // Method to show reset password dialog
     private void showResetPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
