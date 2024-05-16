@@ -42,7 +42,7 @@ public class SettingAddressActivity  extends DrawerBaseActivity {
     private FirebaseUser currentUser;
     private EditText edtFullName, edtAddress1, edtDistrict, edtProvince, edtPhoneNumber, edtWard;
     private ListView lvAddress;
-    private ImageButton imgbtnAddAddress, imgbtnBack;
+    private ImageButton imgbtnAddAddress;
     private ArrayList<ShippingAddress> shippingAddressList;
     private ShippingAddressAdapter adapter;
     private ConstraintLayout btnSave;
@@ -88,7 +88,7 @@ public class SettingAddressActivity  extends DrawerBaseActivity {
         imgbtnAddAddress = findViewById(R.id.imgbtnAddAddress);
         edtWard = findViewById(R.id.edtWard);
         switchSaveDefault = findViewById(R.id.switchSaveDefault);
-        imgbtnBack = findViewById(R.id.imgBack);
+
 
         // Khởi tạo danh sách địa chỉ và adapter
         shippingAddressList = new ArrayList<>();
@@ -100,12 +100,6 @@ public class SettingAddressActivity  extends DrawerBaseActivity {
             @Override
             public void onClick(View v) {
                 addOrUpdateAddress();
-            }
-        });
-        imgbtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
 

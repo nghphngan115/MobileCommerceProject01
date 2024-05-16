@@ -12,18 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imgBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_back"
-            app:tint="@color/dark_green" />
 
         <TextView
             android:id="@+id/textView28"
-            android:layout_width="289dp"
+            android:layout_width="369dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:fontFamily="@font/inter_bold"
@@ -34,7 +26,7 @@
 
         <ImageButton
             android:id="@+id/imgbtnAddAddress"
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
