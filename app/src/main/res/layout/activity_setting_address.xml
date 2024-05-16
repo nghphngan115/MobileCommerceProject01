@@ -121,7 +121,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="212dp"
+                android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -153,7 +153,7 @@
 
                 <EditText
                     android:id="@+id/edtProvince"
-                    android:layout_width="174dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="16dp"
