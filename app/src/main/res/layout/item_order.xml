@@ -64,7 +64,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="@color/textColor" />
 
                 <TextView
                     android:id="@+id/txtOrderDate"
@@ -72,7 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="@color/textColor" />
             </LinearLayout>
 
 

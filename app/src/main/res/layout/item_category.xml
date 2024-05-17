@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="10dp"
-            android:background="@color/palegreen"
+            android:background="@drawable/bg5"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -30,7 +30,8 @@
             android:padding="8dp"
             android:textColor="@color/main_green"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="text" />
 
     </LinearLayout>
 

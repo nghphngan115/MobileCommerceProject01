@@ -24,7 +24,8 @@
         android:layout_height="0dp"
         android:layout_above="@+id/bottomNavigationView"
         android:layout_below="@id/textView35"
-        android:layout_marginHorizontal="26dp" />
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="10dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

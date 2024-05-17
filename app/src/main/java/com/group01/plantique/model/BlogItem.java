@@ -18,8 +18,8 @@ public class BlogItem {
         this.blogTitle = blogTitle;
         this.blogContent = blogContent;
         this.blogImage = blogImage;
-        this.blogAuthor = blogAuthor; // Thay author thành blogAuthor
-        this.blogDate = blogDate; // Thay date thành blogDate
+        this.blogAuthor = blogAuthor;
+        this.blogDate = blogDate;
     }
 
     // Getters and setters

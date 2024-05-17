@@ -48,6 +48,8 @@ public class HighlightedBlogAdapter extends RecyclerView.Adapter<HighlightedBlog
                 intent.putExtra("blogTitle", blogItem.getBlogTitle());
                 intent.putExtra("blogImage", blogItem.getBlogImage());
                 intent.putExtra("blogContent", blogItem.getBlogContent());
+                intent.putExtra("blogDate", blogItem.getBlogDate());
+                intent.putExtra("blogAuthor", blogItem.getBlogAuthor());
                 context.startActivity(intent);
             }
         });

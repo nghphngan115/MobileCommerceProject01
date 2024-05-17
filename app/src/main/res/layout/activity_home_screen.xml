@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_white_greenborder"
+                android:background="@drawable/rounded_corner"
                 android:hint="@string/hint_search" />
 
             <!-- Ad Layout -->
@@ -109,7 +109,7 @@
                             app:cardCornerRadius="15dp">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="362dp"
+                                android:layout_width="350dp"
                                 android:layout_height="150dp"
                                 android:background="@mipmap/banner1"
                                 android:gravity="center"

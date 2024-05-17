@@ -10,12 +10,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="670dp">
+        android:layout_height="750dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/palegreen"
+            android:background="@drawable/bg3"
             android:orientation="vertical">
 
             <!-- Your existing layout elements here -->
@@ -25,8 +25,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/palegreen">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/imgProduct"
@@ -45,7 +44,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/ic_back"
+                    android:background="@drawable/ic_back1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/imgProduct" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -112,7 +111,8 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/inter"
                         android:text="TextView"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -146,7 +146,8 @@
                         android:layout_marginRight="10dp"
                         android:fontFamily="@font/inter"
                         android:text="TextView"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtDiscountPrice"
@@ -192,19 +193,23 @@
                 <ListView
                     android:id="@+id/listViewReviews"
                     android:layout_width="match_parent"
-                    android:layout_height="329dp" />
+                    android:layout_height="300dp" />
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="26dp"
-            android:layout_gravity="bottom"
-            android:paddingTop="15dp"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -230,11 +235,13 @@
 
                 <TextView
                     android:id="@+id/textView55"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
                     android:fontFamily="@font/inter"
+                    android:gravity="center_vertical"
                     android:text="@string/add_to_cart"
                     android:textAlignment="center"
+                    android:textColor="@color/main_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -257,11 +264,13 @@
                     android:fontFamily="@font/inter"
                     android:text="@string/strBuyNow"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
     </LinearLayout>
+
+</LinearLayout>

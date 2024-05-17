@@ -15,9 +15,10 @@
 
         <TextView
             android:id="@+id/textView28"
-            android:layout_width="369dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="10dp"
             android:fontFamily="@font/inter_bold"
             android:text="@string/strShippingAddress"
             android:textAlignment="center"
@@ -26,9 +27,8 @@
 
         <ImageButton
             android:id="@+id/imgbtnAddAddress"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:backgroundTint="@color/white"
             app:srcCompat="@drawable/ic_add_green" />
 
