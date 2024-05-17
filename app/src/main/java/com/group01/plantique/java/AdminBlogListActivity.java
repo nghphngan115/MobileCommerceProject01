@@ -29,7 +29,7 @@ public class AdminBlogListActivity extends AppCompatActivity {
     private AdminBlogAdapter adapter;
     private ArrayList<BlogItem> blogItems;
     private DatabaseReference databaseReference;
-    private ImageButton btnAddProduct;
+    private ImageButton btnAddProduct,btnBack;
 
     private static final int EDIT_BLOG_REQUEST = 1;
 
@@ -44,6 +44,7 @@ public class AdminBlogListActivity extends AppCompatActivity {
         adapter = new AdminBlogAdapter(this, blogItems);
         recyclerView.setAdapter(adapter);
         btnAddProduct = findViewById(R.id.btnAddProduct);
+        btnBack=findViewById(R.id.btnBack);
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +53,12 @@ public class AdminBlogListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         // Initialize Firebase
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Blog");
         databaseReference.addValueEventListener(new ValueEventListener() {
